@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LEDLampsConfigurationSoftware"
         mc:Ignorable="d"
-        Title="航安LED灯具配置软件" Height="716" Width="1185" ResizeMode="NoResize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="航安LED灯具配置软件" Height="716" Width="1205" ResizeMode="NoResize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontSize" Value="18"/>
@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>
         <Canvas Grid.Row="0">
             <Image  Height="38" Width="150" Canvas.Right="10" Canvas.Top="0"  Source=".\Images\Airsafe.png" />
-            <TabControl Grid.Row="0" Grid.RowSpan="2" Height="626" Canvas.Left="10" Canvas.Top="20" Width="805"  BorderThickness="1" BorderBrush="#FF0A51A1">
+            <TabControl Grid.Row="0" Grid.RowSpan="2" Height="626" Canvas.Left="10" Canvas.Top="20" Width="805"  BorderThickness="1" BorderBrush="#FF0A51A1" x:Name="SelectMode">
                 <TabItem Header="工厂模式" FontSize="18" Background="AliceBlue" Height="28" Width="110" Margin="0" Padding="0" x:Name="FactoryMode">
                     <Canvas Background="White">
                         <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="367" Height="443" Canvas.Left="10" Canvas.Top="10">
@@ -156,20 +156,23 @@
                         <Label  Content="账 号：" Canvas.Left="50" Canvas.Top="50" FontSize="16"/>
                         <Label  Content="密 码：" Canvas.Left="50" Canvas.Top="100" FontSize="16"/>
                         <Border BorderBrush="#FF0A51A1" CornerRadius="5" BorderThickness="1" Height="40" Canvas.Left="133" Canvas.Top="50" Width="150">
-                            <TextBox x:Name="UserName" Height="40" TextWrapping="Wrap" Width="150" Background="{x:Null}" BorderThickness="0" Padding="10,8,0,0" FontSize="16"/>
+                            <TextBox x:Name="UserName" Height="40" TextWrapping="Wrap" Width="150" Background="{x:Null}" BorderThickness="0" Padding="10,8,0,0" FontSize="16" />
                         </Border>
                         <Border BorderBrush="#FF0A51A1" CornerRadius="5" BorderThickness="1" Height="40" Canvas.Left="133" Canvas.Top="100" Width="150">
                             <PasswordBox x:Name="Password" Height="40" Width="150" Background="{x:Null}" BorderThickness="0" Padding="10,8,0,0" FontSize="16" PasswordChar="*"/>
                         </Border>
-                        <Border BorderBrush="#FF0A51A1" CornerRadius="5" BorderThickness="1" Height="40" Canvas.Left="50" Canvas.Top="230" Width="130" Background="AliceBlue">
-                            <Button x:Name="LogOut" Content="退出"  Background="{x:Null}" BorderThickness="0" Click="LogOut_Click"/>
-                        </Border>
                         <Border BorderBrush="#FF0A51A1" CornerRadius="5" BorderThickness="1" Height="40" Canvas.Left="50" Canvas.Top="170" Width="130" Background="AliceBlue">
                             <Button x:Name="LogIn" Content="登录" Background="{x:Null}" BorderThickness="0" Click="LogIn_Click"/>
                         </Border>
+                        <Border BorderBrush="#FF0A51A1" CornerRadius="5" BorderThickness="1" Height="40" Canvas.Left="50" Canvas.Top="230" Width="130" Background="AliceBlue">
+                            <Button x:Name="LogOut" Content="退出"  Background="{x:Null}" BorderThickness="0" Click="LogOut_Click"/>
+                        </Border>
+
+                       
                     </Canvas>
                 </TabItem>
-               
+
+
             </TabControl>
 
         </Canvas>
@@ -181,12 +184,12 @@
                 </RadialGradientBrush>
             </Canvas.Background>
         </Canvas>
-        <Canvas  Grid.Row="1" HorizontalAlignment="Right" Width="350">
-            <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="148" Width="330" Canvas.Left="10" Canvas.Top="10">
-                <GroupBox Header="串口参数设置" FontSize="16" Width="328" Height="146" BorderThickness="0">
+        <Canvas  Grid.Row="1" HorizontalAlignment="Right" Width="370">
+            <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="148" Width="350" Canvas.Left="10" Canvas.Top="10">
+                <GroupBox Header="串口参数设置" FontSize="16" Width="348" Height="146" BorderThickness="0">
                     <Canvas>
                         <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="130" Height="40" Canvas.Left="10" Canvas.Bottom="30" Background="{x:Null}">
-                            <ComboBox x:Name="PortNameSelect" Width="126" Height="36" BorderThickness="0" FontSize="16" MaxDropDownHeight="130" HorizontalAlignment="Left" Margin="1,1,0,1" SelectionChanged="PortNameSelect_SelectionChanged" ItemsSource="{Binding pottNames}" Padding="10,8,0,0">
+                            <ComboBox x:Name="PortNameSelect" Width="126" Height="36" BorderThickness="0" FontSize="16" MaxDropDownHeight="130" HorizontalAlignment="Left" Margin="1,1,0,1"  ItemsSource="{Binding pottNames}" Padding="10,8,0,0" DropDownOpened="PortNameSelect_DropDownOpened">
                             </ComboBox>
                         </Border>
                         <Label Content="串口选择：" FontSize="16" Canvas.Left="10" Canvas.Top="10"/>
@@ -199,33 +202,33 @@
                     </Canvas>
                 </GroupBox>
             </Border>
-            <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="158" Canvas.Left="10" Canvas.Top="168" Width="330" >
-                <GroupBox  Header="灯具版本查询" Width="328" Height="156" FontSize="16" BorderThickness="0">
+            <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="178" Canvas.Left="10" Canvas.Top="168" Width="350" >
+                <GroupBox  Header="灯具版本查询" Width="348" Height="176" FontSize="16" BorderThickness="0">
                     <Canvas>
                         <Label  Content="版本信息：" Canvas.Left="10" Canvas.Top="40"/>
                         <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40"  Width="130" Background="AliceBlue" Canvas.Right="10" Canvas.Top="10">
                             <Button x:Name="QueryVersion" Content="版本查询" Click="QueryVersion_Click"/>
                         </Border>
-                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="296" Canvas.Left="10" Canvas.Top="80">
-                            <TextBlock x:Name="AnswerVersion" Height="40" Width="296" Padding="10,8,0,0"/>
+                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="75" Width="316" Canvas.Left="10" Canvas.Top="70">
+                            <TextBlock x:Name="AnswerVersion" Height="75" Width="316" Padding="10,5,0,0" TextWrapping="Wrap"/>
                         </Border>
                     </Canvas>
                 </GroupBox>
             </Border>
-            <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="270" Width="330" Canvas.Left="10" Canvas.Top="336" >
-                <GroupBox Header="灯具状态查询" FontSize="16" Width="328" Height="268" BorderThickness="0">
+            <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="250" Width="350" Canvas.Left="10" Canvas.Top="356" >
+                <GroupBox Header="灯具状态查询" FontSize="16" Width="348" Height="248" BorderThickness="0">
                     <Canvas>
                         <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Right="10" Canvas.Top="10" Background="AliceBlue">
                             <Button Content="状态查询" x:Name="QueryStatus" Click="QueryStatus_Click" />
                         </Border>
-                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="296" Canvas.Left="10" Canvas.Top="80">
-                            <TextBlock x:Name="AnswerStatus" Height="40" Width="296" TextWrapping="Wrap" Margin="-1" Padding="10,8,0,0" />
+                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="316" Canvas.Left="10" Canvas.Top="70">
+                            <TextBlock x:Name="AnswerStatus" Height="40" Width="316" TextWrapping="Wrap" Margin="-1" Padding="10,8,0,0" />
                         </Border>
                         <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Right="10" Canvas.Bottom="10" Background="AliceBlue">
                             <Button Content="导出数据" x:Name="CreatExcel" Click="CreatExcel_Click" />
                         </Border>
                         <Label Content="状态信息：" Canvas.Left="10" Canvas.Top="40"/>
-                        <TextBlock Text="说明：若状态信息停止刷新，表明灯具状态查询完成，可导出数据。" Height="50" Width="296" TextWrapping="Wrap" Canvas.Left="10" Canvas.Top="130"/>
+                        <TextBlock Text="说明：若状态信息停止刷新，表明灯具状态查询完成，可导出数据。" Height="50" Width="316" TextWrapping="Wrap" Canvas.Left="10" Canvas.Top="120"/>
                     </Canvas>
                 </GroupBox>
             </Border>
