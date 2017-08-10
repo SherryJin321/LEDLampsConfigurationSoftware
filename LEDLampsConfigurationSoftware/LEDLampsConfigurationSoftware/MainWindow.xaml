@@ -229,6 +229,7 @@
                         </Border>
                         <Label Content="状态信息：" Canvas.Left="10" Canvas.Top="40"/>
                         <TextBlock Text="说明：若状态信息停止刷新，表明灯具状态查询完成，可导出数据。" Height="50" Width="316" TextWrapping="Wrap" Canvas.Left="10" Canvas.Top="120"/>
+                        <Label x:Name="ShowHandleProcess" Canvas.Left="10" Canvas.Bottom="10" Width="150" Height="40" Padding="10,8,0,0" Content="正在导出数据..." Foreground="Red" Visibility="Hidden"/>
                     </Canvas>
                 </GroupBox>
             </Border>

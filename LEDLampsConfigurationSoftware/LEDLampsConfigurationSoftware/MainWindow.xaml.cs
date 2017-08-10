@@ -22,11 +22,14 @@ namespace LEDLampsConfigurationSoftware
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
+    
     public partial class MainWindow : System.Windows.Window
     {
         #region 设置全局变量
         SerialPort lampsPort = new SerialPort();  //定义串口       
-        int judgeFeedbackCommand = 0;  //设置参数反馈指令为1，版本查询反馈指令为2，状态查询反馈指令为3，无反馈指令为0              
+        int judgeFeedbackCommand = 0;  //设置参数反馈指令为1，版本查询反馈指令为2，状态查询反馈指令为3，无反馈指令为0      
+       
+                 
         #endregion
 
         #region 版本反馈指令参数
@@ -122,7 +125,9 @@ namespace LEDLampsConfigurationSoftware
             PortNameSelect.SelectedIndex = portNames.Length - 1;
 
             queryVersionCommand[27] = CalculateCheckOutValue(queryVersionCommand);  //计算版本查询指令的校验值
-            queryStatusCommand[27] = CalculateCheckOutValue(queryStatusCommand);  //计算状态查询指令的校验值                                                
+            queryStatusCommand[27] = CalculateCheckOutValue(queryStatusCommand);  //计算状态查询指令的校验值    
+
+                                         
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -227,11 +232,18 @@ namespace LEDLampsConfigurationSoftware
         {
             if (lampsPort.IsOpen)
             {
-                ReceivedStatusFeedbackCommand.Clear();
-                judgeFeedbackCommand = 3;
-                AnswerStatus.Text = "";
-                lampsPort.Write(queryStatusCommand, 0, 28);
-                StartQueryStatus = DateTime.Now;    
+                if(ShowHandleProcess.Visibility==Visibility.Hidden)
+                {
+                    ReceivedStatusFeedbackCommand.Clear();
+                    judgeFeedbackCommand = 3;
+                    AnswerStatus.Text = "";
+                    lampsPort.Write(queryStatusCommand, 0, 28);
+                    StartQueryStatus = DateTime.Now;
+                }
+                else
+                {
+                    MessageBox.Show("正在导出数据！请稍候进行状态查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                }                
             }
             else
             {
@@ -413,7 +425,19 @@ namespace LEDLampsConfigurationSoftware
 
         #region 导出灯具状态信息数据
         byte[] receivedStatusFeedbackCommand;
+        Thread CreateExcelThread;
         private void CreatExcel_Click(object sender, RoutedEventArgs e)
+        {
+            ShowHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ShowHandleProcess.Visibility = Visibility.Visible;
+            }));
+
+            CreateExcelThread = new Thread(new ThreadStart(CreateExcelThreadProcess));
+            CreateExcelThread.Start();            
+        }
+
+        private void CreateExcelThreadProcess()
         {
             if (judgeFeedbackCommand == 3)
             {
@@ -452,6 +476,7 @@ namespace LEDLampsConfigurationSoftware
             {
                 MessageBox.Show("未进行状态查询！请先进行状态查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            CreateExcelThread.Abort();
         }
 
         #region 12寸灯具状态信息解析
@@ -539,7 +564,7 @@ namespace LEDLampsConfigurationSoftware
                     TwelveInchesLampCommandLengthErrorHandle();
                 }
             }
-
+           
         }
 
         private void TwelveInchesLampCheckValueErrorHandle()
@@ -705,7 +730,11 @@ namespace LEDLampsConfigurationSoftware
 
             ClearTwelveInchesLampsParameters();
 
-            MessageBox.Show("数据已导出! 保存至D盘Excel文档", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+            ShowHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ShowHandleProcess.Visibility = Visibility.Hidden;
+            }));
+            MessageBox.Show("数据已导出! 保存至D盘Excel文档", "提示", MessageBoxButton.OK, MessageBoxImage.Information);            
         }
         #endregion
 
@@ -902,6 +931,11 @@ namespace LEDLampsConfigurationSoftware
             ExcelApp.Quit();                                                                      //退出Excel应用程序    
 
             ClearEightInchesLampsParameter();
+
+            ShowHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ShowHandleProcess.Visibility = Visibility.Hidden;
+            }));
             MessageBox.Show("数据已导出!保存至D盘的Excel文档", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
