@@ -27,9 +27,7 @@ namespace LEDLampsConfigurationSoftware
     {
         #region 设置全局变量
         SerialPort lampsPort = new SerialPort();  //定义串口       
-        int judgeFeedbackCommand = 0;  //设置参数反馈指令为1，版本查询反馈指令为2，状态查询反馈指令为3，无反馈指令为0      
-       
-                 
+        int judgeFeedbackCommand = 0;  //设置参数反馈指令为1，版本查询反馈指令为2，状态查询反馈指令为3，无反馈指令为0                              
         #endregion
 
         #region 版本反馈指令参数
@@ -132,10 +130,18 @@ namespace LEDLampsConfigurationSoftware
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if(lampsPort.IsOpen==true)
+            if(MessageBox.Show("是否关闭软件","问询",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
             {
-                lampsPort.Close();
+                if(lampsPort.IsOpen==true)
+                {
+                    MessageBox.Show("串口未关闭！请先关闭串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    e.Cancel = true;
+                }                
             }
+            else
+            {
+                e.Cancel = true;
+            }           
         }
 
         #region 串口操作
@@ -271,11 +277,11 @@ namespace LEDLampsConfigurationSoftware
                         case 3: QueryStatusFeedbackCommand(); break;
                     }
                 }
-                else
-                {
-                    MessageBox.Show("未接收到串口指令！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
+                //else
+                //{
+                //    MessageBox.Show("未接收到串口指令！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                //    return;
+                //}
             }
             else
             {
@@ -304,19 +310,19 @@ namespace LEDLampsConfigurationSoftware
                     }
                     else
                     {
-                        MessageBox.Show("帧头错误!请重新查询版本", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("帧头错误!请重新设置参数", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                 }
                 else
                 {
-                    MessageBox.Show("校验错误!请重新查询版本", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("校验错误!请重新设置参数", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
             }
             else
             {
-                MessageBox.Show("指令长度错误!请重新查询版本", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("指令长度错误!请重新设置参数", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
         }
@@ -464,17 +470,29 @@ namespace LEDLampsConfigurationSoftware
                     else
                     {
                         MessageBox.Show("接收指令帧头错误！请重新查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                        ShowHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                        {
+                            ShowHandleProcess.Visibility = Visibility.Hidden;
+                        }));
                     }
                 }
                 else
                 {
                     MessageBox.Show("接收指令不能为空！请重新查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
                     ReceivedStatusFeedbackCommand.Clear();
+                    ShowHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                    {
+                        ShowHandleProcess.Visibility = Visibility.Hidden;
+                    }));
                 }
             }
             else
             {
                 MessageBox.Show("未进行状态查询！请先进行状态查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                ShowHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    ShowHandleProcess.Visibility = Visibility.Hidden;
+                }));
             }
             CreateExcelThread.Abort();
         }

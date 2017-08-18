@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LEDLampsConfigurationSoftware"
         mc:Ignorable="d"
-        Title="航安LED灯具配置软件" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="Airsafe LED灯具配置软件 V1.0" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontSize" Value="18"/>
@@ -228,7 +228,7 @@
                             <Button Content="导出数据" x:Name="CreatExcel" Click="CreatExcel_Click" />
                         </Border>
                         <Label Content="状态信息：" Canvas.Left="10" Canvas.Top="40"/>
-                        <TextBlock Text="说明：若状态信息停止刷新，表明灯具状态查询完成，可导出数据。" Height="50" Width="316" TextWrapping="Wrap" Canvas.Left="10" Canvas.Top="120"/>
+                        <TextBlock Text="说明：若灯具状态查询耗时停止刷新，表明灯具状态查询完成，可导出数据。" Height="50" Width="316" TextWrapping="Wrap" Canvas.Left="10" Canvas.Top="120"/>
                         <Label x:Name="ShowHandleProcess" Canvas.Left="10" Canvas.Bottom="10" Width="150" Height="40" Padding="10,8,0,0" Content="正在导出数据..." Foreground="Red" Visibility="Hidden"/>
                     </Canvas>
                 </GroupBox>
