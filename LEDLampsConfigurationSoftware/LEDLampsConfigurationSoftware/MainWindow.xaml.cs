@@ -126,7 +126,7 @@ namespace LEDLampsConfigurationSoftware
             queryVersionCommand[27] = CalculateCheckOutValue(queryVersionCommand);  //计算版本查询指令的校验值
             queryStatusCommand[27] = CalculateCheckOutValue(queryStatusCommand);  //计算状态查询指令的校验值    
 
-                                         
+            SettingSerialPort.IsSelected = true;                             
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -166,7 +166,10 @@ namespace LEDLampsConfigurationSoftware
                 }
                 if(lampsPort.IsOpen==true)
                 {
-                    MessageBox.Show("串口已打开！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                    if(MessageBox.Show("串口已打开！", "提示", MessageBoxButton.OK, MessageBoxImage.Information)==MessageBoxResult.OK)
+                    {
+                        FactoryMode.IsSelected = true;
+                    }                    
                 }
             }
            catch
@@ -239,7 +242,7 @@ namespace LEDLampsConfigurationSoftware
         {
             if (lampsPort.IsOpen)
             {
-                if(ShowHandleProcess.Visibility==Visibility.Hidden)
+                if(ShowEXCELHandleProcess.Visibility==Visibility.Hidden)
                 {
                     ReceivedStatusFeedbackCommand.Clear();
                     judgeFeedbackCommand = 3;
@@ -556,9 +559,9 @@ namespace LEDLampsConfigurationSoftware
         Thread CreateExcelThread;
         private void CreatExcel_Click(object sender, RoutedEventArgs e)
         {
-            ShowHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+            ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
             {
-                ShowHandleProcess.Visibility = Visibility.Visible;
+                ShowEXCELHandleProcess.Visibility = Visibility.Visible;
             }));
 
             CreateExcelThread = new Thread(new ThreadStart(CreateExcelThreadProcess));
@@ -592,9 +595,9 @@ namespace LEDLampsConfigurationSoftware
                     else
                     {
                         MessageBox.Show("接收指令帧头错误！请重新查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
-                        ShowHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                        ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
                         {
-                            ShowHandleProcess.Visibility = Visibility.Hidden;
+                            ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
                         }));
                     }
                 }
@@ -602,18 +605,18 @@ namespace LEDLampsConfigurationSoftware
                 {
                     MessageBox.Show("接收指令不能为空！请重新查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
                     ReceivedStatusFeedbackCommand.Clear();
-                    ShowHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                    ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
                     {
-                        ShowHandleProcess.Visibility = Visibility.Hidden;
+                        ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
                     }));
                 }
             }
             else
             {
                 MessageBox.Show("未进行状态查询！请先进行状态查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
-                ShowHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
                 {
-                    ShowHandleProcess.Visibility = Visibility.Hidden;
+                    ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
                 }));
             }
             CreateExcelThread.Abort();
@@ -870,9 +873,9 @@ namespace LEDLampsConfigurationSoftware
 
             ClearTwelveInchesLampsParameters();
 
-            ShowHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+            ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
             {
-                ShowHandleProcess.Visibility = Visibility.Hidden;
+                ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
             }));
             MessageBox.Show("数据已导出! 保存至D盘Excel文档", "提示", MessageBoxButton.OK, MessageBoxImage.Information);            
         }
@@ -1072,9 +1075,9 @@ namespace LEDLampsConfigurationSoftware
 
             ClearEightInchesLampsParameter();
 
-            ShowHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+            ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
             {
-                ShowHandleProcess.Visibility = Visibility.Hidden;
+                ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
             }));
             MessageBox.Show("数据已导出!保存至D盘的Excel文档", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
         }
