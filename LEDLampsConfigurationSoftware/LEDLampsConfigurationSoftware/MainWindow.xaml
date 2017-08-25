@@ -23,11 +23,11 @@
         </Grid.RowDefinitions>
         <Canvas Grid.Row="0">
             <Image  Height="38" Width="150" Canvas.Right="10" Canvas.Top="0"  Source=".\Images\Airsafe.png" />
-            <TabControl Grid.Row="0" Grid.RowSpan="2" Height="626" Canvas.Left="10" Canvas.Top="20" Width="805"  BorderThickness="1" BorderBrush="#FF0A51A1" x:Name="SelectMode">
+            <TabControl Grid.Row="0" Grid.RowSpan="2" Height="626" Canvas.Left="10" Canvas.Top="20" Width="805"  BorderThickness="1" BorderBrush="#FF0A51A1" x:Name="SelectMode" SelectionChanged="SelectMode_SelectionChanged">
                 <TabItem Header="工厂模式" FontSize="18" Background="AliceBlue" Height="28" Width="110" Margin="0" Padding="0" x:Name="FactoryMode">
                     <Canvas Background="White">
                         <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="367" Height="443" Canvas.Left="10" Canvas.Top="10">
-                            <GroupBox Header="灯具类型选择" FontSize="16" Width="367" Height="443" BorderThickness="0">
+                            <GroupBox Header="灯具名称" FontSize="16" Width="367" Height="443" BorderThickness="0">
                                 <Canvas>
                                     <RadioButton x:Name="SelectApproachChenterlineLight" Content="LED嵌入式进近中线灯（APPS-12-LED）" Canvas.Left="10" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectApproachChenterlineLight_Checked" />
                                     <RadioButton x:Name="SelectApproachCrossbarLight" Content="LED嵌入式进近横排灯（APPS-12-LED）" Canvas.Left="10" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectApproachCrossbarLight_Checked" />
@@ -47,19 +47,98 @@
                             </GroupBox>
                         </Border>
                         <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="222" Height="443" Canvas.Left="397" Canvas.Top="10">
-                            <GroupBox Header="特殊灯具选择" FontSize="16" Width="222" Height="443" BorderThickness="0">
+                            <GroupBox Header="灯具型号" FontSize="16" Width="222" Height="443" BorderThickness="0">
                                 <Canvas>
-                                    <Label x:Name="NoSpecialLight" Content="无特殊灯具！" Canvas.Left="10" Canvas.Top="20" Visibility="Collapsed"/>
-                                    <GroupBox x:Name="GroupSpecialLights" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                    <GroupBox x:Name="GroupApproachChenterlineLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
                                         <Canvas>
-                                            <RadioButton x:Name="SelectSpecialWhiteYellowAllAround" Content="RELC-12-LED-CY-C-1P" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="SelectSpecialLights" Checked="SelectSpecialWhiteYellowAllAround_Checked"/>
-                                            <RadioButton x:Name="SelectSpecialWhiteWhiteAllAround" Content="RELC-12-LED-CC-C-1P" Canvas.Left="4" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="SelectSpecialLights" Checked="SelectSpecialWhiteWhiteAllAround_Checked"/>
-                                            <RadioButton x:Name="SelectSpecialWhiteRedAllAround" Content="RELC-12-LED-CR-C-1P" Canvas.Left="4" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="SelectSpecialLights" Checked="SelectSpecialWhiteRedAllAround_Checked"/>
-                                            <RadioButton x:Name="SelectSpecialRedYellowAllAround" Content="RELC-12-LED-RY-C-1P" Canvas.Left="4" Canvas.Top="107" BorderBrush="#FF0A51A1" GroupName="SelectSpecialLights" Checked="SelectSpecialRedYellowAllAround_Checked"/>
-                                            <RadioButton x:Name="SelectSpecialWhiteYellow" Content="RELC-12-LED-CY-B-1P" Canvas.Left="4" Canvas.Top="136" BorderBrush="#FF0A51A1" GroupName="SelectSpecialLights" Checked="SelectSpecialWhiteYellow_Checked"/>
-                                            <RadioButton x:Name="SelectSpecialWhiteWhite" Content="RELC-12-LED-CC-B-1P" Canvas.Left="4" Canvas.Top="165" BorderBrush="#FF0A51A1" GroupName="SelectSpecialLights" Checked="SelectSpecialWhiteWhite_Checked"/>
-                                            <RadioButton x:Name="SelectSpecialWhiteRed" Content="RELC-12-LED-CR-B-1P" Canvas.Left="4" Canvas.Top="194" BorderBrush="#FF0A51A1" GroupName="SelectSpecialLights" Checked="SelectSpecialWhiteRed_Checked"/>
-                                            <RadioButton x:Name="SelectSpecialRedYellow" Content="RELC-12-LED-RY-B-1P" Canvas.Left="4" Canvas.Top="223" BorderBrush="#FF0A51A1" GroupName="SelectSpecialLights" Checked="SelectSpecialRedYellow_Checked"/>
+                                            <RadioButton x:Name="SelectAPPS12SLEDC" Content="APPS-12-S-LED-C" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameApproachChenterlineLight" Checked="SelectAPPS12SLEDC_Checked"/>
+                                        </Canvas>
+                                    </GroupBox>
+                                    <GroupBox x:Name="GroupApproachCrossbarLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                        <Canvas>
+                                            <RadioButton x:Name="SelectAPPS12LLEDC" Content="APPS-12-L-LED-C" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameApproachCrossbarLight" Checked="SelectAPPS12LLEDC_Checked"/>
+                                            <RadioButton x:Name="SelectAPPS12RLEDC" Content="APPS-12-R-LED-C" Canvas.Left="4" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameApproachCrossbarLight" Checked="SelectAPPS12RLEDC_Checked"/>
+                                        </Canvas>
+                                    </GroupBox>
+                                    <GroupBox x:Name="GroupApproachSideRowLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                        <Canvas>
+                                            <RadioButton x:Name="SelectAPSS12LLEDR" Content="APSS-12-L-LED-R" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameApproachSideRowLight" Checked="SelectAPSS12LLEDR_Checked"/>
+                                            <RadioButton x:Name="SelectAPSS12RLEDR" Content="APSS-12-R-LED-R" Canvas.Left="4" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameApproachSideRowLight" Checked="SelectAPSS12RLEDR_Checked"/>
+                                        </Canvas>
+                                    </GroupBox>
+                                    <GroupBox x:Name="GroupRWYThresholdWingBarLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                        <Canvas>
+                                            <RadioButton x:Name="SelectTHWS12LLEDG" Content="THWS-12-L-LED-G" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdWingBarLight" Checked="SelectTHWS12LLEDG_Checked"/>
+                                            <RadioButton x:Name="SelectTHWS12RLEDG" Content="THWS-12-R-LED-G" Canvas.Left="4" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdWingBarLight" Checked="SelectTHWS12RLEDG_Checked"/>
+                                        </Canvas>
+                                    </GroupBox>
+                                    <GroupBox x:Name="GroupRWYThresholdLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                        <Canvas>
+                                            <RadioButton x:Name="SelectTHRS12LLEDG" Content="THRS-12-L-LED-G" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdLight" Checked="SelectTHRS12LLEDG_Checked"/>
+                                            <RadioButton x:Name="SelectTHRS12RLEDG" Content="THRS-12-R-LED-G" Canvas.Left="4" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdLight" Checked="SelectTHRS12RLEDG_Checked"/>
+                                            <RadioButton x:Name="SelectTHRS12SLEDG" Content="THRS-12-S-LED-G" Canvas.Left="4" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdLight" Checked="SelectTHRS12SLEDG_Checked"/>
+                                        </Canvas>
+                                    </GroupBox>
+                                    <GroupBox x:Name="GroupRWYEdgeLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                        <Canvas>
+                                            <RadioButton x:Name="SelectRELS12LLEDYC" Content="RELS-12-L-LED-YC" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12LLEDYC_Checked"/>
+                                            <RadioButton x:Name="SelectRELS12RLEDYC" Content="RELS-12-R-LED-YC" Canvas.Left="4" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12RLEDYC_Checked"/>
+                                            <RadioButton x:Name="SelectRELS12LLEDCY" Content="RELS-12-L-LED-CY" Canvas.Left="4" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12LLEDCY_Checked"/>
+                                            <RadioButton x:Name="SelectRELS12RLEDCY" Content="RELS-12-R-LED-CY" Canvas.Left="4" Canvas.Top="107" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12RLEDCY_Checked"/>
+                                            <RadioButton x:Name="SelectRELS12LLEDCC" Content="RELS-12-L-LED-CC" Canvas.Left="4" Canvas.Top="136" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12LLEDCC_Checked"/>
+                                            <RadioButton x:Name="SelectRELS12RLEDCC" Content="RELS-12-R-LED-CC" Canvas.Left="4" Canvas.Top="165" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12RLEDCC_Checked"/>
+                                            <RadioButton x:Name="SelectRELS12LLEDCR" Content="RELS-12-L-LED-CR" Canvas.Left="4" Canvas.Top="194" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12LLEDCR_Checked"/>
+                                            <RadioButton x:Name="SelectRELS12RLEDCR" Content="RELS-12-R-LED-CR" Canvas.Left="4" Canvas.Top="223" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12RLEDCR_Checked"/>
+                                            <RadioButton x:Name="SelectRELS12LLEDRC" Content="RELS-12-L-LED-RC" Canvas.Left="4" Canvas.Top="252" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12LLEDRC_Checked"/>
+                                            <RadioButton x:Name="SelectRELS12RLEDRC" Content="RELS-12-R-LED-RC" Canvas.Left="4" Canvas.Top="281" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12RLEDRC_Checked"/>
+                                        </Canvas>
+                                    </GroupBox>
+                                    <GroupBox x:Name="Group12inchesRWYEndLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                        <Canvas>
+                                            <RadioButton x:Name="SelectENDS12LEDR" Content="ENDS-12-LED-R" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupName12inchesRWYEndLight" Checked="SelectENDS12LEDR_Checked"/>
+                                        </Canvas>
+                                    </GroupBox>
+                                    <GroupBox x:Name="GroupRWYThresholdEndLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                        <Canvas>
+                                            <RadioButton x:Name="SelectTAES12LLEDGR1P" Content="TAES-12-L-LED-GR-1P" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdEndLight" Checked="SelectTAES12LLEDGR1P_Checked"/>
+                                            <RadioButton x:Name="SelectTAES12RLEDGR1P" Content="TAES-12-R-LED-GR-1P" Canvas.Left="4" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdEndLight" Checked="SelectTAES12RLEDGR1P_Checked"/>
+                                            <RadioButton x:Name="SelectTAES12SLEDGR1P" Content="TAES-12-S-LED-GR-1P" Canvas.Left="4" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdEndLight" Checked="SelectTAES12SLEDGR1P_Checked"/>
+                                        </Canvas>
+                                    </GroupBox>
+                                    <GroupBox x:Name="GroupRWYCenterlineLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                        <Canvas>
+                                            <RadioButton x:Name="SelectRCLS08LEDCB1P" Content="RCLS-08-LED-CB-1P" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYCenterlineLight" Checked="SelectRCLS08LEDCB1P_Checked"/>
+                                            <RadioButton x:Name="SelectRCLS08LEDRB1P" Content="RCLS-08-LED-RB-1P" Canvas.Left="4" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYCenterlineLight" Checked="SelectRCLS08LEDRB1P_Checked"/>
+                                            <RadioButton x:Name="SelectRCLS08LEDCC1P" Content="RCLS-08-LED-CC-1P" Canvas.Left="4" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYCenterlineLight" Checked="SelectRCLS08LEDCC1P_Checked"/>
+                                            <RadioButton x:Name="SelectRCLS08LEDRC1P" Content="RCLS-08-LED-RC-1P" Canvas.Left="4" Canvas.Top="107" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYCenterlineLight" Checked="SelectRCLS08LEDRC1P_Checked"/>
+                                        </Canvas>
+                                    </GroupBox>
+                                    <GroupBox x:Name="GroupRWYTouchdownZoneLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                        <Canvas>
+                                            <RadioButton x:Name="SelectTDZS08LLEDC" Content="TDZS-08-L-LED-C" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYTouchdownZoneLight" Checked="SelectTDZS08LLEDC_Checked"/>
+                                            <RadioButton x:Name="SelectTDZS08RLEDC" Content="TDZS-08-R-LED-C" Canvas.Left="4" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYTouchdownZoneLight" Checked="SelectTDZS08RLEDC_Checked"/>
+                                        </Canvas>
+                                    </GroupBox>
+                                    <GroupBox x:Name="Group8inchesRWYEndLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                        <Canvas>
+                                            <RadioButton x:Name="SelectENDS08LEDR" Content="ENDS-08-LED-R" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupName8inchesRWYEndLight" Checked="SelectENDS08LEDR_Checked"/>
+                                        </Canvas>
+                                    </GroupBox>
+                                    <GroupBox x:Name="GroupRapidExitTWYIndicatorLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                        <Canvas>
+                                            <RadioButton x:Name="SelectRAPS08LEDY" Content="RAPS-08-LED-Y" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameRapidExitTWYIndicatorLight" Checked="SelectRAPS08LEDY_Checked"/>
+                                        </Canvas>
+                                    </GroupBox>
+                                    <GroupBox x:Name="GroupCombinedRWYEdgeLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                        <Canvas>
+                                            <RadioButton x:Name="SelectRELC12LEDCYC1P" Content="RELC-12-LED-CY-C-1P" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDCYC1P_Checked"/>
+                                            <RadioButton x:Name="SelectRELC12LEDCCC1P" Content="RELC-12-LED-CC-C-1P" Canvas.Left="4" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDCCC1P_Checked"/>
+                                            <RadioButton x:Name="SelectRELC12LEDCRC1P" Content="RELC-12-LED-CR-C-1P" Canvas.Left="4" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDCRC1P_Checked"/>
+                                            <RadioButton x:Name="SelectRELC12LEDRYC1P" Content="RELC-12-LED-RY-C-1P" Canvas.Left="4" Canvas.Top="107" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDRYC1P_Checked"/>
+                                            <RadioButton x:Name="SelectRELC12LEDCYB1P" Content="RELC-12-LED-CY-B-1P" Canvas.Left="4" Canvas.Top="136" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDCYB1P_Checked"/>
+                                            <RadioButton x:Name="SelectRELC12LEDCCB1P" Content="RELC-12-LED-CC-B-1P" Canvas.Left="4" Canvas.Top="165" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDCCB1P_Checked"/>
+                                            <RadioButton x:Name="SelectRELC12LEDCRB1P" Content="RELC-12-LED-CR-B-1P" Canvas.Left="4" Canvas.Top="194" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDCRB1P_Checked"/>
+                                            <RadioButton x:Name="SelectRELC12LEDRYB1P" Content="RELC-12-LED-RY-B-1P" Canvas.Left="4" Canvas.Top="223" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDRYB1P_Checked"/>
                                         </Canvas>
                                     </GroupBox>
                                 </Canvas>
@@ -78,10 +157,10 @@
                             <Button x:Name="SetLightParametersInFactoryMode" Content="参数设置" Click="SetLightParametersInFactoryMode_Click"/>
                         </Border>
                         <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="367" Height="40" Canvas.Left="10" Canvas.Top="483">
-                            <TextBlock x:Name="ConfirmSettingLampParameter" Width="367" Height="40" HorizontalAlignment="Left" Margin="0,0,-2,-2" Padding="10,8,0,0" FontSize="16"/>
+                            <TextBlock x:Name="ConfirmLampName" Width="367" Height="40" HorizontalAlignment="Left" Margin="0,0,-2,-2" Padding="10,8,0,0" FontSize="16"/>
                         </Border>
                         <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="222" Height="40" Canvas.Left="397" Canvas.Top="483">
-                            <TextBlock x:Name="ConfirmSettingSpecialLampParameter" Width="222" Height="40" HorizontalAlignment="Left" Margin="0,0,-2,-2" Padding="10,8,0,0" FontSize="16"/>
+                            <TextBlock x:Name="ConfirmLampModel" Width="222" Height="40" HorizontalAlignment="Left" Margin="0,0,-2,-2" Padding="10,8,0,0" FontSize="16"/>
                         </Border>
                         <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="150" Height="40" Canvas.Left="639" Canvas.Top="483">
                             <TextBlock x:Name="ConfirmSettingOpenCircuitParameter" Width="150" Height="40" HorizontalAlignment="Left" Margin="0,0,-2,-2" FontSize="16" Padding="10,8,0,0"/>
@@ -113,26 +192,46 @@
                         </Border>
                         <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="437" Canvas.Left="120" Canvas.Top="380" Background="AliceBlue">
                             <ComboBox x:Name="SetLightNumber" Width="433" Height="36" Background="{x:Null}" BorderThickness="0" FontSize="16" SelectionChanged="SetLightNumber_SelectionChanged" SelectedIndex="0" MaxDropDownHeight="130" Padding="10,8,0,0">
-                                <ComboBoxItem>01 LED嵌入式进近中线灯（APPS-12-LED）</ComboBoxItem>
-                                <ComboBoxItem>02 LED嵌入式进近横排灯（APPS-12-LED）</ComboBoxItem>
-                                <ComboBoxItem>03 LED嵌入式进近侧边灯（APSS-12-LED）</ComboBoxItem>
-                                <ComboBoxItem>04 LED嵌入式跑道入口翼排灯（THWS-12-LED）</ComboBoxItem>
-                                <ComboBoxItem>05 LED嵌入式跑道入口灯（THRS-12-LED）</ComboBoxItem>
-                                <ComboBoxItem>06 LED嵌入式跑道边灯（RELS-12-LED）</ComboBoxItem>
-                                <ComboBoxItem>07 LED嵌入式跑道末端灯（ENDS-12-LED）</ComboBoxItem>
-                                <ComboBoxItem>08 LED嵌入式跑道入口/末端灯（TAES-12-LED）</ComboBoxItem>
-                                <ComboBoxItem>09 LED跑道中线灯（RCLS-08-LED）</ComboBoxItem>
-                                <ComboBoxItem>10 LED跑道接地带灯（TDZS-08-LED）</ComboBoxItem>
-                                <ComboBoxItem>11 LED嵌入式跑道末端灯（ENDS-08-LED）</ComboBoxItem>
-                                <ComboBoxItem>12 LED快速出口滑行道指示灯（RAPS-08-LED）</ComboBoxItem>
-                                <ComboBoxItem>13 LED嵌入式组合跑道边灯（RELC-12-LED-CY-C-1P）</ComboBoxItem>
-                                <ComboBoxItem>14 LED嵌入式组合跑道边灯（RELC-12-LED-CC-C-1P）</ComboBoxItem>
-                                <ComboBoxItem>15 LED嵌入式组合跑道边灯（RELC-12-LED-CR-C-1P）</ComboBoxItem>
-                                <ComboBoxItem>16 LED嵌入式组合跑道边灯（RELC-12-LED-RY-C-1P）</ComboBoxItem>
-                                <ComboBoxItem>17 LED嵌入式组合跑道边灯（RELC-12-LED-CY-B-1P）</ComboBoxItem>
-                                <ComboBoxItem>18 LED嵌入式组合跑道边灯（RELC-12-LED-CC-B-1P）</ComboBoxItem>
-                                <ComboBoxItem>19 LED嵌入式组合跑道边灯（RELC-12-LED-CR-B-1P）</ComboBoxItem>
-                                <ComboBoxItem>20 LED嵌入式组合跑道边灯（RELC-12-LED-RY-B-1P）</ComboBoxItem>
+                                <ComboBoxItem>01 LED嵌入式进近中线灯（APPS-12-S-LED-C）</ComboBoxItem>
+                                <ComboBoxItem>02 LED嵌入式进近横排灯（APPS-12-L-LED-C）</ComboBoxItem>
+                                <ComboBoxItem>03 LED嵌入式进近横排灯（APPS-12-R-LED-C）</ComboBoxItem>
+                                <ComboBoxItem>04 LED嵌入式进近侧边灯（APSS-12-L-LED-R）</ComboBoxItem>
+                                <ComboBoxItem>05 LED嵌入式进近侧边灯（APSS-12-R-LED-R）</ComboBoxItem>
+                                <ComboBoxItem>06 LED嵌入式跑道入口翼排灯（THWS-12-L-LED-G）</ComboBoxItem>
+                                <ComboBoxItem>07 LED嵌入式跑道入口翼排灯（THWS-12-R-LED-G）</ComboBoxItem>
+                                <ComboBoxItem>08 LED嵌入式跑道入口灯（THRS-12-L-LED-G）</ComboBoxItem>
+                                <ComboBoxItem>09 LED嵌入式跑道入口灯（THRS-12-R-LED-G）</ComboBoxItem>
+                                <ComboBoxItem>10 LED嵌入式跑道入口灯（THRS-12-S-LED-G）</ComboBoxItem>
+                                <ComboBoxItem>11 LED嵌入式跑道边灯（RELS-12-L-LED-YC）</ComboBoxItem>
+                                <ComboBoxItem>12 LED嵌入式跑道边灯（RELS-12-R-LED-YC）</ComboBoxItem>
+                                <ComboBoxItem>13 LED嵌入式跑道边灯（RELS-12-L-LED-CY）</ComboBoxItem>
+                                <ComboBoxItem>14 LED嵌入式跑道边灯（RELS-12-R-LED-CY）</ComboBoxItem>
+                                <ComboBoxItem>15 LED嵌入式跑道边灯（RELS-12-L-LED-CC）</ComboBoxItem>
+                                <ComboBoxItem>16 LED嵌入式跑道边灯（RELS-12-R-LED-CC）</ComboBoxItem>
+                                <ComboBoxItem>17 LED嵌入式跑道边灯（RELS-12-L-LED-CR）</ComboBoxItem>
+                                <ComboBoxItem>18 LED嵌入式跑道边灯（RELS-12-R-LED-CR）</ComboBoxItem>
+                                <ComboBoxItem>19 LED嵌入式跑道边灯（RELS-12-L-LED-RC）</ComboBoxItem>
+                                <ComboBoxItem>20 LED嵌入式跑道边灯（RELS-12-R-LED-RC）</ComboBoxItem>
+                                <ComboBoxItem>21 LED嵌入式跑道末端灯（ENDS-12-LED-R）</ComboBoxItem>
+                                <ComboBoxItem>22 LED嵌入式跑道入口/末端灯（TAES-12-L-LED-GR-1P）</ComboBoxItem>
+                                <ComboBoxItem>23 LED嵌入式跑道入口/末端灯（TAES-12-R-LED-GR-1P）</ComboBoxItem>
+                                <ComboBoxItem>24 LED嵌入式跑道入口/末端灯（TAES-12-S-LED-GR-1P）</ComboBoxItem>
+                                <ComboBoxItem>25 LED跑道中线灯（RCLS-08-LED-CB-1P）</ComboBoxItem>
+                                <ComboBoxItem>26 LED跑道中线灯（RCLS-08-LED-RB-1P）</ComboBoxItem>
+                                <ComboBoxItem>27 LED跑道中线灯（RCLS-08-LED-CC-1P）</ComboBoxItem>
+                                <ComboBoxItem>28 LED跑道中线灯（RCLS-08-LED-RC-1P）</ComboBoxItem>
+                                <ComboBoxItem>29 LED跑道接地带灯（TDZS-08-L-LED-C）</ComboBoxItem>
+                                <ComboBoxItem>30 LED跑道接地带灯（TDZS-08-R-LED-C）</ComboBoxItem>
+                                <ComboBoxItem>31 LED嵌入式跑道末端灯（ENDS-08-LED-R）</ComboBoxItem>
+                                <ComboBoxItem>32 LED快速出口滑行道指示灯（RAPS-08-LED-Y）</ComboBoxItem>
+                                <ComboBoxItem>33 LED嵌入式组合跑道边灯（RELC-12-LED-CY-C-1P）</ComboBoxItem>
+                                <ComboBoxItem>34 LED嵌入式组合跑道边灯（RELC-12-LED-CC-C-1P）</ComboBoxItem>
+                                <ComboBoxItem>35 LED嵌入式组合跑道边灯（RELC-12-LED-CR-C-1P）</ComboBoxItem>
+                                <ComboBoxItem>36 LED嵌入式组合跑道边灯（RELC-12-LED-RY-C-1P）</ComboBoxItem>
+                                <ComboBoxItem>37 LED嵌入式组合跑道边灯（RELC-12-LED-CY-B-1P）</ComboBoxItem>
+                                <ComboBoxItem>38 LED嵌入式组合跑道边灯（RELC-12-LED-CC-B-1P）</ComboBoxItem>
+                                <ComboBoxItem>39 LED嵌入式组合跑道边灯（RELC-12-LED-CR-B-1P）</ComboBoxItem>
+                                <ComboBoxItem>40 LED嵌入式组合跑道边灯（RELC-12-LED-RY-B-1P）</ComboBoxItem>
                             </ComboBox>
                         </Border>
                         <RadioButton x:Name="SetReadResistanceFalse" Content="读取电阻" FontSize="16" Canvas.Left="139" Canvas.Top="265" GroupName="ReadResistance" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetReadResistanceFalse_Checked" IsChecked="True"/>
@@ -205,12 +304,12 @@
             <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="178" Canvas.Left="10" Canvas.Top="168" Width="350" >
                 <GroupBox  Header="灯具版本查询" Width="348" Height="176" FontSize="16" BorderThickness="0">
                     <Canvas>
-                        <Label  Content="版本信息：" Canvas.Left="10" Canvas.Top="40"/>
-                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40"  Width="130" Background="AliceBlue" Canvas.Right="10" Canvas.Top="10">
+                        <Label  Content="版本信息：" Canvas.Left="10" Canvas.Top="30"/>
+                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40"  Width="130" Background="AliceBlue" Canvas.Right="10" Canvas.Top="0">
                             <Button x:Name="QueryVersion" Content="版本查询" Click="QueryVersion_Click"/>
                         </Border>
-                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="75" Width="316" Canvas.Left="10" Canvas.Top="70">
-                            <TextBlock x:Name="AnswerVersion" Height="75" Width="316" Padding="10,5,0,0" TextWrapping="Wrap"/>
+                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="90" Width="316" Canvas.Left="10" Canvas.Top="60">
+                            <TextBlock x:Name="AnswerVersion" Height="90" Width="316" Padding="10,5,0,0" TextWrapping="Wrap"/>
                         </Border>
                     </Canvas>
                 </GroupBox>

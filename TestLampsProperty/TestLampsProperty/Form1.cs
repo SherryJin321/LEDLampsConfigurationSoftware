@@ -19,10 +19,10 @@ namespace TestLampsProperty
         /// <summary>
         /// 灯具串口
         /// </summary>
-        //Byte[] queryStatusCommand = new Byte[28] { 0x02, 0x89, 0x11, 0x58, 0x12, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00 };
-        //Byte[] queryVersionCommand = new Byte[28] { 0x02, 0x89, 0x22, 0x85, 0x12, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00 };
+        Byte[] queryStatusCommand = new Byte[28] { 0x02, 0x89, 0x11, 0x58, 0x12, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00 };
+        Byte[] queryVersionCommand = new Byte[28] { 0x02, 0x89, 0x22, 0x85, 0x12, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00 };
 
-        
+
         byte[] bt_sensor_readDate = new byte[5] { 0X02, 0X55, 0X33, 0X00, 0X00 };                       //传感器读取数据指令
 
         public Form1()
@@ -39,58 +39,58 @@ namespace TestLampsProperty
             {
                 lampsSerialPort.Open();
             }
-            timer1.Start();
-            //if (lampsSerialPort.IsOpen)
-            //{
-            //    lampsSerialPort.Write(queryStatusCommand, 0, 28);
+            //timer1.Start();
+            if (lampsSerialPort.IsOpen)
+            {
+                //lampsSerialPort.Write(queryStatusCommand, 0, 28);
 
-            //    textBox1.Text += "TX:";
-            //    for (int i = 0; i < queryStatusCommand.Length; i++)
-            //    {
+                //textBox1.Text += "TX:";
+                //for (int i = 0; i < queryStatusCommand.Length; i++)
+                //{
 
-            //        if (i < queryStatusCommand.Length - 1)
-            //        {
-            //            textBox1.Text += Convert.ToString(queryStatusCommand[i], 16).PadLeft(2, '0').ToUpper() + " ";
-            //        }
-            //        else
-            //        {
-            //            textBox1.Text += Convert.ToString(queryStatusCommand[i], 16).PadLeft(2, '0').ToUpper() + "\r\n";
-            //        }
-            //    }
+                //    if (i < queryStatusCommand.Length - 1)
+                //    {
+                //        textBox1.Text += Convert.ToString(queryStatusCommand[i], 16).PadLeft(2, '0').ToUpper() + " ";
+                //    }
+                //    else
+                //    {
+                //        textBox1.Text += Convert.ToString(queryStatusCommand[i], 16).PadLeft(2, '0').ToUpper() + "\r\n";
+                //    }
+                //}
 
-            //    //lampsSerialPort.Write(queryVersionCommand, 0, 28);
+                lampsSerialPort.Write(queryVersionCommand, 0, 28);
 
-            //    //textBox1.Text += "TX:";
-            //    //for (int i = 0; i < queryVersionCommand.Length; i++)
-            //    //{
+                textBox1.Text += "TX:";
+                for (int i = 0; i < queryVersionCommand.Length; i++)
+                {
 
-            //    //    if (i < queryVersionCommand.Length - 1)
-            //    //    {
-            //    //        textBox1.Text += Convert.ToString(queryVersionCommand[i], 16).PadLeft(2, '0').ToUpper() + "-";
-            //    //    }
-            //    //    else
-            //    //    {
-            //    //        textBox1.Text += Convert.ToString(queryVersionCommand[i], 16).PadLeft(2, '0').ToUpper() + "\r\n";
-            //    //    }
-            //    //}
-            //}
+                    if (i < queryVersionCommand.Length - 1)
+                    {
+                        textBox1.Text += Convert.ToString(queryVersionCommand[i], 16).PadLeft(2, '0').ToUpper() + "-";
+                    }
+                    else
+                    {
+                        textBox1.Text += Convert.ToString(queryVersionCommand[i], 16).PadLeft(2, '0').ToUpper() + "\r\n";
+                    }
+                }
+            }
 
         }
 
         //设置串口参数
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //lampsSerialPort.PortName = comboBox1.SelectedItem.ToString();
-            //lampsSerialPort.StopBits = StopBits.One;
-            //lampsSerialPort.DataBits = 8;
-            //lampsSerialPort.Parity = Parity.None;
-            //lampsSerialPort.BaudRate = 921600;
-
             lampsSerialPort.PortName = comboBox1.SelectedItem.ToString();
             lampsSerialPort.StopBits = StopBits.One;
             lampsSerialPort.DataBits = 8;
             lampsSerialPort.Parity = Parity.None;
-            lampsSerialPort.BaudRate = 38400;
+            lampsSerialPort.BaudRate = 921600;
+
+            //lampsSerialPort.PortName = comboBox1.SelectedItem.ToString();
+            //lampsSerialPort.StopBits = StopBits.One;
+            //lampsSerialPort.DataBits = 8;
+            //lampsSerialPort.Parity = Parity.None;
+            //lampsSerialPort.BaudRate = 38400;
 
             lampsSerialPort.DataReceived += new SerialDataReceivedEventHandler(lampsSerialPortDataReceived);
         }
@@ -100,11 +100,11 @@ namespace TestLampsProperty
         {
             string[] portsName = SerialPort.GetPortNames();
             comboBox1.DataSource = portsName;
-            //queryStatusCommand[27] = CalculateCheckOutValue(queryStatusCommand);
-            //queryVersionCommand[27] = CalculateCheckOutValue(queryVersionCommand);
+            queryStatusCommand[27] = CalculateCheckOutValue(queryStatusCommand);
+            queryVersionCommand[27] = CalculateCheckOutValue(queryVersionCommand);
             textBox1.Text = "";
             CheckForIllegalCrossThreadCalls = false;                                              //解决线程操作无效
-            bt_sensor_readDate[bt_sensor_readDate.Length - 1] = CalculateCheckOutValue(bt_sensor_readDate);     //传感器读取数据指令增加校验字节          
+            //bt_sensor_readDate[bt_sensor_readDate.Length - 1] = CalculateCheckOutValue(bt_sensor_readDate);     //传感器读取数据指令增加校验字节          
         }
 
         //生成校验字节
@@ -188,7 +188,7 @@ namespace TestLampsProperty
 
         private void button2_Click(object sender, EventArgs e)
         {
-            timer1.Stop();
+            //timer1.Stop();
             if(lampsSerialPort.IsOpen)
             {
                 lampsSerialPort.Close();

@@ -27,7 +27,8 @@ namespace LEDLampsConfigurationSoftware
     {
         #region 设置全局变量
         SerialPort lampsPort = new SerialPort();  //定义串口       
-        int judgeFeedbackCommand = 0;  //设置参数反馈指令为1，版本查询反馈指令为2，状态查询反馈指令为3，无反馈指令为0                              
+        int judgeFeedbackCommand = 0;  //设置参数反馈指令为1，版本查询反馈指令为2，状态查询反馈指令为3，无反馈指令为0
+        int LampInches = 0;            //灯具尺寸说明： 12: 12寸，8: 8寸                              
         #endregion
 
         #region 版本反馈指令参数
@@ -297,7 +298,8 @@ namespace LEDLampsConfigurationSoftware
 
         private void SetParameterFeedbackCommand()
         {
-            judgeFeedbackCommand = 0;
+            judgeFeedbackCommand = 0;            
+            
             if (dataReceived.Length == 4)
             {
                 byte checkOutValue = CalculateCheckOutValue(dataReceived);
@@ -305,7 +307,7 @@ namespace LEDLampsConfigurationSoftware
                 {
                     if (dataReceived[0] == 0x02 && dataReceived[1] == 0x55 && dataReceived[2] == 0x11)
                     {
-                        MessageBox.Show("参数设置成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("参数设置成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);                        
                         return;
                     }
                     else
@@ -343,28 +345,34 @@ namespace LEDLampsConfigurationSoftware
                         hardwareVersion = dataReceived[7];
                         versionBigNumber = dataReceived[8];
                         versionSmallNumber = dataReceived[9];
-                        currentRatio1 = dataReceived[10] / 10.0;
-                        currentRatio2 = dataReceived[11] / 10.0;
-                        currentRatio3 = dataReceived[12] / 10.0;
-                        currentRatio4 = dataReceived[13] / 10.0;
                         breakFlag = dataReceived[14];
                         lampsNumber = dataReceived[15];
 
+                        LampInches = JudgeLampInches(lampsNumber);
+
+                        currentRatio1 = CalculateRealCurrentValue(dataReceived[10]);
+                        currentRatio2 = CalculateRealCurrentValue(dataReceived[11]);
+                        currentRatio3 = CalculateRealCurrentValue(dataReceived[12]);
+                        currentRatio4 = CalculateRealCurrentValue(dataReceived[13]);
+                        
                         this.Dispatcher.Invoke(new System.Action(() =>
-                        {
+                        {                            
+
                             AnswerVersion.Text = "20" + year.ToString() + "年" + month.ToString() + "月" + date.ToString() + "日 " + hardwareVersion.ToString() + "寸 " + versionBigNumber.ToString() + "." + versionSmallNumber.ToString() + "版" + "\r";
-                            AnswerVersion.Text += "I1: " + currentRatio1.ToString() + " , I2: " + currentRatio2.ToString() + " , I3: " + currentRatio3.ToString() + " , I4: " + currentRatio4.ToString();
+                            AnswerVersion.Text += "I1: " + currentRatio1.ToString() + " , I2: " + currentRatio2.ToString() + " , I3: " + currentRatio3.ToString() + " , I4: " + currentRatio4.ToString() + "\r";
                             if (breakFlag == 0)
                             {
-                                AnswerVersion.Text += "  不带开路" + "\r";
+                                AnswerVersion.Text += "不带开路" + "\r";
                             }
                             else
                             {
-                                AnswerVersion.Text += "  带开路" + "\r";
+                                AnswerVersion.Text += "带开路" + "\r";
                             }
 
                             AnswerVersion.Text += LampsContentShow(lampsNumber);
                         }));
+
+                        MessageBox.Show("版本查询成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
                     {
@@ -402,31 +410,145 @@ namespace LEDLampsConfigurationSoftware
             string result = "";
             switch (lampNumber)
             {
-                case 0: result = "无灯具类型"; break;
-                case 1: result = "进近中线灯"; break;
-                case 2: result = "进近横排灯"; break;
-                case 3: result = "进近侧边灯"; break;
-                case 4: result = "跑道入口翼排灯"; break;
-                case 5: result = "跑道入口灯"; break;
-                case 6: result = "跑道边灯"; break;
-                case 7: result = "跑道末端灯（12寸）"; break;
-                case 8: result = "跑道入口/末端灯"; break;
-                case 9: result = "跑道中线灯"; break;
-                case 10: result = "跑道接地带灯"; break;
-                case 11: result = "跑道末端灯（8寸）"; break;
-                case 12: result = "快速出口滑行道指示灯"; break;
-                case 13: result = "组合跑道边灯（RELC-12-LED-CY-C-1P）"; break;
-                case 14: result = "组合跑道边灯（RELC-12-LED-CC-C-1P）"; break;
-                case 15: result = "组合跑道边灯（RELC-12-LED-CR-C-1P）"; break;
-                case 16: result = "组合跑道边灯（RELC-12-LED-RY-C-1P）"; break;
-                case 17: result = "组合跑道边灯（RELC-12-LED-CY-B-1P）"; break;
-                case 18: result = "组合跑道边灯（RELC-12-LED-CC-B-1P）"; break;
-                case 19: result = "组合跑道边灯（RELC-12-LED-CR-B-1P）"; break;
-                case 20: result = "组合跑道边灯（RELC-12-LED-RY-B-1P）"; break;
+                case 0: result = "无灯具型号"; break;
+                case 1: result = "进近中线灯(APPS-12-S-LED-C)"; break;
+                case 2: result = "进近横排灯(APPS-12-L-LED-C)"; break;
+                case 3: result = "进近横排灯(APPS-12-R-LED-C)"; break;               
+                case 4: result = "进近侧边灯(APSS-12-L-LED-R)"; break;
+                case 5: result = "进近侧边灯(APSS-12-R-LED-R)"; break;
+                case 6: result = "跑道入口翼排灯(THWS-12-L-LED-G)"; break;
+                case 7: result = "跑道入口翼排灯(THWS-12-R-LED-G)"; break;
+                case 8: result = "跑道入口灯(THRS-12-L-LED-G)"; break;
+                case 9: result = "跑道入口灯(THRS-12-R-LED-G)"; break;
+                case 10: result = "跑道入口灯(THRS-12-S-LED-G)"; break;
+                case 11: result = "跑道边灯(RELS-12-L-LED-YC)"; break;
+                case 12: result = "跑道边灯(RELS-12-R-LED-YC)"; break;
+                case 13: result = "跑道边灯(RELS-12-L-LED-CY)"; break;
+                case 14: result = "跑道边灯(RELS-12-R-LED-CY)"; break;
+                case 15: result = "跑道边灯(RELS-12-L-LED-CC)"; break;
+                case 16: result = "跑道边灯(RELS-12-R-LED-CC)"; break;
+                case 17: result = "跑道边灯(RELS-12-L-LED-CR)"; break;
+                case 18: result = "跑道边灯(RELS-12-R-LED-CR)"; break;
+                case 19: result = "跑道边灯(RELS-12-L-LED-RC)"; break;
+                case 20: result = "跑道边灯(RELS-12-R-LED-RC)"; break;
+                case 21: result = "跑道末端灯（ENDS-12-LED-R）"; break;
+                case 22: result = "跑道入口/末端灯(TAES-12-L-LED-GR-1P)"; break;
+                case 23: result = "跑道入口/末端灯(TAES-12-R-LED-GR-1P)"; break;
+                case 24: result = "跑道入口/末端灯(TAES-12-S-LED-GR-1P)"; break;
+                case 25: result = "跑道中线灯(RCLS-08-LED-CB-1P)"; break;
+                case 26: result = "跑道中线灯(RCLS-08-LED-RB-1P)"; break;
+                case 27: result = "跑道中线灯(RCLS-08-LED-CC-1P)"; break;
+                case 28: result = "跑道中线灯(RCLS-08-LED-RC-1P)"; break;
+                case 29: result = "跑道接地带灯(TDZS-08-L-LED-C)"; break;
+                case 30: result = "跑道接地带灯(TDZS-08-R-LED-C)"; break;
+                case 31: result = "跑道末端灯（ENDS-08-LED-R）"; break;
+                case 32: result = "快速出口滑行道指示灯(RAPS-08-LED-Y)"; break;
+                case 33: result = "组合跑道边灯（RELC-12-LED-CY-C-1P）"; break;
+                case 34: result = "组合跑道边灯（RELC-12-LED-CC-C-1P）"; break;
+                case 35: result = "组合跑道边灯（RELC-12-LED-CR-C-1P）"; break;
+                case 36: result = "组合跑道边灯（RELC-12-LED-RY-C-1P）"; break;
+                case 37: result = "组合跑道边灯（RELC-12-LED-CY-B-1P）"; break;
+                case 38: result = "组合跑道边灯（RELC-12-LED-CC-B-1P）"; break;
+                case 39: result = "组合跑道边灯（RELC-12-LED-CR-B-1P）"; break;
+                case 40: result = "组合跑道边灯（RELC-12-LED-RY-B-1P）"; break;
             }
             return result;
         }
 
+        private double CalculateRealCurrentValue(byte originalData)
+        {
+            double original= originalData / 10.0;
+            double result = 0.0;
+
+            if(LampInches==12)
+            {
+                result = original;
+
+                if (lampsNumber == 1 || lampsNumber == 2 ||lampsNumber==3)
+                {
+                    result = original * 1.3;
+                }
+                if(lampsNumber>=33&&lampsNumber<=40)
+                {
+                    if(original==0.9)
+                    {
+                        result = 0.93 * 1.3;
+                    }
+                    if(original==0.7)
+                    {
+                        result = 0.7 * 0.7;
+                    }
+                    if(original==0.6)
+                    {
+                        result = 0.55 * 0.55;
+                    }
+                    if(original==0.4)
+                    {
+                        result = 0.45 * 1;
+                    }
+                }
+            }
+            if(LampInches==8)
+            {
+                result = original * 0.66;
+            }
+
+            result = Math.Round(result, 1,MidpointRounding.AwayFromZero);
+
+            return result;
+
+        }
+
+        private int JudgeLampInches(byte LampNumber)
+        {
+            int result = 0;
+
+            switch (LampNumber)
+            {
+                case 1: result = 12;break;
+                case 2: result = 12; break;
+                case 3: result = 12; break;
+                case 4: result = 12; break;
+                case 5: result = 12; break;
+                case 6: result = 12; break;
+                case 7: result = 12; break;
+                case 8: result = 12; break;
+                case 9: result = 12; break;
+                case 10: result = 12; break;
+                case 11: result = 12; break;
+                case 12: result = 12; break;
+                case 13: result = 12; break;
+                case 14: result = 12; break;
+                case 15: result = 12; break;
+                case 16: result = 12; break;
+                case 17: result = 12; break;
+                case 18: result = 12; break;
+                case 19: result = 12; break;
+                case 20: result = 12; break;
+                case 21: result = 12; break;
+                case 22: result = 12; break;
+                case 23: result = 12; break;
+                case 24: result = 12; break;
+                case 25: result = 8; break;
+                case 26: result = 8; break;
+                case 27: result = 8; break;
+                case 28: result = 8; break;
+                case 29: result = 8; break;
+                case 30: result = 8; break;
+                case 31: result = 8; break;
+                case 32: result = 8; break;
+                case 33: result = 12; break;
+                case 34: result = 12; break;
+                case 35: result = 12; break;
+                case 36: result = 12; break;
+                case 37: result = 12; break;
+                case 38: result = 12; break;
+                case 39: result = 12; break;
+                case 40: result = 12; break;              
+            }
+
+            return result;
+        }
         #endregion
 
         #region 导出灯具状态信息数据
@@ -965,9 +1087,9 @@ namespace LEDLampsConfigurationSoftware
         private void SetLightParametersInFactoryMode_Click(object sender, RoutedEventArgs e)
         {
             
-            if(ConfirmSettingLampParameter.Text!=""&&ConfirmSettingSpecialLampParameter.Text!=""&&ConfirmSettingOpenCircuitParameter.Text!="")
+            if(ConfirmLampName.Text!=""&&ConfirmLampModel.Text!=""&&ConfirmSettingOpenCircuitParameter.Text!="")
             {
-                ConfigureSettingParametersCommand();               
+                ConfigureSettingParametersCommand();                
 
                 if (MessageBox.Show("是否将指令写入灯具？", "问询", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
@@ -975,6 +1097,7 @@ namespace LEDLampsConfigurationSoftware
                     {
                         judgeFeedbackCommand = 1;
                         lampsPort.Write(settingParameterCommand, 0, 28);
+                        
                     }
                     else
                     {
@@ -990,267 +1113,706 @@ namespace LEDLampsConfigurationSoftware
             }
         }
 
-        #region 灯具类型选择
+        #region 灯具名称
         private void SelectApproachChenterlineLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupSpecialLights.Visibility = Visibility.Collapsed;
-            NoSpecialLight.Visibility = Visibility.Visible;
+            GroupApproachChenterlineLight.Visibility = Visibility.Visible;
+            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
+            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
+            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
+            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmSettingLampParameter.Text = SelectApproachChenterlineLight.Content.ToString();
-                ConfirmSettingSpecialLampParameter.Text = NoSpecialLight.Content.ToString();
+                ConfirmLampName.Text = SelectApproachChenterlineLight.Content.ToString();
+                ConfirmLampModel.Text = "";             
             }));
-
-            ConfigureApproachChenterlineLightParameters();
         }
 
         private void SelectApproachCrossbarLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupSpecialLights.Visibility = Visibility.Collapsed;
-            NoSpecialLight.Visibility = Visibility.Visible;
+            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
+            GroupApproachCrossbarLight.Visibility = Visibility.Visible;
+            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
+            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
+            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
+            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmSettingLampParameter.Text = SelectApproachCrossbarLight.Content.ToString();
-                ConfirmSettingSpecialLampParameter.Text = NoSpecialLight.Content.ToString();
+                ConfirmLampName.Text = SelectApproachCrossbarLight.Content.ToString();
+                ConfirmLampModel.Text = "";
             }));
-
-            ConfigureApproachCrossbarLightParameters();
         }
 
         private void SelectApproachSideRowLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupSpecialLights.Visibility = Visibility.Collapsed;
-            NoSpecialLight.Visibility = Visibility.Visible;
+            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
+            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            GroupApproachSideRowLight.Visibility = Visibility.Visible;
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
+            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
+            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
+            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmSettingLampParameter.Text = SelectApproachSideRowLight.Content.ToString();
-                ConfirmSettingSpecialLampParameter.Text = NoSpecialLight.Content.ToString();
+                ConfirmLampName.Text = SelectApproachSideRowLight.Content.ToString();
+                ConfirmLampModel.Text = "";
             }));
-
-            ConfigureApproachSideRowLightParameters();
         }
 
         private void SelectRWYThresholdWingBarLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupSpecialLights.Visibility = Visibility.Collapsed;
-            NoSpecialLight.Visibility = Visibility.Visible;
+            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
+            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Visible;
+            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
+            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
+            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
+            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmSettingLampParameter.Text = SelectRWYThresholdWingBarLight.Content.ToString();
-                ConfirmSettingSpecialLampParameter.Text = NoSpecialLight.Content.ToString();
+                ConfirmLampName.Text = SelectRWYThresholdWingBarLight.Content.ToString();
+                ConfirmLampModel.Text = "";
             }));
-
-            ConfigureRWYThresholdWingBarLightParameters();
         }
 
         private void SelectRWYThresholdLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupSpecialLights.Visibility = Visibility.Collapsed;
-            NoSpecialLight.Visibility = Visibility.Visible;
+            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
+            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdLight.Visibility = Visibility.Visible;
+            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
+            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
+            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmSettingLampParameter.Text = SelectRWYThresholdLight.Content.ToString();
-                ConfirmSettingSpecialLampParameter.Text = NoSpecialLight.Content.ToString();
+                ConfirmLampName.Text = SelectRWYThresholdLight.Content.ToString();
+                ConfirmLampModel.Text = "";
             }));
-
-            ConfigureRWYThresholdLightParameters();
         }
 
         private void SelectRWYEdgeLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupSpecialLights.Visibility = Visibility.Collapsed;
-            NoSpecialLight.Visibility = Visibility.Visible;
+            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
+            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
+            GroupRWYEdgeLight.Visibility = Visibility.Visible;
+            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
+            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
+            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmSettingLampParameter.Text = SelectRWYEdgeLight.Content.ToString();
-                ConfirmSettingSpecialLampParameter.Text = NoSpecialLight.Content.ToString();
+                ConfirmLampName.Text = SelectRWYEdgeLight.Content.ToString();
+                ConfirmLampModel.Text = "";
             }));
-
-            ConfigureRWYEdgeLightParameters();
         }
 
         private void Select12inchesRWYEndLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupSpecialLights.Visibility = Visibility.Collapsed;
-            NoSpecialLight.Visibility = Visibility.Visible;
+            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
+            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
+            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYEndLight.Visibility = Visibility.Visible;
+            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
+            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
+            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmSettingLampParameter.Text = Select12inchesRWYEndLight.Content.ToString();
-                ConfirmSettingSpecialLampParameter.Text = NoSpecialLight.Content.ToString();
+                ConfirmLampName.Text = Select12inchesRWYEndLight.Content.ToString();
+                ConfirmLampModel.Text = "";
             }));
-
-            Configure12inchesRWYEndLightParameters();
         }
 
         private void SelectRWYThresholdEndLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupSpecialLights.Visibility = Visibility.Collapsed;
-            NoSpecialLight.Visibility = Visibility.Visible;
+            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
+            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
+            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdEndLight.Visibility = Visibility.Visible;
+            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
+            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
+            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmSettingLampParameter.Text = SelectRWYThresholdEndLight.Content.ToString();
-                ConfirmSettingSpecialLampParameter.Text = NoSpecialLight.Content.ToString();
+                ConfirmLampName.Text = SelectRWYThresholdEndLight.Content.ToString();
+                ConfirmLampModel.Text = "";
             }));
-
-            ConfigureRWYThresholdEndLightParameters();
         }
 
         private void SelectRWYCenterlineLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupSpecialLights.Visibility = Visibility.Collapsed;
-            NoSpecialLight.Visibility = Visibility.Visible;
+            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
+            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
+            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYCenterlineLight.Visibility = Visibility.Visible;
+            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
+            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
+            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmSettingLampParameter.Text = SelectRWYCenterlineLight.Content.ToString();
-                ConfirmSettingSpecialLampParameter.Text = NoSpecialLight.Content.ToString();
+                ConfirmLampName.Text = SelectRWYCenterlineLight.Content.ToString();
+                ConfirmLampModel.Text = "";
             }));
-
-            ConfigureRWYCenterlineLightParameters();
         }
 
         private void SelectRWYTouchdownZoneLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupSpecialLights.Visibility = Visibility.Collapsed;
-            NoSpecialLight.Visibility = Visibility.Visible;
+            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
+            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
+            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupRWYTouchdownZoneLight.Visibility = Visibility.Visible;
+            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
+            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmSettingLampParameter.Text = SelectRWYTouchdownZoneLight.Content.ToString();
-                ConfirmSettingSpecialLampParameter.Text = NoSpecialLight.Content.ToString();
+                ConfirmLampName.Text = SelectRWYTouchdownZoneLight.Content.ToString();
+                ConfirmLampModel.Text = "";
             }));
-
-            ConfigureRWYTouchdownZoneLightParameters();
         }
 
         private void Select8inchesRWYEndLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupSpecialLights.Visibility = Visibility.Collapsed;
-            NoSpecialLight.Visibility = Visibility.Visible;
+            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
+            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
+            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
+            Group8inchesRWYEndLight.Visibility = Visibility.Visible;
+            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
+            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmSettingLampParameter.Text = Select8inchesRWYEndLight.Content.ToString();
-                ConfirmSettingSpecialLampParameter.Text = NoSpecialLight.Content.ToString();
+                ConfirmLampName.Text = Select8inchesRWYEndLight.Content.ToString();
+                ConfirmLampModel.Text = "";
             }));
-
-            Configure8inchesRWYEndLightParameters();
         }
 
         private void SelectRapidExitTWYIndicatorLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupSpecialLights.Visibility = Visibility.Collapsed;
-            NoSpecialLight.Visibility = Visibility.Visible;
+            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
+            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
+            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
+            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Visible;
+            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmSettingLampParameter.Text = SelectRapidExitTWYIndicatorLight.Content.ToString();
-                ConfirmSettingSpecialLampParameter.Text = NoSpecialLight.Content.ToString();
+                ConfirmLampName.Text = SelectRapidExitTWYIndicatorLight.Content.ToString();
+                ConfirmLampModel.Text = "";
             }));
-
-            ConfigureRapidExitTWYIndicatorLightParameters();
         }
 
         private void SelectCombinedRWYEdgeLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupSpecialLights.Visibility = Visibility.Visible;
-            NoSpecialLight.Visibility = Visibility.Collapsed;
+            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
+            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
+            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
+            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
+            GroupCombinedRWYEdgeLight.Visibility = Visibility.Visible;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmSettingLampParameter.Text = SelectCombinedRWYEdgeLight.Content.ToString();
-                ConfirmSettingSpecialLampParameter.Text = "";
+                ConfirmLampName.Text = SelectCombinedRWYEdgeLight.Content.ToString();
+                ConfirmLampModel.Text = "";
             }));
         }
-    #endregion
+        #endregion
 
-        #region 特殊灯具选择
-        private void SelectSpecialWhiteYellowAllAround_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {               
-                ConfirmSettingSpecialLampParameter.Text = SelectSpecialWhiteYellowAllAround.Content.ToString();
-            }));
-
-            ConfigureSpecialWhiteYellowAllAroundParameters();
-        }
-
-        private void SelectSpecialWhiteWhiteAllAround_Checked(object sender, RoutedEventArgs e)
+        #region 灯具型号
+        private void SelectAPPS12SLEDC_Checked(object sender, RoutedEventArgs e)
         {
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmSettingSpecialLampParameter.Text = SelectSpecialWhiteWhiteAllAround.Content.ToString();
+                ConfirmLampModel.Text = SelectAPPS12SLEDC.Content.ToString();
             }));
 
-            ConfigureSpecialWhiteWhiteAllAroundParameters();
+            ConfigureAPPS12SLEDCParameters();
         }
 
-        private void SelectSpecialWhiteRedAllAround_Checked(object sender, RoutedEventArgs e)
+        private void SelectAPPS12LLEDC_Checked(object sender, RoutedEventArgs e)
         {
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmSettingSpecialLampParameter.Text = SelectSpecialWhiteRedAllAround.Content.ToString();
+                ConfirmLampModel.Text = SelectAPPS12LLEDC.Content.ToString();
             }));
 
-            ConfigureSpecialWhiteRedAllAroundParameters();
+            ConfigureAPPS12LLEDCParameters();
         }
 
-        private void SelectSpecialRedYellowAllAround_Checked(object sender, RoutedEventArgs e)
+        private void SelectAPPS12RLEDC_Checked(object sender, RoutedEventArgs e)
         {
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmSettingSpecialLampParameter.Text = SelectSpecialRedYellowAllAround.Content.ToString();
+                ConfirmLampModel.Text = SelectAPPS12RLEDC.Content.ToString();
             }));
 
-            ConfigureSpecialRedYellowAllAroundParameters();
+            ConfigureAPPS12RLEDCParameters();
         }
 
-        private void SelectSpecialWhiteYellow_Checked(object sender, RoutedEventArgs e)
+        private void SelectAPSS12LLEDR_Checked(object sender, RoutedEventArgs e)
         {
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmSettingSpecialLampParameter.Text = SelectSpecialWhiteYellow.Content.ToString();
+                ConfirmLampModel.Text = SelectAPSS12LLEDR.Content.ToString();
             }));
 
-            ConfigureSpecialWhiteYellowParameters();
+            ConfigureAPSS12LLEDRParameters();
         }
 
-        private void SelectSpecialWhiteWhite_Checked(object sender, RoutedEventArgs e)
+        private void SelectAPSS12RLEDR_Checked(object sender, RoutedEventArgs e)
         {
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmSettingSpecialLampParameter.Text = SelectSpecialWhiteWhite.Content.ToString();
+                ConfirmLampModel.Text = SelectAPSS12RLEDR.Content.ToString();
             }));
 
-            ConfigureSpecialWhiteWhiteParameters();
+            ConfigureAPSS12RLEDRParameters();
         }
 
-        private void SelectSpecialWhiteRed_Checked(object sender, RoutedEventArgs e)
+        private void SelectTHWS12LLEDG_Checked(object sender, RoutedEventArgs e)
         {
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmSettingSpecialLampParameter.Text = SelectSpecialWhiteRed.Content.ToString();
+                ConfirmLampModel.Text = SelectTHWS12LLEDG.Content.ToString();
             }));
 
-            ConfigureSpecialWhiteRedParameters();
+            ConfigureTHWS12LLEDGParameters();
         }
 
-        private void SelectSpecialRedYellow_Checked(object sender, RoutedEventArgs e)
+        private void SelectTHWS12RLEDG_Checked(object sender, RoutedEventArgs e)
         {
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmSettingSpecialLampParameter.Text = SelectSpecialRedYellow.Content.ToString();
+                ConfirmLampModel.Text = SelectTHWS12RLEDG.Content.ToString();
             }));
 
-            ConfigureSpecialRedYellowParameters();
+            ConfigureTHWS12RLEDGParameters();
+        }
+
+        private void SelectTHRS12LLEDG_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTHRS12LLEDG.Content.ToString();
+            }));
+
+            ConfigureTHRS12LLEDGParameters();
+        }
+
+        private void SelectTHRS12RLEDG_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTHRS12RLEDG.Content.ToString();
+            }));
+
+            ConfigureTHRS12RLEDGParameters();
+        }
+
+        private void SelectTHRS12SLEDG_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTHRS12SLEDG.Content.ToString();
+            }));
+
+            ConfigureTHRS12SLEDGParameters();
+        }
+
+        private void SelectRELS12LLEDYC_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELS12LLEDYC.Content.ToString();
+            }));
+
+            ConfigureRELS12LLEDYCParameters();
+        }
+
+        private void SelectRELS12RLEDYC_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELS12RLEDYC.Content.ToString();
+            }));
+
+            ConfigureRELS12RLEDYCParameters();
+        }
+
+        private void SelectRELS12LLEDCY_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELS12LLEDCY.Content.ToString();
+            }));
+
+            ConfigureRELS12LLEDCYParameters();
+        }
+
+        private void SelectRELS12RLEDCY_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELS12RLEDCY.Content.ToString();
+            }));
+
+            ConfigureRELS12RLEDCYParameters();
+        }
+
+        private void SelectRELS12LLEDCC_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELS12LLEDCC.Content.ToString();
+            }));
+
+            ConfigureRELS12LLEDCCParameters();
+        }
+
+        private void SelectRELS12RLEDCC_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELS12RLEDCC.Content.ToString();
+            }));
+
+            ConfigureRELS12RLEDCCParameters();
+        }
+
+        private void SelectRELS12LLEDCR_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELS12LLEDCR.Content.ToString();
+            }));
+
+            ConfigureRELS12LLEDCRParameters();
+        }
+
+        private void SelectRELS12RLEDCR_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELS12RLEDCR.Content.ToString();
+            }));
+
+            ConfigureRELS12RLEDCRParameters();
+        }
+
+        private void SelectRELS12LLEDRC_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELS12LLEDRC.Content.ToString();
+            }));
+
+            ConfigureRELS12LLEDRCParameters();
+        }
+
+        private void SelectRELS12RLEDRC_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELS12RLEDRC.Content.ToString();
+            }));
+
+            ConfigureRELS12RLEDRCParameters();
+        }
+
+        private void SelectENDS12LEDR_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectENDS12LEDR.Content.ToString();
+            }));
+
+            ConfigureENDS12LEDRParameters();
+        }
+
+        private void SelectTAES12LLEDGR1P_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTAES12LLEDGR1P.Content.ToString();
+            }));
+
+            ConfigureTAES12LLEDGR1PParameters();
+        }
+
+        private void SelectTAES12RLEDGR1P_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTAES12RLEDGR1P.Content.ToString();
+            }));
+
+            ConfigureTAES12RLEDGR1PParameters();
+        }
+
+        private void SelectTAES12SLEDGR1P_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTAES12SLEDGR1P.Content.ToString();
+            }));
+
+            ConfigureTAES12SLEDGR1PParameters();
+        }
+
+        private void SelectRCLS08LEDCB1P_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRCLS08LEDCB1P.Content.ToString();
+            }));
+
+            ConfigureRCLS08LEDCB1PParameters();
+        }
+
+        private void SelectRCLS08LEDRB1P_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRCLS08LEDRB1P.Content.ToString();
+            }));
+
+            ConfigureRCLS08LEDRB1PParameters();
+        }
+
+        private void SelectRCLS08LEDCC1P_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRCLS08LEDCC1P.Content.ToString();
+            }));
+
+            ConfigureRCLS08LEDCC1PParameters();
+        }
+
+        private void SelectRCLS08LEDRC1P_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRCLS08LEDRC1P.Content.ToString();
+            }));
+
+            ConfigureRCLS08LEDRC1PParameters();
+        }
+
+        private void SelectTDZS08LLEDC_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTDZS08LLEDC.Content.ToString();
+            }));
+
+            ConfigureTDZS08LLEDCParameters();
+        }
+
+        private void SelectTDZS08RLEDC_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTDZS08RLEDC.Content.ToString();
+            }));
+
+            ConfigureTDZS08RLEDCParameters();
+        }
+
+        private void SelectENDS08LEDR_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectENDS08LEDR.Content.ToString();
+            }));
+
+            ConfigureENDS08LEDRParameters();
+        }
+
+        private void SelectRAPS08LEDY_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRAPS08LEDY.Content.ToString();
+            }));
+
+            ConfigureRAPS08LEDYParameters();
+        }
+
+        private void SelectRELC12LEDCYC1P_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELC12LEDCYC1P.Content.ToString();
+            }));
+
+            ConfigureRELC12LEDCYC1PParameters();
+        }
+
+        private void SelectRELC12LEDCCC1P_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELC12LEDCCC1P.Content.ToString();
+            }));
+
+            ConfigureRELC12LEDCCC1PParameters();
+        }
+
+        private void SelectRELC12LEDCRC1P_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELC12LEDCRC1P.Content.ToString();
+            }));
+
+            ConfigureRELC12LEDCRC1PParameters();
+        }
+
+        private void SelectRELC12LEDRYC1P_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELC12LEDRYC1P.Content.ToString();
+            }));
+
+            ConfigureRELC12LEDRYC1PParameters();
+        }
+
+        private void SelectRELC12LEDCYB1P_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELC12LEDCYB1P.Content.ToString();
+            }));
+
+            ConfigureRELC12LEDCYB1PParameters();
+        }
+
+        private void SelectRELC12LEDCCB1P_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELC12LEDCCB1P.Content.ToString();
+            }));
+
+            ConfigureRELC12LEDCCB1PParameters();
+        }
+
+        private void SelectRELC12LEDCRB1P_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELC12LEDCRB1P.Content.ToString();
+            }));
+
+            ConfigureRELC12LEDCRB1PParameters();
+        }
+
+        private void SelectRELC12LEDRYB1P_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELC12LEDRYB1P.Content.ToString();
+            }));
+
+            ConfigureRELC12LEDRYB1PParameters();
         }
     #endregion
 
@@ -1276,18 +1838,18 @@ namespace LEDLampsConfigurationSoftware
         }
     #endregion
 
-        #region 工厂模式配置一般灯具参数
-        private void ConfigureApproachChenterlineLightParameters()
+        #region 工厂模式配置灯具参数
+        private void ConfigureAPPS12SLEDCParameters()
         {
-            settingIA[0] = 0x00;
+            settingIA[0] = 0x01;
             settingIA[1] = 0x00;
             settingIA[2] = 0x00;
             settingIA[3] = 0x00;
-            settingIB[0] = 0x00;
+            settingIB[0] = 0x01;
             settingIB[1] = 0x00;
             settingIB[2] = 0x00;
             settingIB[3] = 0x00;
-            settingIIA[0] = 0x00;
+            settingIIA[0] = 0x01;
             settingIIA[1] = 0x00;
             settingIIA[2] = 0x00;
             settingIIA[3] = 0x00;
@@ -1295,22 +1857,22 @@ namespace LEDLampsConfigurationSoftware
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x00;
+            settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x01;               
         }
 
-        private void ConfigureApproachCrossbarLightParameters()
+        private void ConfigureAPPS12LLEDCParameters()
         {
-            settingIA[0] = 0x00;
+            settingIA[0] = 0x01;
             settingIA[1] = 0x00;
             settingIA[2] = 0x00;
             settingIA[3] = 0x00;
-            settingIB[0] = 0x00;
+            settingIB[0] = 0x01;
             settingIB[1] = 0x00;
             settingIB[2] = 0x00;
             settingIB[3] = 0x00;
-            settingIIA[0] = 0x00;
+            settingIIA[0] = 0x01;
             settingIIA[1] = 0x00;
             settingIIA[2] = 0x00;
             settingIIA[3] = 0x00;
@@ -1318,22 +1880,22 @@ namespace LEDLampsConfigurationSoftware
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x00;
+            settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x02;
         }
 
-        private void ConfigureApproachSideRowLightParameters()
+        private void ConfigureAPPS12RLEDCParameters()
         {
-            settingIA[0] = 0x00;
+            settingIA[0] = 0x01;
             settingIA[1] = 0x00;
             settingIA[2] = 0x00;
             settingIA[3] = 0x00;
-            settingIB[0] = 0x00;
+            settingIB[0] = 0x01;
             settingIB[1] = 0x00;
             settingIB[2] = 0x00;
             settingIB[3] = 0x00;
-            settingIIA[0] = 0x00;
+            settingIIA[0] = 0x01;
             settingIIA[1] = 0x00;
             settingIIA[2] = 0x00;
             settingIIA[3] = 0x00;
@@ -1341,12 +1903,12 @@ namespace LEDLampsConfigurationSoftware
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x00;
+            settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x03;
         }
 
-        private void ConfigureRWYThresholdWingBarLightParameters()
+        private void ConfigureAPSS12LLEDRParameters()
         {
             settingIA[0] = 0x00;
             settingIA[1] = 0x00;
@@ -1369,7 +1931,7 @@ namespace LEDLampsConfigurationSoftware
             settingLampsNumber = 0x04;
         }
 
-        private void ConfigureRWYThresholdLightParameters()
+        private void ConfigureAPSS12RLEDRParameters()
         {
             settingIA[0] = 0x00;
             settingIA[1] = 0x00;
@@ -1392,7 +1954,7 @@ namespace LEDLampsConfigurationSoftware
             settingLampsNumber = 0x05;
         }
 
-        private void ConfigureRWYEdgeLightParameters()
+        private void ConfigureTHWS12LLEDGParameters()
         {
             settingIA[0] = 0x00;
             settingIA[1] = 0x00;
@@ -1415,7 +1977,7 @@ namespace LEDLampsConfigurationSoftware
             settingLampsNumber = 0x06;
         }
 
-        private void Configure12inchesRWYEndLightParameters()
+        private void ConfigureTHWS12RLEDGParameters()
         {
             settingIA[0] = 0x00;
             settingIA[1] = 0x00;
@@ -1438,7 +2000,7 @@ namespace LEDLampsConfigurationSoftware
             settingLampsNumber = 0x07;
         }
 
-        private void ConfigureRWYThresholdEndLightParameters()
+        private void ConfigureTHRS12LLEDGParameters()
         {
             settingIA[0] = 0x00;
             settingIA[1] = 0x00;
@@ -1461,7 +2023,7 @@ namespace LEDLampsConfigurationSoftware
             settingLampsNumber = 0x08;
         }
 
-        private void ConfigureRWYCenterlineLightParameters()
+        private void ConfigureTHRS12RLEDGParameters()
         {
             settingIA[0] = 0x00;
             settingIA[1] = 0x00;
@@ -1484,7 +2046,7 @@ namespace LEDLampsConfigurationSoftware
             settingLampsNumber = 0x09;
         }
 
-        private void ConfigureRWYTouchdownZoneLightParameters()
+        private void ConfigureTHRS12SLEDGParameters()
         {
             settingIA[0] = 0x00;
             settingIA[1] = 0x00;
@@ -1507,7 +2069,7 @@ namespace LEDLampsConfigurationSoftware
             settingLampsNumber = 0x0A;
         }
 
-        private void Configure8inchesRWYEndLightParameters()
+        private void ConfigureRELS12LLEDYCParameters()
         {
             settingIA[0] = 0x00;
             settingIA[1] = 0x00;
@@ -1530,7 +2092,7 @@ namespace LEDLampsConfigurationSoftware
             settingLampsNumber = 0x0B;
         }
 
-        private void ConfigureRapidExitTWYIndicatorLightParameters()
+        private void ConfigureRELS12RLEDYCParameters()
         {
             settingIA[0] = 0x00;
             settingIA[1] = 0x00;
@@ -1553,56 +2115,513 @@ namespace LEDLampsConfigurationSoftware
             settingLampsNumber = 0x0C;
         }
 
-        #endregion
-
-        #region 工厂模式配置特殊灯具参数
-        private void ConfigureSpecialWhiteYellowAllAroundParameters()
+        private void ConfigureRELS12LLEDCYParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x09;
-            settingIA[2] = 0x03;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
-            settingIB[1] = 0x07;
+            settingIB[1] = 0x00;
             settingIB[2] = 0x00;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
-            settingIIA[1] = 0x04;
-            settingIIA[2] = 0x05;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
             settingIIA[3] = 0x00;
             settingIIB[0] = 0x00;
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x01;
+            settingReadRFlag = 0x00;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x0D;
         }
 
-        private void ConfigureSpecialWhiteWhiteAllAroundParameters()
+        private void ConfigureRELS12RLEDCYParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x09;
-            settingIA[2] = 0x03;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
-            settingIB[1] = 0x09;
-            settingIB[2] = 0x03;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
-            settingIIA[1] = 0x04;
-            settingIIA[2] = 0x05;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
             settingIIA[3] = 0x00;
             settingIIB[0] = 0x00;
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x01;
+            settingReadRFlag = 0x00;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x0E;
         }
 
-        private void ConfigureSpecialWhiteRedAllAroundParameters()
+        private void ConfigureRELS12LLEDCCParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x0F;
+        }
+
+        private void ConfigureRELS12RLEDCCParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x10;
+        }
+
+        private void ConfigureRELS12LLEDCRParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x11;
+        }
+
+        private void ConfigureRELS12RLEDCRParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x12;
+        }
+
+        private void ConfigureRELS12LLEDRCParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x13;
+        }
+
+        private void ConfigureRELS12RLEDRCParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x14;
+        }
+
+        private void ConfigureENDS12LEDRParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x15;
+        }
+
+        private void ConfigureTAES12LLEDGR1PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x16;
+        }
+
+        private void ConfigureTAES12RLEDGR1PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x17;
+        }
+
+        private void ConfigureTAES12SLEDGR1PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x18;
+        }
+
+        private void ConfigureRCLS08LEDCB1PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x19;
+        }
+
+        private void ConfigureRCLS08LEDRB1PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x1A;
+        }
+
+        private void ConfigureRCLS08LEDCC1PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x1B;
+        }
+
+        private void ConfigureRCLS08LEDRC1PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x1C;
+        }
+
+        private void ConfigureTDZS08LLEDCParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x1D;
+        }
+
+        private void ConfigureTDZS08RLEDCParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x1E;
+        }
+
+        private void ConfigureENDS08LEDRParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x1F;
+        }
+
+        private void ConfigureRAPS08LEDYParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x20;
+        }
+
+        private void ConfigureRELC12LEDCYC1PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x09;
+            settingIA[2] = 0x03;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x07;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x04;
+            settingIIA[2] = 0x05;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x01;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x21;
+        }
+
+        private void ConfigureRELC12LEDCCC1PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x09;
+            settingIA[2] = 0x03;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x09;
+            settingIB[2] = 0x03;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x04;
+            settingIIA[2] = 0x05;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x01;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x22;
+        }
+
+        private void ConfigureRELC12LEDCRC1PParameters()
         {
             settingIA[0] = 0x00;
             settingIA[1] = 0x09;
@@ -1622,10 +2641,10 @@ namespace LEDLampsConfigurationSoftware
             settingIIB[3] = 0x00;
             settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
-            settingLampsNumber = 0x0F;
+            settingLampsNumber = 0x23;
         }
 
-        private void ConfigureSpecialRedYellowAllAroundParameters()
+        private void ConfigureRELC12LEDRYC1PParameters()
         {
             settingIA[0] = 0x00;
             settingIA[1] = 0x05;
@@ -1645,10 +2664,10 @@ namespace LEDLampsConfigurationSoftware
             settingIIB[3] = 0x00;
             settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
-            settingLampsNumber = 0x10;
+            settingLampsNumber = 0x24;
         }
 
-        private void ConfigureSpecialWhiteYellowParameters()
+        private void ConfigureRELC12LEDCYB1PParameters()
         {
             settingIA[0] = 0x00;
             settingIA[1] = 0x09;
@@ -1668,10 +2687,10 @@ namespace LEDLampsConfigurationSoftware
             settingIIB[3] = 0x00;
             settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
-            settingLampsNumber = 0x11;
+            settingLampsNumber = 0x25;
         }
 
-        private void ConfigureSpecialWhiteWhiteParameters()
+        private void ConfigureRELC12LEDCCB1PParameters()
         {
             settingIA[0] = 0x00;
             settingIA[1] = 0x09;
@@ -1691,10 +2710,10 @@ namespace LEDLampsConfigurationSoftware
             settingIIB[3] = 0x00;
             settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
-            settingLampsNumber = 0x12;
+            settingLampsNumber = 0x26;
         }
 
-        private void ConfigureSpecialWhiteRedParameters()
+        private void ConfigureRELC12LEDCRB1PParameters()
         {
             settingIA[0] = 0x00;
             settingIA[1] = 0x09;
@@ -1714,10 +2733,10 @@ namespace LEDLampsConfigurationSoftware
             settingIIB[3] = 0x00;
             settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
-            settingLampsNumber = 0x13;
+            settingLampsNumber = 0x27;
         }
 
-        private void ConfigureSpecialRedYellowParameters()
+        private void ConfigureRELC12LEDRYB1PParameters()
         {
             settingIA[0] = 0x00;
             settingIA[1] = 0x05;
@@ -1737,7 +2756,7 @@ namespace LEDLampsConfigurationSoftware
             settingIIB[3] = 0x00;
             settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
-            settingLampsNumber = 0x14;
+            settingLampsNumber = 0x28;
         }
         #endregion
 
@@ -1991,7 +3010,7 @@ namespace LEDLampsConfigurationSoftware
 
         #endregion
 
-        #region 在生产电流数组函数中清空指定文本框
+        #region 在生成电流数组函数中清空指定文本框
         private void PrugeTextBoxContent(int Number)
         {
             switch (Number)
@@ -2074,6 +3093,27 @@ namespace LEDLampsConfigurationSoftware
         }
         #endregion
 
-
+        #region TabControl控件的页面切换处理
+        private void SelectMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                if (FactoryMode.IsSelected == true)
+                {
+                    SetParameterIA.Text = "";
+                    SetParameterIB.Text = "";
+                    SetParameterIIA.Text = "";
+                    SetParameterIIB.Text = "";
+                    ShowSetParameterCommand.Text = "";
+                }
+                if (DeveloperMode.IsSelected == true)
+                {
+                    ConfirmLampName.Text = "";
+                    ConfirmLampModel.Text = "";
+                    ConfirmSettingOpenCircuitParameter.Text = "";
+                }                
+            }));           
+        }
+        #endregion
     }
 }
