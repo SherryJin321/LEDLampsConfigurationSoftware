@@ -37,6 +37,7 @@
                         <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="130" Height="40" Canvas.Left="50" Canvas.Top="230" Background="AliceBlue">
                             <Button x:Name="CloseSerialPort" Content="关闭串口" Click="CloseSerialPort_Click"/>
                         </Border>
+                        <Label Name="LampInchesLabel" Foreground="Red" Canvas.Left="50" Canvas.Top="330"/>
                     </Canvas>
                 </TabItem>
 
@@ -192,31 +193,31 @@
                                 <Canvas>
                                     <Label  Content="版本号：" Canvas.Left="0" Canvas.Top="10"/>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="310" Canvas.Left="0" Canvas.Top="40">
-                                        <TextBlock x:Name="AnswerVersion" Height="40" Width="310" TextWrapping="Wrap"/>
+                                        <TextBlock x:Name="AnswerVersion" Height="40" Width="310" TextWrapping="Wrap" Padding="10,8,0,0"/>
                                     </Border>
                                     <Label  Content="灯具型号：" Canvas.Left="0" Canvas.Top="90"/>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="310" Canvas.Left="0" Canvas.Top="120">
-                                        <TextBlock x:Name="AnswerLampModel" Height="40" Width="310" TextWrapping="Wrap"/>
+                                        <TextBlock x:Name="AnswerLampModel" Height="40" Width="310" TextWrapping="Wrap" Padding="10,8,0,0"/>
                                     </Border>
                                     <Label  Content="电流 IA：" Canvas.Left="0" Canvas.Top="180"/>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="180" Canvas.Left="95" Canvas.Top="180">
-                                        <TextBlock x:Name="AnswerIA" Height="40" Width="180" TextWrapping="Wrap"/>
+                                        <TextBlock x:Name="AnswerIA" Height="40" Width="180" TextWrapping="Wrap" Padding="10,8,0,0"/>
                                     </Border>
                                     <Label  Content="电流 IB：" Canvas.Left="0" Canvas.Top="240"/>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="180" Canvas.Left="95" Canvas.Top="240">
-                                        <TextBlock x:Name="AnswerIB" Height="40" Width="180" TextWrapping="Wrap"/>
+                                        <TextBlock x:Name="AnswerIB" Height="40" Width="180" TextWrapping="Wrap" Padding="10,8,0,0"/>
                                     </Border>
                                     <Label  Content="电流 IIA：" Canvas.Left="0" Canvas.Top="300"/>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="180" Canvas.Left="95" Canvas.Top="300">
-                                        <TextBlock x:Name="AnswerIIA" Height="40" Width="180" TextWrapping="Wrap"/>
+                                        <TextBlock x:Name="AnswerIIA" Height="40" Width="180" TextWrapping="Wrap" Padding="10,8,0,0"/>
                                     </Border>
                                     <Label  Content="电流 IIB：" Canvas.Left="0" Canvas.Top="360"/>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="180" Canvas.Left="95" Canvas.Top="360">
-                                        <TextBlock x:Name="AnswerIIB" Height="40" Width="180" TextWrapping="Wrap"/>
+                                        <TextBlock x:Name="AnswerIIB" Height="40" Width="180" TextWrapping="Wrap" Padding="10,8,0,0"/>
                                     </Border>
                                     <Label  Content="开路状态：" Canvas.Left="0" Canvas.Top="420"/>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="180" Canvas.Left="95" Canvas.Top="420">
-                                        <TextBlock x:Name="AnswerOpenCircuit" Height="40" Width="180" TextWrapping="Wrap"/>
+                                        <TextBlock x:Name="AnswerOpenCircuit" Height="40" Width="180" TextWrapping="Wrap" Padding="10,8,0,0"/>
                                     </Border>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40"  Width="130" Background="AliceBlue" Canvas.Left="10" Canvas.Top="538">
                                         <Button x:Name="QueryVersion" Content="版本查询" Click="QueryVersion_Click"/>
@@ -226,7 +227,7 @@
                         </Border>
                     </Canvas>
                 </TabItem>
-                <TabItem Header="开发者模式" FontSize="18" Background="AliceBlue" Height="28" Width="110" Margin="-5,0,5,0" Padding="0" Visibility="Visible" x:Name="DeveloperMode">
+                <TabItem Header="开发者模式" FontSize="18" Background="AliceBlue" Height="28" Width="110" Margin="-5,0,5,0" Padding="0" Visibility="Collapsed" x:Name="DeveloperMode">
                     <Canvas Background="White">
                         <Border BorderBrush="#FF0A51A1" BorderThickness="3" CornerRadius="5" Width="808" Height="612" Canvas.Left="10" Canvas.Top="10">
                             <GroupBox Header="参数设置" FontSize="16" Width="808" Height="612" BorderThickness="0">
@@ -319,18 +320,18 @@
                                         <Button Content="状态查询" x:Name="QueryStatus" Click="QueryStatus_Click" />
                                     </Border>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="310" Canvas.Left="0" Canvas.Top="50">
-                                        <TextBlock x:Name="AnswerStatus" Height="40" Width="310" TextWrapping="Wrap"/>
+                                        <TextBlock x:Name="AnswerStatus" Height="40" Width="310" TextWrapping="Wrap" Padding="10,8,0,0"/>
                                     </Border>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Left="10" Canvas.Top="200" Background="AliceBlue">
-                                        <Button Content="导出原始数据" x:Name="CreatTXT" />
+                                        <Button Content="导出原始数据" x:Name="CreatTXT" Click="CreatTXT_Click" />
                                     </Border>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Left="10" Canvas.Top="270" Background="AliceBlue">
                                         <Button Content="导出最终数据" x:Name="CreatExcel" Click="CreatExcel_Click" />
                                     </Border>
                                     <Label Content="状态信息：" Canvas.Left="0" Canvas.Top="10"/>
                                     <TextBlock Text="说明：若灯具状态查询耗时停止刷新，表明灯具状态查询完成，可导出数据。" Height="50" Width="316" TextWrapping="Wrap" Canvas.Left="0" Canvas.Top="110"/>
-                                    <Label x:Name="ShowTXTHandleProcess" Canvas.Left="150" Canvas.Top="200" Width="150" Height="40" Content="正在导出原始数据..." Padding="0,8,0,0" Foreground="Red" Visibility="Collapsed"/>
-                                    <Label x:Name="ShowEXCELHandleProcess" Canvas.Left="150" Canvas.Top="270" Width="150" Height="40" Content="正在导出最终数据..." Padding="0,8,0,0" Foreground="Red" Visibility="Collapsed"/>
+                                    <Label x:Name="ShowTXTHandleProcess" Canvas.Left="150" Canvas.Top="200" Width="150" Height="40" Content="正在导出原始数据..." Padding="0,8,0,0" Foreground="Red" Visibility="Hidden"/>
+                                    <Label x:Name="ShowEXCELHandleProcess" Canvas.Left="150" Canvas.Top="270" Width="150" Height="40" Content="正在导出最终数据..." Padding="0,8,0,0" Foreground="Red" Visibility="Hidden"/>
                                 </Canvas>
                             </GroupBox>
                         </Border>

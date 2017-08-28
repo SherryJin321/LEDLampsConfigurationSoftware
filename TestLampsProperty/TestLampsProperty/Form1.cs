@@ -42,37 +42,37 @@ namespace TestLampsProperty
             //timer1.Start();
             if (lampsSerialPort.IsOpen)
             {
-                //lampsSerialPort.Write(queryStatusCommand, 0, 28);
-
-                //textBox1.Text += "TX:";
-                //for (int i = 0; i < queryStatusCommand.Length; i++)
-                //{
-
-                //    if (i < queryStatusCommand.Length - 1)
-                //    {
-                //        textBox1.Text += Convert.ToString(queryStatusCommand[i], 16).PadLeft(2, '0').ToUpper() + " ";
-                //    }
-                //    else
-                //    {
-                //        textBox1.Text += Convert.ToString(queryStatusCommand[i], 16).PadLeft(2, '0').ToUpper() + "\r\n";
-                //    }
-                //}
-
-                lampsSerialPort.Write(queryVersionCommand, 0, 28);
+                lampsSerialPort.Write(queryStatusCommand, 0, 28);
 
                 textBox1.Text += "TX:";
-                for (int i = 0; i < queryVersionCommand.Length; i++)
+                for (int i = 0; i < queryStatusCommand.Length; i++)
                 {
 
-                    if (i < queryVersionCommand.Length - 1)
+                    if (i < queryStatusCommand.Length - 1)
                     {
-                        textBox1.Text += Convert.ToString(queryVersionCommand[i], 16).PadLeft(2, '0').ToUpper() + "-";
+                        textBox1.Text += Convert.ToString(queryStatusCommand[i], 16).PadLeft(2, '0').ToUpper() + " ";
                     }
                     else
                     {
-                        textBox1.Text += Convert.ToString(queryVersionCommand[i], 16).PadLeft(2, '0').ToUpper() + "\r\n";
+                        textBox1.Text += Convert.ToString(queryStatusCommand[i], 16).PadLeft(2, '0').ToUpper() + "\r\n";
                     }
                 }
+
+                //lampsSerialPort.Write(queryVersionCommand, 0, 28);
+
+                //textBox1.Text += "TX:";
+                //for (int i = 0; i < queryVersionCommand.Length; i++)
+                //{
+
+                //    if (i < queryVersionCommand.Length - 1)
+                //    {
+                //        textBox1.Text += Convert.ToString(queryVersionCommand[i], 16).PadLeft(2, '0').ToUpper() + "-";
+                //    }
+                //    else
+                //    {
+                //        textBox1.Text += Convert.ToString(queryVersionCommand[i], 16).PadLeft(2, '0').ToUpper() + "\r\n";
+                //    }
+                //}
             }
 
         }

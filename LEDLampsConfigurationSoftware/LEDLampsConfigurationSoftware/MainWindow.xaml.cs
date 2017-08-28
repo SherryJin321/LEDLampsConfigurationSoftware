@@ -16,6 +16,7 @@ using System.IO.Ports;
 using System.Collections;
 using Microsoft.Office.Interop.Excel;
 using System.Threading;
+using System.IO;
 
 namespace LEDLampsConfigurationSoftware
 {
@@ -27,7 +28,7 @@ namespace LEDLampsConfigurationSoftware
     {
         #region 设置全局变量
         SerialPort lampsPort = new SerialPort();  //定义串口       
-        int judgeFeedbackCommand = 0;  //设置参数反馈指令为1，版本查询反馈指令为2，状态查询反馈指令为3，无反馈指令为0
+        int judgeFeedbackCommand = 0;  //设置参数反馈指令为1，版本查询反馈指令为2，状态查询反馈指令为3，无反馈指令为0，打开串口时发送版本查询指令为4
         int LampInches = 0;            //灯具尺寸说明： 12: 12寸，8: 8寸                              
         #endregion
 
@@ -166,7 +167,12 @@ namespace LEDLampsConfigurationSoftware
                 }
                 if(lampsPort.IsOpen==true)
                 {
-                    if(MessageBox.Show("串口已打开！", "提示", MessageBoxButton.OK, MessageBoxImage.Information)==MessageBoxResult.OK)
+                    judgeFeedbackCommand = 4;
+                    LampInchesLabel.Content = "";
+                    lampsPort.Write(queryVersionCommand, 0, 28);
+                    Thread.Sleep(50);
+
+                    if (MessageBox.Show("串口已打开！", "提示", MessageBoxButton.OK, MessageBoxImage.Information)==MessageBoxResult.OK)
                     {
                         FactoryMode.IsSelected = true;
                     }                    
@@ -184,9 +190,8 @@ namespace LEDLampsConfigurationSoftware
             {
                 if (lampsPort.IsOpen == true)
                 {
-                    lampsPort.Close();
-                    AnswerStatus.Text = "";
-                    AnswerVersion.Text = "";                  
+                    lampsPort.Close();                    
+                    LampInchesLabel.Content = "";                    
                 }
                 if(lampsPort.IsOpen==false)
                 {
@@ -219,8 +224,7 @@ namespace LEDLampsConfigurationSoftware
         {
             if(lampsPort.IsOpen)
             {
-                judgeFeedbackCommand = 2;
-                AnswerVersion.Text = "";
+                judgeFeedbackCommand = 2;                
                 lampsPort.Write(queryVersionCommand, 0, 28);
                 Thread.Sleep(50);
                 if(judgeFeedbackCommand==2)
@@ -242,7 +246,7 @@ namespace LEDLampsConfigurationSoftware
         {
             if (lampsPort.IsOpen)
             {
-                if(ShowEXCELHandleProcess.Visibility==Visibility.Hidden)
+                if(ShowEXCELHandleProcess.Visibility==Visibility.Hidden&&ShowTXTHandleProcess.Visibility==Visibility.Hidden)
                 {
                     ReceivedStatusFeedbackCommand.Clear();
                     judgeFeedbackCommand = 3;
@@ -279,6 +283,7 @@ namespace LEDLampsConfigurationSoftware
                         case 1: SetParameterFeedbackCommand(); break;
                         case 2: QueryVersionFeedbackCommand(); break;
                         case 3: QueryStatusFeedbackCommand(); break;
+                        case 4: ConfirmLampInches(); break;
                     }
                 }
                 //else
@@ -359,20 +364,25 @@ namespace LEDLampsConfigurationSoftware
                         currentRatio4 = CalculateRealCurrentValue(dataReceived[13]);
                         
                         this.Dispatcher.Invoke(new System.Action(() =>
-                        {                            
+                        {
+                            PurgeAnswerVersionTextblock();
 
-                            AnswerVersion.Text = "20" + year.ToString() + "年" + month.ToString() + "月" + date.ToString() + "日 " + hardwareVersion.ToString() + "寸 " + versionBigNumber.ToString() + "." + versionSmallNumber.ToString() + "版" + "\r";
-                            AnswerVersion.Text += "I1: " + currentRatio1.ToString() + " , I2: " + currentRatio2.ToString() + " , I3: " + currentRatio3.ToString() + " , I4: " + currentRatio4.ToString() + "\r";
+                            AnswerVersion.Text = hardwareVersion.ToString() + "寸 " + versionBigNumber.ToString() + "." + versionSmallNumber.ToString() + "版 " + " 20" + year.ToString() + "年" + month.ToString() + "月" + date.ToString() + "日";
+                            AnswerLampModel.Text= LampsContentShow(lampsNumber);
+                            AnswerIA.Text = currentRatio1.ToString();
+                            AnswerIB.Text = currentRatio2.ToString();
+                            AnswerIIA.Text = currentRatio3.ToString();
+                            AnswerIIB.Text = currentRatio4.ToString();                           
                             if (breakFlag == 0)
                             {
-                                AnswerVersion.Text += "不带开路" + "\r";
+                                AnswerOpenCircuit.Text = "不带开路";
                             }
                             else
                             {
-                                AnswerVersion.Text += "带开路" + "\r";
+                                AnswerOpenCircuit.Text = "带开路";
                             }
 
-                            AnswerVersion.Text += LampsContentShow(lampsNumber);
+                            
                         }));
 
                         MessageBox.Show("版本查询成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -392,6 +402,76 @@ namespace LEDLampsConfigurationSoftware
             else
             {
                 MessageBox.Show("指令长度错误!请重新查询版本", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+        }
+
+        private void ConfirmLampInches()
+        {
+            judgeFeedbackCommand = 0;
+            if (dataReceived.Length == 20)
+            {
+                byte checkOutValue = CalculateCheckOutValue(dataReceived);
+                if (checkOutValue == dataReceived[dataReceived.Length - 1])
+                {
+                    if (dataReceived[0] == 0x02 && dataReceived[1] == 0x89 && dataReceived[2] == 0x22 && dataReceived[3] == 0x85)
+                    {                        
+                        hardwareVersion = dataReceived[7];                        
+
+                        this.Dispatcher.Invoke(new System.Action(() =>
+                        {
+                            LampInchesLabel.Content = "";
+                            LampInchesLabel.Content = "当前灯具为" + hardwareVersion.ToString() + "寸灯具";
+                                              
+                            if(hardwareVersion==8)
+                            {
+                                SelectApproachChenterlineLight.IsEnabled = false;
+                                SelectApproachCrossbarLight.IsEnabled = false;
+                                SelectApproachSideRowLight.IsEnabled = false;
+                                SelectRWYThresholdWingBarLight.IsEnabled = false;
+                                SelectRWYThresholdLight.IsEnabled = false;
+                                SelectRWYEdgeLight.IsEnabled = false;
+                                Select12inchesRWYEndLight.IsEnabled = false;
+                                SelectRWYThresholdEndLight.IsEnabled = false;
+                                SelectRWYCenterlineLight.IsEnabled = true;
+                                SelectRWYTouchdownZoneLight.IsEnabled = true;
+                                Select8inchesRWYEndLight.IsEnabled = true;
+                                SelectRapidExitTWYIndicatorLight.IsEnabled = true;
+                                SelectCombinedRWYEdgeLight.IsEnabled = false;
+                            }
+                            if (hardwareVersion == 12)
+                            {
+                                SelectApproachChenterlineLight.IsEnabled = true;
+                                SelectApproachCrossbarLight.IsEnabled = true;
+                                SelectApproachSideRowLight.IsEnabled = true;
+                                SelectRWYThresholdWingBarLight.IsEnabled = true;
+                                SelectRWYThresholdLight.IsEnabled = true;
+                                SelectRWYEdgeLight.IsEnabled = true;
+                                Select12inchesRWYEndLight.IsEnabled = true;
+                                SelectRWYThresholdEndLight.IsEnabled = true;
+                                SelectRWYCenterlineLight.IsEnabled = false;
+                                SelectRWYTouchdownZoneLight.IsEnabled = false;
+                                Select8inchesRWYEndLight.IsEnabled = false;
+                                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
+                                SelectCombinedRWYEdgeLight.IsEnabled = true;
+                            }
+                        }));
+                    }
+                    else
+                    {
+                        MessageBox.Show("查询灯具尺寸失败!请重新打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("查询灯具尺寸失败!请重新打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("查询灯具尺寸失败!请重新打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
         }
@@ -552,9 +632,23 @@ namespace LEDLampsConfigurationSoftware
 
             return result;
         }
+
+        private void PurgeAnswerVersionTextblock()
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                AnswerVersion.Text = "";
+                AnswerLampModel.Text = "";
+                AnswerIA.Text = "";
+                AnswerIB.Text = "";
+                AnswerIIA.Text = "";
+                AnswerIIB.Text = "";
+                AnswerOpenCircuit.Text = "";
+            }));
+        }
         #endregion
 
-        #region 导出灯具状态信息数据
+        #region 导出最终数据
         byte[] receivedStatusFeedbackCommand;
         Thread CreateExcelThread;
         private void CreatExcel_Click(object sender, RoutedEventArgs e)
@@ -580,8 +674,7 @@ namespace LEDLampsConfigurationSoftware
                     {
                         receivedStatusFeedbackCommand[i] = (byte)ReceivedStatusFeedbackCommand[i];
                     }
-                    ReceivedStatusFeedbackCommand.Clear();
-                    judgeFeedbackCommand = 0;
+                    
                     if (receivedStatusFeedbackCommand[0] == 0x02 && receivedStatusFeedbackCommand[1] == 0xAA && receivedStatusFeedbackCommand[2] == 0x01 && receivedStatusFeedbackCommand[3] == 0x0C && receivedStatusFeedbackCommand[4] == 0x0C)
                     {
                         TwelveInchesLampDataAnalysis(receivedStatusFeedbackCommand);
@@ -603,8 +696,7 @@ namespace LEDLampsConfigurationSoftware
                 }
                 else
                 {
-                    MessageBox.Show("接收指令不能为空！请重新查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
-                    ReceivedStatusFeedbackCommand.Clear();
+                    MessageBox.Show("接收指令不能为空！请重新查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error);                   
                     ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
                     {
                         ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
@@ -787,9 +879,7 @@ namespace LEDLampsConfigurationSoftware
             SNSIIBTwelveinches.Clear();
             LEDF1Twelveinches.Clear();
             TTwelveinches.Clear();
-            SecondTwelveinches.Clear();
-
-            ReceivedStatusFeedbackCommand.Clear();
+            SecondTwelveinches.Clear();            
         }
 
         string str_fileName;                                                  //定义变量Excel文件名
@@ -798,86 +888,97 @@ namespace LEDLampsConfigurationSoftware
         Worksheet ExcelSheet;                                                 //声明工作表
         void TwelveInchesLampParametersCreatExcel()
         {
-            //创建excel模板
-            str_fileName = "d:\\12寸灯具参数解析" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";    //文件保存路径及名称
-            ExcelApp = new Microsoft.Office.Interop.Excel.Application();                          //创建Excel应用程序 ExcelApp
-            ExcelDoc = ExcelApp.Workbooks.Add(Type.Missing);                                      //在应用程序ExcelApp下，创建工作簿ExcelDoc
-            ExcelSheet = ExcelDoc.Worksheets.Add(Type.Missing);                                   //在工作簿ExcelDoc下，创建工作表ExcelSheet
-
-            //设置Excel列名           
-            ExcelSheet.Cells[1, 1] = "12寸灯具参数解析";
-            ExcelSheet.Cells[2, 1] = "序号";
-            ExcelSheet.Cells[2, 2] = "RMS1";
-            ExcelSheet.Cells[2, 3] = "RMS2";
-            ExcelSheet.Cells[2, 4] = "Val2";
-            ExcelSheet.Cells[2, 5] = "Val3";
-            ExcelSheet.Cells[2, 6] = "RMSMID1";
-            ExcelSheet.Cells[2, 7] = "RMSMID2";
-            ExcelSheet.Cells[2, 8] = "RMS";
-            ExcelSheet.Cells[2, 9] = "Current_Ratio1";
-            ExcelSheet.Cells[2, 10] = "Current_Ratio2";
-            ExcelSheet.Cells[2, 11] = "Current_Ratio3";
-            ExcelSheet.Cells[2, 12] = "Current_Ratio4";
-            ExcelSheet.Cells[2, 13] = "RES_IA";
-            ExcelSheet.Cells[2, 14] = "RES_IB";
-            ExcelSheet.Cells[2, 15] = "RES_IIA";
-            ExcelSheet.Cells[2, 16] = "RES_IIB";
-            ExcelSheet.Cells[2, 17] = "SNS_IA";
-            ExcelSheet.Cells[2, 18] = "SNS_IB";
-            ExcelSheet.Cells[2, 19] = "SNS_IIA";
-            ExcelSheet.Cells[2, 20] = "SNS_IIB";
-            ExcelSheet.Cells[2, 21] = "LED_F1";
-            ExcelSheet.Cells[2, 22] = "T";
-            ExcelSheet.Cells[2, 23] = "Second";
-            ExcelSheet.Cells[2, 24] = "Error Code";
-
-            //输出各个参数值
-            for (int i = 0; i < RMS1Twelveinches.Count; i++)
+            try
             {
-                ExcelSheet.Cells[3 + i, 1] = (i + 1).ToString();
-                ExcelSheet.Cells[3 + i, 2] = RMS1Twelveinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 3] = RMS2Twelveinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 4] = Val2Twelveinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 5] = Val3Twelveinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 6] = RMSMID1Twelveinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 7] = RMSMID2Twelveinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 8] = RMSTwelveinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 9] = CurrentRatio1Twelveinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 10] = CurrentRatio2Twelveinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 11] = CurrentRatio3Twelveinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 12] = CurrentRatio4Twelveinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 13] = RESIATwelveinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 14] = RESIBTwelveinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 15] = RESIIATwelveinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 16] = RESIIBTwelveinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 17] = SNSIATwelveinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 18] = SNSIBTwelveinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 19] = SNSIIATwelveinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 20] = SNSIIBTwelveinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 21] = LEDF1Twelveinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 22] = TTwelveinches[i].ToString();
-                if (SecondTwelveinches[i] == "Null")
+                //创建excel模板
+                str_fileName = "d:\\12寸灯具参数解析" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";    //文件保存路径及名称
+                ExcelApp = new Microsoft.Office.Interop.Excel.Application();                          //创建Excel应用程序 ExcelApp
+                ExcelDoc = ExcelApp.Workbooks.Add(Type.Missing);                                      //在应用程序ExcelApp下，创建工作簿ExcelDoc
+                ExcelSheet = ExcelDoc.Worksheets.Add(Type.Missing);                                   //在工作簿ExcelDoc下，创建工作表ExcelSheet
+
+                //设置Excel列名           
+                ExcelSheet.Cells[1, 1] = "12寸灯具参数解析";
+                ExcelSheet.Cells[2, 1] = "序号";
+                ExcelSheet.Cells[2, 2] = "RMS1";
+                ExcelSheet.Cells[2, 3] = "RMS2";
+                ExcelSheet.Cells[2, 4] = "Val2";
+                ExcelSheet.Cells[2, 5] = "Val3";
+                ExcelSheet.Cells[2, 6] = "RMSMID1";
+                ExcelSheet.Cells[2, 7] = "RMSMID2";
+                ExcelSheet.Cells[2, 8] = "RMS";
+                ExcelSheet.Cells[2, 9] = "Current_Ratio1";
+                ExcelSheet.Cells[2, 10] = "Current_Ratio2";
+                ExcelSheet.Cells[2, 11] = "Current_Ratio3";
+                ExcelSheet.Cells[2, 12] = "Current_Ratio4";
+                ExcelSheet.Cells[2, 13] = "RES_IA";
+                ExcelSheet.Cells[2, 14] = "RES_IB";
+                ExcelSheet.Cells[2, 15] = "RES_IIA";
+                ExcelSheet.Cells[2, 16] = "RES_IIB";
+                ExcelSheet.Cells[2, 17] = "SNS_IA";
+                ExcelSheet.Cells[2, 18] = "SNS_IB";
+                ExcelSheet.Cells[2, 19] = "SNS_IIA";
+                ExcelSheet.Cells[2, 20] = "SNS_IIB";
+                ExcelSheet.Cells[2, 21] = "LED_F1";
+                ExcelSheet.Cells[2, 22] = "T";
+                ExcelSheet.Cells[2, 23] = "Second";
+                ExcelSheet.Cells[2, 24] = "Error Code";
+
+                //输出各个参数值
+                for (int i = 0; i < RMS1Twelveinches.Count; i++)
                 {
-                    ExcelSheet.Cells[3 + i, 23] = SecondTwelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 1] = (i + 1).ToString();
+                    ExcelSheet.Cells[3 + i, 2] = RMS1Twelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 3] = RMS2Twelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 4] = Val2Twelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 5] = Val3Twelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 6] = RMSMID1Twelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 7] = RMSMID2Twelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 8] = RMSTwelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 9] = CurrentRatio1Twelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 10] = CurrentRatio2Twelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 11] = CurrentRatio3Twelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 12] = CurrentRatio4Twelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 13] = RESIATwelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 14] = RESIBTwelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 15] = RESIIATwelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 16] = RESIIBTwelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 17] = SNSIATwelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 18] = SNSIBTwelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 19] = SNSIIATwelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 20] = SNSIIBTwelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 21] = LEDF1Twelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 22] = TTwelveinches[i].ToString();
+                    if (SecondTwelveinches[i].ToString() == "Null")
+                    {
+                        ExcelSheet.Cells[3 + i, 23] = SecondTwelveinches[i].ToString();
+                    }
+                    else
+                    {
+                        ExcelSheet.Cells[3 + i, 23] = ((int)SecondTwelveinches[i] / 3600).ToString() + ":" + (((int)SecondTwelveinches[i] % 3600) / 60).ToString() + ":" + (((int)SecondTwelveinches[i] % 3600) % 60).ToString();
+                    }
+                    ExcelSheet.Cells[3 + i, 24] = ErrorCodeTwelveinches[i].ToString();
                 }
-                else
+
+                ExcelSheet.SaveAs(str_fileName);                                                      //保存Excel工作表
+                ExcelDoc.Close(Type.Missing, str_fileName, Type.Missing);                             //关闭Excel工作簿
+                ExcelApp.Quit();                                                                      //退出Excel应用程序    
+
+                ClearTwelveInchesLampsParameters();
+
+                ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
                 {
-                    ExcelSheet.Cells[3 + i, 23] = ((int)SecondTwelveinches[i] / 3600).ToString() + ":" + (((int)SecondTwelveinches[i] % 3600) / 60).ToString() + ":" + (((int)SecondTwelveinches[i] % 3600) % 60).ToString();
-                }
-                ExcelSheet.Cells[3 + i, 24] = ErrorCodeTwelveinches[i].ToString();
+                    ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
+                }));
+                MessageBox.Show("数据已导出! 保存至D盘Excel文档", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-
-            ExcelSheet.SaveAs(str_fileName);                                                      //保存Excel工作表
-            ExcelDoc.Close(Type.Missing, str_fileName, Type.Missing);                             //关闭Excel工作簿
-            ExcelApp.Quit();                                                                      //退出Excel应用程序    
-
-            ClearTwelveInchesLampsParameters();
-
-            ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+            catch
             {
-                ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
-            }));
-            MessageBox.Show("数据已导出! 保存至D盘Excel文档", "提示", MessageBoxButton.OK, MessageBoxImage.Information);            
+                ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
+                }));
+                MessageBox.Show("导出数据失败！请重新导出", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+            }          
         }
         #endregion
 
@@ -958,7 +1059,6 @@ namespace LEDLampsConfigurationSoftware
                     EightInchesLampCommandLengthErrorHandle();
                 }
             }
-
         }
 
         private void EightInchesLampCheckValueErrorHandle()
@@ -1011,78 +1111,138 @@ namespace LEDLampsConfigurationSoftware
             SNSIIAEightinches.Clear();
             LEDF1Eightinches.Clear();
             TEightinches.Clear();
-            SecondEightinches.Clear();
-
-            ReceivedStatusFeedbackCommand.Clear();
+            SecondEightinches.Clear();           
         }
 
         void EightInchesLampParametersCreatExcel()
         {
-            //创建excel模板
-            str_fileName = "d:\\8寸灯具参数解析" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";    //文件保存路径及名称
-            ExcelApp = new Microsoft.Office.Interop.Excel.Application();                          //创建Excel应用程序 ExcelApp
-            ExcelDoc = ExcelApp.Workbooks.Add(Type.Missing);                                      //在应用程序ExcelApp下，创建工作簿ExcelDoc
-            ExcelSheet = ExcelDoc.Worksheets.Add(Type.Missing);                                   //在工作簿ExcelDoc下，创建工作表ExcelSheet
-
-            //设置Excel列名           
-            ExcelSheet.Cells[1, 1] = "8寸灯具参数解析";
-            ExcelSheet.Cells[2, 1] = "序号";
-            ExcelSheet.Cells[2, 2] = "RMS1";
-            ExcelSheet.Cells[2, 3] = "Val2";
-            ExcelSheet.Cells[2, 4] = "Val3";
-            ExcelSheet.Cells[2, 5] = "RMS";
-            ExcelSheet.Cells[2, 6] = "Current_Ratio1";
-            ExcelSheet.Cells[2, 7] = "Current_Ratio3";
-            ExcelSheet.Cells[2, 8] = "RES_IA";
-            ExcelSheet.Cells[2, 9] = "RES_IIA";
-            ExcelSheet.Cells[2, 10] = "SNS_IA";
-            ExcelSheet.Cells[2, 11] = "SNS_IIA";
-            ExcelSheet.Cells[2, 12] = "LED_F1";
-            ExcelSheet.Cells[2, 13] = "T";
-            ExcelSheet.Cells[2, 14] = "Second";
-            ExcelSheet.Cells[2, 15] = "Error Code";
-
-            //输出各个参数值
-            for (int i = 0; i < RMS1Eightinches.Count; i++)
+            try
             {
-                ExcelSheet.Cells[3 + i, 1] = (i + 1).ToString();
-                ExcelSheet.Cells[3 + i, 2] = RMS1Eightinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 3] = Val2Eightinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 4] = Val3Eightinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 5] = RMSEightinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 6] = CurrentRatio1Eightinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 7] = CurrentRatio3Eightinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 8] = RESIAEightinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 9] = RESIIAEightinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 10] = SNSIAEightinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 11] = SNSIIAEightinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 12] = LEDF1Eightinches[i].ToString();
-                ExcelSheet.Cells[3 + i, 13] = TEightinches[i].ToString();
-                if (SecondEightinches[i] == "Null")
+                //创建excel模板
+                str_fileName = "d:\\8寸灯具参数解析" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";    //文件保存路径及名称
+                ExcelApp = new Microsoft.Office.Interop.Excel.Application();                          //创建Excel应用程序 ExcelApp
+                ExcelDoc = ExcelApp.Workbooks.Add(Type.Missing);                                      //在应用程序ExcelApp下，创建工作簿ExcelDoc
+                ExcelSheet = ExcelDoc.Worksheets.Add(Type.Missing);                                   //在工作簿ExcelDoc下，创建工作表ExcelSheet
+
+                //设置Excel列名           
+                ExcelSheet.Cells[1, 1] = "8寸灯具参数解析";
+                ExcelSheet.Cells[2, 1] = "序号";
+                ExcelSheet.Cells[2, 2] = "RMS1";
+                ExcelSheet.Cells[2, 3] = "Val2";
+                ExcelSheet.Cells[2, 4] = "Val3";
+                ExcelSheet.Cells[2, 5] = "RMS";
+                ExcelSheet.Cells[2, 6] = "Current_Ratio1";
+                ExcelSheet.Cells[2, 7] = "Current_Ratio3";
+                ExcelSheet.Cells[2, 8] = "RES_IA";
+                ExcelSheet.Cells[2, 9] = "RES_IIA";
+                ExcelSheet.Cells[2, 10] = "SNS_IA";
+                ExcelSheet.Cells[2, 11] = "SNS_IIA";
+                ExcelSheet.Cells[2, 12] = "LED_F1";
+                ExcelSheet.Cells[2, 13] = "T";
+                ExcelSheet.Cells[2, 14] = "Second";
+                ExcelSheet.Cells[2, 15] = "Error Code";
+
+                //输出各个参数值
+                for (int i = 0; i < RMS1Eightinches.Count; i++)
                 {
-                    ExcelSheet.Cells[3 + i, 14] = SecondTwelveinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 1] = (i + 1).ToString();
+                    ExcelSheet.Cells[3 + i, 2] = RMS1Eightinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 3] = Val2Eightinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 4] = Val3Eightinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 5] = RMSEightinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 6] = CurrentRatio1Eightinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 7] = CurrentRatio3Eightinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 8] = RESIAEightinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 9] = RESIIAEightinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 10] = SNSIAEightinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 11] = SNSIIAEightinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 12] = LEDF1Eightinches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 13] = TEightinches[i].ToString();
+                    if (SecondEightinches[i].ToString() == "Null")
+                    {
+                        ExcelSheet.Cells[3 + i, 14] = SecondEightinches[i].ToString();
+                    }
+                    else
+                    {
+                        ExcelSheet.Cells[3 + i, 14] = ((int)SecondEightinches[i] / 3600).ToString() + ":" + (((int)SecondEightinches[i] % 3600) / 60).ToString() + ":" + (((int)SecondEightinches[i] % 3600) % 60).ToString();
+                    }
+                    ExcelSheet.Cells[3 + i, 15] = ErrorCodeEightinches[i].ToString();
                 }
-                else
+
+                ExcelSheet.SaveAs(str_fileName);                                                      //保存Excel工作表
+                ExcelDoc.Close(Type.Missing, str_fileName, Type.Missing);                             //关闭Excel工作簿
+                ExcelApp.Quit();                                                                      //退出Excel应用程序    
+
+                ClearEightInchesLampsParameter();
+
+                ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
                 {
-                    ExcelSheet.Cells[3 + i, 14] = ((int)SecondEightinches[i] / 3600).ToString() + ":" + (((int)SecondEightinches[i] % 3600) / 60).ToString() + ":" + (((int)SecondEightinches[i] % 3600) % 60).ToString();
-                }
-                ExcelSheet.Cells[3 + i, 15] = ErrorCodeEightinches[i].ToString();
+                    ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
+                }));
+                MessageBox.Show("数据已导出!保存至D盘的Excel文档", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-
-            ExcelSheet.SaveAs(str_fileName);                                                      //保存Excel工作表
-            ExcelDoc.Close(Type.Missing, str_fileName, Type.Missing);                             //关闭Excel工作簿
-            ExcelApp.Quit();                                                                      //退出Excel应用程序    
-
-            ClearEightInchesLampsParameter();
-
-            ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+            catch
             {
-                ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
-            }));
-            MessageBox.Show("数据已导出!保存至D盘的Excel文档", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
+                }));
+                MessageBox.Show("导出数据失败！请重新导出", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         #endregion
+
+        #endregion
+
+        #region 导出原始数据
+        private void CreatTXT_Click(object sender, RoutedEventArgs e)
+        {
+            if(judgeFeedbackCommand==3)
+            {
+                if(ReceivedStatusFeedbackCommand.Count!=0)
+                {
+                    ShowTXTHandleProcess.Visibility = Visibility.Visible;
+                    byte[] receivedOriginalData = new byte[ReceivedStatusFeedbackCommand.Count];
+                    string OriginalData = "";
+
+                    for (int i = 0; i < receivedOriginalData.Length; i++)
+                    {
+                        receivedOriginalData[i] = (byte)ReceivedStatusFeedbackCommand[i];
+                        OriginalData += Convert.ToString(receivedOriginalData[i], 16).PadLeft(2, '0').ToUpper() + " ";
+                    }
+
+                    string FileName = "d:\\灯具原始数据" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".txt";
+                    FileStream aFile = new FileStream(FileName, FileMode.Create);
+                    StreamWriter sw = new StreamWriter(aFile);
+
+                    sw.Write(OriginalData);
+                    sw.Close();
+
+                    ShowTXTHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                    {
+                        ShowTXTHandleProcess.Visibility = Visibility.Hidden;
+                    }));
+                    MessageBox.Show("数据已导出! 保存至D盘TXT文档", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("接收指令不能为空！请重新查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    ShowTXTHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                    {
+                        ShowTXTHandleProcess.Visibility = Visibility.Hidden;
+                    }));
+                }
+            }
+            else
+            {
+                MessageBox.Show("未进行状态查询！请先进行状态查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                ShowTXTHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    ShowTXTHandleProcess.Visibility = Visibility.Hidden;
+                }));
+            }
+        }                  
 
         #endregion
 
@@ -1133,6 +1293,8 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
 
+            SelectAPPS12SLEDC.IsChecked = false;
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = SelectApproachChenterlineLight.Content.ToString();
@@ -1155,6 +1317,9 @@ namespace LEDLampsConfigurationSoftware
             Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+
+            SelectAPPS12LLEDC.IsChecked = false;
+            SelectAPPS12RLEDC.IsChecked = false;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -1179,6 +1344,9 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
 
+            SelectAPSS12LLEDR.IsChecked = false;
+            SelectAPSS12RLEDR.IsChecked = false;
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = SelectApproachSideRowLight.Content.ToString();
@@ -1201,6 +1369,9 @@ namespace LEDLampsConfigurationSoftware
             Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+
+            SelectTHWS12LLEDG.IsChecked = false;
+            SelectTHWS12RLEDG.IsChecked = false;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -1225,6 +1396,10 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
 
+            SelectTHRS12LLEDG.IsChecked = false;
+            SelectTHRS12RLEDG.IsChecked = false;
+            SelectTHRS12SLEDG.IsChecked = false;
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = SelectRWYThresholdLight.Content.ToString();
@@ -1247,6 +1422,17 @@ namespace LEDLampsConfigurationSoftware
             Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+
+            SelectRELS12LLEDYC.IsChecked = false;
+            SelectRELS12RLEDYC.IsChecked = false;
+            SelectRELS12LLEDCY.IsChecked = false;
+            SelectRELS12RLEDCY.IsChecked = false;
+            SelectRELS12LLEDCC.IsChecked = false;
+            SelectRELS12RLEDCC.IsChecked = false;
+            SelectRELS12LLEDCR.IsChecked = false;
+            SelectRELS12RLEDCR.IsChecked = false;
+            SelectRELS12LLEDRC.IsChecked = false;
+            SelectRELS12RLEDRC.IsChecked = false;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -1271,6 +1457,8 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
 
+            SelectENDS12LEDR.IsChecked = false;
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = Select12inchesRWYEndLight.Content.ToString();
@@ -1293,6 +1481,10 @@ namespace LEDLampsConfigurationSoftware
             Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+
+            SelectTAES12LLEDGR1P.IsChecked = false;
+            SelectTAES12RLEDGR1P.IsChecked = false;
+            SelectTAES12SLEDGR1P.IsChecked = false;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -1317,6 +1509,11 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
 
+            SelectRCLS08LEDCB1P.IsChecked = false;
+            SelectRCLS08LEDRB1P.IsChecked = false;
+            SelectRCLS08LEDCC1P.IsChecked = false;
+            SelectRCLS08LEDRC1P.IsChecked = false;
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = SelectRWYCenterlineLight.Content.ToString();
@@ -1339,6 +1536,9 @@ namespace LEDLampsConfigurationSoftware
             Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+
+            SelectTDZS08LLEDC.IsChecked = false;
+            SelectTDZS08RLEDC.IsChecked = false;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -1363,6 +1563,8 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
 
+            SelectENDS08LEDR.IsChecked = false;
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = Select8inchesRWYEndLight.Content.ToString();
@@ -1386,6 +1588,8 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Visible;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
 
+            SelectRAPS08LEDY.IsChecked = false;
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = SelectRapidExitTWYIndicatorLight.Content.ToString();
@@ -1408,6 +1612,15 @@ namespace LEDLampsConfigurationSoftware
             Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Visible;
+
+            SelectRELC12LEDCYC1P.IsChecked = false;
+            SelectRELC12LEDCCC1P.IsChecked = false;
+            SelectRELC12LEDCRC1P.IsChecked = false;
+            SelectRELC12LEDRYC1P.IsChecked = false;
+            SelectRELC12LEDCYB1P.IsChecked = false;
+            SelectRELC12LEDCCB1P.IsChecked = false;
+            SelectRELC12LEDCRB1P.IsChecked = false;
+            SelectRELC12LEDRYB1P.IsChecked = false;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -3099,24 +3312,117 @@ namespace LEDLampsConfigurationSoftware
         #region TabControl控件的页面切换处理
         private void SelectMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            
+            if (FactoryMode.IsSelected == true)
+            {
+                PurgingDeveloperMode();
+            }
+            if (DeveloperMode.IsSelected == true)
+            {
+                PurgingFactoryMode();
+            }
+            if(SettingSerialPort.IsSelected==true)
+            {
+                PurgingDeveloperMode();
+                PurgingFactoryMode();
+            }
+            if(Login.IsSelected==true)
+            {
+                PurgingDeveloperMode();
+                PurgingFactoryMode();
+            }                
+                  
+        }
+
+        private void PurgingFactoryMode()
+        {
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                if (FactoryMode.IsSelected == true)
-                {
-                    SetParameterIA.Text = "";
-                    SetParameterIB.Text = "";
-                    SetParameterIIA.Text = "";
-                    SetParameterIIB.Text = "";
-                    ShowSetParameterCommand.Text = "";
-                }
-                if (DeveloperMode.IsSelected == true)
-                {
-                    ConfirmLampName.Text = "";
-                    ConfirmLampModel.Text = "";
-                    ConfirmSettingOpenCircuitParameter.Text = "";
-                }                
-            }));           
+                ConfirmLampName.Text = "";
+                ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
+                AnswerIA.Text = "";
+                AnswerIB.Text = "";
+                AnswerIIA.Text = "";
+                AnswerIIB.Text = "";
+                AnswerLampModel.Text = "";
+                AnswerOpenCircuit.Text = "";
+                AnswerVersion.Text = "";
+
+                //SelectApproachChenterlineLight.IsChecked = false;
+                //SelectApproachCrossbarLight.IsChecked = false;
+                //SelectApproachSideRowLight.IsChecked = false;
+                //SelectRWYThresholdWingBarLight.IsChecked = false;
+                //SelectRWYThresholdLight.IsChecked = false;
+                //SelectRWYEdgeLight.IsChecked = false;
+                //Select12inchesRWYEndLight.IsChecked = false;
+                //SelectRWYThresholdEndLight.IsChecked = false;
+                //SelectRWYCenterlineLight.IsChecked = false;
+                //SelectRWYTouchdownZoneLight.IsChecked = false;
+                //Select8inchesRWYEndLight.IsChecked = false;
+                //SelectRapidExitTWYIndicatorLight.IsChecked = false;
+                //SelectCombinedRWYEdgeLight.IsChecked = false;
+
+                //SelectAPPS12SLEDC.IsChecked = false;
+                //SelectAPPS12LLEDC.IsChecked = false;
+                //SelectAPPS12RLEDC.IsChecked = false;
+                //SelectAPSS12LLEDR.IsChecked = false;
+                //SelectAPSS12RLEDR.IsChecked = false;
+                //SelectTHWS12LLEDG.IsChecked = false;
+                //SelectTHWS12RLEDG.IsChecked = false;
+                //SelectTHRS12LLEDG.IsChecked = false;
+                //SelectTHRS12RLEDG.IsChecked = false;
+                //SelectTHRS12SLEDG.IsChecked = false;
+                //SelectRELS12LLEDYC.IsChecked = false;
+                //SelectRELS12RLEDYC.IsChecked = false;
+                //SelectRELS12LLEDCY.IsChecked = false;
+                //SelectRELS12RLEDCY.IsChecked = false;
+                //SelectRELS12LLEDCC.IsChecked = false;
+                //SelectRELS12RLEDCC.IsChecked = false;
+                //SelectRELS12LLEDCR.IsChecked = false;
+                //SelectRELS12RLEDCR.IsChecked = false;
+                //SelectRELS12LLEDRC.IsChecked = false;
+                //SelectRELS12RLEDRC.IsChecked = false;
+                //SelectENDS12LEDR.IsChecked = false;
+                //SelectTAES12LLEDGR1P.IsChecked = false;
+                //SelectTAES12RLEDGR1P.IsChecked = false;
+                //SelectTAES12SLEDGR1P.IsChecked = false;
+                //SelectRCLS08LEDCB1P.IsChecked = false;
+                //SelectRCLS08LEDRB1P.IsChecked = false;
+                //SelectRCLS08LEDCC1P.IsChecked = false;
+                //SelectRCLS08LEDRC1P.IsChecked = false;
+                //SelectTDZS08LLEDC.IsChecked = false;
+                //SelectTDZS08RLEDC.IsChecked = false;
+                //SelectENDS08LEDR.IsChecked = false;
+                //SelectRAPS08LEDY.IsChecked = false;
+                //SelectRELC12LEDCYC1P.IsChecked = false;
+                //SelectRELC12LEDCCC1P.IsChecked = false;
+                //SelectRELC12LEDCRC1P.IsChecked = false;
+                //SelectRELC12LEDRYC1P.IsChecked = false;
+                //SelectRELC12LEDCYB1P.IsChecked = false;
+                //SelectRELC12LEDCCB1P.IsChecked = false;
+                //SelectRELC12LEDCRB1P.IsChecked = false;
+                //SelectRELC12LEDRYB1P.IsChecked = false;
+
+                //SelectOpenCircuitTrue.IsChecked = false;
+                //SelectOpenCircuitFalse.IsChecked = false;
+            }));
+        }
+
+        private void PurgingDeveloperMode()
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                SetParameterIA.Text = "";
+                SetParameterIB.Text = "";
+                SetParameterIIA.Text = "";
+                SetParameterIIB.Text = "";
+                ShowSetParameterCommand.Text = "";
+                AnswerStatus.Text = "";
+            }));
         }
         #endregion
+
+       
     }
 }
