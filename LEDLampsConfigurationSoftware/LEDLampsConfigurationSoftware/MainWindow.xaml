@@ -15,7 +15,7 @@
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid UIElement.PreviewKeyDown="Grid_PreviewKeyDown">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition />
@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>
         <Canvas Grid.Row="0">
             <Image  Height="38" Width="150" Canvas.Right="10" Canvas.Top="0"  Source=".\Images\Airsafe.png" />
-            <TabControl Grid.Row="0" Grid.RowSpan="2" Height="662" Canvas.Left="10" Canvas.Top="10" Width="1168"  BorderThickness="1" BorderBrush="#FF0A51A1" x:Name="SelectMode" SelectionChanged="SelectMode_SelectionChanged">
+            <TabControl Grid.Row="0" Grid.RowSpan="2" Height="662" Canvas.Left="10" Canvas.Top="10" Width="1168"  BorderThickness="1" BorderBrush="#FF0A51A1" x:Name="SelectMode">
                 <TabItem Header="串口设置" FontSize="18" Background="AliceBlue" Height="28" Width="110" Margin="0" Padding="0" x:Name="SettingSerialPort">
                     <Canvas>
                         <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="150" Height="40" Canvas.Left="170" Canvas.Top="50" Background="{x:Null}">
@@ -242,16 +242,16 @@
                                     <Label  Content="Break-Flag:" FontSize="16" Canvas.Left="10" Canvas.Top="300"/>
                                     <Label  Content="灯具编号：" FontSize="16" Canvas.Left="10" Canvas.Top="340" />
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Left="60" Canvas.Top="10">
-                                        <TextBox x:Name="SetParameterIA" Height="40" TextWrapping="Wrap" Width="130" BorderThickness="0" Background="{x:Null}" TextChanged="SetParameterIA_TextChanged" Padding="10,8,0,0"/>
+                                        <TextBox x:Name="SetParameterIA" Height="40" TextWrapping="Wrap" Width="130" BorderThickness="0" Background="{x:Null}" TextChanged="SetParameterIA_TextChanged" Padding="10,8,0,0" GotFocus="SetParameterIA_GotFocus" PreviewMouseDown="SetParameterIA_PreviewMouseDown" LostFocus="SetParameterIA_LostFocus"/>
                                     </Border>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Left="60" Canvas.Top="60">
-                                        <TextBox x:Name="SetParameterIB" Height="40" Width="130" TextWrapping="Wrap" BorderThickness="0" Background="{x:Null}" TextChanged="SetParameterIB_TextChanged" Padding="10,8,0,0"/>
+                                        <TextBox x:Name="SetParameterIB" Height="40" Width="130" TextWrapping="Wrap" BorderThickness="0" Background="{x:Null}" TextChanged="SetParameterIB_TextChanged" Padding="10,8,0,0" GotFocus="SetParameterIB_GotFocus" PreviewMouseDown="SetParameterIB_PreviewMouseDown" LostFocus="SetParameterIB_LostFocus" />
                                     </Border>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Left="60" Canvas.Top="110">
-                                        <TextBox x:Name="SetParameterIIA" Height="40" Width="130" TextWrapping="Wrap" BorderThickness="0" Background="{x:Null}" TextChanged="SetParameterIIA_TextChanged" Padding="10,8,0,0"/>
+                                        <TextBox x:Name="SetParameterIIA" Height="40" Width="130" TextWrapping="Wrap" BorderThickness="0" Background="{x:Null}" TextChanged="SetParameterIIA_TextChanged" Padding="10,8,0,0" LostFocus="SetParameterIIA_LostFocus" PreviewMouseDown="SetParameterIIA_PreviewMouseDown" GotFocus="SetParameterIIA_GotFocus"/>
                                     </Border>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Left="60" Canvas.Top="160">
-                                        <TextBox x:Name="SetParameterIIB" Height="40" Width="130" TextWrapping="Wrap" BorderThickness="0" Background="{x:Null}" TextChanged="SetParameterIIB_TextChanged" Padding="10,8,0,0"/>
+                                        <TextBox x:Name="SetParameterIIB" Height="40" Width="130" TextWrapping="Wrap" BorderThickness="0" Background="{x:Null}" TextChanged="SetParameterIIB_TextChanged" Padding="10,8,0,0" GotFocus="SetParameterIIB_GotFocus" PreviewMouseDown="SetParameterIIB_PreviewMouseDown" LostFocus="SetParameterIIB_LostFocus"/>
                                     </Border>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="437" Canvas.Left="120" Canvas.Top="340" Background="AliceBlue">
                                         <ComboBox x:Name="SetLightNumber" Width="433" Height="36" Background="{x:Null}" BorderThickness="0" FontSize="16" SelectionChanged="SetLightNumber_SelectionChanged" SelectedIndex="0" MaxDropDownHeight="130" Padding="10,8,0,0">

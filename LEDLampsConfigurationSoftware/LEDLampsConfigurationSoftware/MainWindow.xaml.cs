@@ -29,7 +29,7 @@ namespace LEDLampsConfigurationSoftware
         #region 设置全局变量
         SerialPort lampsPort = new SerialPort();  //定义串口       
         int judgeFeedbackCommand = 0;  //设置参数反馈指令为1，版本查询反馈指令为2，状态查询反馈指令为3，无反馈指令为0，打开串口时发送版本查询指令为4
-        int LampInches = 0;            //灯具尺寸说明： 12: 12寸，8: 8寸                              
+                
         #endregion
 
         #region 版本反馈指令参数
@@ -47,7 +47,7 @@ namespace LEDLampsConfigurationSoftware
         byte lampsNumber = 0;
         #endregion
 
-        #region 设置参数指令参数
+        #region 工厂模式下，设置参数指令参数
         byte[] settingIA = new byte[4] { 0x00, 0x00, 0x00, 0x00 };
         byte[] settingIB = new byte[4] { 0x00, 0x00, 0x00, 0x00 };
         byte[] settingIIA = new byte[4] { 0x00, 0x00, 0x00, 0x00 };
@@ -58,10 +58,24 @@ namespace LEDLampsConfigurationSoftware
         byte settingLampsNumber = 0x00;  //灯具编号
         #endregion
 
+        #region 开发者模式下，设置参数指令参数
+        byte[] InDeveloperModeSettingIA = new byte[4] { 0x00, 0x00, 0x00, 0x00 };
+        byte[] InDeveloperModeSettingIB = new byte[4] { 0x00, 0x00, 0x00, 0x00 };
+        byte[] InDeveloperModeSettingIIA = new byte[4] { 0x00, 0x00, 0x00, 0x00 };
+        byte[] InDeveloperModeSettingIIB = new byte[4] { 0x00, 0x00, 0x00, 0x00 };
+        byte InDeveloperModeSettingReadRFlag = 0x00;  //读取电阻
+        byte InDeveloperModeSettingMosFlag = 0x00;  //不开MOSFET
+        byte InDeveloperModeSettingBreakFlag = 0x00;  //不带开路
+        byte InDeveloperModeSettingLampsNumber = 0x00;  //灯具编号
+        #endregion
+
+
         #region 发送指令集（尚未计算校验值）
         Byte[] queryStatusCommand = new Byte[28] { 0x02,0x89,0x11,0x58,0x12,0x00,0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x06,0x00,0x00,0x00,0x00 };
         Byte[] queryVersionCommand = new Byte[28] { 0x02, 0x89, 0x22, 0x85, 0x12, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00 };
         Byte[] settingParameterCommand = new Byte[28] { 0x02, 0x55, 0x11, 0x58, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+        Byte[] InDeveloperModeSettingParameterCommand = new Byte[28] { 0x02, 0x55, 0x11, 0x58, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+
         #endregion
 
         #region 8寸灯具各项参数存储集合
@@ -167,15 +181,23 @@ namespace LEDLampsConfigurationSoftware
                 }
                 if(lampsPort.IsOpen==true)
                 {
+                    PurgingDeveloperMode();
+                    PurgingFactoryMode();
                     judgeFeedbackCommand = 4;
                     LampInchesLabel.Content = "";
                     lampsPort.Write(queryVersionCommand, 0, 28);
                     Thread.Sleep(50);
-
-                    if (MessageBox.Show("串口已打开！", "提示", MessageBoxButton.OK, MessageBoxImage.Information)==MessageBoxResult.OK)
+                    if (judgeFeedbackCommand == 4)
                     {
-                        FactoryMode.IsSelected = true;
-                    }                    
+                        MessageBox.Show("查询灯具尺寸失败!请重新打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        if (MessageBox.Show("串口已打开！", "提示", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                        {
+                            FactoryMode.IsSelected = true;
+                        }
+                    }                                                      
                 }
             }
            catch
@@ -191,7 +213,9 @@ namespace LEDLampsConfigurationSoftware
                 if (lampsPort.IsOpen == true)
                 {
                     lampsPort.Close();                    
-                    LampInchesLabel.Content = "";                    
+                    LampInchesLabel.Content = "";
+                    PurgingDeveloperMode();
+                    PurgingFactoryMode();
                 }
                 if(lampsPort.IsOpen==false)
                 {
@@ -354,9 +378,7 @@ namespace LEDLampsConfigurationSoftware
                         versionBigNumber = dataReceived[8];
                         versionSmallNumber = dataReceived[9];
                         breakFlag = dataReceived[14];
-                        lampsNumber = dataReceived[15];
-
-                        LampInches = JudgeLampInches(lampsNumber);
+                        lampsNumber = dataReceived[15];                       
 
                         currentRatio1 = CalculateRealCurrentValue(dataReceived[10]);
                         currentRatio2 = CalculateRealCurrentValue(dataReceived[11]);
@@ -439,7 +461,7 @@ namespace LEDLampsConfigurationSoftware
                                 SelectRapidExitTWYIndicatorLight.IsEnabled = true;
                                 SelectCombinedRWYEdgeLight.IsEnabled = false;
                             }
-                            if (hardwareVersion == 12)
+                            else if (hardwareVersion == 12)
                             {
                                 SelectApproachChenterlineLight.IsEnabled = true;
                                 SelectApproachCrossbarLight.IsEnabled = true;
@@ -454,6 +476,22 @@ namespace LEDLampsConfigurationSoftware
                                 Select8inchesRWYEndLight.IsEnabled = false;
                                 SelectRapidExitTWYIndicatorLight.IsEnabled = false;
                                 SelectCombinedRWYEdgeLight.IsEnabled = true;
+                            }
+                            else
+                            {
+                                SelectApproachChenterlineLight.IsEnabled = false;
+                                SelectApproachCrossbarLight.IsEnabled = false;
+                                SelectApproachSideRowLight.IsEnabled = false;
+                                SelectRWYThresholdWingBarLight.IsEnabled = false;
+                                SelectRWYThresholdLight.IsEnabled = false;
+                                SelectRWYEdgeLight.IsEnabled = false;
+                                Select12inchesRWYEndLight.IsEnabled = false;
+                                SelectRWYThresholdEndLight.IsEnabled = false;
+                                SelectRWYCenterlineLight.IsEnabled = false;
+                                SelectRWYTouchdownZoneLight.IsEnabled = false;
+                                Select8inchesRWYEndLight.IsEnabled = false;
+                                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
+                                SelectCombinedRWYEdgeLight.IsEnabled = false;
                             }
                         }));
                     }
@@ -543,7 +581,7 @@ namespace LEDLampsConfigurationSoftware
             double original= originalData / 10.0;
             double result = 0.0;
 
-            if(LampInches==12)
+            if(hardwareVersion == 12)
             {
                 result = original;
 
@@ -559,11 +597,11 @@ namespace LEDLampsConfigurationSoftware
                     }
                     if(original==0.7)
                     {
-                        result = 0.7 * 0.7;
+                        result = 0.7 * 1;
                     }
                     if(original==0.6)
                     {
-                        result = 0.55 * 0.55;
+                        result = 0.55 * 1;
                     }
                     if(original==0.4)
                     {
@@ -571,66 +609,15 @@ namespace LEDLampsConfigurationSoftware
                     }
                 }
             }
-            if(LampInches==8)
+            if(hardwareVersion == 8)
             {
                 result = original * 0.66;
-            }
+            }           
 
-            result = Math.Round(result, 1,MidpointRounding.AwayFromZero);
-
-            return result;
-
-        }
-
-        private int JudgeLampInches(byte LampNumber)
-        {
-            int result = 0;
-
-            switch (LampNumber)
-            {
-                case 1: result = 12;break;
-                case 2: result = 12; break;
-                case 3: result = 12; break;
-                case 4: result = 12; break;
-                case 5: result = 12; break;
-                case 6: result = 12; break;
-                case 7: result = 12; break;
-                case 8: result = 12; break;
-                case 9: result = 12; break;
-                case 10: result = 12; break;
-                case 11: result = 12; break;
-                case 12: result = 12; break;
-                case 13: result = 12; break;
-                case 14: result = 12; break;
-                case 15: result = 12; break;
-                case 16: result = 12; break;
-                case 17: result = 12; break;
-                case 18: result = 12; break;
-                case 19: result = 12; break;
-                case 20: result = 12; break;
-                case 21: result = 12; break;
-                case 22: result = 12; break;
-                case 23: result = 12; break;
-                case 24: result = 12; break;
-                case 25: result = 8; break;
-                case 26: result = 8; break;
-                case 27: result = 8; break;
-                case 28: result = 8; break;
-                case 29: result = 8; break;
-                case 30: result = 8; break;
-                case 31: result = 8; break;
-                case 32: result = 8; break;
-                case 33: result = 12; break;
-                case 34: result = 12; break;
-                case 35: result = 12; break;
-                case 36: result = 12; break;
-                case 37: result = 12; break;
-                case 38: result = 12; break;
-                case 39: result = 12; break;
-                case 40: result = 12; break;              
-            }
+            result = Math.Round(result, 2,MidpointRounding.AwayFromZero);
 
             return result;
+
         }
 
         private void PurgeAnswerVersionTextblock()
@@ -2987,7 +2974,34 @@ namespace LEDLampsConfigurationSoftware
             settingBreakFlag = 0x00;
         }
 
-        #endregion      
+        #endregion
+
+        #region 工厂模式下，生成设置参数指令
+        public void ConfigureSettingParametersCommand()
+        {
+            for (int i = 0; i < settingIA.Length; i++)
+            {
+                settingParameterCommand[5 + i] = settingIA[i];
+            }
+            for (int i = 0; i < settingIB.Length; i++)
+            {
+                settingParameterCommand[9 + i] = settingIB[i];
+            }
+            for (int i = 0; i < settingIIA.Length; i++)
+            {
+                settingParameterCommand[13 + i] = settingIIA[i];
+            }
+            for (int i = 0; i < settingIIB.Length; i++)
+            {
+                settingParameterCommand[17 + i] = settingIIB[i];
+            }
+            settingParameterCommand[21] = settingReadRFlag;
+            settingParameterCommand[22] = settingMosFlag;
+            settingParameterCommand[23] = settingBreakFlag;
+            settingParameterCommand[24] = settingLampsNumber;
+            settingParameterCommand[27] = CalculateCheckOutValue(settingParameterCommand);
+        }
+        #endregion
 
         #endregion
 
@@ -2997,11 +3011,11 @@ namespace LEDLampsConfigurationSoftware
             ShowSetParameterCommand.Text = "";
             if (SetParameterIA.Text != "" && SetParameterIB.Text != "" && SetParameterIIA.Text != "" && SetParameterIIB.Text != "")
             {
-                ConfigureSettingParametersCommand();
+                InDeveloperModeConfigureSettingParametersCommand();
 
-                for (int i = 0; i < settingParameterCommand.Length; i++)
+                for (int i = 0; i < InDeveloperModeSettingParameterCommand.Length; i++)
                 {
-                    ShowSetParameterCommand.Text += Convert.ToString(settingParameterCommand[i], 16).PadLeft(2, '0').ToUpper() + " ";
+                    ShowSetParameterCommand.Text += Convert.ToString(InDeveloperModeSettingParameterCommand[i], 16).PadLeft(2, '0').ToUpper() + " ";
                 }
 
                 if (MessageBox.Show("是否将指令写入灯具？", "问询", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
@@ -3009,7 +3023,7 @@ namespace LEDLampsConfigurationSoftware
                     if (lampsPort.IsOpen)
                     {
                         judgeFeedbackCommand = 1;
-                        lampsPort.Write(settingParameterCommand, 0, 28);
+                        lampsPort.Write(InDeveloperModeSettingParameterCommand, 0, 28);
                     }
                     else
                     {
@@ -3028,57 +3042,57 @@ namespace LEDLampsConfigurationSoftware
         #region 参数设置
         private void SetParameterIA_TextChanged(object sender, TextChangedEventArgs e)
         {
-            settingIA = CalculateCurrentBuffer(SetParameterIA.Text.ToString(), 1);
+            InDeveloperModeSettingIA = CalculateCurrentBuffer(SetParameterIA.Text.ToString(), 1);
         }
 
         private void SetParameterIB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            settingIB = CalculateCurrentBuffer(SetParameterIB.Text.ToString(), 2);
+            InDeveloperModeSettingIB = CalculateCurrentBuffer(SetParameterIB.Text.ToString(), 2);
         }
 
         private void SetParameterIIA_TextChanged(object sender, TextChangedEventArgs e)
         {
-            settingIIA = CalculateCurrentBuffer(SetParameterIIA.Text.ToString(), 3);
+            InDeveloperModeSettingIIA = CalculateCurrentBuffer(SetParameterIIA.Text.ToString(), 3);
         }
 
         private void SetParameterIIB_TextChanged(object sender, TextChangedEventArgs e)
         {
-            settingIIB = CalculateCurrentBuffer(SetParameterIIB.Text.ToString(), 4);
+            InDeveloperModeSettingIIB = CalculateCurrentBuffer(SetParameterIIB.Text.ToString(), 4);
         }
 
         private void SetReadResistanceFalse_Checked(object sender, RoutedEventArgs e)
         {
-            settingReadRFlag = 0x00;
+            InDeveloperModeSettingReadRFlag = 0x00;
         }
 
         private void SetReadResistanceTrue_Checked(object sender, RoutedEventArgs e)
         {
-            settingReadRFlag = 0x01;
+            InDeveloperModeSettingReadRFlag = 0x01;
         }
 
         private void SetMosfetTrue_Checked(object sender, RoutedEventArgs e)
         {
-            settingMosFlag = 0x01;
+            InDeveloperModeSettingMosFlag = 0x01;
         }
 
         private void SetMosfetFalse_Checked(object sender, RoutedEventArgs e)
         {
-            settingMosFlag = 0x00;
+            InDeveloperModeSettingMosFlag = 0x00;
         }
 
         private void SetBreakTrue_Checked(object sender, RoutedEventArgs e)
         {
-            settingBreakFlag = 0x01;
+            InDeveloperModeSettingBreakFlag = 0x01;
         }
 
         private void SetBreakFalse_Checked(object sender, RoutedEventArgs e)
         {
-            settingBreakFlag = 0x00;
+            InDeveloperModeSettingBreakFlag = 0x00;
         }
 
         private void SetLightNumber_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            settingLampsNumber = Convert.ToByte(SetLightNumber.SelectedIndex+1);
+            InDeveloperModeSettingLampsNumber = Convert.ToByte(SetLightNumber.SelectedIndex+1);
         }
         #endregion
 
@@ -3238,36 +3252,36 @@ namespace LEDLampsConfigurationSoftware
             }
         }
         #endregion
-      
-        #endregion
-      
-        #region 生成设置参数指令
-        public void ConfigureSettingParametersCommand()
+
+        #region 开发者模式下，生成设置参数指令
+        public void InDeveloperModeConfigureSettingParametersCommand()
         {
-            for (int i = 0; i < settingIA.Length; i++)
+            for (int i = 0; i < InDeveloperModeSettingIA.Length; i++)
             {
-                settingParameterCommand[5 + i] = settingIA[i];
+                InDeveloperModeSettingParameterCommand[5 + i] = InDeveloperModeSettingIA[i];
             }
-            for (int i = 0; i < settingIB.Length; i++)
+            for (int i = 0; i < InDeveloperModeSettingIB.Length; i++)
             {
-                settingParameterCommand[9 + i] = settingIB[i];
+                InDeveloperModeSettingParameterCommand[9 + i] = InDeveloperModeSettingIB[i];
             }
-            for (int i = 0; i < settingIIA.Length; i++)
+            for (int i = 0; i < InDeveloperModeSettingIIA.Length; i++)
             {
-                settingParameterCommand[13 + i] = settingIIA[i];
+                InDeveloperModeSettingParameterCommand[13 + i] = InDeveloperModeSettingIIA[i];
             }
-            for (int i = 0; i < settingIIB.Length; i++)
+            for (int i = 0; i < InDeveloperModeSettingIIB.Length; i++)
             {
-                settingParameterCommand[17 + i] = settingIIB[i];
+                InDeveloperModeSettingParameterCommand[17 + i] = InDeveloperModeSettingIIB[i];
             }
-            settingParameterCommand[21] = settingReadRFlag;
-            settingParameterCommand[22] = settingMosFlag;
-            settingParameterCommand[23] = settingBreakFlag;
-            settingParameterCommand[24] = settingLampsNumber;
-            settingParameterCommand[27] = CalculateCheckOutValue(settingParameterCommand);
+            InDeveloperModeSettingParameterCommand[21] = InDeveloperModeSettingReadRFlag;
+            InDeveloperModeSettingParameterCommand[22] = InDeveloperModeSettingMosFlag;
+            InDeveloperModeSettingParameterCommand[23] = InDeveloperModeSettingBreakFlag;
+            InDeveloperModeSettingParameterCommand[24] = InDeveloperModeSettingLampsNumber;
+            InDeveloperModeSettingParameterCommand[27] = CalculateCheckOutValue(InDeveloperModeSettingParameterCommand);
         }
         #endregion
 
+        #endregion
+      
         #region 用户登录
         string userName;
         string password;
@@ -3281,7 +3295,8 @@ namespace LEDLampsConfigurationSoftware
                 if(password == "Airsafe")
                 {
                     DeveloperMode.Visibility = Visibility.Visible;
-                    DeveloperMode.IsSelected = true;                  
+                    DeveloperMode.IsSelected = true;
+                    LogIn.IsEnabled = false;                  
                 }
                 else
                 {
@@ -3305,35 +3320,12 @@ namespace LEDLampsConfigurationSoftware
             }
             UserName.Text = "";
             Password.Password = "";
+            LogIn.IsEnabled = true;
             FactoryMode.IsSelected = true;
         }
         #endregion
 
-        #region TabControl控件的页面切换处理
-        private void SelectMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
-            if (FactoryMode.IsSelected == true)
-            {
-                PurgingDeveloperMode();
-            }
-            if (DeveloperMode.IsSelected == true)
-            {
-                PurgingFactoryMode();
-            }
-            if(SettingSerialPort.IsSelected==true)
-            {
-                PurgingDeveloperMode();
-                PurgingFactoryMode();
-            }
-            if(Login.IsSelected==true)
-            {
-                PurgingDeveloperMode();
-                PurgingFactoryMode();
-            }                
-                  
-        }
-
+        #region 清空页面       
         private void PurgingFactoryMode()
         {
             this.Dispatcher.Invoke(new System.Action(() =>
@@ -3349,63 +3341,63 @@ namespace LEDLampsConfigurationSoftware
                 AnswerOpenCircuit.Text = "";
                 AnswerVersion.Text = "";
 
-                //SelectApproachChenterlineLight.IsChecked = false;
-                //SelectApproachCrossbarLight.IsChecked = false;
-                //SelectApproachSideRowLight.IsChecked = false;
-                //SelectRWYThresholdWingBarLight.IsChecked = false;
-                //SelectRWYThresholdLight.IsChecked = false;
-                //SelectRWYEdgeLight.IsChecked = false;
-                //Select12inchesRWYEndLight.IsChecked = false;
-                //SelectRWYThresholdEndLight.IsChecked = false;
-                //SelectRWYCenterlineLight.IsChecked = false;
-                //SelectRWYTouchdownZoneLight.IsChecked = false;
-                //Select8inchesRWYEndLight.IsChecked = false;
-                //SelectRapidExitTWYIndicatorLight.IsChecked = false;
-                //SelectCombinedRWYEdgeLight.IsChecked = false;
+                SelectApproachChenterlineLight.IsChecked = false;
+                SelectApproachCrossbarLight.IsChecked = false;
+                SelectApproachSideRowLight.IsChecked = false;
+                SelectRWYThresholdWingBarLight.IsChecked = false;
+                SelectRWYThresholdLight.IsChecked = false;
+                SelectRWYEdgeLight.IsChecked = false;
+                Select12inchesRWYEndLight.IsChecked = false;
+                SelectRWYThresholdEndLight.IsChecked = false;
+                SelectRWYCenterlineLight.IsChecked = false;
+                SelectRWYTouchdownZoneLight.IsChecked = false;
+                Select8inchesRWYEndLight.IsChecked = false;
+                SelectRapidExitTWYIndicatorLight.IsChecked = false;
+                SelectCombinedRWYEdgeLight.IsChecked = false;
 
-                //SelectAPPS12SLEDC.IsChecked = false;
-                //SelectAPPS12LLEDC.IsChecked = false;
-                //SelectAPPS12RLEDC.IsChecked = false;
-                //SelectAPSS12LLEDR.IsChecked = false;
-                //SelectAPSS12RLEDR.IsChecked = false;
-                //SelectTHWS12LLEDG.IsChecked = false;
-                //SelectTHWS12RLEDG.IsChecked = false;
-                //SelectTHRS12LLEDG.IsChecked = false;
-                //SelectTHRS12RLEDG.IsChecked = false;
-                //SelectTHRS12SLEDG.IsChecked = false;
-                //SelectRELS12LLEDYC.IsChecked = false;
-                //SelectRELS12RLEDYC.IsChecked = false;
-                //SelectRELS12LLEDCY.IsChecked = false;
-                //SelectRELS12RLEDCY.IsChecked = false;
-                //SelectRELS12LLEDCC.IsChecked = false;
-                //SelectRELS12RLEDCC.IsChecked = false;
-                //SelectRELS12LLEDCR.IsChecked = false;
-                //SelectRELS12RLEDCR.IsChecked = false;
-                //SelectRELS12LLEDRC.IsChecked = false;
-                //SelectRELS12RLEDRC.IsChecked = false;
-                //SelectENDS12LEDR.IsChecked = false;
-                //SelectTAES12LLEDGR1P.IsChecked = false;
-                //SelectTAES12RLEDGR1P.IsChecked = false;
-                //SelectTAES12SLEDGR1P.IsChecked = false;
-                //SelectRCLS08LEDCB1P.IsChecked = false;
-                //SelectRCLS08LEDRB1P.IsChecked = false;
-                //SelectRCLS08LEDCC1P.IsChecked = false;
-                //SelectRCLS08LEDRC1P.IsChecked = false;
-                //SelectTDZS08LLEDC.IsChecked = false;
-                //SelectTDZS08RLEDC.IsChecked = false;
-                //SelectENDS08LEDR.IsChecked = false;
-                //SelectRAPS08LEDY.IsChecked = false;
-                //SelectRELC12LEDCYC1P.IsChecked = false;
-                //SelectRELC12LEDCCC1P.IsChecked = false;
-                //SelectRELC12LEDCRC1P.IsChecked = false;
-                //SelectRELC12LEDRYC1P.IsChecked = false;
-                //SelectRELC12LEDCYB1P.IsChecked = false;
-                //SelectRELC12LEDCCB1P.IsChecked = false;
-                //SelectRELC12LEDCRB1P.IsChecked = false;
-                //SelectRELC12LEDRYB1P.IsChecked = false;
+                SelectAPPS12SLEDC.IsChecked = false;
+                SelectAPPS12LLEDC.IsChecked = false;
+                SelectAPPS12RLEDC.IsChecked = false;
+                SelectAPSS12LLEDR.IsChecked = false;
+                SelectAPSS12RLEDR.IsChecked = false;
+                SelectTHWS12LLEDG.IsChecked = false;
+                SelectTHWS12RLEDG.IsChecked = false;
+                SelectTHRS12LLEDG.IsChecked = false;
+                SelectTHRS12RLEDG.IsChecked = false;
+                SelectTHRS12SLEDG.IsChecked = false;
+                SelectRELS12LLEDYC.IsChecked = false;
+                SelectRELS12RLEDYC.IsChecked = false;
+                SelectRELS12LLEDCY.IsChecked = false;
+                SelectRELS12RLEDCY.IsChecked = false;
+                SelectRELS12LLEDCC.IsChecked = false;
+                SelectRELS12RLEDCC.IsChecked = false;
+                SelectRELS12LLEDCR.IsChecked = false;
+                SelectRELS12RLEDCR.IsChecked = false;
+                SelectRELS12LLEDRC.IsChecked = false;
+                SelectRELS12RLEDRC.IsChecked = false;
+                SelectENDS12LEDR.IsChecked = false;
+                SelectTAES12LLEDGR1P.IsChecked = false;
+                SelectTAES12RLEDGR1P.IsChecked = false;
+                SelectTAES12SLEDGR1P.IsChecked = false;
+                SelectRCLS08LEDCB1P.IsChecked = false;
+                SelectRCLS08LEDRB1P.IsChecked = false;
+                SelectRCLS08LEDCC1P.IsChecked = false;
+                SelectRCLS08LEDRC1P.IsChecked = false;
+                SelectTDZS08LLEDC.IsChecked = false;
+                SelectTDZS08RLEDC.IsChecked = false;
+                SelectENDS08LEDR.IsChecked = false;
+                SelectRAPS08LEDY.IsChecked = false;
+                SelectRELC12LEDCYC1P.IsChecked = false;
+                SelectRELC12LEDCCC1P.IsChecked = false;
+                SelectRELC12LEDCRC1P.IsChecked = false;
+                SelectRELC12LEDRYC1P.IsChecked = false;
+                SelectRELC12LEDCYB1P.IsChecked = false;
+                SelectRELC12LEDCCB1P.IsChecked = false;
+                SelectRELC12LEDCRB1P.IsChecked = false;
+                SelectRELC12LEDRYB1P.IsChecked = false;
 
-                //SelectOpenCircuitTrue.IsChecked = false;
-                //SelectOpenCircuitFalse.IsChecked = false;
+                SelectOpenCircuitTrue.IsChecked = false;
+                SelectOpenCircuitFalse.IsChecked = false;
             }));
         }
 
@@ -3423,6 +3415,105 @@ namespace LEDLampsConfigurationSoftware
         }
         #endregion
 
+        #region UI操作 按Enter键得到Tab的效果
+        private void Grid_PreviewKeyDown(object sender,KeyEventArgs e)
+        {
+            var uie = e.OriginalSource as UIElement;
+
+            if(e.Key==Key.Enter)
+            {
+                e.Handled = true;
+                uie.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+            }
+        }
+
+        #endregion
+
+        #region UI操作 鼠标单击获取焦点后的全选
+        private void SetParameterIA_GotFocus(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.TextBox tb = e.Source as System.Windows.Controls.TextBox;
+            tb.SelectAll();
+            tb.PreviewMouseDown -= new MouseButtonEventHandler(SetParameterIA_PreviewMouseDown);
+        }
+
+        private void SetParameterIA_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            System.Windows.Controls.TextBox tb = e.Source as System.Windows.Controls.TextBox;
+            tb.Focus();
+            e.Handled = true;
+        }
+
+        private void SetParameterIA_LostFocus(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.TextBox tb = e.Source as System.Windows.Controls.TextBox;
+            tb.PreviewMouseDown += new MouseButtonEventHandler(SetParameterIA_PreviewMouseDown);
+        }
+
        
+
+        private void SetParameterIB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.TextBox tb = e.Source as System.Windows.Controls.TextBox;
+            tb.SelectAll();
+            tb.PreviewMouseDown -= new MouseButtonEventHandler(SetParameterIB_PreviewMouseDown);
+        }
+
+        private void SetParameterIB_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            System.Windows.Controls.TextBox tb = e.Source as System.Windows.Controls.TextBox;
+            tb.Focus();
+            e.Handled = true;
+        }
+
+        private void SetParameterIB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.TextBox tb = e.Source as System.Windows.Controls.TextBox;
+            tb.PreviewMouseDown += new MouseButtonEventHandler(SetParameterIB_PreviewMouseDown);
+        }
+     
+
+        private void SetParameterIIA_LostFocus(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.TextBox tb = e.Source as System.Windows.Controls.TextBox;
+            tb.PreviewMouseDown += new MouseButtonEventHandler(SetParameterIIA_PreviewMouseDown);
+        }
+
+        private void SetParameterIIA_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            System.Windows.Controls.TextBox tb = e.Source as System.Windows.Controls.TextBox;
+            tb.Focus();
+            e.Handled = true;
+        }
+
+        private void SetParameterIIA_GotFocus(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.TextBox tb = e.Source as System.Windows.Controls.TextBox;
+            tb.SelectAll();
+            tb.PreviewMouseDown -= new MouseButtonEventHandler(SetParameterIIA_PreviewMouseDown);
+        }
+
+
+        private void SetParameterIIB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.TextBox tb = e.Source as System.Windows.Controls.TextBox;
+            tb.SelectAll();
+            tb.PreviewMouseDown -= new MouseButtonEventHandler(SetParameterIIB_PreviewMouseDown);
+        }
+
+        private void SetParameterIIB_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            System.Windows.Controls.TextBox tb = e.Source as System.Windows.Controls.TextBox;
+            tb.Focus();
+            e.Handled = true;
+        }
+
+        private void SetParameterIIB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.TextBox tb = e.Source as System.Windows.Controls.TextBox;
+            tb.PreviewMouseDown += new MouseButtonEventHandler(SetParameterIIB_PreviewMouseDown);
+        }
+
+        #endregion
     }
 }
