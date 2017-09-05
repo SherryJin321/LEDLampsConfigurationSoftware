@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LEDLampsConfigurationSoftware"
         mc:Ignorable="d"
-        Title="Airsafe LED灯具配置软件 V1.0" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="ASCMS" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Name="ConfigurationWindow">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontSize" Value="18"/>
@@ -337,7 +337,7 @@
                         </Border>
                     </Canvas>
                 </TabItem>
-                <TabItem Header="用户登录" FontSize="18" Background="AliceBlue" Height="28" Width="110" Margin="-5,0,5,0" Padding="0" x:Name="Login">
+                <TabItem Header="开发者登录" FontSize="18" Background="AliceBlue" Height="28" Width="110" Margin="-5,0,5,0" Padding="0" x:Name="Login">
                     <Canvas>
                         <Label  Content="账 号：" Canvas.Left="50" Canvas.Top="50" FontSize="16"/>
                         <Label  Content="密 码：" Canvas.Left="50" Canvas.Top="100" FontSize="16"/>

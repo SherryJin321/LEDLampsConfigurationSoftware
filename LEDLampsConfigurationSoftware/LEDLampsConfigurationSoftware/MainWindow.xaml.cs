@@ -146,18 +146,34 @@ namespace LEDLampsConfigurationSoftware
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if(MessageBox.Show("是否关闭软件","问询",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
+            MessageBoxResult result = MessageBox.Show("是否关闭软件", "问询", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result==MessageBoxResult.Yes)
             {
-                if(lampsPort.IsOpen==true)
+                ConfigurationWindow.IsEnabled = true;
+
+                if (lampsPort.IsOpen==true)
                 {
-                    MessageBox.Show("串口未关闭！请先关闭串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
-                    e.Cancel = true;
+                    if(MessageBox.Show("串口未关闭！请先关闭串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.None)
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                        ConfigurationWindow.IsEnabled = true;
+                    }                    
                 }                
             }
-            else
+            else if(result == MessageBoxResult.No)
             {
                 e.Cancel = true;
-            }           
+                ConfigurationWindow.IsEnabled = true;
+            }
+            else if(result == MessageBoxResult.None)
+            {
+                ConfigurationWindow.IsEnabled = false;
+            }                       
         }
 
         #region 串口操作
@@ -189,20 +205,56 @@ namespace LEDLampsConfigurationSoftware
                     Thread.Sleep(50);
                     if (judgeFeedbackCommand == 4)
                     {
-                        MessageBox.Show("查询灯具尺寸失败!请重新打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                        if( MessageBox.Show("查询灯具尺寸失败!请重新打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                        {
+                            ConfigurationWindow.IsEnabled = true;
+                        }
+                        else
+                        {
+                            ConfigurationWindow.IsEnabled = false;
+                        }
+
+                        SelectApproachChenterlineLight.IsEnabled = false;
+                        SelectApproachCrossbarLight.IsEnabled = false;
+                        SelectApproachSideRowLight.IsEnabled = false;
+                        SelectRWYThresholdWingBarLight.IsEnabled = false;
+                        SelectRWYThresholdLight.IsEnabled = false;
+                        SelectRWYEdgeLight.IsEnabled = false;
+                        Select12inchesRWYEndLight.IsEnabled = false;
+                        SelectRWYThresholdEndLight.IsEnabled = false;
+                        SelectRWYCenterlineLight.IsEnabled = false;
+                        SelectRWYTouchdownZoneLight.IsEnabled = false;
+                        Select8inchesRWYEndLight.IsEnabled = false;
+                        SelectRapidExitTWYIndicatorLight.IsEnabled = false;
+                        SelectCombinedRWYEdgeLight.IsEnabled = false;
+
+                        LampInchesLabel.Content = "";
+                        LampInchesLabel.Content = "查询当前灯具驱动板尺寸失败";
                     }
                     else
                     {
                         if (MessageBox.Show("串口已打开！", "提示", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
                         {
-                            FactoryMode.IsSelected = true;
+                            ConfigurationWindow.IsEnabled = true;
+                            FactoryMode.IsSelected = true;                            
+                        }
+                        else
+                        {
+                            ConfigurationWindow.IsEnabled = false;
                         }
                     }                                                      
                 }
             }
            catch
             {
-                MessageBox.Show("串口未打开！请选择正确的串口号", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                if( MessageBox.Show("串口未打开！请选择正确的串口号", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                {
+                    ConfigurationWindow.IsEnabled = true;
+                }
+                else
+                {
+                    ConfigurationWindow.IsEnabled = false;
+                }
             }
         }
         //关闭串口
@@ -219,12 +271,26 @@ namespace LEDLampsConfigurationSoftware
                 }
                 if(lampsPort.IsOpen==false)
                 {
-                    MessageBox.Show("串口已关闭！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                    if( MessageBox.Show("串口已关闭！", "提示", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
                 }
             }
             catch
             {
-                MessageBox.Show("关闭串口失败！请重启软件", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                if( MessageBox.Show("关闭串口失败！请重启软件", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                {
+                    ConfigurationWindow.IsEnabled = true;
+                }
+                else
+                {
+                    ConfigurationWindow.IsEnabled = false;
+                }
             }
         }
         #endregion
@@ -253,12 +319,26 @@ namespace LEDLampsConfigurationSoftware
                 Thread.Sleep(50);
                 if(judgeFeedbackCommand==2)
                 {
-                    MessageBox.Show("未接收到反馈指令！请重新查询版本", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if( MessageBox.Show("未接收到反馈指令！请重新查询版本", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
                 }
             }
             else
             {
-                MessageBox.Show("未打开串口！请打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                if( MessageBox.Show("未打开串口！请打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                {
+                    ConfigurationWindow.IsEnabled = true;
+                }
+                else
+                {
+                    ConfigurationWindow.IsEnabled = false;
+                }
             }                       
         }
         #endregion
@@ -280,12 +360,26 @@ namespace LEDLampsConfigurationSoftware
                 }
                 else
                 {
-                    MessageBox.Show("正在导出数据！请稍候进行状态查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if( MessageBox.Show("正在导出数据！请稍候进行状态查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;                        
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
                 }                
             }
             else
             {
-                MessageBox.Show("未打开串口！请打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                if( MessageBox.Show("未打开串口！请打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                {
+                    ConfigurationWindow.IsEnabled = true;
+                }
+                else
+                {
+                    ConfigurationWindow.IsEnabled = false;
+                }
             }
         }
         #endregion
@@ -310,22 +404,45 @@ namespace LEDLampsConfigurationSoftware
                         case 4: ConfirmLampInches(); break;
                     }
                 }
-                //else
-                //{
-                //    MessageBox.Show("未接收到串口指令！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
-                //    return;
-                //}
+                
             }
             else
-            {
-                MessageBox.Show("串口未打开！请打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+            {                
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show("串口未打开！请打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
                 return;
             }
         }
 
         private void NoFeedbackCommand()
         {
-            MessageBox.Show("指令错误！", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+            if(dataReceived.Length==1&&dataReceived[0]==0x00)
+            {
+                return;
+            }
+            else
+            {
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show("指令错误！", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
+            }
         }
 
         private void SetParameterFeedbackCommand()
@@ -339,24 +456,64 @@ namespace LEDLampsConfigurationSoftware
                 {
                     if (dataReceived[0] == 0x02 && dataReceived[1] == 0x55 && dataReceived[2] == 0x11)
                     {
-                        MessageBox.Show("参数设置成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);                        
+                        this.Dispatcher.Invoke(new System.Action(() =>
+                        {
+                            if ( MessageBox.Show("参数设置成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                            {                           
+                                    ConfigurationWindow.IsEnabled = true;                                                     
+                            }
+                            else
+                            {                           
+                                    ConfigurationWindow.IsEnabled = false;                            
+                            }
+                        }));
                         return;
                     }
                     else
-                    {
-                        MessageBox.Show("帧头错误!请重新设置参数", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    {                       
+                        this.Dispatcher.Invoke(new System.Action(() =>
+                        {
+                            if (MessageBox.Show("帧头错误!请重新设置参数", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                            {
+                                ConfigurationWindow.IsEnabled = true;
+                            }
+                            else
+                            {
+                                ConfigurationWindow.IsEnabled = false;
+                            }
+                        }));
                         return;
                     }
                 }
                 else
-                {
-                    MessageBox.Show("校验错误!请重新设置参数", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                {                   
+                    this.Dispatcher.Invoke(new System.Action(() =>
+                    {
+                        if (MessageBox.Show("校验错误!请重新设置参数", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                        {
+                            ConfigurationWindow.IsEnabled = true;
+                        }
+                        else
+                        {
+                            ConfigurationWindow.IsEnabled = false;
+                        }
+                    }));
                     return;
                 }
             }
             else
-            {
-                MessageBox.Show("指令长度错误!请重新设置参数", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+            {               
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show("指令长度错误!请重新设置参数", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
                 return;
             }
         }
@@ -406,24 +563,64 @@ namespace LEDLampsConfigurationSoftware
 
                             
                         }));
-
-                        MessageBox.Show("版本查询成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                        
+                        this.Dispatcher.Invoke(new System.Action(() =>
+                        {
+                            if (MessageBox.Show("版本查询成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                            {
+                                ConfigurationWindow.IsEnabled = true;
+                            }
+                            else
+                            {
+                                ConfigurationWindow.IsEnabled = false;
+                            }
+                        }));
                     }
                     else
-                    {
-                        MessageBox.Show("帧头错误!请重新查询版本", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    {                        
+                        this.Dispatcher.Invoke(new System.Action(() =>
+                        {
+                            if (MessageBox.Show("帧头错误!请重新查询版本", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                            {
+                                ConfigurationWindow.IsEnabled = true;
+                            }
+                            else
+                            {
+                                ConfigurationWindow.IsEnabled = false;
+                            }
+                        }));
                         return;
                     }
                 }
                 else
-                {
-                    MessageBox.Show("校验错误!请重新查询版本", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                {                    
+                    this.Dispatcher.Invoke(new System.Action(() =>
+                    {
+                        if (MessageBox.Show("校验错误!请重新查询版本", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                        {
+                            ConfigurationWindow.IsEnabled = true;
+                        }
+                        else
+                        {
+                            ConfigurationWindow.IsEnabled = false;
+                        }
+                    }));
                     return;
                 }
             }
             else
-            {
-                MessageBox.Show("指令长度错误!请重新查询版本", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+            {               
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show("指令长度错误!请重新查询版本", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
                 return;
             }
         }
@@ -443,7 +640,7 @@ namespace LEDLampsConfigurationSoftware
                         this.Dispatcher.Invoke(new System.Action(() =>
                         {
                             LampInchesLabel.Content = "";
-                            LampInchesLabel.Content = "当前灯具为" + hardwareVersion.ToString() + "寸灯具";
+                            LampInchesLabel.Content = "当前灯具驱动板尺寸为" + hardwareVersion.ToString() + "寸";
                                               
                             if(hardwareVersion==8)
                             {
@@ -496,20 +693,50 @@ namespace LEDLampsConfigurationSoftware
                         }));
                     }
                     else
-                    {
-                        MessageBox.Show("查询灯具尺寸失败!请重新打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    {                        
+                        this.Dispatcher.Invoke(new System.Action(() =>
+                        {
+                            if (MessageBox.Show("查询灯具尺寸失败!请重新打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                            {
+                                ConfigurationWindow.IsEnabled = true;
+                            }
+                            else
+                            {
+                                ConfigurationWindow.IsEnabled = false;
+                            }
+                        }));
                         return;
                     }
                 }
                 else
-                {
-                    MessageBox.Show("查询灯具尺寸失败!请重新打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                {                    
+                    this.Dispatcher.Invoke(new System.Action(() =>
+                    {
+                        if (MessageBox.Show("查询灯具尺寸失败!请重新打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                        {
+                            ConfigurationWindow.IsEnabled = true;
+                        }
+                        else
+                        {
+                            ConfigurationWindow.IsEnabled = false;
+                        }
+                    }));
                     return;
                 }
             }
             else
-            {
-                MessageBox.Show("查询灯具尺寸失败!请重新打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+            {                
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show("查询灯具尺寸失败!请重新打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
                 return;
             }
         }
@@ -673,8 +900,19 @@ namespace LEDLampsConfigurationSoftware
                         EightInchesLampParametersCreatExcel();
                     }
                     else
-                    {
-                        MessageBox.Show("接收指令帧头错误！请重新查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    {                       
+                        this.Dispatcher.Invoke(new System.Action(() =>
+                        {
+                            if (MessageBox.Show("接收指令帧头错误！请重新查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                            {
+                                ConfigurationWindow.IsEnabled = true;
+                            }
+                            else
+                            {
+                                ConfigurationWindow.IsEnabled = false;
+                            }
+                        }));
+
                         ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
                         {
                             ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
@@ -682,8 +920,19 @@ namespace LEDLampsConfigurationSoftware
                     }
                 }
                 else
-                {
-                    MessageBox.Show("接收指令不能为空！请重新查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error);                   
+                {                    
+                    this.Dispatcher.Invoke(new System.Action(() =>
+                    {
+                        if (MessageBox.Show("接收指令不能为空！请重新查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                        {
+                            ConfigurationWindow.IsEnabled = true;
+                        }
+                        else
+                        {
+                            ConfigurationWindow.IsEnabled = false;
+                        }
+                    }));
+
                     ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
                     {
                         ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
@@ -691,8 +940,19 @@ namespace LEDLampsConfigurationSoftware
                 }
             }
             else
-            {
-                MessageBox.Show("未进行状态查询！请先进行状态查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+            {                
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show("未进行状态查询！请先进行状态查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
+
                 ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
                 {
                     ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
@@ -956,7 +1216,18 @@ namespace LEDLampsConfigurationSoftware
                 {
                     ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
                 }));
-                MessageBox.Show("数据已导出! 保存至D盘Excel文档", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show("数据已导出! 保存至D盘Excel文档", "提示", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
             }
             catch
             {
@@ -964,7 +1235,18 @@ namespace LEDLampsConfigurationSoftware
                 {
                     ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
                 }));
-                MessageBox.Show("导出数据失败！请重新导出", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show("导出数据失败！请重新导出", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
             }          
         }
         #endregion
@@ -1166,7 +1448,18 @@ namespace LEDLampsConfigurationSoftware
                 {
                     ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
                 }));
-                MessageBox.Show("数据已导出!保存至D盘的Excel文档", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show("数据已导出!保存至D盘的Excel文档", "提示", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
             }
             catch
             {
@@ -1174,7 +1467,18 @@ namespace LEDLampsConfigurationSoftware
                 {
                     ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
                 }));
-                MessageBox.Show("导出数据失败！请重新导出", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show("导出数据失败！请重新导出", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
             }
         }
 
@@ -1210,11 +1514,25 @@ namespace LEDLampsConfigurationSoftware
                     {
                         ShowTXTHandleProcess.Visibility = Visibility.Hidden;
                     }));
-                    MessageBox.Show("数据已导出! 保存至D盘TXT文档", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                    if( MessageBox.Show("数据已导出! 保存至D盘TXT文档", "提示", MessageBoxButton.OK, MessageBoxImage.Information)==MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("接收指令不能为空！请重新查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if( MessageBox.Show("接收指令不能为空！请重新查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
                     ShowTXTHandleProcess.Dispatcher.Invoke(new System.Action(() =>
                     {
                         ShowTXTHandleProcess.Visibility = Visibility.Hidden;
@@ -1223,7 +1541,14 @@ namespace LEDLampsConfigurationSoftware
             }
             else
             {
-                MessageBox.Show("未进行状态查询！请先进行状态查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                if( MessageBox.Show("未进行状态查询！请先进行状态查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                {
+                    ConfigurationWindow.IsEnabled = true;
+                }
+                else
+                {
+                    ConfigurationWindow.IsEnabled = false;
+                }
                 ShowTXTHandleProcess.Dispatcher.Invoke(new System.Action(() =>
                 {
                     ShowTXTHandleProcess.Visibility = Visibility.Hidden;
@@ -1239,10 +1564,13 @@ namespace LEDLampsConfigurationSoftware
             
             if(ConfirmLampName.Text!=""&&ConfirmLampModel.Text!=""&&ConfirmSettingOpenCircuitParameter.Text!="")
             {
-                ConfigureSettingParametersCommand();                
+                ConfigureSettingParametersCommand();
 
-                if (MessageBox.Show("是否将指令写入灯具？", "问询", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                MessageBoxResult result = MessageBox.Show("是否将指令写入灯具？", "问询", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
                 {
+                    ConfigurationWindow.IsEnabled = true;
+
                     if (lampsPort.IsOpen)
                     {
                         judgeFeedbackCommand = 1;
@@ -1251,14 +1579,37 @@ namespace LEDLampsConfigurationSoftware
                     }
                     else
                     {
-                        MessageBox.Show("串口未打开！请打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                        if( MessageBox.Show("串口未打开！请打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                        {
+                            ConfigurationWindow.IsEnabled = true;
+                        }
+                        else
+                        {
+                            ConfigurationWindow.IsEnabled = false;
+                        }
                         return;
                     }
+                }
+
+                if(result==MessageBoxResult.No)
+                {
+                    ConfigurationWindow.IsEnabled = true;
+                }
+                if(result==MessageBoxResult.None)
+                {
+                    ConfigurationWindow.IsEnabled = false;
                 }
             }
             else
             {
-                MessageBox.Show("参数选择不能为空！请完成配置", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                if( MessageBox.Show("参数选择不能为空！请完成配置", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                {
+                    ConfigurationWindow.IsEnabled = true;
+                }
+                else
+                {
+                    ConfigurationWindow.IsEnabled = false;
+                }
                 return;
             }
         }
@@ -3018,8 +3369,12 @@ namespace LEDLampsConfigurationSoftware
                     ShowSetParameterCommand.Text += Convert.ToString(InDeveloperModeSettingParameterCommand[i], 16).PadLeft(2, '0').ToUpper() + " ";
                 }
 
-                if (MessageBox.Show("是否将指令写入灯具？", "问询", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                MessageBoxResult result = MessageBox.Show("是否将指令写入灯具？", "问询", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if ( result== MessageBoxResult.Yes)
                 {
+                    ConfigurationWindow.IsEnabled = true;
+
                     if (lampsPort.IsOpen)
                     {
                         judgeFeedbackCommand = 1;
@@ -3027,14 +3382,37 @@ namespace LEDLampsConfigurationSoftware
                     }
                     else
                     {
-                        MessageBox.Show("串口未打开！请打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                        if( MessageBox.Show("串口未打开！请打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                        {
+                            ConfigurationWindow.IsEnabled = true;
+                        }
+                        else
+                        {
+                            ConfigurationWindow.IsEnabled = false;
+                        }
                         return;
                     }
+                }
+
+                if(result==MessageBoxResult.None)
+                {
+                    ConfigurationWindow.IsEnabled = false;
+                }
+                if(result==MessageBoxResult.No)
+                {
+                    ConfigurationWindow.IsEnabled = true;
                 }
             }
             else
             {
-                MessageBox.Show("文本框不能为空！请输入电流值", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                if( MessageBox.Show("文本框不能为空！请输入电流值", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                {
+                    ConfigurationWindow.IsEnabled = true;
+                }
+                else
+                {
+                    ConfigurationWindow.IsEnabled = false;
+                }
                 return;
             }
         }
@@ -3111,7 +3489,14 @@ namespace LEDLampsConfigurationSoftware
                 }
                 else
                 {
-                    MessageBox.Show("非法输入！请输入数字 0~9、字符 '.'", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if( MessageBox.Show("非法输入！请输入数字 0~9、字符 '.'", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
                     PrugeTextBoxContent(textboxNumber);
                     return result;
                 }
@@ -3132,7 +3517,14 @@ namespace LEDLampsConfigurationSoftware
                             {
                                 if (charCurrentValue[2] == '.')
                                 {
-                                    MessageBox.Show("格式错误！请输入正确格式，例：0.123", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    if( MessageBox.Show("格式错误！请输入正确格式，例：0.123", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                                    {
+                                        ConfigurationWindow.IsEnabled = true;
+                                    }
+                                    else
+                                    {
+                                        ConfigurationWindow.IsEnabled = false;
+                                    }
                                     PrugeTextBoxContent(textboxNumber);
                                     return result;
                                 }
@@ -3140,7 +3532,14 @@ namespace LEDLampsConfigurationSoftware
                                 {
                                     if (charCurrentValue[0] == '1' && charCurrentValue[2] != '0')
                                     {
-                                        MessageBox.Show("已超出量程！请输入数值范围为0~1", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                                        if( MessageBox.Show("已超出量程！请输入数值范围为0~1", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                                        {
+                                            ConfigurationWindow.IsEnabled = true;
+                                        }
+                                        else
+                                        {
+                                            ConfigurationWindow.IsEnabled = false;
+                                        }
                                         PrugeTextBoxContent(textboxNumber);
                                         return result;
                                     }
@@ -3156,7 +3555,14 @@ namespace LEDLampsConfigurationSoftware
                             {
                                 if (charCurrentValue[2] == '.' || charCurrentValue[3] == '.')
                                 {
-                                    MessageBox.Show("格式错误！请输入正确格式，例：0.123", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    if( MessageBox.Show("格式错误！请输入正确格式，例：0.123", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                                    {
+                                        ConfigurationWindow.IsEnabled = true;
+                                    }
+                                    else
+                                    {
+                                        ConfigurationWindow.IsEnabled = false;
+                                    }
                                     PrugeTextBoxContent(textboxNumber);
                                     return result;
                                 }
@@ -3164,7 +3570,14 @@ namespace LEDLampsConfigurationSoftware
                                 {
                                     if (charCurrentValue[0] == '1' && (charCurrentValue[2] != '0' || charCurrentValue[3] != '0'))
                                     {
-                                        MessageBox.Show("已超出量程！请输入数值范围为0~1", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                                        if( MessageBox.Show("已超出量程！请输入数值范围为0~1", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                                        {
+                                            ConfigurationWindow.IsEnabled = true;
+                                        }
+                                        else
+                                        {
+                                            ConfigurationWindow.IsEnabled = false;
+                                        }
                                         PrugeTextBoxContent(textboxNumber);
                                         return result;
                                     }
@@ -3180,7 +3593,14 @@ namespace LEDLampsConfigurationSoftware
                             {
                                 if (charCurrentValue[2] == '.' || charCurrentValue[3] == '.' || charCurrentValue[4] == '.')
                                 {
-                                    MessageBox.Show("格式错误！请输入正确格式，例：0.123", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    if( MessageBox.Show("格式错误！请输入正确格式，例：0.123", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                                    {
+                                        ConfigurationWindow.IsEnabled = true;
+                                    }
+                                    else
+                                    {
+                                        ConfigurationWindow.IsEnabled = false;
+                                    }
                                     PrugeTextBoxContent(textboxNumber);
                                     return result;
                                 }
@@ -3188,7 +3608,14 @@ namespace LEDLampsConfigurationSoftware
                                 {
                                     if (charCurrentValue[0] == '1' && (charCurrentValue[2] != '0' || charCurrentValue[3] != '0' || charCurrentValue[4] != '0'))
                                     {
-                                        MessageBox.Show("已超出量程！请输入数值范围为0~1", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                                        if( MessageBox.Show("已超出量程！请输入数值范围为0~1", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                                        {
+                                            ConfigurationWindow.IsEnabled = true;
+                                        }
+                                        else
+                                        {
+                                            ConfigurationWindow.IsEnabled = false;
+                                        }
                                         PrugeTextBoxContent(textboxNumber);
                                         return result;
                                     }
@@ -3204,7 +3631,14 @@ namespace LEDLampsConfigurationSoftware
                         }
                         else
                         {
-                            MessageBox.Show("格式错误！请输入正确格式，例：0.123", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                            if( MessageBox.Show("格式错误！请输入正确格式，例：0.123", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                            {
+                                ConfigurationWindow.IsEnabled = true;
+                            }
+                            else
+                            {
+                                ConfigurationWindow.IsEnabled = false;
+                            }
                             PrugeTextBoxContent(textboxNumber);
                             return result;
                         }
@@ -3215,20 +3649,41 @@ namespace LEDLampsConfigurationSoftware
                     }
                     else
                     {
-                        MessageBox.Show("位数错误！小数点后最多保留三位，例：0.123", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                        if( MessageBox.Show("位数错误！小数点后最多保留三位，例：0.123", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                        {
+                            ConfigurationWindow.IsEnabled = true;
+                        }
+                        else
+                        {
+                            ConfigurationWindow.IsEnabled = false;
+                        }
                         PrugeTextBoxContent(textboxNumber);
                         return result;
                     }
                 }
                 else if (charCurrentValue[0] == '.')
                 {
-                    MessageBox.Show("格式错误！请输入正确格式，例：0.123", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if( MessageBox.Show("格式错误！请输入正确格式，例：0.123", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
                     PrugeTextBoxContent(textboxNumber);
                     return result;
                 }
                 else
                 {
-                    MessageBox.Show("已超出量程！请输入数值范围为0~1", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if( MessageBox.Show("已超出量程！请输入数值范围为0~1", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
                     PrugeTextBoxContent(textboxNumber);
                     return result;
                 }
@@ -3300,13 +3755,28 @@ namespace LEDLampsConfigurationSoftware
                 }
                 else
                 {
-                    MessageBox.Show("密码错误！请重新输入密码", "提示", MessageBoxButton.OK, MessageBoxImage.Error);                   
+                    if(MessageBox.Show("密码错误！请重新输入密码", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                    
                     Password.Password = "";
                 }                
             }
             else
             {
-                MessageBox.Show("账号错误！请重新输入账号", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                if( MessageBox.Show("账号错误！请重新输入账号", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                {
+                    ConfigurationWindow.IsEnabled = true;
+                }
+                else
+                {
+                    ConfigurationWindow.IsEnabled = false;
+                }
                 UserName.Text = "";
                 Password.Password = "";
             }
@@ -3320,6 +3790,7 @@ namespace LEDLampsConfigurationSoftware
             }
             UserName.Text = "";
             Password.Password = "";
+            PurgingDeveloperMode();
             LogIn.IsEnabled = true;
             FactoryMode.IsSelected = true;
         }
@@ -3398,6 +3869,20 @@ namespace LEDLampsConfigurationSoftware
 
                 SelectOpenCircuitTrue.IsChecked = false;
                 SelectOpenCircuitFalse.IsChecked = false;
+
+                SelectApproachChenterlineLight.IsEnabled = true;
+                SelectApproachCrossbarLight.IsEnabled = true;
+                SelectApproachSideRowLight.IsEnabled = true;
+                SelectRWYThresholdWingBarLight.IsEnabled = true;
+                SelectRWYThresholdLight.IsEnabled = true;
+                SelectRWYEdgeLight.IsEnabled = true;
+                Select12inchesRWYEndLight.IsEnabled = true;
+                SelectRWYThresholdEndLight.IsEnabled = true;
+                SelectRWYCenterlineLight.IsEnabled = true;
+                SelectRWYTouchdownZoneLight.IsEnabled = true;
+                Select8inchesRWYEndLight.IsEnabled = true;
+                SelectRapidExitTWYIndicatorLight.IsEnabled = true;
+                SelectCombinedRWYEdgeLight.IsEnabled = true;
             }));
         }
 

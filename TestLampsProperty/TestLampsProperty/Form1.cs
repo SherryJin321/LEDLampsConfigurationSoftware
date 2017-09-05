@@ -144,6 +144,7 @@ namespace TestLampsProperty
             else
             {
                 MessageBox.Show("未打开串口！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
             }
 
         }
