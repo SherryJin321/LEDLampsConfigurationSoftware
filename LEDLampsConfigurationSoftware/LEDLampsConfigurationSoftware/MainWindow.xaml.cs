@@ -36,15 +36,18 @@ namespace LEDLampsConfigurationSoftware
         int year = 0;
         int month = 0;
         int date = 0;
-        int hardwareVersion = 0;
-        int versionBigNumber = 0;
-        int versionSmallNumber = 0;
+        int softwareVersion1 = 0;
+        int softwareVersion2 = 0;
+        int softwareVersion3 = 0;
         double currentRatio1 = 0;
         double currentRatio2 = 0;
         double currentRatio3 = 0;
         double currentRatio4 = 0;
         int breakFlag = 0;
         byte lampsNumber = 0;
+        int hardwareVersion1 = 0;
+        int hardwareVersion2 = 0;
+        int hardwareVersion3 = 0;
         #endregion
 
         #region 工厂模式下，设置参数指令参数
@@ -75,6 +78,7 @@ namespace LEDLampsConfigurationSoftware
         Byte[] queryVersionCommand = new Byte[28] { 0x02, 0x89, 0x22, 0x85, 0x12, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00 };
         Byte[] settingParameterCommand = new Byte[28] { 0x02, 0x55, 0x11, 0x58, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
         Byte[] InDeveloperModeSettingParameterCommand = new Byte[28] { 0x02, 0x55, 0x11, 0x58, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+        Byte[] InFactoryModeRestoreOriginalCommand = new Byte[28] { 0x02, 0x55, 0x11, 0x58, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00 };
 
         #endregion
 
@@ -140,6 +144,7 @@ namespace LEDLampsConfigurationSoftware
 
             queryVersionCommand[27] = CalculateCheckOutValue(queryVersionCommand);  //计算版本查询指令的校验值
             queryStatusCommand[27] = CalculateCheckOutValue(queryStatusCommand);  //计算状态查询指令的校验值    
+            InFactoryModeRestoreOriginalCommand[27] = CalculateCheckOutValue(InFactoryModeRestoreOriginalCommand);
 
             SettingSerialPort.IsSelected = true;                             
         }
@@ -193,15 +198,17 @@ namespace LEDLampsConfigurationSoftware
                 if (lampsPort.IsOpen == false)
                 {
                     lampsPort.PortName = PortNameSelect.SelectedItem.ToString();
-                    lampsPort.Open();                   
-                }
-                if(lampsPort.IsOpen==true)
-                {
+                    lampsPort.Open();
+
                     PurgingDeveloperMode();
                     PurgingFactoryMode();
+                }
+                if(lampsPort.IsOpen==true)
+                {                   
                     judgeFeedbackCommand = 4;
                     LampInchesLabel.Content = "";
                     lampsPort.Write(queryVersionCommand, 0, 28);
+
                     Thread.Sleep(50);
                     if (judgeFeedbackCommand == 4)
                     {
@@ -229,7 +236,7 @@ namespace LEDLampsConfigurationSoftware
                         SelectCombinedRWYEdgeLight.IsEnabled = false;
 
                         LampInchesLabel.Content = "";
-                        LampInchesLabel.Content = "查询当前灯具驱动板尺寸失败";
+                        LampInchesLabel.Content = "查询当前灯具驱动板尺寸失败。";
                     }
                     else
                     {
@@ -247,7 +254,7 @@ namespace LEDLampsConfigurationSoftware
             }
            catch
             {
-                if( MessageBox.Show("串口未打开！请选择正确的串口号", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                if( MessageBox.Show("串口打开失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
                 {
                     ConfigurationWindow.IsEnabled = true;
                 }
@@ -356,7 +363,7 @@ namespace LEDLampsConfigurationSoftware
                     judgeFeedbackCommand = 3;
                     AnswerStatus.Text = "";
                     lampsPort.Write(queryStatusCommand, 0, 28);
-                    StartQueryStatus = DateTime.Now;
+                    StartQueryStatus = DateTime.Now;                   
                 }
                 else
                 {
@@ -516,12 +523,12 @@ namespace LEDLampsConfigurationSoftware
                 }));
                 return;
             }
-        }
+        }        
 
         private void QueryVersionFeedbackCommand()
         {
             judgeFeedbackCommand = 0;
-            if (dataReceived.Length == 20)
+            if (dataReceived.Length == 24)
             {
                 byte checkOutValue = CalculateCheckOutValue(dataReceived);
                 if (checkOutValue == dataReceived[dataReceived.Length - 1])
@@ -531,11 +538,14 @@ namespace LEDLampsConfigurationSoftware
                         year = dataReceived[4];
                         month = dataReceived[5];
                         date = dataReceived[6];
-                        hardwareVersion = dataReceived[7];
-                        versionBigNumber = dataReceived[8];
-                        versionSmallNumber = dataReceived[9];
+                        softwareVersion1 = dataReceived[7];
+                        softwareVersion2 = dataReceived[8];
+                        softwareVersion3 = dataReceived[9];
                         breakFlag = dataReceived[14];
-                        lampsNumber = dataReceived[15];                       
+                        lampsNumber = dataReceived[15];
+                        hardwareVersion1 = dataReceived[16];
+                        hardwareVersion2 = dataReceived[17];
+                        hardwareVersion3 = dataReceived[18];                       
 
                         currentRatio1 = CalculateRealCurrentValue(dataReceived[10]);
                         currentRatio2 = CalculateRealCurrentValue(dataReceived[11]);
@@ -546,7 +556,8 @@ namespace LEDLampsConfigurationSoftware
                         {
                             PurgeAnswerVersionTextblock();
 
-                            AnswerVersion.Text = hardwareVersion.ToString() + "寸 " + versionBigNumber.ToString() + "." + versionSmallNumber.ToString() + "版 " + " 20" + year.ToString() + "年" + month.ToString() + "月" + date.ToString() + "日";
+                            AnswerHardwareVersion.Text = "V" + hardwareVersion2.ToString() + "." + hardwareVersion3.ToString()+"  "+hardwareVersion1.ToString() + "寸";
+                            AnswerSoftwareVersion.Text = "V"+softwareVersion1.ToString() + "." + softwareVersion2.ToString() +"."+ softwareVersion3.ToString() + " " + " 20" + year.ToString() + "年" + month.ToString() + "月" + date.ToString() + "日";
                             AnswerLampModel.Text= LampsContentShow(lampsNumber);
                             AnswerIA.Text = currentRatio1.ToString();
                             AnswerIB.Text = currentRatio2.ToString();
@@ -628,21 +639,21 @@ namespace LEDLampsConfigurationSoftware
         private void ConfirmLampInches()
         {
             judgeFeedbackCommand = 0;
-            if (dataReceived.Length == 20)
+            if (dataReceived.Length == 24)
             {
                 byte checkOutValue = CalculateCheckOutValue(dataReceived);
                 if (checkOutValue == dataReceived[dataReceived.Length - 1])
                 {
                     if (dataReceived[0] == 0x02 && dataReceived[1] == 0x89 && dataReceived[2] == 0x22 && dataReceived[3] == 0x85)
                     {                        
-                        hardwareVersion = dataReceived[7];                        
+                        hardwareVersion1 = dataReceived[16];                        
 
                         this.Dispatcher.Invoke(new System.Action(() =>
                         {
                             LampInchesLabel.Content = "";
-                            LampInchesLabel.Content = "当前灯具驱动板尺寸为" + hardwareVersion.ToString() + "寸";
+                            LampInchesLabel.Content = "当前灯具驱动板尺寸为" + hardwareVersion1.ToString() + "寸。";
                                               
-                            if(hardwareVersion==8)
+                            if(hardwareVersion1==8)
                             {
                                 SelectApproachChenterlineLight.IsEnabled = false;
                                 SelectApproachCrossbarLight.IsEnabled = false;
@@ -658,7 +669,7 @@ namespace LEDLampsConfigurationSoftware
                                 SelectRapidExitTWYIndicatorLight.IsEnabled = true;
                                 SelectCombinedRWYEdgeLight.IsEnabled = false;
                             }
-                            else if (hardwareVersion == 12)
+                            else if (hardwareVersion1 == 12)
                             {
                                 SelectApproachChenterlineLight.IsEnabled = true;
                                 SelectApproachCrossbarLight.IsEnabled = true;
@@ -751,6 +762,92 @@ namespace LEDLampsConfigurationSoftware
             {
                 AnswerStatus.Text = "灯具状态查询已耗时: " + QueryStatusTimeSpan.Hours.ToString().PadLeft(2, '0') + ":" + QueryStatusTimeSpan.Minutes.ToString().PadLeft(2, '0') + ":" + QueryStatusTimeSpan.Seconds.ToString().PadLeft(2, '0') + ":" + QueryStatusTimeSpan.Milliseconds.ToString().PadLeft(3, '0');
             }));
+
+            if (dataReceived.Length == 4)
+            {
+                byte checkOutValue = CalculateCheckOutValue(dataReceived);
+                if (checkOutValue == dataReceived[dataReceived.Length - 1])
+                {
+                    if (dataReceived[0] == 0x02 && dataReceived[1] == 0x89 && dataReceived[2] == 0x11)
+                    {
+                        QueryStatusNoContentFeedbackCommand();
+                    }
+                }
+            }
+                        
+        }
+
+        private void QueryStatusNoContentFeedbackCommand()
+        {
+            judgeFeedbackCommand = 0;
+
+            if (dataReceived.Length == 4)
+            {
+                byte checkOutValue = CalculateCheckOutValue(dataReceived);
+                if (checkOutValue == dataReceived[dataReceived.Length - 1])
+                {
+                    if (dataReceived[0] == 0x02 && dataReceived[1] == 0x89 && dataReceived[2] == 0x11)
+                    {
+                        this.Dispatcher.Invoke(new System.Action(() =>
+                        {
+                            if (MessageBox.Show("灯具状态信息为空！", "提示", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                            {
+                                ConfigurationWindow.IsEnabled = true;
+                            }
+                            else
+                            {
+                                ConfigurationWindow.IsEnabled = false;
+                            }
+                        }));
+                        return;
+                    }
+                    else
+                    {
+                        this.Dispatcher.Invoke(new System.Action(() =>
+                        {
+                            if (MessageBox.Show("帧头错误!请重新查询状态", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                            {
+                                ConfigurationWindow.IsEnabled = true;
+                            }
+                            else
+                            {
+                                ConfigurationWindow.IsEnabled = false;
+                            }
+                        }));
+                        return;
+                    }
+                }
+                else
+                {
+                    this.Dispatcher.Invoke(new System.Action(() =>
+                    {
+                        if (MessageBox.Show("校验错误!请重新查询状态", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                        {
+                            ConfigurationWindow.IsEnabled = true;
+                        }
+                        else
+                        {
+                            ConfigurationWindow.IsEnabled = false;
+                        }
+                    }));
+                    return;
+                }
+            }
+            else
+            {
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show("指令长度错误!请重新查询状态", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
+                return;
+            }
         }
 
         public string LampsContentShow(byte lampNumber)
@@ -808,7 +905,7 @@ namespace LEDLampsConfigurationSoftware
             double original= originalData / 10.0;
             double result = 0.0;
 
-            if(hardwareVersion == 12)
+            if(hardwareVersion1 == 12)
             {
                 result = original;
 
@@ -836,7 +933,7 @@ namespace LEDLampsConfigurationSoftware
                     }
                 }
             }
-            if(hardwareVersion == 8)
+            if(hardwareVersion1 == 8)
             {
                 result = original * 0.66;
             }           
@@ -851,7 +948,8 @@ namespace LEDLampsConfigurationSoftware
         {
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                AnswerVersion.Text = "";
+                AnswerSoftwareVersion.Text = "";
+                AnswerHardwareVersion.Text = "";
                 AnswerLampModel.Text = "";
                 AnswerIA.Text = "";
                 AnswerIB.Text = "";
@@ -866,12 +964,7 @@ namespace LEDLampsConfigurationSoftware
         byte[] receivedStatusFeedbackCommand;
         Thread CreateExcelThread;
         private void CreatExcel_Click(object sender, RoutedEventArgs e)
-        {
-            ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ShowEXCELHandleProcess.Visibility = Visibility.Visible;
-            }));
-
+        {            
             CreateExcelThread = new Thread(new ThreadStart(CreateExcelThreadProcess));
             CreateExcelThread.Start();            
         }
@@ -882,6 +975,11 @@ namespace LEDLampsConfigurationSoftware
             {
                 if (ReceivedStatusFeedbackCommand.Count != 0)
                 {
+                    ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                    {
+                        ShowEXCELHandleProcess.Visibility = Visibility.Visible;
+                    }));
+
                     receivedStatusFeedbackCommand = new byte[ReceivedStatusFeedbackCommand.Count];
 
                     for (int i = 0; i < receivedStatusFeedbackCommand.Length; i++)
@@ -898,7 +996,7 @@ namespace LEDLampsConfigurationSoftware
                     {
                         EightInchesLampDataAnalysis(receivedStatusFeedbackCommand);
                         EightInchesLampParametersCreatExcel();
-                    }
+                    }                    
                     else
                     {                       
                         this.Dispatcher.Invoke(new System.Action(() =>
@@ -943,7 +1041,7 @@ namespace LEDLampsConfigurationSoftware
             {                
                 this.Dispatcher.Invoke(new System.Action(() =>
                 {
-                    if (MessageBox.Show("未进行状态查询！请先进行状态查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    if (MessageBox.Show("未进行状态查询或是状态信息为空！不能导出最终数据", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -960,6 +1058,8 @@ namespace LEDLampsConfigurationSoftware
             }
             CreateExcelThread.Abort();
         }
+
+
 
         #region 12寸灯具状态信息解析
         private void TwelveInchesLampDataAnalysis(byte[] CompleteData)
@@ -1514,7 +1614,8 @@ namespace LEDLampsConfigurationSoftware
                     {
                         ShowTXTHandleProcess.Visibility = Visibility.Hidden;
                     }));
-                    if( MessageBox.Show("数据已导出! 保存至D盘TXT文档", "提示", MessageBoxButton.OK, MessageBoxImage.Information)==MessageBoxResult.OK)
+
+                    if ( MessageBox.Show("数据已导出! 保存至D盘TXT文档", "提示", MessageBoxButton.OK, MessageBoxImage.Information)==MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -1522,26 +1623,34 @@ namespace LEDLampsConfigurationSoftware
                     {
                         ConfigurationWindow.IsEnabled = false;
                     }
+                   
                 }
                 else
                 {
-                    if( MessageBox.Show("接收指令不能为空！请重新查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
-                    {
-                        ConfigurationWindow.IsEnabled = true;
-                    }
-                    else
-                    {
-                        ConfigurationWindow.IsEnabled = false;
-                    }
                     ShowTXTHandleProcess.Dispatcher.Invoke(new System.Action(() =>
                     {
                         ShowTXTHandleProcess.Visibility = Visibility.Hidden;
                     }));
+
+                    if ( MessageBox.Show("接收指令不能为空！请重新查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                    
                 }
             }
             else
             {
-                if( MessageBox.Show("未进行状态查询！请先进行状态查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                ShowTXTHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    ShowTXTHandleProcess.Visibility = Visibility.Hidden;
+                }));
+
+                if ( MessageBox.Show("未进行状态查询或是状态信息为空！不能导出原始数据", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
                 {
                     ConfigurationWindow.IsEnabled = true;
                 }
@@ -1549,68 +1658,73 @@ namespace LEDLampsConfigurationSoftware
                 {
                     ConfigurationWindow.IsEnabled = false;
                 }
-                ShowTXTHandleProcess.Dispatcher.Invoke(new System.Action(() =>
-                {
-                    ShowTXTHandleProcess.Visibility = Visibility.Hidden;
-                }));
+                
             }
         }                  
-
         #endregion
 
         #region 工厂模式参数设置
         private void SetLightParametersInFactoryMode_Click(object sender, RoutedEventArgs e)
         {
             
-            if(ConfirmLampName.Text!=""&&ConfirmLampModel.Text!=""&&ConfirmSettingOpenCircuitParameter.Text!="")
+            if(MessageBox.Show("请确保已进行版本查询！硬件版本号为V3.0的可使用本软件","提示",MessageBoxButton.OK,MessageBoxImage.Information)==MessageBoxResult.OK)
             {
-                ConfigureSettingParametersCommand();
+                ConfigurationWindow.IsEnabled = true;            
 
-                MessageBoxResult result = MessageBox.Show("是否将指令写入灯具？", "问询", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (result == MessageBoxResult.Yes)
+                if(ConfirmLampName.Text!=""&&ConfirmLampModel.Text!=""&&ConfirmSettingOpenCircuitParameter.Text!="")
                 {
-                    ConfigurationWindow.IsEnabled = true;
+                    ConfigureSettingParametersCommand();
 
-                    if (lampsPort.IsOpen)
+                    MessageBoxResult result = MessageBox.Show("是否将指令写入灯具？", "问询", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes)
                     {
-                        judgeFeedbackCommand = 1;
-                        lampsPort.Write(settingParameterCommand, 0, 28);
-                        
-                    }
-                    else
-                    {
-                        if( MessageBox.Show("串口未打开！请打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                        ConfigurationWindow.IsEnabled = true;
+
+                        if (lampsPort.IsOpen)
                         {
-                            ConfigurationWindow.IsEnabled = true;
+                            judgeFeedbackCommand = 1;
+                            lampsPort.Write(settingParameterCommand, 0, 28);
+                        
                         }
                         else
                         {
-                            ConfigurationWindow.IsEnabled = false;
+                            if( MessageBox.Show("串口未打开！请打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                            {
+                                ConfigurationWindow.IsEnabled = true;
+                            }
+                            else
+                            {
+                                ConfigurationWindow.IsEnabled = false;
+                            }
+                            return;
                         }
-                        return;
+                    }
+
+                    if(result==MessageBoxResult.No)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    if(result==MessageBoxResult.None)
+                    {
+                        ConfigurationWindow.IsEnabled = false;
                     }
                 }
-
-                if(result==MessageBoxResult.No)
+                else
                 {
-                    ConfigurationWindow.IsEnabled = true;
-                }
-                if(result==MessageBoxResult.None)
-                {
-                    ConfigurationWindow.IsEnabled = false;
+                    if( MessageBox.Show("参数选择不能为空！请完成配置", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                    return;
                 }
             }
             else
             {
-                if( MessageBox.Show("参数选择不能为空！请完成配置", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
-                {
-                    ConfigurationWindow.IsEnabled = true;
-                }
-                else
-                {
-                    ConfigurationWindow.IsEnabled = false;
-                }
-                return;
+                ConfigurationWindow.IsEnabled = false;
             }
         }
 
@@ -1633,10 +1747,17 @@ namespace LEDLampsConfigurationSoftware
 
             SelectAPPS12SLEDC.IsChecked = false;
 
+            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitFalse.IsEnabled = true;
+
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = SelectApproachChenterlineLight.Content.ToString();
-                ConfirmLampModel.Text = "";             
+                ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";             
             }));
         }
 
@@ -1659,10 +1780,17 @@ namespace LEDLampsConfigurationSoftware
             SelectAPPS12LLEDC.IsChecked = false;
             SelectAPPS12RLEDC.IsChecked = false;
 
+            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitFalse.IsEnabled = true;
+
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = SelectApproachCrossbarLight.Content.ToString();
                 ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
             }));
         }
 
@@ -1685,10 +1813,17 @@ namespace LEDLampsConfigurationSoftware
             SelectAPSS12LLEDR.IsChecked = false;
             SelectAPSS12RLEDR.IsChecked = false;
 
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = SelectApproachSideRowLight.Content.ToString();
                 ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
             }));
         }
 
@@ -1711,10 +1846,17 @@ namespace LEDLampsConfigurationSoftware
             SelectTHWS12LLEDG.IsChecked = false;
             SelectTHWS12RLEDG.IsChecked = false;
 
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = SelectRWYThresholdWingBarLight.Content.ToString();
                 ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
             }));
         }
 
@@ -1738,10 +1880,17 @@ namespace LEDLampsConfigurationSoftware
             SelectTHRS12RLEDG.IsChecked = false;
             SelectTHRS12SLEDG.IsChecked = false;
 
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = SelectRWYThresholdLight.Content.ToString();
                 ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
             }));
         }
 
@@ -1772,10 +1921,17 @@ namespace LEDLampsConfigurationSoftware
             SelectRELS12LLEDRC.IsChecked = false;
             SelectRELS12RLEDRC.IsChecked = false;
 
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = SelectRWYEdgeLight.Content.ToString();
                 ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
             }));
         }
 
@@ -1797,10 +1953,17 @@ namespace LEDLampsConfigurationSoftware
 
             SelectENDS12LEDR.IsChecked = false;
 
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = Select12inchesRWYEndLight.Content.ToString();
                 ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
             }));
         }
 
@@ -1824,10 +1987,17 @@ namespace LEDLampsConfigurationSoftware
             SelectTAES12RLEDGR1P.IsChecked = false;
             SelectTAES12SLEDGR1P.IsChecked = false;
 
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = SelectRWYThresholdEndLight.Content.ToString();
                 ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
             }));
         }
 
@@ -1852,10 +2022,17 @@ namespace LEDLampsConfigurationSoftware
             SelectRCLS08LEDCC1P.IsChecked = false;
             SelectRCLS08LEDRC1P.IsChecked = false;
 
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = SelectRWYCenterlineLight.Content.ToString();
                 ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
             }));
         }
 
@@ -1878,10 +2055,17 @@ namespace LEDLampsConfigurationSoftware
             SelectTDZS08LLEDC.IsChecked = false;
             SelectTDZS08RLEDC.IsChecked = false;
 
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = SelectRWYTouchdownZoneLight.Content.ToString();
                 ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
             }));
         }
 
@@ -1903,10 +2087,17 @@ namespace LEDLampsConfigurationSoftware
 
             SelectENDS08LEDR.IsChecked = false;
 
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = Select8inchesRWYEndLight.Content.ToString();
                 ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
             }));
         }
 
@@ -1928,10 +2119,17 @@ namespace LEDLampsConfigurationSoftware
 
             SelectRAPS08LEDY.IsChecked = false;
 
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = SelectRapidExitTWYIndicatorLight.Content.ToString();
                 ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
             }));
         }
 
@@ -1960,10 +2158,17 @@ namespace LEDLampsConfigurationSoftware
             SelectRELC12LEDCRB1P.IsChecked = false;
             SelectRELC12LEDRYB1P.IsChecked = false;
 
+            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitFalse.IsEnabled = true;
+
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = SelectCombinedRWYEdgeLight.Content.ToString();
                 ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
             }));
         }
         #endregion
@@ -3354,6 +3559,45 @@ namespace LEDLampsConfigurationSoftware
         }
         #endregion
 
+        #region 工厂模式下，恢复初始设置
+        private void RestoreOriginalStatus_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("是否恢复初始设置？", "问询", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if(result==MessageBoxResult.Yes)
+            {
+                ConfigurationWindow.IsEnabled = true;
+
+                if (lampsPort.IsOpen)
+                {
+                    judgeFeedbackCommand = 1;
+                    lampsPort.Write(InFactoryModeRestoreOriginalCommand, 0, 28);
+                }
+                else
+                {
+                    if (MessageBox.Show("串口未打开！请打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }
+            }
+            if(result==MessageBoxResult.No)
+            {
+                ConfigurationWindow.IsEnabled = true;
+            }
+            if(result==MessageBoxResult.None)
+            {
+                ConfigurationWindow.IsEnabled = false;
+            }
+
+            
+        }
+        #endregion
+
         #endregion
 
         #region 开发者模式设置参数
@@ -3470,7 +3714,7 @@ namespace LEDLampsConfigurationSoftware
 
         private void SetLightNumber_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            InDeveloperModeSettingLampsNumber = Convert.ToByte(SetLightNumber.SelectedIndex+1);
+            InDeveloperModeSettingLampsNumber = Convert.ToByte(SetLightNumber.SelectedIndex);
         }
         #endregion
 
@@ -3810,7 +4054,8 @@ namespace LEDLampsConfigurationSoftware
                 AnswerIIB.Text = "";
                 AnswerLampModel.Text = "";
                 AnswerOpenCircuit.Text = "";
-                AnswerVersion.Text = "";
+                AnswerSoftwareVersion.Text = "";
+                AnswerHardwareVersion.Text = "";
 
                 SelectApproachChenterlineLight.IsChecked = false;
                 SelectApproachCrossbarLight.IsChecked = false;
@@ -3883,6 +4128,9 @@ namespace LEDLampsConfigurationSoftware
                 Select8inchesRWYEndLight.IsEnabled = true;
                 SelectRapidExitTWYIndicatorLight.IsEnabled = true;
                 SelectCombinedRWYEdgeLight.IsEnabled = true;
+
+                SelectOpenCircuitTrue.IsEnabled = true;
+                SelectOpenCircuitFalse.IsEnabled = true;
             }));
         }
 
@@ -4000,5 +4248,8 @@ namespace LEDLampsConfigurationSoftware
         }
 
         #endregion
+
+
+        
     }
 }
