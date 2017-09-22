@@ -1,0 +1,229 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:system="clr-namespace:System;assembly=mscorlib">
+    
+
+    <!--前台代码，串口设置页面-->
+    <system:String x:Key="LangsSettingSerialPort">Port Set</system:String>
+    <system:String x:Key="LangsSelectSerialPort">Select Port:</system:String>
+    <system:String x:Key="LangsOpenSerialPort">Open Port</system:String>
+    <system:String x:Key="LangsCloseSerialPort">Close Port</system:String>
+
+    <!--前台代码，工厂模式页面-->
+    <system:String x:Key="LangsFactoryMode">Factory Mode</system:String>
+    <system:String x:Key="LangsFactoryModeParameterSetting">Parameter Setting</system:String>
+    <system:String x:Key="LangsFactoryModeLampName">Lamp Name</system:String>
+    <system:String x:Key="LangsFactoryModeLampModel">Lamp Model</system:String>
+    <system:String x:Key="LangsFactoryModeOpenCircuitSelect">Open Circuit Selection</system:String>
+    <system:String x:Key="LangsSelectApproachChenterlineLight">LED In-pavement Approach Centerline Light（APPS-12-LED）</system:String>
+    <system:String x:Key="LangsSelectApproachCrossbarLight">LED In-pavement Approach Crossbar Light（APPS-12-LED）</system:String>
+    <system:String x:Key="LangsSelectApproachSideRowLight">LED In-pavement Approach Side Row Light（APSS-12-LED）</system:String>
+    <system:String x:Key="LangsSelectRWYThresholdWingBarLight">LED In-pavement Runway Threshold Wing-bar Light（THWS-12-LED）</system:String>
+    <system:String x:Key="LangsSelectRWYThresholdLight">LED In-pavement Runway Threshold Light（THRS-12-LED）</system:String>
+    <system:String x:Key="LangsSelectRWYEdgeLight">LED In-pavement Runway Edge Light（RELS-12-LED）</system:String>
+    <system:String x:Key="LangsSelect12inchesRWYEndLight">LED In-pavement Runway End Light（ENDS-12-LED）</system:String>
+    <system:String x:Key="LangsSelectRWYThresholdEndLight">LED In-pavement Runway Threshold/End Light（TAES-12-LED）</system:String>
+    <system:String x:Key="LangsSelectRWYCenterlineLight">LED Runway Centerline Light（RCLS-08-LED）</system:String>
+    <system:String x:Key="LangsSelectRWYTouchdownZoneLight">LED Runway Touchdown Zone Light（TDZS-08-LED）</system:String>
+    <system:String x:Key="LangsSelect8inchesRWYEndLight">LED In-pavement Runway End Light（ENDS-08-LED）</system:String>
+    <system:String x:Key="LangsSelectRapidExitTWYIndicatorLight">LED Rapid Exit Taxiway Indicator Light（RAPS-08-LED）</system:String>
+    <system:String x:Key="LangsSelectCombinedRWYEdgeLight">LED In-pavement Combined Runway Edge Light（RELC-12-LED）</system:String>
+    <system:String x:Key="LangsSelectOpenCircuitTrue">With Open Circuit</system:String>
+    <system:String x:Key="LangsSelectOpenCircuitFalse">Without Open Circuit</system:String>
+    <system:String x:Key="LangsFactoryModeConfigurationParameterConfirm">Confirm Configuration Parameter:</system:String>
+    <system:String x:Key="LangsSetLightParametersInFactoryMode">Set Parameter</system:String>
+    <system:String x:Key="LangsRestoreOriginalStatus">Restore initial Setting</system:String>
+    <system:String x:Key="LangsFactoryModeVersionQuery">Version Query</system:String>
+    <system:String x:Key="LangsFactoryModeHardwareVersion">Hardware Version:</system:String>
+    <system:String x:Key="LangsFactoryModeSoftwareVersion">Software Version:</system:String>
+    <system:String x:Key="LangsFactoryModeLampModelIllustrate">Lamp Model:</system:String>
+    <system:String x:Key="LangsFactoryModeCurrentIA">Current IA:</system:String>
+    <system:String x:Key="LangsFactoryModeCurrentIB">Current IB:</system:String>
+    <system:String x:Key="LangsFactoryModeCurrentIIA">Current IIA:</system:String>
+    <system:String x:Key="LangsFactoryModeCurrentIIB">Current IIB:</system:String>
+    <system:String x:Key="LangsFactoryModeOpenCircuitStatus">Open Circuit Status:</system:String>
+    <system:String x:Key="LangsQueryVersion">Query Version</system:String>
+
+    <!--前台代码，开发者模式页面-->
+    <system:String x:Key="LangsDeveloperMode">Developer Mode</system:String>
+    <system:String x:Key="LangsDeveloperModeParameterSetting">Parameter Setting</system:String>
+    <system:String x:Key="LangsSetReadResistanceFalse">Read Resistance</system:String>
+    <system:String x:Key="LangsSetReadResistanceTrue">Don't Read Resistance</system:String>
+    <system:String x:Key="LangsSetMosfetTrue">With MOSFET</system:String>
+    <system:String x:Key="LangsSetMosfetFalse">Without MOSFET</system:String>
+    <system:String x:Key="LangsSetBreakTrue">With Open Circuit</system:String>
+    <system:String x:Key="LangsSetBreakFalse">Without Open Circuit</system:String>
+    <system:String x:Key="LangsDeveloperModeLampNumber">Lamp Number:</system:String>
+    <system:String x:Key="LangsSetLightNumber0">00 None Lamp Model</system:String>
+    <system:String x:Key="LangsSetLightNumber1">01 LED In-pavement Approach Centerline Light（APPS-12-S-LED-C）</system:String>
+    <system:String x:Key="LangsSetLightNumber2">02 LED In-pavement Approach Crossbar Light（APPS-12-L-LED-C）</system:String>
+    <system:String x:Key="LangsSetLightNumber3">03 LED In-pavement Approach Crossbar Light（APPS-12-R-LED-C）</system:String>
+    <system:String x:Key="LangsSetLightNumber4">04 LED In-pavement Approach Side Row Light（APSS-12-L-LED-R）</system:String>
+    <system:String x:Key="LangsSetLightNumber5">05 LED In-pavement Approach Side Row Light（APSS-12-R-LED-R）</system:String>
+    <system:String x:Key="LangsSetLightNumber6">06 LED In-pavement Runway Threshold Wing-bar Light（THWS-12-L-LED-G）</system:String>
+    <system:String x:Key="LangsSetLightNumber7">07 LED In-pavement Runway Threshold Wing-bar Light（THWS-12-R-LED-G）</system:String>
+    <system:String x:Key="LangsSetLightNumber8">08 LED In-pavement Runway Threshold Light（THRS-12-L-LED-G）</system:String>
+    <system:String x:Key="LangsSetLightNumber9">09 LED In-pavement Runway Threshold Light（THRS-12-R-LED-G）</system:String>
+    <system:String x:Key="LangsSetLightNumber10">10 LED In-pavement Runway Threshold Light（THRS-12-S-LED-G）</system:String>
+    <system:String x:Key="LangsSetLightNumber11">11 LED In-pavement Runway Edge Light（RELS-12-L-LED-YC）</system:String>
+    <system:String x:Key="LangsSetLightNumber12">12 LED In-pavement Runway Edge Light（RELS-12-R-LED-YC）</system:String>
+    <system:String x:Key="LangsSetLightNumber13">13 LED In-pavement Runway Edge Light（RELS-12-L-LED-CY）</system:String>
+    <system:String x:Key="LangsSetLightNumber14">14 LED In-pavement Runway Edge Light（RELS-12-R-LED-CY）</system:String>
+    <system:String x:Key="LangsSetLightNumber15">15 LED In-pavement Runway Edge Light（RELS-12-L-LED-CC）</system:String>
+    <system:String x:Key="LangsSetLightNumber16">16 LED In-pavement Runway Edge Light（RELS-12-R-LED-CC）</system:String>
+    <system:String x:Key="LangsSetLightNumber17">17 LED In-pavement Runway Edge Light（RELS-12-L-LED-CR）</system:String>
+    <system:String x:Key="LangsSetLightNumber18">18 LED In-pavement Runway Edge Light（RELS-12-R-LED-CR）</system:String>
+    <system:String x:Key="LangsSetLightNumber19">19 LED In-pavement Runway Edge Light（RELS-12-L-LED-RC）</system:String>
+    <system:String x:Key="LangsSetLightNumber20">20 LED In-pavement Runway Edge Light（RELS-12-R-LED-RC）</system:String>
+    <system:String x:Key="LangsSetLightNumber21">21 LED In-pavement Runway End Light（ENDS-12-LED-R）</system:String>
+    <system:String x:Key="LangsSetLightNumber22">22 LED In-pavement Runway Threshold/End Light（TAES-12-L-LED-GR-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber23">23 LED In-pavement Runway Threshold/End Light（TAES-12-R-LED-GR-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber24">24 LED In-pavement Runway Threshold/End Light（TAES-12-S-LED-GR-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber25">25 LED Runway Centerline Light（RCLS-08-LED-CB-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber26">26 LED Runway Centerline Light（RCLS-08-LED-RB-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber27">27 LED Runway Centerline Light（RCLS-08-LED-CC-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber28">28 LED Runway Centerline Light（RCLS-08-LED-RC-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber29">29 LED Runway Touchdown Zone Light（TDZS-08-L-LED-C）</system:String>
+    <system:String x:Key="LangsSetLightNumber30">30 LED Runway Touchdown Zone Light（TDZS-08-R-LED-C）</system:String>
+    <system:String x:Key="LangsSetLightNumber31">31 LED In-pavement Runway End Light（ENDS-08-LED-R）</system:String>
+    <system:String x:Key="LangsSetLightNumber32">32 LED Rapid Exit Taxiway Indicator Light（RAPS-08-LED-Y）</system:String>
+    <system:String x:Key="LangsSetLightNumber33">33 LED In-pavement Combined Runway Edge Light（RELC-12-LED-CY-C-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber34">34 LED In-pavement Combined Runway Edge Light（RELC-12-LED-CC-C-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber35">35 LED In-pavement Combined Runway Edge Light（RELC-12-LED-CR-C-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber36">36 LED In-pavement Combined Runway Edge Light（RELC-12-LED-RY-C-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber37">37 LED In-pavement Combined Runway Edge Light（RELC-12-LED-CY-B-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber38">38 LED In-pavement Combined Runway Edge Light（RELC-12-LED-CC-B-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber39">39 LED In-pavement Combined Runway Edge Light（RELC-12-LED-CR-B-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber40">40 LED In-pavement Combined Runway Edge Light（RELC-12-LED-RY-B-1P）</system:String>
+    <system:String x:Key="LangsDeveloperModeSendCommand">Sending Command:</system:String>
+    <system:String x:Key="LangsSetLightParametersInDeveloperMode">Set Parameter</system:String>
+    <system:String x:Key="LangsDeveloperModeStatusQuery">Status Query</system:String>
+    <system:String x:Key="LangsDeveloperModeStatusInformation">Status Message:</system:String>
+    <system:String x:Key="LangsDeveloperModeNotes">Notes: When the time consuming of the lamp status query has stoped refresh, the lamp has finished status query and the data can be exported.</system:String>
+    <system:String x:Key="LangsCreatTXT">Export Original Data</system:String>
+    <system:String x:Key="LangsCreatExcel">Export Final Data</system:String>
+    <system:String x:Key="LangsQueryStatus">Query Status</system:String>
+    <system:String x:Key="LangsShowTXTHandleProcess">Exporting the original data...</system:String>
+    <system:String x:Key="LangsShowEXCELHandleProcess">Exporting the final data...</system:String>
+
+
+    <!--前台代码，开发者登录页面-->
+    <system:String x:Key="LangsLogin">Developer Login</system:String>
+    <system:String x:Key="LangsDeveloperModeUserName">Username:</system:String>
+    <system:String x:Key="LangsDeveloperModePassword">Password:</system:String>
+    <system:String x:Key="LangsLogIn">Log In</system:String>
+    <system:String x:Key="LangsLogOut">Log Out</system:String>
+
+
+    <!--前台代码，语言设置页面-->
+    <system:String x:Key="LangsLanguageSetting">Language Set</system:String>
+    <system:String x:Key="LangsLanguageSelect">Select Language:</system:String>
+    <system:String x:Key="LangsConfirmLanguageSetting">Set Language</system:String>
+
+
+    <!--后台代码，串口设置页面-->
+    <system:String x:Key="LangsLampInchesLabel1">Failed to query the size of the lamp drive board.</system:String>
+    <system:String x:Key="LangsLampInchesLabel2">The size of the lamp drive board is</system:String>
+    <system:String x:Key="LangsLampInchesLabel3">inches.</system:String>
+
+    <!--后台代码，工厂模式页面-->
+    <system:String x:Key="LangsAnswerHardwareVersion0">inches</system:String>
+    <system:String x:Key="LangsAnswerLampModel0">None lamp model</system:String>
+    <system:String x:Key="LangsAnswerLampModel1">Approach Centerline Light(APPS-12-S-LED-C)</system:String>
+    <system:String x:Key="LangsAnswerLampModel2">Approach Crossbar Light(APPS-12-L-LED-C)</system:String>
+    <system:String x:Key="LangsAnswerLampModel3">Approach Crossbar Light(APPS-12-R-LED-C)</system:String>
+    <system:String x:Key="LangsAnswerLampModel4">Approach Side Row Light(APSS-12-L-LED-R)"</system:String>
+    <system:String x:Key="LangsAnswerLampModel5">Approach Side Row Light(APSS-12-R-LED-R)</system:String>
+    <system:String x:Key="LangsAnswerLampModel6">Runway Threshold Wing-bar Light(THWS-12-L-LED-G)</system:String>
+    <system:String x:Key="LangsAnswerLampModel7">Runway Threshold Wing-bar Light(THWS-12-R-LED-G)</system:String>
+    <system:String x:Key="LangsAnswerLampModel8">Runway Threshold Light(THRS-12-L-LED-G)</system:String>
+    <system:String x:Key="LangsAnswerLampModel9">Runway Threshold Light(THRS-12-R-LED-G)</system:String>
+    <system:String x:Key="LangsAnswerLampModel10">Runway Threshold Light(THRS-12-S-LED-G)</system:String>
+    <system:String x:Key="LangsAnswerLampModel11">Runway Edge Light(RELS-12-L-LED-YC)</system:String>
+    <system:String x:Key="LangsAnswerLampModel12">Runway Edge Light(RELS-12-R-LED-YC)</system:String>
+    <system:String x:Key="LangsAnswerLampModel13">Runway Edge Light(RELS-12-L-LED-CY)</system:String>
+    <system:String x:Key="LangsAnswerLampModel14">Runway Edge Light(RELS-12-R-LED-CY)</system:String>
+    <system:String x:Key="LangsAnswerLampModel15">Runway Edge Light(RELS-12-L-LED-CC)</system:String>
+    <system:String x:Key="LangsAnswerLampModel16">Runway Edge Light(RELS-12-R-LED-CC)</system:String>
+    <system:String x:Key="LangsAnswerLampModel17">Runway Edge Light(RELS-12-L-LED-CR)</system:String>
+    <system:String x:Key="LangsAnswerLampModel18">Runway Edge Light(RELS-12-R-LED-CR)</system:String>
+    <system:String x:Key="LangsAnswerLampModel19">Runway Edge Light(RELS-12-L-LED-RC)</system:String>
+    <system:String x:Key="LangsAnswerLampModel20">Runway Edge Light(RELS-12-R-LED-RC)</system:String>
+    <system:String x:Key="LangsAnswerLampModel21">Runway End Light（ENDS-12-LED-R）</system:String>
+    <system:String x:Key="LangsAnswerLampModel22">Runway Threshold/End Light(TAES-12-L-LED-GR-1P)</system:String>
+    <system:String x:Key="LangsAnswerLampModel23">Runway Threshold/End Light(TAES-12-R-LED-GR-1P)</system:String>
+    <system:String x:Key="LangsAnswerLampModel24">Runway Threshold/End Light(TAES-12-S-LED-GR-1P)</system:String>
+    <system:String x:Key="LangsAnswerLampModel25">Runway Enterline Light(RCLS-08-LED-CB-1P)</system:String>
+    <system:String x:Key="LangsAnswerLampModel26">Runway Enterline Light(RCLS-08-LED-RB-1P)</system:String>
+    <system:String x:Key="LangsAnswerLampModel27">Runway Enterline Light(RCLS-08-LED-CC-1P)</system:String>
+    <system:String x:Key="LangsAnswerLampModel28">Runway Enterline Light(RCLS-08-LED-RC-1P)</system:String>
+    <system:String x:Key="LangsAnswerLampModel29">Runway Touchdown Zone Light(TDZS-08-L-LED-C)</system:String>
+    <system:String x:Key="LangsAnswerLampModel30">Runway Touchdown Zone Light(TDZS-08-R-LED-C)</system:String>
+    <system:String x:Key="LangsAnswerLampModel31">Runway End Light（ENDS-08-LED-R）</system:String>
+    <system:String x:Key="LangsAnswerLampModel32">Rapid Exit Taxiway Indicator Light(RAPS-08-LED-Y)</system:String>
+    <system:String x:Key="LangsAnswerLampModel33">Combined Runway Edge Light（RELC-12-LED-CY-C-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel34">Combined Runway Edge Light（RELC-12-LED-CC-C-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel35">Combined Runway Edge Light（RELC-12-LED-CR-C-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel36">Combined Runway Edge Light（RELC-12-LED-RY-C-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel37">Combined Runway Edge Light（RELC-12-LED-CY-B-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel38">Combined Runway Edge Light（RELC-12-LED-CC-B-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel39">Combined Runway Edge Light（RELC-12-LED-CR-B-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel40">Combined Runway Edge Light（RELC-12-LED-RY-B-1P）</system:String>
+    <system:String x:Key="LangsAnswerOpenCircuit1">Without Open Circuit</system:String>
+    <system:String x:Key="LangsAnswerOpenCircuit2">With Open Circuit</system:String>
+
+    <!--后台代码，开发者模式页面-->
+    <system:String x:Key="LangsAnswerStatus1">The time consuming of lamp status query is </system:String>
+    <system:String x:Key="LangsCreateExcel1">inches lamp parameter analysis</system:String>
+    <system:String x:Key="LangsCreateExcel2">sequence number</system:String>
+    <system:String x:Key="LangsCreateTxt1">lamp original data</system:String>
+
+    <!--后台代码，MessageBox设置-->
+    <system:String x:Key="LangsMessageboxHeader1">Prompt</system:String>
+    <system:String x:Key="LangsMessageboxHeader2">Enquiry</system:String>
+
+    <system:String x:Key="LangsMessageboxContent1">Are you sure to close the software?</system:String>
+    <system:String x:Key="LangsMessageboxContent2">The port is open now! Please close it.</system:String>
+    <system:String x:Key="LangsMessageboxContent3">Failed to query the size of lamp drive board! Please reopen the port.</system:String>
+    <system:String x:Key="LangsMessageboxContent4">The port is open now!</system:String>
+    <system:String x:Key="LangsMessageboxContent5">Failed to open the port! Please try again.</system:String>
+    <system:String x:Key="LangsMessageboxContent6">The port is close now!</system:String>
+    <system:String x:Key="LangsMessageboxContent7">Failed to close the port! Please try agian.</system:String>
+    <system:String x:Key="LangsMessageboxContent8">Failed to receive the feedback command! Please requery version.</system:String>
+    <system:String x:Key="LangsMessageboxContent9">The port is close now! Please open it.</system:String>
+    <system:String x:Key="LangsMessageboxContent10">Exporting data now! Please query status later.</system:String>
+    <system:String x:Key="LangsMessageboxContent11">Feedback command error! Please try again.</system:String>
+    <system:String x:Key="LangsMessageboxContent12">Parameter setting succeed!</system:String>
+    <system:String x:Key="LangsMessageboxContent13">Frame header error! Please reset the parameter.</system:String>
+    <system:String x:Key="LangsMessageboxContent14">Check code error! Please reset the parameter.</system:String>
+    <system:String x:Key="LangsMessageboxContent15">Command length error! Please reset the parameter.</system:String>
+    <system:String x:Key="LangsMessageboxContent16">Version query succeed!</system:String>
+    <system:String x:Key="LangsMessageboxContent17">Frame header error! Please requery version.</system:String>
+    <system:String x:Key="LangsMessageboxContent18">Check code error! Please requery version.</system:String>
+    <system:String x:Key="LangsMessageboxContent19">Command length error! Please requery version.</system:String>
+    <system:String x:Key="LangsMessageboxContent20">Empty! Not used.</system:String>
+    <system:String x:Key="LangsMessageboxContent21">Lamp status information is empty!</system:String>
+    <system:String x:Key="LangsMessageboxContent22">Frame header error! Please requery status.</system:String>
+    <system:String x:Key="LangsMessageboxContent23">Check code error! Please requery status.</system:String>
+    <system:String x:Key="LangsMessageboxContent24">Command length error! Please requery status.</system:String>
+    <system:String x:Key="LangsMessageboxContent25">Empty! Not used.</system:String>
+    <system:String x:Key="LangsMessageboxContent26">Feedback command is empty! Please requery status.</system:String>
+    <system:String x:Key="LangsMessageboxContent27">Status query is not performed or the status information is empty! Can not export the final data.</system:String>
+    <system:String x:Key="LangsMessageboxContent28">Data is exported! Saved as an Excel document in D drive.</system:String>
+    <system:String x:Key="LangsMessageboxContent29">Failed to export the data! Please try again.</system:String>
+    <system:String x:Key="LangsMessageboxContent30">Data is exported! Saved as an Txt document in D drive.</system:String>
+    <system:String x:Key="LangsMessageboxContent31">Status query is not performed or the status information is empty! Can not export the original data.</system:String>
+    <system:String x:Key="LangsMessageboxContent32">Please make sure that version query has been done! The software suits for hardware V3.0 only.</system:String>
+    <system:String x:Key="LangsMessageboxContent33">Are you sure to configure the lamp?</system:String>
+    <system:String x:Key="LangsMessageboxContent34">Parameter selection can not be empty! Please finish the configuration.</system:String>
+    <system:String x:Key="LangsMessageboxContent35">Are you sure to restore the initial setting?</system:String>
+    <system:String x:Key="LangsMessageboxContent36">Textboxs can not be empty! Please enter the current value.</system:String>
+    <system:String x:Key="LangsMessageboxContent37">Unvalidated input! Numbers 0 to 9 and character '.' are used only.</system:String>
+    <system:String x:Key="LangsMessageboxContent38">Format error! Please enter the correct format, such as 0.123.</system:String>
+    <system:String x:Key="LangsMessageboxContent39">The range is exceeded! The value ranges from 0 to 1.</system:String>
+    <system:String x:Key="LangsMessageboxContent40">Decimal places error! Rounded to three decimal places most, such as 0.123.</system:String>
+    <system:String x:Key="LangsMessageboxContent41">Password error! Please re-enter it.</system:String>
+    <system:String x:Key="LangsMessageboxContent42">Username error! Please re-enter it.</system:String>
+
+
+</ResourceDictionary>

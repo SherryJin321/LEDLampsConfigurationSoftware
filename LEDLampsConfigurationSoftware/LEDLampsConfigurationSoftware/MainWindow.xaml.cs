@@ -125,6 +125,115 @@ namespace LEDLampsConfigurationSoftware
         ArrayList ErrorCodeTwelveinches = new ArrayList();
         #endregion
 
+        #region 后台代码，串口设置页面，中英文切换字符串
+        string LampInchesLabel1 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel1");
+        string LampInchesLabel2 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel2");
+        string LampInchesLabel3 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel3");
+        #endregion
+
+        #region 后台代码，工厂模式页面，中英文切换字符串
+        string AnswerHardwareVersion0 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion0");
+        string AnswerLampModel0 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel0");
+        string AnswerLampModel1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel1");
+        string AnswerLampModel2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel2");
+        string AnswerLampModel3 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel3");
+        string AnswerLampModel4 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel4");
+        string AnswerLampModel5 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel5");
+        string AnswerLampModel6 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel6");
+        string AnswerLampModel7 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel7");
+        string AnswerLampModel8 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel8");
+        string AnswerLampModel9 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel9");
+        string AnswerLampModel10 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel10");
+        string AnswerLampModel11 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel11");
+        string AnswerLampModel12 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel12");
+        string AnswerLampModel13 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel13");
+        string AnswerLampModel14 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel14");
+        string AnswerLampModel15 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel15");
+        string AnswerLampModel16 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel16");
+        string AnswerLampModel17 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel17");
+        string AnswerLampModel18 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel18");
+        string AnswerLampModel19 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel19");
+        string AnswerLampModel20 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel20");
+        string AnswerLampModel21 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel21");
+        string AnswerLampModel22 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel22");
+        string AnswerLampModel23 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel23");
+        string AnswerLampModel24 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel24");
+        string AnswerLampModel25 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel25");
+        string AnswerLampModel26 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel26");
+        string AnswerLampModel27 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel27");
+        string AnswerLampModel28 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel28");
+        string AnswerLampModel29 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel29");
+        string AnswerLampModel30 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel30");
+        string AnswerLampModel31 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel31");
+        string AnswerLampModel32 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel32");
+        string AnswerLampModel33 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel33");
+        string AnswerLampModel34 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel34");
+        string AnswerLampModel35 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel35");
+        string AnswerLampModel36 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel36");
+        string AnswerLampModel37 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel37");
+        string AnswerLampModel38 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel38");
+        string AnswerLampModel39 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel39");
+        string AnswerLampModel40 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel40");
+        string AnswerOpenCircuit1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit1");
+        string AnswerOpenCircuit2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit2");
+        #endregion
+
+        #region 后台代码，开发者模式页面，中英文切换字符串
+        string AnswerStatus1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerStatus1");
+        string CreateExcel1 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel1");
+        string CreateExcel2 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel2");
+        string CreateTxt1 = (string)System.Windows.Application.Current.FindResource("LangsCreateTxt1");
+
+        #endregion
+
+        #region 后台代码，Messagebox，中英文切换字符串
+        string MessageboxHeader1 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxHeader1");
+        string MessageboxHeader2 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxHeader2");
+
+        string MessageboxContent1 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent1");
+        string MessageboxContent2 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent2");
+        string MessageboxContent3 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent3");
+        string MessageboxContent4 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent4");
+        string MessageboxContent5 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent5");
+        string MessageboxContent6 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent6");
+        string MessageboxContent7 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent7");
+        string MessageboxContent8 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent8");
+        string MessageboxContent9 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent9");
+        string MessageboxContent10 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent10");
+        string MessageboxContent11 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent11");
+        string MessageboxContent12 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent12");
+        string MessageboxContent13 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent13");
+        string MessageboxContent14 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent14");
+        string MessageboxContent15 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent15");
+        string MessageboxContent16 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent16");
+        string MessageboxContent17 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent17");
+        string MessageboxContent18 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent18");
+        string MessageboxContent19 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent19");
+        string MessageboxContent20 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent20");
+        string MessageboxContent21 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent21");
+        string MessageboxContent22 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent22");
+        string MessageboxContent23 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent23");
+        string MessageboxContent24 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent24");
+        string MessageboxContent25 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent25");
+        string MessageboxContent26 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent26");
+        string MessageboxContent27 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent27");
+        string MessageboxContent28 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent28");
+        string MessageboxContent29 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent29");
+        string MessageboxContent30 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent30");
+        string MessageboxContent31 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent31");
+        string MessageboxContent32 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent32");
+        string MessageboxContent33 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent33");
+        string MessageboxContent34 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent34");
+        string MessageboxContent35 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent35");
+        string MessageboxContent36 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent36");
+        string MessageboxContent37 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent37");
+        string MessageboxContent38 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent38");
+        string MessageboxContent39 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent39");
+        string MessageboxContent40 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent40");
+        string MessageboxContent41 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent41");
+        string MessageboxContent42 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent42");       
+        #endregion
+
         public MainWindow()
         {                      
             InitializeComponent();
@@ -151,7 +260,8 @@ namespace LEDLampsConfigurationSoftware
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("是否关闭软件", "问询", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            RefreshStringMessageLanguage();
+            MessageBoxResult result = MessageBox.Show(MessageboxContent1, MessageboxHeader2, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result==MessageBoxResult.Yes)
             {
@@ -159,7 +269,7 @@ namespace LEDLampsConfigurationSoftware
 
                 if (lampsPort.IsOpen==true)
                 {
-                    if(MessageBox.Show("串口未关闭！请先关闭串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.None)
+                    if(MessageBox.Show(MessageboxContent2, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.None)
                     {
                         ConfigurationWindow.IsEnabled = false;
                     }
@@ -193,6 +303,7 @@ namespace LEDLampsConfigurationSoftware
         //打开串口
         private void OpenSerialPort_Click(object sender, RoutedEventArgs e)
         {
+            RefreshStringMessageLanguage();
             try
             {
                 if (lampsPort.IsOpen == false)
@@ -212,7 +323,8 @@ namespace LEDLampsConfigurationSoftware
                     Thread.Sleep(50);
                     if (judgeFeedbackCommand == 4)
                     {
-                        if( MessageBox.Show("查询灯具尺寸失败!请重新打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                        
+                        if ( MessageBox.Show(MessageboxContent3, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
                         {
                             ConfigurationWindow.IsEnabled = true;
                         }
@@ -236,11 +348,14 @@ namespace LEDLampsConfigurationSoftware
                         SelectCombinedRWYEdgeLight.IsEnabled = false;
 
                         LampInchesLabel.Content = "";
-                        LampInchesLabel.Content = "查询当前灯具驱动板尺寸失败。";
+
+                        RefreshStringMessageLanguage();
+                        LampInchesLabel.Content = LampInchesLabel1;                                                                      
+
                     }
                     else
                     {
-                        if (MessageBox.Show("串口已打开！", "提示", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                        if (MessageBox.Show(MessageboxContent4, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
                         {
                             ConfigurationWindow.IsEnabled = true;
                             FactoryMode.IsSelected = true;                            
@@ -254,7 +369,7 @@ namespace LEDLampsConfigurationSoftware
             }
            catch
             {
-                if( MessageBox.Show("串口打开失败！", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                if( MessageBox.Show(MessageboxContent5, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
                 {
                     ConfigurationWindow.IsEnabled = true;
                 }
@@ -267,6 +382,7 @@ namespace LEDLampsConfigurationSoftware
         //关闭串口
         private void CloseSerialPort_Click(object sender, RoutedEventArgs e)
         {
+            RefreshStringMessageLanguage();
             try
             {
                 if (lampsPort.IsOpen == true)
@@ -278,7 +394,7 @@ namespace LEDLampsConfigurationSoftware
                 }
                 if(lampsPort.IsOpen==false)
                 {
-                    if( MessageBox.Show("串口已关闭！", "提示", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                    if( MessageBox.Show(MessageboxContent6, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -290,7 +406,7 @@ namespace LEDLampsConfigurationSoftware
             }
             catch
             {
-                if( MessageBox.Show("关闭串口失败！请重启软件", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                if( MessageBox.Show(MessageboxContent7, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                 {
                     ConfigurationWindow.IsEnabled = true;
                 }
@@ -319,14 +435,15 @@ namespace LEDLampsConfigurationSoftware
         #region 版本查询
         private void QueryVersion_Click(object sender, RoutedEventArgs e)
         {
-            if(lampsPort.IsOpen)
+            RefreshStringMessageLanguage();
+            if (lampsPort.IsOpen)
             {
                 judgeFeedbackCommand = 2;                
                 lampsPort.Write(queryVersionCommand, 0, 28);
                 Thread.Sleep(50);
                 if(judgeFeedbackCommand==2)
                 {
-                    if( MessageBox.Show("未接收到反馈指令！请重新查询版本", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    if( MessageBox.Show(MessageboxContent8, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -338,7 +455,7 @@ namespace LEDLampsConfigurationSoftware
             }
             else
             {
-                if( MessageBox.Show("未打开串口！请打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                if( MessageBox.Show(MessageboxContent9, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                 {
                     ConfigurationWindow.IsEnabled = true;
                 }
@@ -355,6 +472,7 @@ namespace LEDLampsConfigurationSoftware
         TimeSpan QueryStatusTimeSpan;
         private void QueryStatus_Click(object sender, RoutedEventArgs e)
         {
+            RefreshStringMessageLanguage();
             if (lampsPort.IsOpen)
             {
                 if(ShowEXCELHandleProcess.Visibility==Visibility.Hidden&&ShowTXTHandleProcess.Visibility==Visibility.Hidden)
@@ -367,7 +485,7 @@ namespace LEDLampsConfigurationSoftware
                 }
                 else
                 {
-                    if( MessageBox.Show("正在导出数据！请稍候进行状态查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                    if( MessageBox.Show(MessageboxContent10, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;                        
                     }
@@ -379,7 +497,7 @@ namespace LEDLampsConfigurationSoftware
             }
             else
             {
-                if( MessageBox.Show("未打开串口！请打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                if( MessageBox.Show(MessageboxContent9, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                 {
                     ConfigurationWindow.IsEnabled = true;
                 }
@@ -395,6 +513,7 @@ namespace LEDLampsConfigurationSoftware
         byte[] dataReceived;
         private void lampsPortDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
+            RefreshStringMessageLanguage();
             if (lampsPort.IsOpen)
             {
                 dataReceived = new byte[lampsPort.BytesToRead];
@@ -417,7 +536,7 @@ namespace LEDLampsConfigurationSoftware
             {                
                 this.Dispatcher.Invoke(new System.Action(() =>
                 {
-                    if (MessageBox.Show("串口未打开！请打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    if (MessageBox.Show(MessageboxContent9, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -440,7 +559,7 @@ namespace LEDLampsConfigurationSoftware
             {
                 this.Dispatcher.Invoke(new System.Action(() =>
                 {
-                    if (MessageBox.Show("指令错误！", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    if (MessageBox.Show(MessageboxContent11, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -465,7 +584,7 @@ namespace LEDLampsConfigurationSoftware
                     {
                         this.Dispatcher.Invoke(new System.Action(() =>
                         {
-                            if ( MessageBox.Show("参数设置成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                            if ( MessageBox.Show(MessageboxContent12, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
                             {                           
                                     ConfigurationWindow.IsEnabled = true;                                                     
                             }
@@ -480,7 +599,7 @@ namespace LEDLampsConfigurationSoftware
                     {                       
                         this.Dispatcher.Invoke(new System.Action(() =>
                         {
-                            if (MessageBox.Show("帧头错误!请重新设置参数", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                            if (MessageBox.Show(MessageboxContent13, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                             {
                                 ConfigurationWindow.IsEnabled = true;
                             }
@@ -496,7 +615,7 @@ namespace LEDLampsConfigurationSoftware
                 {                   
                     this.Dispatcher.Invoke(new System.Action(() =>
                     {
-                        if (MessageBox.Show("校验错误!请重新设置参数", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                        if (MessageBox.Show(MessageboxContent14, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                         {
                             ConfigurationWindow.IsEnabled = true;
                         }
@@ -512,7 +631,7 @@ namespace LEDLampsConfigurationSoftware
             {               
                 this.Dispatcher.Invoke(new System.Action(() =>
                 {
-                    if (MessageBox.Show("指令长度错误!请重新设置参数", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    if (MessageBox.Show(MessageboxContent15, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -556,8 +675,9 @@ namespace LEDLampsConfigurationSoftware
                         {
                             PurgeAnswerVersionTextblock();
 
-                            AnswerHardwareVersion.Text = "V" + hardwareVersion2.ToString() + "." + hardwareVersion3.ToString()+"  "+hardwareVersion1.ToString() + "寸";
-                            AnswerSoftwareVersion.Text = "V"+softwareVersion1.ToString() + "." + softwareVersion2.ToString() +"."+ softwareVersion3.ToString() + " " + " 20" + year.ToString() + "年" + month.ToString() + "月" + date.ToString() + "日";
+                            RefreshStringMessageLanguage();
+                            AnswerHardwareVersion.Text = "V" + hardwareVersion2.ToString() + "." + hardwareVersion3.ToString()+"  "+hardwareVersion1.ToString() + " "+AnswerHardwareVersion0;
+                            AnswerSoftwareVersion.Text = "V"+softwareVersion1.ToString() + "." + softwareVersion2.ToString() +"."+ softwareVersion3.ToString() + " " + " 20" + year.ToString() + "/" + month.ToString() + "/" + date.ToString();
                             AnswerLampModel.Text= LampsContentShow(lampsNumber);
                             AnswerIA.Text = currentRatio1.ToString();
                             AnswerIB.Text = currentRatio2.ToString();
@@ -565,11 +685,11 @@ namespace LEDLampsConfigurationSoftware
                             AnswerIIB.Text = currentRatio4.ToString();                           
                             if (breakFlag == 0)
                             {
-                                AnswerOpenCircuit.Text = "不带开路";
+                                AnswerOpenCircuit.Text = AnswerOpenCircuit1;
                             }
                             else
                             {
-                                AnswerOpenCircuit.Text = "带开路";
+                                AnswerOpenCircuit.Text = AnswerOpenCircuit2;
                             }
 
                             
@@ -577,7 +697,7 @@ namespace LEDLampsConfigurationSoftware
                         
                         this.Dispatcher.Invoke(new System.Action(() =>
                         {
-                            if (MessageBox.Show("版本查询成功！", "提示", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                            if (MessageBox.Show(MessageboxContent16, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
                             {
                                 ConfigurationWindow.IsEnabled = true;
                             }
@@ -591,7 +711,7 @@ namespace LEDLampsConfigurationSoftware
                     {                        
                         this.Dispatcher.Invoke(new System.Action(() =>
                         {
-                            if (MessageBox.Show("帧头错误!请重新查询版本", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                            if (MessageBox.Show(MessageboxContent17, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                             {
                                 ConfigurationWindow.IsEnabled = true;
                             }
@@ -607,7 +727,7 @@ namespace LEDLampsConfigurationSoftware
                 {                    
                     this.Dispatcher.Invoke(new System.Action(() =>
                     {
-                        if (MessageBox.Show("校验错误!请重新查询版本", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                        if (MessageBox.Show(MessageboxContent18, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                         {
                             ConfigurationWindow.IsEnabled = true;
                         }
@@ -623,7 +743,7 @@ namespace LEDLampsConfigurationSoftware
             {               
                 this.Dispatcher.Invoke(new System.Action(() =>
                 {
-                    if (MessageBox.Show("指令长度错误!请重新查询版本", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    if (MessageBox.Show(MessageboxContent19, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -651,7 +771,9 @@ namespace LEDLampsConfigurationSoftware
                         this.Dispatcher.Invoke(new System.Action(() =>
                         {
                             LampInchesLabel.Content = "";
-                            LampInchesLabel.Content = "当前灯具驱动板尺寸为" + hardwareVersion1.ToString() + "寸。";
+
+                            RefreshStringMessageLanguage();
+                            LampInchesLabel.Content = LampInchesLabel2 + " "+hardwareVersion1.ToString() + " "+LampInchesLabel3;
                                               
                             if(hardwareVersion1==8)
                             {
@@ -707,7 +829,7 @@ namespace LEDLampsConfigurationSoftware
                     {                        
                         this.Dispatcher.Invoke(new System.Action(() =>
                         {
-                            if (MessageBox.Show("查询灯具尺寸失败!请重新打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                            if (MessageBox.Show(MessageboxContent3, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                             {
                                 ConfigurationWindow.IsEnabled = true;
                             }
@@ -723,7 +845,7 @@ namespace LEDLampsConfigurationSoftware
                 {                    
                     this.Dispatcher.Invoke(new System.Action(() =>
                     {
-                        if (MessageBox.Show("查询灯具尺寸失败!请重新打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                        if (MessageBox.Show(MessageboxContent3, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                         {
                             ConfigurationWindow.IsEnabled = true;
                         }
@@ -739,7 +861,7 @@ namespace LEDLampsConfigurationSoftware
             {                
                 this.Dispatcher.Invoke(new System.Action(() =>
                 {
-                    if (MessageBox.Show("查询灯具尺寸失败!请重新打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    if (MessageBox.Show(MessageboxContent3, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -757,10 +879,11 @@ namespace LEDLampsConfigurationSoftware
         {
             ReceivedStatusFeedbackCommand.AddRange(dataReceived);
 
+            RefreshStringMessageLanguage();
             QueryStatusTimeSpan = DateTime.Now - StartQueryStatus;
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                AnswerStatus.Text = "灯具状态查询已耗时: " + QueryStatusTimeSpan.Hours.ToString().PadLeft(2, '0') + ":" + QueryStatusTimeSpan.Minutes.ToString().PadLeft(2, '0') + ":" + QueryStatusTimeSpan.Seconds.ToString().PadLeft(2, '0') + ":" + QueryStatusTimeSpan.Milliseconds.ToString().PadLeft(3, '0');
+                AnswerStatus.Text = AnswerStatus1 + " "+QueryStatusTimeSpan.Hours.ToString().PadLeft(2, '0') + ":" + QueryStatusTimeSpan.Minutes.ToString().PadLeft(2, '0') + ":" + QueryStatusTimeSpan.Seconds.ToString().PadLeft(2, '0') + ":" + QueryStatusTimeSpan.Milliseconds.ToString().PadLeft(3, '0');
             }));
 
             if (dataReceived.Length == 4)
@@ -790,7 +913,7 @@ namespace LEDLampsConfigurationSoftware
                     {
                         this.Dispatcher.Invoke(new System.Action(() =>
                         {
-                            if (MessageBox.Show("灯具状态信息为空！", "提示", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                            if (MessageBox.Show(MessageboxContent21, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
                             {
                                 ConfigurationWindow.IsEnabled = true;
                             }
@@ -805,7 +928,7 @@ namespace LEDLampsConfigurationSoftware
                     {
                         this.Dispatcher.Invoke(new System.Action(() =>
                         {
-                            if (MessageBox.Show("帧头错误!请重新查询状态", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                            if (MessageBox.Show(MessageboxContent22, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                             {
                                 ConfigurationWindow.IsEnabled = true;
                             }
@@ -821,7 +944,7 @@ namespace LEDLampsConfigurationSoftware
                 {
                     this.Dispatcher.Invoke(new System.Action(() =>
                     {
-                        if (MessageBox.Show("校验错误!请重新查询状态", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                        if (MessageBox.Show(MessageboxContent23, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                         {
                             ConfigurationWindow.IsEnabled = true;
                         }
@@ -837,7 +960,7 @@ namespace LEDLampsConfigurationSoftware
             {
                 this.Dispatcher.Invoke(new System.Action(() =>
                 {
-                    if (MessageBox.Show("指令长度错误!请重新查询状态", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    if (MessageBox.Show(MessageboxContent24, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -853,49 +976,51 @@ namespace LEDLampsConfigurationSoftware
         public string LampsContentShow(byte lampNumber)
         {
             string result = "";
+
+            RefreshStringMessageLanguage();
             switch (lampNumber)
             {
-                case 0: result = "无灯具型号"; break;
-                case 1: result = "进近中线灯(APPS-12-S-LED-C)"; break;
-                case 2: result = "进近横排灯(APPS-12-L-LED-C)"; break;
-                case 3: result = "进近横排灯(APPS-12-R-LED-C)"; break;               
-                case 4: result = "进近侧边灯(APSS-12-L-LED-R)"; break;
-                case 5: result = "进近侧边灯(APSS-12-R-LED-R)"; break;
-                case 6: result = "跑道入口翼排灯(THWS-12-L-LED-G)"; break;
-                case 7: result = "跑道入口翼排灯(THWS-12-R-LED-G)"; break;
-                case 8: result = "跑道入口灯(THRS-12-L-LED-G)"; break;
-                case 9: result = "跑道入口灯(THRS-12-R-LED-G)"; break;
-                case 10: result = "跑道入口灯(THRS-12-S-LED-G)"; break;
-                case 11: result = "跑道边灯(RELS-12-L-LED-YC)"; break;
-                case 12: result = "跑道边灯(RELS-12-R-LED-YC)"; break;
-                case 13: result = "跑道边灯(RELS-12-L-LED-CY)"; break;
-                case 14: result = "跑道边灯(RELS-12-R-LED-CY)"; break;
-                case 15: result = "跑道边灯(RELS-12-L-LED-CC)"; break;
-                case 16: result = "跑道边灯(RELS-12-R-LED-CC)"; break;
-                case 17: result = "跑道边灯(RELS-12-L-LED-CR)"; break;
-                case 18: result = "跑道边灯(RELS-12-R-LED-CR)"; break;
-                case 19: result = "跑道边灯(RELS-12-L-LED-RC)"; break;
-                case 20: result = "跑道边灯(RELS-12-R-LED-RC)"; break;
-                case 21: result = "跑道末端灯（ENDS-12-LED-R）"; break;
-                case 22: result = "跑道入口/末端灯(TAES-12-L-LED-GR-1P)"; break;
-                case 23: result = "跑道入口/末端灯(TAES-12-R-LED-GR-1P)"; break;
-                case 24: result = "跑道入口/末端灯(TAES-12-S-LED-GR-1P)"; break;
-                case 25: result = "跑道中线灯(RCLS-08-LED-CB-1P)"; break;
-                case 26: result = "跑道中线灯(RCLS-08-LED-RB-1P)"; break;
-                case 27: result = "跑道中线灯(RCLS-08-LED-CC-1P)"; break;
-                case 28: result = "跑道中线灯(RCLS-08-LED-RC-1P)"; break;
-                case 29: result = "跑道接地带灯(TDZS-08-L-LED-C)"; break;
-                case 30: result = "跑道接地带灯(TDZS-08-R-LED-C)"; break;
-                case 31: result = "跑道末端灯（ENDS-08-LED-R）"; break;
-                case 32: result = "快速出口滑行道指示灯(RAPS-08-LED-Y)"; break;
-                case 33: result = "组合跑道边灯（RELC-12-LED-CY-C-1P）"; break;
-                case 34: result = "组合跑道边灯（RELC-12-LED-CC-C-1P）"; break;
-                case 35: result = "组合跑道边灯（RELC-12-LED-CR-C-1P）"; break;
-                case 36: result = "组合跑道边灯（RELC-12-LED-RY-C-1P）"; break;
-                case 37: result = "组合跑道边灯（RELC-12-LED-CY-B-1P）"; break;
-                case 38: result = "组合跑道边灯（RELC-12-LED-CC-B-1P）"; break;
-                case 39: result = "组合跑道边灯（RELC-12-LED-CR-B-1P）"; break;
-                case 40: result = "组合跑道边灯（RELC-12-LED-RY-B-1P）"; break;
+                case 0: result = AnswerLampModel0; break;
+                case 1: result = AnswerLampModel1; break;
+                case 2: result = AnswerLampModel2; break;
+                case 3: result = AnswerLampModel3; break;               
+                case 4: result = AnswerLampModel4; break;
+                case 5: result = AnswerLampModel5; break;
+                case 6: result = AnswerLampModel6; break;
+                case 7: result = AnswerLampModel7; break;
+                case 8: result = AnswerLampModel8; break;
+                case 9: result = AnswerLampModel9; break;
+                case 10: result = AnswerLampModel10; break;
+                case 11: result = AnswerLampModel11; break;
+                case 12: result = AnswerLampModel12; break;
+                case 13: result = AnswerLampModel13; break;
+                case 14: result = AnswerLampModel14; break;
+                case 15: result = AnswerLampModel15; break;
+                case 16: result = AnswerLampModel16; break;
+                case 17: result = AnswerLampModel17; break;
+                case 18: result = AnswerLampModel18; break;
+                case 19: result = AnswerLampModel19; break;
+                case 20: result = AnswerLampModel20; break;
+                case 21: result = AnswerLampModel21; break;
+                case 22: result = AnswerLampModel22; break;
+                case 23: result = AnswerLampModel23; break;
+                case 24: result = AnswerLampModel24; break;
+                case 25: result = AnswerLampModel25; break;
+                case 26: result = AnswerLampModel26; break;
+                case 27: result = AnswerLampModel27; break;
+                case 28: result = AnswerLampModel28; break;
+                case 29: result = AnswerLampModel29; break;
+                case 30: result = AnswerLampModel30; break;
+                case 31: result = AnswerLampModel31; break;
+                case 32: result = AnswerLampModel32; break;
+                case 33: result = AnswerLampModel33; break;
+                case 34: result = AnswerLampModel34; break;
+                case 35: result = AnswerLampModel35; break;
+                case 36: result = AnswerLampModel36; break;
+                case 37: result = AnswerLampModel37; break;
+                case 38: result = AnswerLampModel38; break;
+                case 39: result = AnswerLampModel39; break;
+                case 40: result = AnswerLampModel40; break;
             }
             return result;
         }
@@ -964,7 +1089,8 @@ namespace LEDLampsConfigurationSoftware
         byte[] receivedStatusFeedbackCommand;
         Thread CreateExcelThread;
         private void CreatExcel_Click(object sender, RoutedEventArgs e)
-        {            
+        {
+            RefreshStringMessageLanguage();
             CreateExcelThread = new Thread(new ThreadStart(CreateExcelThreadProcess));
             CreateExcelThread.Start();            
         }
@@ -1001,7 +1127,7 @@ namespace LEDLampsConfigurationSoftware
                     {                       
                         this.Dispatcher.Invoke(new System.Action(() =>
                         {
-                            if (MessageBox.Show("接收指令帧头错误！请重新查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                            if (MessageBox.Show(MessageboxContent22, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                             {
                                 ConfigurationWindow.IsEnabled = true;
                             }
@@ -1021,7 +1147,7 @@ namespace LEDLampsConfigurationSoftware
                 {                    
                     this.Dispatcher.Invoke(new System.Action(() =>
                     {
-                        if (MessageBox.Show("接收指令不能为空！请重新查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                        if (MessageBox.Show(MessageboxContent26, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                         {
                             ConfigurationWindow.IsEnabled = true;
                         }
@@ -1041,7 +1167,7 @@ namespace LEDLampsConfigurationSoftware
             {                
                 this.Dispatcher.Invoke(new System.Action(() =>
                 {
-                    if (MessageBox.Show("未进行状态查询或是状态信息为空！不能导出最终数据", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    if (MessageBox.Show(MessageboxContent27, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -1058,8 +1184,6 @@ namespace LEDLampsConfigurationSoftware
             }
             CreateExcelThread.Abort();
         }
-
-
 
         #region 12寸灯具状态信息解析
         private void TwelveInchesLampDataAnalysis(byte[] CompleteData)
@@ -1238,14 +1362,14 @@ namespace LEDLampsConfigurationSoftware
             try
             {
                 //创建excel模板
-                str_fileName = "d:\\12寸灯具参数解析" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";    //文件保存路径及名称
+                str_fileName = "d:\\12 "+ CreateExcel1 + " "+DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";    //文件保存路径及名称
                 ExcelApp = new Microsoft.Office.Interop.Excel.Application();                          //创建Excel应用程序 ExcelApp
                 ExcelDoc = ExcelApp.Workbooks.Add(Type.Missing);                                      //在应用程序ExcelApp下，创建工作簿ExcelDoc
                 ExcelSheet = ExcelDoc.Worksheets.Add(Type.Missing);                                   //在工作簿ExcelDoc下，创建工作表ExcelSheet
 
                 //设置Excel列名           
-                ExcelSheet.Cells[1, 1] = "12寸灯具参数解析";
-                ExcelSheet.Cells[2, 1] = "序号";
+                ExcelSheet.Cells[1, 1] = "12 "+ CreateExcel1;
+                ExcelSheet.Cells[2, 1] = CreateExcel2;
                 ExcelSheet.Cells[2, 2] = "RMS1";
                 ExcelSheet.Cells[2, 3] = "RMS2";
                 ExcelSheet.Cells[2, 4] = "Val2";
@@ -1319,7 +1443,7 @@ namespace LEDLampsConfigurationSoftware
                 
                 this.Dispatcher.Invoke(new System.Action(() =>
                 {
-                    if (MessageBox.Show("数据已导出! 保存至D盘Excel文档", "提示", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                    if (MessageBox.Show(MessageboxContent28, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -1338,7 +1462,7 @@ namespace LEDLampsConfigurationSoftware
                 
                 this.Dispatcher.Invoke(new System.Action(() =>
                 {
-                    if (MessageBox.Show("导出数据失败！请重新导出", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    if (MessageBox.Show(MessageboxContent29, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -1488,14 +1612,14 @@ namespace LEDLampsConfigurationSoftware
             try
             {
                 //创建excel模板
-                str_fileName = "d:\\8寸灯具参数解析" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";    //文件保存路径及名称
+                str_fileName = "d:\\8 " + CreateExcel1 +" "+ DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";    //文件保存路径及名称
                 ExcelApp = new Microsoft.Office.Interop.Excel.Application();                          //创建Excel应用程序 ExcelApp
                 ExcelDoc = ExcelApp.Workbooks.Add(Type.Missing);                                      //在应用程序ExcelApp下，创建工作簿ExcelDoc
                 ExcelSheet = ExcelDoc.Worksheets.Add(Type.Missing);                                   //在工作簿ExcelDoc下，创建工作表ExcelSheet
 
                 //设置Excel列名           
-                ExcelSheet.Cells[1, 1] = "8寸灯具参数解析";
-                ExcelSheet.Cells[2, 1] = "序号";
+                ExcelSheet.Cells[1, 1] = "8 "+ CreateExcel1;
+                ExcelSheet.Cells[2, 1] = CreateExcel2;
                 ExcelSheet.Cells[2, 2] = "RMS1";
                 ExcelSheet.Cells[2, 3] = "Val2";
                 ExcelSheet.Cells[2, 4] = "Val3";
@@ -1551,7 +1675,7 @@ namespace LEDLampsConfigurationSoftware
                 
                 this.Dispatcher.Invoke(new System.Action(() =>
                 {
-                    if (MessageBox.Show("数据已导出!保存至D盘的Excel文档", "提示", MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                    if (MessageBox.Show(MessageboxContent28, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -1570,7 +1694,7 @@ namespace LEDLampsConfigurationSoftware
                 
                 this.Dispatcher.Invoke(new System.Action(() =>
                 {
-                    if (MessageBox.Show("导出数据失败！请重新导出", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    if (MessageBox.Show(MessageboxContent29, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -1589,7 +1713,8 @@ namespace LEDLampsConfigurationSoftware
         #region 导出原始数据
         private void CreatTXT_Click(object sender, RoutedEventArgs e)
         {
-            if(judgeFeedbackCommand==3)
+            RefreshStringMessageLanguage();
+            if (judgeFeedbackCommand==3)
             {
                 if(ReceivedStatusFeedbackCommand.Count!=0)
                 {
@@ -1603,7 +1728,7 @@ namespace LEDLampsConfigurationSoftware
                         OriginalData += Convert.ToString(receivedOriginalData[i], 16).PadLeft(2, '0').ToUpper() + " ";
                     }
 
-                    string FileName = "d:\\灯具原始数据" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".txt";
+                    string FileName = "d:\\" + CreateTxt1 + " "+DateTime.Now.ToString("yyyyMMddHHmmss") + ".txt";
                     FileStream aFile = new FileStream(FileName, FileMode.Create);
                     StreamWriter sw = new StreamWriter(aFile);
 
@@ -1615,7 +1740,7 @@ namespace LEDLampsConfigurationSoftware
                         ShowTXTHandleProcess.Visibility = Visibility.Hidden;
                     }));
 
-                    if ( MessageBox.Show("数据已导出! 保存至D盘TXT文档", "提示", MessageBoxButton.OK, MessageBoxImage.Information)==MessageBoxResult.OK)
+                    if ( MessageBox.Show(MessageboxContent30, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Information)==MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -1632,7 +1757,7 @@ namespace LEDLampsConfigurationSoftware
                         ShowTXTHandleProcess.Visibility = Visibility.Hidden;
                     }));
 
-                    if ( MessageBox.Show("接收指令不能为空！请重新查询", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    if ( MessageBox.Show(MessageboxContent26, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -1650,7 +1775,7 @@ namespace LEDLampsConfigurationSoftware
                     ShowTXTHandleProcess.Visibility = Visibility.Hidden;
                 }));
 
-                if ( MessageBox.Show("未进行状态查询或是状态信息为空！不能导出原始数据", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                if ( MessageBox.Show(MessageboxContent31, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
                 {
                     ConfigurationWindow.IsEnabled = true;
                 }
@@ -1666,8 +1791,8 @@ namespace LEDLampsConfigurationSoftware
         #region 工厂模式参数设置
         private void SetLightParametersInFactoryMode_Click(object sender, RoutedEventArgs e)
         {
-            
-            if(MessageBox.Show("请确保已进行版本查询！硬件版本号为V3.0的可使用本软件","提示",MessageBoxButton.OK,MessageBoxImage.Information)==MessageBoxResult.OK)
+            RefreshStringMessageLanguage();
+            if (MessageBox.Show(MessageboxContent32, MessageboxHeader1, MessageBoxButton.OK,MessageBoxImage.Information)==MessageBoxResult.OK)
             {
                 ConfigurationWindow.IsEnabled = true;            
 
@@ -1675,7 +1800,7 @@ namespace LEDLampsConfigurationSoftware
                 {
                     ConfigureSettingParametersCommand();
 
-                    MessageBoxResult result = MessageBox.Show("是否将指令写入灯具？", "问询", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    MessageBoxResult result = MessageBox.Show(MessageboxContent33, MessageboxHeader2, MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Yes)
                     {
                         ConfigurationWindow.IsEnabled = true;
@@ -1688,7 +1813,7 @@ namespace LEDLampsConfigurationSoftware
                         }
                         else
                         {
-                            if( MessageBox.Show("串口未打开！请打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                            if( MessageBox.Show(MessageboxContent9, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
                             {
                                 ConfigurationWindow.IsEnabled = true;
                             }
@@ -1711,7 +1836,7 @@ namespace LEDLampsConfigurationSoftware
                 }
                 else
                 {
-                    if( MessageBox.Show("参数选择不能为空！请完成配置", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                    if( MessageBox.Show(MessageboxContent34, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -1755,7 +1880,7 @@ namespace LEDLampsConfigurationSoftware
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmLampName.Text = SelectApproachChenterlineLight.Content.ToString();
+                ConfirmLampName.Text = TBSelectApproachChenterlineLight.Text.ToString();
                 ConfirmLampModel.Text = "";
                 ConfirmSettingOpenCircuitParameter.Text = "";             
             }));
@@ -1788,7 +1913,7 @@ namespace LEDLampsConfigurationSoftware
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmLampName.Text = SelectApproachCrossbarLight.Content.ToString();
+                ConfirmLampName.Text = TBSelectApproachCrossbarLight.Text.ToString();
                 ConfirmLampModel.Text = "";
                 ConfirmSettingOpenCircuitParameter.Text = "";
             }));
@@ -1821,7 +1946,7 @@ namespace LEDLampsConfigurationSoftware
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmLampName.Text = SelectApproachSideRowLight.Content.ToString();
+                ConfirmLampName.Text = TBSelectApproachSideRowLight.Text.ToString();
                 ConfirmLampModel.Text = "";
                 ConfirmSettingOpenCircuitParameter.Text = "";
             }));
@@ -1854,7 +1979,7 @@ namespace LEDLampsConfigurationSoftware
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmLampName.Text = SelectRWYThresholdWingBarLight.Content.ToString();
+                ConfirmLampName.Text = TBSelectRWYThresholdWingBarLight.Text.ToString();
                 ConfirmLampModel.Text = "";
                 ConfirmSettingOpenCircuitParameter.Text = "";
             }));
@@ -1888,7 +2013,7 @@ namespace LEDLampsConfigurationSoftware
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmLampName.Text = SelectRWYThresholdLight.Content.ToString();
+                ConfirmLampName.Text = TBSelectRWYThresholdLight.Text.ToString();
                 ConfirmLampModel.Text = "";
                 ConfirmSettingOpenCircuitParameter.Text = "";
             }));
@@ -1929,7 +2054,7 @@ namespace LEDLampsConfigurationSoftware
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmLampName.Text = SelectRWYEdgeLight.Content.ToString();
+                ConfirmLampName.Text = TBSelectRWYEdgeLight.Text.ToString();
                 ConfirmLampModel.Text = "";
                 ConfirmSettingOpenCircuitParameter.Text = "";
             }));
@@ -1961,7 +2086,7 @@ namespace LEDLampsConfigurationSoftware
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmLampName.Text = Select12inchesRWYEndLight.Content.ToString();
+                ConfirmLampName.Text = TBSelect12inchesRWYEndLight.Text.ToString();
                 ConfirmLampModel.Text = "";
                 ConfirmSettingOpenCircuitParameter.Text = "";
             }));
@@ -1995,7 +2120,7 @@ namespace LEDLampsConfigurationSoftware
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmLampName.Text = SelectRWYThresholdEndLight.Content.ToString();
+                ConfirmLampName.Text = TBSelectRWYThresholdEndLight.Text.ToString();
                 ConfirmLampModel.Text = "";
                 ConfirmSettingOpenCircuitParameter.Text = "";
             }));
@@ -2030,7 +2155,7 @@ namespace LEDLampsConfigurationSoftware
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmLampName.Text = SelectRWYCenterlineLight.Content.ToString();
+                ConfirmLampName.Text = TBSelectRWYCenterlineLight.Text.ToString();
                 ConfirmLampModel.Text = "";
                 ConfirmSettingOpenCircuitParameter.Text = "";
             }));
@@ -2063,7 +2188,7 @@ namespace LEDLampsConfigurationSoftware
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmLampName.Text = SelectRWYTouchdownZoneLight.Content.ToString();
+                ConfirmLampName.Text = TBSelectRWYTouchdownZoneLight.Text.ToString();
                 ConfirmLampModel.Text = "";
                 ConfirmSettingOpenCircuitParameter.Text = "";
             }));
@@ -2095,7 +2220,7 @@ namespace LEDLampsConfigurationSoftware
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmLampName.Text = Select8inchesRWYEndLight.Content.ToString();
+                ConfirmLampName.Text = TBSelect8inchesRWYEndLight.Text.ToString();
                 ConfirmLampModel.Text = "";
                 ConfirmSettingOpenCircuitParameter.Text = "";
             }));
@@ -2127,7 +2252,7 @@ namespace LEDLampsConfigurationSoftware
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmLampName.Text = SelectRapidExitTWYIndicatorLight.Content.ToString();
+                ConfirmLampName.Text = TBSelectRapidExitTWYIndicatorLight.Text.ToString();
                 ConfirmLampModel.Text = "";
                 ConfirmSettingOpenCircuitParameter.Text = "";
             }));
@@ -2166,7 +2291,7 @@ namespace LEDLampsConfigurationSoftware
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmLampName.Text = SelectCombinedRWYEdgeLight.Content.ToString();
+                ConfirmLampName.Text = TBSelectCombinedRWYEdgeLight.Text.ToString();
                 ConfirmLampModel.Text = "";
                 ConfirmSettingOpenCircuitParameter.Text = "";
             }));
@@ -3562,7 +3687,8 @@ namespace LEDLampsConfigurationSoftware
         #region 工厂模式下，恢复初始设置
         private void RestoreOriginalStatus_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("是否恢复初始设置？", "问询", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            RefreshStringMessageLanguage();
+            MessageBoxResult result = MessageBox.Show(MessageboxContent35, MessageboxHeader2, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if(result==MessageBoxResult.Yes)
             {
@@ -3575,7 +3701,7 @@ namespace LEDLampsConfigurationSoftware
                 }
                 else
                 {
-                    if (MessageBox.Show("串口未打开！请打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    if (MessageBox.Show(MessageboxContent9, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -3603,6 +3729,7 @@ namespace LEDLampsConfigurationSoftware
         #region 开发者模式设置参数
         private void SetLightParametersInDeveloperMode_Click(object sender, RoutedEventArgs e)
         {
+            RefreshStringMessageLanguage();
             ShowSetParameterCommand.Text = "";
             if (SetParameterIA.Text != "" && SetParameterIB.Text != "" && SetParameterIIA.Text != "" && SetParameterIIB.Text != "")
             {
@@ -3613,7 +3740,7 @@ namespace LEDLampsConfigurationSoftware
                     ShowSetParameterCommand.Text += Convert.ToString(InDeveloperModeSettingParameterCommand[i], 16).PadLeft(2, '0').ToUpper() + " ";
                 }
 
-                MessageBoxResult result = MessageBox.Show("是否将指令写入灯具？", "问询", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                MessageBoxResult result = MessageBox.Show(MessageboxContent33, MessageboxHeader2, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                 if ( result== MessageBoxResult.Yes)
                 {
@@ -3626,7 +3753,7 @@ namespace LEDLampsConfigurationSoftware
                     }
                     else
                     {
-                        if( MessageBox.Show("串口未打开！请打开串口", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                        if( MessageBox.Show(MessageboxContent9, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
                         {
                             ConfigurationWindow.IsEnabled = true;
                         }
@@ -3649,7 +3776,7 @@ namespace LEDLampsConfigurationSoftware
             }
             else
             {
-                if( MessageBox.Show("文本框不能为空！请输入电流值", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                if( MessageBox.Show(MessageboxContent36, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                 {
                     ConfigurationWindow.IsEnabled = true;
                 }
@@ -3721,6 +3848,7 @@ namespace LEDLampsConfigurationSoftware
         #region 生成电流数组
         private byte[] CalculateCurrentBuffer(string stringCurrentValue, int textboxNumber)
         {
+            RefreshStringMessageLanguage();
             stringCurrentValue = stringCurrentValue.Trim();
             char[] charCurrentValue = stringCurrentValue.ToCharArray();
             byte[] result = new byte[4] { 0x00, 0x00, 0x00, 0x00 };
@@ -3733,7 +3861,7 @@ namespace LEDLampsConfigurationSoftware
                 }
                 else
                 {
-                    if( MessageBox.Show("非法输入！请输入数字 0~9、字符 '.'", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                    if( MessageBox.Show(MessageboxContent37, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -3761,7 +3889,7 @@ namespace LEDLampsConfigurationSoftware
                             {
                                 if (charCurrentValue[2] == '.')
                                 {
-                                    if( MessageBox.Show("格式错误！请输入正确格式，例：0.123", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                                    if( MessageBox.Show(MessageboxContent38, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
                                     {
                                         ConfigurationWindow.IsEnabled = true;
                                     }
@@ -3776,7 +3904,7 @@ namespace LEDLampsConfigurationSoftware
                                 {
                                     if (charCurrentValue[0] == '1' && charCurrentValue[2] != '0')
                                     {
-                                        if( MessageBox.Show("已超出量程！请输入数值范围为0~1", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                                        if( MessageBox.Show(MessageboxContent39, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                                         {
                                             ConfigurationWindow.IsEnabled = true;
                                         }
@@ -3799,7 +3927,7 @@ namespace LEDLampsConfigurationSoftware
                             {
                                 if (charCurrentValue[2] == '.' || charCurrentValue[3] == '.')
                                 {
-                                    if( MessageBox.Show("格式错误！请输入正确格式，例：0.123", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                                    if( MessageBox.Show(MessageboxContent38, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                                     {
                                         ConfigurationWindow.IsEnabled = true;
                                     }
@@ -3814,7 +3942,7 @@ namespace LEDLampsConfigurationSoftware
                                 {
                                     if (charCurrentValue[0] == '1' && (charCurrentValue[2] != '0' || charCurrentValue[3] != '0'))
                                     {
-                                        if( MessageBox.Show("已超出量程！请输入数值范围为0~1", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                                        if( MessageBox.Show(MessageboxContent39, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                                         {
                                             ConfigurationWindow.IsEnabled = true;
                                         }
@@ -3837,7 +3965,7 @@ namespace LEDLampsConfigurationSoftware
                             {
                                 if (charCurrentValue[2] == '.' || charCurrentValue[3] == '.' || charCurrentValue[4] == '.')
                                 {
-                                    if( MessageBox.Show("格式错误！请输入正确格式，例：0.123", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                                    if( MessageBox.Show(MessageboxContent38, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
                                     {
                                         ConfigurationWindow.IsEnabled = true;
                                     }
@@ -3852,7 +3980,7 @@ namespace LEDLampsConfigurationSoftware
                                 {
                                     if (charCurrentValue[0] == '1' && (charCurrentValue[2] != '0' || charCurrentValue[3] != '0' || charCurrentValue[4] != '0'))
                                     {
-                                        if( MessageBox.Show("已超出量程！请输入数值范围为0~1", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                                        if( MessageBox.Show(MessageboxContent39, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
                                         {
                                             ConfigurationWindow.IsEnabled = true;
                                         }
@@ -3875,7 +4003,7 @@ namespace LEDLampsConfigurationSoftware
                         }
                         else
                         {
-                            if( MessageBox.Show("格式错误！请输入正确格式，例：0.123", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                            if( MessageBox.Show(MessageboxContent38, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
                             {
                                 ConfigurationWindow.IsEnabled = true;
                             }
@@ -3893,7 +4021,7 @@ namespace LEDLampsConfigurationSoftware
                     }
                     else
                     {
-                        if( MessageBox.Show("位数错误！小数点后最多保留三位，例：0.123", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                        if( MessageBox.Show(MessageboxContent40, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
                         {
                             ConfigurationWindow.IsEnabled = true;
                         }
@@ -3907,7 +4035,7 @@ namespace LEDLampsConfigurationSoftware
                 }
                 else if (charCurrentValue[0] == '.')
                 {
-                    if( MessageBox.Show("格式错误！请输入正确格式，例：0.123", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                    if( MessageBox.Show(MessageboxContent38, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -3920,7 +4048,7 @@ namespace LEDLampsConfigurationSoftware
                 }
                 else
                 {
-                    if( MessageBox.Show("已超出量程！请输入数值范围为0~1", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                    if( MessageBox.Show(MessageboxContent39, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -3986,6 +4114,7 @@ namespace LEDLampsConfigurationSoftware
         string password;
         private void LogIn_Click(object sender, RoutedEventArgs e)
         {
+            RefreshStringMessageLanguage();
             userName = UserName.Text.ToString().Trim();
             password = Password.Password;
             
@@ -3999,7 +4128,7 @@ namespace LEDLampsConfigurationSoftware
                 }
                 else
                 {
-                    if(MessageBox.Show("密码错误！请重新输入密码", "提示", MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                    if(MessageBox.Show(MessageboxContent41, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -4013,7 +4142,7 @@ namespace LEDLampsConfigurationSoftware
             }
             else
             {
-                if( MessageBox.Show("账号错误！请重新输入账号", "提示", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                if( MessageBox.Show(MessageboxContent42, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                 {
                     ConfigurationWindow.IsEnabled = true;
                 }
@@ -4247,9 +4376,139 @@ namespace LEDLampsConfigurationSoftware
             tb.PreviewMouseDown += new MouseButtonEventHandler(SetParameterIIB_PreviewMouseDown);
         }
 
+
+
         #endregion
 
+        #region 设置软件语言
+        LanguageHelper myLanguageHelper = new LanguageHelper();
+        private void ConfirmLanguageSetting_Click(object sender, RoutedEventArgs e)
+        {
+            string languageFileName="";
+            if (LanguageSelect.SelectedIndex==0)
+            {
+                languageFileName = "/Resources/Langs/zh-CN.xaml";
+            }
+            if (LanguageSelect.SelectedIndex == 1)
+            {
+                languageFileName = "/Resources/Langs/en-US.xaml";
+            }
 
-        
+            myLanguageHelper.LoadLanguageFile(languageFileName);
+        }
+
+        public void RefreshStringMessageLanguage()
+        {
+            #region 后台代码，串口设置页面，中英文切换字符串
+            LampInchesLabel1 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel1");
+            LampInchesLabel2 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel2");
+            LampInchesLabel3 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel3");
+            #endregion
+
+            #region 后台代码，工厂模式页面，中英文切换字符串
+            AnswerHardwareVersion0 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion0");
+            AnswerLampModel0 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel0");
+            AnswerLampModel1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel1");
+            AnswerLampModel2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel2");
+            AnswerLampModel3 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel3");
+            AnswerLampModel4 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel4");
+            AnswerLampModel5 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel5");
+            AnswerLampModel6 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel6");
+            AnswerLampModel7 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel7");
+            AnswerLampModel8 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel8");
+            AnswerLampModel9 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel9");
+            AnswerLampModel10 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel10");
+            AnswerLampModel11 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel11");
+            AnswerLampModel12 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel12");
+            AnswerLampModel13 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel13");
+            AnswerLampModel14 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel14");
+            AnswerLampModel15 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel15");
+            AnswerLampModel16 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel16");
+            AnswerLampModel17 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel17");
+            AnswerLampModel18 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel18");
+            AnswerLampModel19 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel19");
+            AnswerLampModel20 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel20");
+            AnswerLampModel21 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel21");
+            AnswerLampModel22 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel22");
+            AnswerLampModel23 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel23");
+            AnswerLampModel24 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel24");
+            AnswerLampModel25 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel25");
+            AnswerLampModel26 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel26");
+            AnswerLampModel27 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel27");
+            AnswerLampModel28 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel28");
+            AnswerLampModel29 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel29");
+            AnswerLampModel30 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel30");
+            AnswerLampModel31 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel31");
+            AnswerLampModel32 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel32");
+            AnswerLampModel33 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel33");
+            AnswerLampModel34 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel34");
+            AnswerLampModel35 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel35");
+            AnswerLampModel36 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel36");
+            AnswerLampModel37 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel37");
+            AnswerLampModel38 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel38");
+            AnswerLampModel39 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel39");
+            AnswerLampModel40 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel40");
+            AnswerOpenCircuit1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit1");
+            AnswerOpenCircuit2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit2");
+            #endregion
+
+            #region 后台代码，开发者模式页面，中英文切换字符串
+            AnswerStatus1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerStatus1");
+            CreateExcel1 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel1");
+            CreateExcel2 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel2");
+            CreateTxt1 = (string)System.Windows.Application.Current.FindResource("LangsCreateTxt1");
+            #endregion
+
+            #region 后台代码，Messagebox，中英文切换字符串
+            MessageboxHeader1 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxHeader1");
+            MessageboxHeader2 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxHeader2");
+
+            MessageboxContent1 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent1");
+            MessageboxContent2 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent2");
+            MessageboxContent3 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent3");
+            MessageboxContent4 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent4");
+            MessageboxContent5 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent5");
+            MessageboxContent6 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent6");
+            MessageboxContent7 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent7");
+            MessageboxContent8 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent8");
+            MessageboxContent9 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent9");
+            MessageboxContent10 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent10");
+            MessageboxContent11 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent11");
+            MessageboxContent12 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent12");
+            MessageboxContent13 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent13");
+            MessageboxContent14 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent14");
+            MessageboxContent15 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent15");
+            MessageboxContent16 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent16");
+            MessageboxContent17 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent17");
+            MessageboxContent18 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent18");
+            MessageboxContent19 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent19");
+            MessageboxContent20 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent20");
+            MessageboxContent21 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent21");
+            MessageboxContent22 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent22");
+            MessageboxContent23 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent23");
+            MessageboxContent24 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent24");
+            MessageboxContent25 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent25");
+            MessageboxContent26 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent26");
+            MessageboxContent27 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent27");
+            MessageboxContent28 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent28");
+            MessageboxContent29 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent29");
+            MessageboxContent30 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent30");
+            MessageboxContent31 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent31");
+            MessageboxContent32 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent32");
+            MessageboxContent33 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent33");
+            MessageboxContent34 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent34");
+            MessageboxContent35 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent35");
+            MessageboxContent36 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent36");
+            MessageboxContent37 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent37");
+            MessageboxContent38 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent38");
+            MessageboxContent39 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent39");
+            MessageboxContent40 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent40");
+            MessageboxContent41 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent41");
+            MessageboxContent42 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent42");
+            #endregion
+        }
+        #endregion
+
+       
     }
 }

@@ -24,221 +24,248 @@
         <Canvas Grid.Row="0">
             <Image  Height="38" Width="150" Canvas.Right="10" Canvas.Top="0"  Source=".\Images\Airsafe.png" />
             <TabControl Grid.Row="0" Grid.RowSpan="2" Height="662" Canvas.Left="10" Canvas.Top="10" Width="1168"  BorderThickness="1" BorderBrush="#FF0A51A1" x:Name="SelectMode">
-                <TabItem Header="串口设置" FontSize="18" Background="AliceBlue" Height="28" Width="110" Margin="0" Padding="0" x:Name="SettingSerialPort">
+                <TabItem Header="{DynamicResource LangsSettingSerialPort}" FontSize="18" Background="AliceBlue" Height="28" Width="150" Margin="0" Padding="0" x:Name="SettingSerialPort">
                     <Canvas>
-                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="150" Height="40" Canvas.Left="170" Canvas.Top="50" Background="{x:Null}">
+                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="150" Height="40" Canvas.Left="210" Canvas.Top="50" Background="{x:Null}">
                             <ComboBox x:Name="PortNameSelect" Width="146" Height="36" BorderThickness="0" FontSize="16" MaxDropDownHeight="130" HorizontalAlignment="Left" Margin="1,1,0,1"  ItemsSource="{Binding pottNames}" Padding="10,8,0,0" DropDownOpened="PortNameSelect_DropDownOpened">
                             </ComboBox>
                         </Border>
-                        <Label Content="串口选择：" FontSize="18" Canvas.Left="50" Canvas.Top="50"/>
+                        <Label Content="{DynamicResource LangsSelectSerialPort}" FontSize="18" Canvas.Left="50" Canvas.Top="50" x:Name="SelectSerialPort"/>
                         <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="130" Height="40" Canvas.Left="50" Canvas.Top="170" Background="AliceBlue">
-                            <Button x:Name="OpenSerialPort" Content="打开串口" Click="OpenSerialPort_Click"/>
+                            <Button x:Name="OpenSerialPort" Content="{DynamicResource LangsOpenSerialPort}" Click="OpenSerialPort_Click"/>
                         </Border>
                         <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="130" Height="40" Canvas.Left="50" Canvas.Top="230" Background="AliceBlue">
-                            <Button x:Name="CloseSerialPort" Content="关闭串口" Click="CloseSerialPort_Click"/>
+                            <Button x:Name="CloseSerialPort" Content="{DynamicResource LangsCloseSerialPort}" Click="CloseSerialPort_Click"/>
                         </Border>
                         <Label Name="LampInchesLabel" Foreground="Red" Canvas.Left="50" Canvas.Top="330"/>
                     </Canvas>
                 </TabItem>
 
-                <TabItem Header="工厂模式" FontSize="18" Background="AliceBlue" Height="28" Width="110" Margin="-5,0,5,0" Padding="0" x:Name="FactoryMode">
+                <TabItem Header="{DynamicResource LangsFactoryMode}" FontSize="18" Background="AliceBlue" Height="28" Width="150" Margin="-5,0,5,0" Padding="0" x:Name="FactoryMode">
                     <Canvas Background="White">
                         <Border BorderBrush="#FF0A51A1" BorderThickness="3" CornerRadius="5" Width="808" Height="612" Canvas.Left="10" Canvas.Top="10">
-                            <GroupBox Header="参数设置" FontSize="16" Width="808" Height="612" BorderThickness="0">
+                            <GroupBox Header="{DynamicResource LangsFactoryModeParameterSetting}" FontSize="16" Width="808" Height="612" BorderThickness="0" x:Name="FactoryModeParameterSetting">
                                 <Canvas>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="367" Height="443" Canvas.Left="10" Canvas.Top="10">
-                                        <GroupBox Header="灯具名称" FontSize="16" Width="367" Height="443" BorderThickness="0">
-                                            <Canvas>
-                                                <RadioButton x:Name="SelectApproachChenterlineLight" Content="LED嵌入式进近中线灯（APPS-12-LED）" Canvas.Left="10" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectApproachChenterlineLight_Checked" />
-                                                <RadioButton x:Name="SelectApproachCrossbarLight" Content="LED嵌入式进近横排灯（APPS-12-LED）" Canvas.Left="10" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectApproachCrossbarLight_Checked" />
-                                                <RadioButton x:Name="SelectApproachSideRowLight" Content="LED嵌入式进近侧边灯（APSS-12-LED）" Canvas.Left="10" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectApproachSideRowLight_Checked" />
-                                                <RadioButton x:Name="SelectRWYThresholdWingBarLight" Content="LED嵌入式跑道入口翼排灯（THWS-12-LED）" Canvas.Left="10" Canvas.Top="107" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectRWYThresholdWingBarLight_Checked" />
-                                                <RadioButton x:Name="SelectRWYThresholdLight" Content="LED嵌入式跑道入口灯（THRS-12-LED）" Canvas.Left="10" Canvas.Top="136" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectRWYThresholdLight_Checked" />
-                                                <RadioButton x:Name="SelectRWYEdgeLight" Content="LED嵌入式跑道边灯（RELS-12-LED）" Canvas.Left="10" Canvas.Top="165" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectRWYEdgeLight_Checked" />
-                                                <RadioButton x:Name="Select12inchesRWYEndLight" Content="LED嵌入式跑道末端灯（ENDS-12-LED）" Canvas.Left="10" Canvas.Top="194" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="Select12inchesRWYEndLight_Checked" />
-                                                <RadioButton x:Name="SelectRWYThresholdEndLight" Content="LED嵌入式跑道入口/末端灯（TAES-12-LED）" Canvas.Left="10" Canvas.Top="223" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectRWYThresholdEndLight_Checked" />
-                                                <RadioButton x:Name="SelectRWYCenterlineLight" Content="LED跑道中线灯（RCLS-08-LED）" Canvas.Left="10" Canvas.Top="252" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectRWYCenterlineLight_Checked" />
-                                                <RadioButton x:Name="SelectRWYTouchdownZoneLight" Content="LED跑道接地带灯（TDZS-08-LED）" Canvas.Left="10" Canvas.Top="281" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectRWYTouchdownZoneLight_Checked" />
-                                                <RadioButton x:Name="Select8inchesRWYEndLight" Content="LED嵌入式跑道末端灯（ENDS-08-LED）" Canvas.Left="10" Canvas.Top="310" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="Select8inchesRWYEndLight_Checked" />
-                                                <RadioButton x:Name="SelectRapidExitTWYIndicatorLight" Content="LED快速出口滑行道指示灯（RAPS-08-LED）" Canvas.Left="10" Canvas.Top="339" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectRapidExitTWYIndicatorLight_Checked" />
-                                                <RadioButton x:Name="SelectCombinedRWYEdgeLight" Content="LED嵌入式组合跑道边灯（RELC-12-LED）" Canvas.Left="10" Canvas.Top="368" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectCombinedRWYEdgeLight_Checked" />
-
-                                            </Canvas>
+                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="340" Height="400" Canvas.Left="10" Canvas.Top="10">
+                                        <GroupBox Header="{DynamicResource LangsFactoryModeLampName}" FontSize="16" Width="340" Height="400" BorderThickness="0" x:Name="FactoryModeLampName">
+                                            <ScrollViewer VerticalScrollBarVisibility="Visible" >
+                                                <WrapPanel  Orientation="Vertical">
+                                                    <RadioButton x:Name="SelectApproachChenterlineLight" Padding="0,0,0,10" Margin="0,10,0,0" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectApproachChenterlineLight_Checked" Width="320">
+                                                        <TextBlock Text="{DynamicResource LangsSelectApproachChenterlineLight}" TextWrapping="Wrap" x:Name="TBSelectApproachChenterlineLight"/>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="SelectApproachCrossbarLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectApproachCrossbarLight_Checked" Width="320">
+                                                        <TextBlock Text="{DynamicResource LangsSelectApproachCrossbarLight}" TextWrapping="Wrap" x:Name="TBSelectApproachCrossbarLight"/>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="SelectApproachSideRowLight" Padding="0,0,0,10"  BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectApproachSideRowLight_Checked" Width="320">
+                                                        <TextBlock Text="{DynamicResource LangsSelectApproachSideRowLight}" TextWrapping="Wrap" x:Name="TBSelectApproachSideRowLight"/>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="SelectRWYThresholdWingBarLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectRWYThresholdWingBarLight_Checked" Width="320">
+                                                        <TextBlock Text="{DynamicResource LangsSelectRWYThresholdWingBarLight}" TextWrapping="Wrap" x:Name="TBSelectRWYThresholdWingBarLight"/>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="SelectRWYThresholdLight" Padding="0,0,0,10"  BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectRWYThresholdLight_Checked" Width="320">
+                                                        <TextBlock Text="{DynamicResource LangsSelectRWYThresholdLight}" TextWrapping="Wrap" x:Name="TBSelectRWYThresholdLight"/>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="SelectRWYEdgeLight" Padding="0,0,0,10"  BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectRWYEdgeLight_Checked" Width="320" >
+                                                        <TextBlock Text="{DynamicResource LangsSelectRWYEdgeLight}" TextWrapping="Wrap" x:Name="TBSelectRWYEdgeLight"/>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="Select12inchesRWYEndLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="Select12inchesRWYEndLight_Checked" Width="320">
+                                                        <TextBlock Text="{DynamicResource LangsSelect12inchesRWYEndLight}" TextWrapping="Wrap" x:Name="TBSelect12inchesRWYEndLight"/>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="SelectRWYThresholdEndLight" Padding="0,0,0,10"  BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectRWYThresholdEndLight_Checked" Width="320">
+                                                        <TextBlock Text="{DynamicResource LangsSelectRWYThresholdEndLight}" TextWrapping="Wrap" x:Name="TBSelectRWYThresholdEndLight"/>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="SelectRWYCenterlineLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectRWYCenterlineLight_Checked" Width="320">
+                                                        <TextBlock Text="{DynamicResource LangsSelectRWYCenterlineLight}" TextWrapping="Wrap" x:Name="TBSelectRWYCenterlineLight"/>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="SelectRWYTouchdownZoneLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectRWYTouchdownZoneLight_Checked" Width="320">
+                                                        <TextBlock Text="{DynamicResource LangsSelectRWYTouchdownZoneLight}" TextWrapping="Wrap" x:Name="TBSelectRWYTouchdownZoneLight"/>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="Select8inchesRWYEndLight" Padding="0,0,0,10"  BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="Select8inchesRWYEndLight_Checked" Width="320">
+                                                        <TextBlock Text="{DynamicResource LangsSelect8inchesRWYEndLight}" TextWrapping="Wrap" x:Name="TBSelect8inchesRWYEndLight"/>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="SelectRapidExitTWYIndicatorLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectRapidExitTWYIndicatorLight_Checked" Width="320">
+                                                        <TextBlock Text="{DynamicResource LangsSelectRapidExitTWYIndicatorLight}" TextWrapping="Wrap" x:Name="TBSelectRapidExitTWYIndicatorLight"/>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="SelectCombinedRWYEdgeLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights" Checked="SelectCombinedRWYEdgeLight_Checked" Width="320">
+                                                        <TextBlock Text="{DynamicResource LangsSelectCombinedRWYEdgeLight}" TextWrapping="Wrap" x:Name="TBSelectCombinedRWYEdgeLight"/>
+                                                    </RadioButton>
+                                                </WrapPanel>
+                                            </ScrollViewer>
                                         </GroupBox>
                                     </Border>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="222" Height="443" Canvas.Left="397" Canvas.Top="10">
-                                        <GroupBox Header="灯具型号" FontSize="16" Width="222" Height="443" BorderThickness="0">
+                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="210" Height="400" Canvas.Left="360" Canvas.Top="10">
+                                        <GroupBox Header="{DynamicResource LangsFactoryModeLampModel}" FontSize="16" Width="210" Height="400" BorderThickness="0" x:Name="FactoryModeLampModel">
                                             <Canvas>
                                                 <GroupBox x:Name="GroupApproachChenterlineLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
                                                     <Canvas>
-                                                        <RadioButton x:Name="SelectAPPS12SLEDC" Content="APPS-12-S-LED-C" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameApproachChenterlineLight" Checked="SelectAPPS12SLEDC_Checked"/>
+                                                        <RadioButton x:Name="SelectAPPS12SLEDC" Content="APPS-12-S-LED-C" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameApproachChenterlineLight" Checked="SelectAPPS12SLEDC_Checked"/>
                                                     </Canvas>
                                                 </GroupBox>
                                                 <GroupBox x:Name="GroupApproachCrossbarLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
                                                     <Canvas>
-                                                        <RadioButton x:Name="SelectAPPS12LLEDC" Content="APPS-12-L-LED-C" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameApproachCrossbarLight" Checked="SelectAPPS12LLEDC_Checked"/>
-                                                        <RadioButton x:Name="SelectAPPS12RLEDC" Content="APPS-12-R-LED-C" Canvas.Left="4" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameApproachCrossbarLight" Checked="SelectAPPS12RLEDC_Checked"/>
+                                                        <RadioButton x:Name="SelectAPPS12LLEDC" Content="APPS-12-L-LED-C" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameApproachCrossbarLight" Checked="SelectAPPS12LLEDC_Checked"/>
+                                                        <RadioButton x:Name="SelectAPPS12RLEDC" Content="APPS-12-R-LED-C" Canvas.Left="0" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameApproachCrossbarLight" Checked="SelectAPPS12RLEDC_Checked"/>
                                                     </Canvas>
                                                 </GroupBox>
                                                 <GroupBox x:Name="GroupApproachSideRowLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
                                                     <Canvas>
-                                                        <RadioButton x:Name="SelectAPSS12LLEDR" Content="APSS-12-L-LED-R" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameApproachSideRowLight" Checked="SelectAPSS12LLEDR_Checked"/>
-                                                        <RadioButton x:Name="SelectAPSS12RLEDR" Content="APSS-12-R-LED-R" Canvas.Left="4" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameApproachSideRowLight" Checked="SelectAPSS12RLEDR_Checked"/>
+                                                        <RadioButton x:Name="SelectAPSS12LLEDR" Content="APSS-12-L-LED-R" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameApproachSideRowLight" Checked="SelectAPSS12LLEDR_Checked"/>
+                                                        <RadioButton x:Name="SelectAPSS12RLEDR" Content="APSS-12-R-LED-R" Canvas.Left="0" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameApproachSideRowLight" Checked="SelectAPSS12RLEDR_Checked"/>
                                                     </Canvas>
                                                 </GroupBox>
                                                 <GroupBox x:Name="GroupRWYThresholdWingBarLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
                                                     <Canvas>
-                                                        <RadioButton x:Name="SelectTHWS12LLEDG" Content="THWS-12-L-LED-G" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdWingBarLight" Checked="SelectTHWS12LLEDG_Checked"/>
-                                                        <RadioButton x:Name="SelectTHWS12RLEDG" Content="THWS-12-R-LED-G" Canvas.Left="4" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdWingBarLight" Checked="SelectTHWS12RLEDG_Checked"/>
+                                                        <RadioButton x:Name="SelectTHWS12LLEDG" Content="THWS-12-L-LED-G" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdWingBarLight" Checked="SelectTHWS12LLEDG_Checked"/>
+                                                        <RadioButton x:Name="SelectTHWS12RLEDG" Content="THWS-12-R-LED-G" Canvas.Left="0" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdWingBarLight" Checked="SelectTHWS12RLEDG_Checked"/>
                                                     </Canvas>
                                                 </GroupBox>
                                                 <GroupBox x:Name="GroupRWYThresholdLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
                                                     <Canvas>
-                                                        <RadioButton x:Name="SelectTHRS12LLEDG" Content="THRS-12-L-LED-G" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdLight" Checked="SelectTHRS12LLEDG_Checked"/>
-                                                        <RadioButton x:Name="SelectTHRS12RLEDG" Content="THRS-12-R-LED-G" Canvas.Left="4" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdLight" Checked="SelectTHRS12RLEDG_Checked"/>
-                                                        <RadioButton x:Name="SelectTHRS12SLEDG" Content="THRS-12-S-LED-G" Canvas.Left="4" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdLight" Checked="SelectTHRS12SLEDG_Checked"/>
+                                                        <RadioButton x:Name="SelectTHRS12LLEDG" Content="THRS-12-L-LED-G" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdLight" Checked="SelectTHRS12LLEDG_Checked"/>
+                                                        <RadioButton x:Name="SelectTHRS12RLEDG" Content="THRS-12-R-LED-G" Canvas.Left="0" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdLight" Checked="SelectTHRS12RLEDG_Checked"/>
+                                                        <RadioButton x:Name="SelectTHRS12SLEDG" Content="THRS-12-S-LED-G" Canvas.Left="0" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdLight" Checked="SelectTHRS12SLEDG_Checked"/>
                                                     </Canvas>
                                                 </GroupBox>
                                                 <GroupBox x:Name="GroupRWYEdgeLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
                                                     <Canvas>
-                                                        <RadioButton x:Name="SelectRELS12LLEDYC" Content="RELS-12-L-LED-YC" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12LLEDYC_Checked"/>
-                                                        <RadioButton x:Name="SelectRELS12RLEDYC" Content="RELS-12-R-LED-YC" Canvas.Left="4" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12RLEDYC_Checked"/>
-                                                        <RadioButton x:Name="SelectRELS12LLEDCY" Content="RELS-12-L-LED-CY" Canvas.Left="4" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12LLEDCY_Checked"/>
-                                                        <RadioButton x:Name="SelectRELS12RLEDCY" Content="RELS-12-R-LED-CY" Canvas.Left="4" Canvas.Top="107" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12RLEDCY_Checked"/>
-                                                        <RadioButton x:Name="SelectRELS12LLEDCC" Content="RELS-12-L-LED-CC" Canvas.Left="4" Canvas.Top="136" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12LLEDCC_Checked"/>
-                                                        <RadioButton x:Name="SelectRELS12RLEDCC" Content="RELS-12-R-LED-CC" Canvas.Left="4" Canvas.Top="165" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12RLEDCC_Checked"/>
-                                                        <RadioButton x:Name="SelectRELS12LLEDCR" Content="RELS-12-L-LED-CR" Canvas.Left="4" Canvas.Top="194" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12LLEDCR_Checked"/>
-                                                        <RadioButton x:Name="SelectRELS12RLEDCR" Content="RELS-12-R-LED-CR" Canvas.Left="4" Canvas.Top="223" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12RLEDCR_Checked"/>
-                                                        <RadioButton x:Name="SelectRELS12LLEDRC" Content="RELS-12-L-LED-RC" Canvas.Left="4" Canvas.Top="252" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12LLEDRC_Checked"/>
-                                                        <RadioButton x:Name="SelectRELS12RLEDRC" Content="RELS-12-R-LED-RC" Canvas.Left="4" Canvas.Top="281" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12RLEDRC_Checked"/>
+                                                        <RadioButton x:Name="SelectRELS12LLEDYC" Content="RELS-12-L-LED-YC" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12LLEDYC_Checked"/>
+                                                        <RadioButton x:Name="SelectRELS12RLEDYC" Content="RELS-12-R-LED-YC" Canvas.Left="0" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12RLEDYC_Checked"/>
+                                                        <RadioButton x:Name="SelectRELS12LLEDCY" Content="RELS-12-L-LED-CY" Canvas.Left="0" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12LLEDCY_Checked"/>
+                                                        <RadioButton x:Name="SelectRELS12RLEDCY" Content="RELS-12-R-LED-CY" Canvas.Left="0" Canvas.Top="107" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12RLEDCY_Checked"/>
+                                                        <RadioButton x:Name="SelectRELS12LLEDCC" Content="RELS-12-L-LED-CC" Canvas.Left="0" Canvas.Top="136" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12LLEDCC_Checked"/>
+                                                        <RadioButton x:Name="SelectRELS12RLEDCC" Content="RELS-12-R-LED-CC" Canvas.Left="0" Canvas.Top="165" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12RLEDCC_Checked"/>
+                                                        <RadioButton x:Name="SelectRELS12LLEDCR" Content="RELS-12-L-LED-CR" Canvas.Left="0" Canvas.Top="194" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12LLEDCR_Checked"/>
+                                                        <RadioButton x:Name="SelectRELS12RLEDCR" Content="RELS-12-R-LED-CR" Canvas.Left="0" Canvas.Top="223" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12RLEDCR_Checked"/>
+                                                        <RadioButton x:Name="SelectRELS12LLEDRC" Content="RELS-12-L-LED-RC" Canvas.Left="0" Canvas.Top="252" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12LLEDRC_Checked"/>
+                                                        <RadioButton x:Name="SelectRELS12RLEDRC" Content="RELS-12-R-LED-RC" Canvas.Left="0" Canvas.Top="281" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12RLEDRC_Checked"/>
                                                     </Canvas>
                                                 </GroupBox>
                                                 <GroupBox x:Name="Group12inchesRWYEndLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
                                                     <Canvas>
-                                                        <RadioButton x:Name="SelectENDS12LEDR" Content="ENDS-12-LED-R" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupName12inchesRWYEndLight" Checked="SelectENDS12LEDR_Checked"/>
+                                                        <RadioButton x:Name="SelectENDS12LEDR" Content="ENDS-12-LED-R" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupName12inchesRWYEndLight" Checked="SelectENDS12LEDR_Checked"/>
                                                     </Canvas>
                                                 </GroupBox>
                                                 <GroupBox x:Name="GroupRWYThresholdEndLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
                                                     <Canvas>
-                                                        <RadioButton x:Name="SelectTAES12LLEDGR1P" Content="TAES-12-L-LED-GR-1P" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdEndLight" Checked="SelectTAES12LLEDGR1P_Checked"/>
-                                                        <RadioButton x:Name="SelectTAES12RLEDGR1P" Content="TAES-12-R-LED-GR-1P" Canvas.Left="4" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdEndLight" Checked="SelectTAES12RLEDGR1P_Checked"/>
-                                                        <RadioButton x:Name="SelectTAES12SLEDGR1P" Content="TAES-12-S-LED-GR-1P" Canvas.Left="4" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdEndLight" Checked="SelectTAES12SLEDGR1P_Checked"/>
+                                                        <RadioButton x:Name="SelectTAES12LLEDGR1P" Content="TAES-12-L-LED-GR-1P" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdEndLight" Checked="SelectTAES12LLEDGR1P_Checked"/>
+                                                        <RadioButton x:Name="SelectTAES12RLEDGR1P" Content="TAES-12-R-LED-GR-1P" Canvas.Left="0" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdEndLight" Checked="SelectTAES12RLEDGR1P_Checked"/>
+                                                        <RadioButton x:Name="SelectTAES12SLEDGR1P" Content="TAES-12-S-LED-GR-1P" Canvas.Left="0" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYThresholdEndLight" Checked="SelectTAES12SLEDGR1P_Checked"/>
                                                     </Canvas>
                                                 </GroupBox>
                                                 <GroupBox x:Name="GroupRWYCenterlineLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
                                                     <Canvas>
-                                                        <RadioButton x:Name="SelectRCLS08LEDCB1P" Content="RCLS-08-LED-CB-1P" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYCenterlineLight" Checked="SelectRCLS08LEDCB1P_Checked"/>
-                                                        <RadioButton x:Name="SelectRCLS08LEDRB1P" Content="RCLS-08-LED-RB-1P" Canvas.Left="4" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYCenterlineLight" Checked="SelectRCLS08LEDRB1P_Checked"/>
-                                                        <RadioButton x:Name="SelectRCLS08LEDCC1P" Content="RCLS-08-LED-CC-1P" Canvas.Left="4" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYCenterlineLight" Checked="SelectRCLS08LEDCC1P_Checked"/>
-                                                        <RadioButton x:Name="SelectRCLS08LEDRC1P" Content="RCLS-08-LED-RC-1P" Canvas.Left="4" Canvas.Top="107" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYCenterlineLight" Checked="SelectRCLS08LEDRC1P_Checked"/>
+                                                        <RadioButton x:Name="SelectRCLS08LEDCB1P" Content="RCLS-08-LED-CB-1P" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYCenterlineLight" Checked="SelectRCLS08LEDCB1P_Checked"/>
+                                                        <RadioButton x:Name="SelectRCLS08LEDRB1P" Content="RCLS-08-LED-RB-1P" Canvas.Left="0" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYCenterlineLight" Checked="SelectRCLS08LEDRB1P_Checked"/>
+                                                        <RadioButton x:Name="SelectRCLS08LEDCC1P" Content="RCLS-08-LED-CC-1P" Canvas.Left="0" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYCenterlineLight" Checked="SelectRCLS08LEDCC1P_Checked"/>
+                                                        <RadioButton x:Name="SelectRCLS08LEDRC1P" Content="RCLS-08-LED-RC-1P" Canvas.Left="0" Canvas.Top="107" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYCenterlineLight" Checked="SelectRCLS08LEDRC1P_Checked"/>
                                                     </Canvas>
                                                 </GroupBox>
                                                 <GroupBox x:Name="GroupRWYTouchdownZoneLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
                                                     <Canvas>
-                                                        <RadioButton x:Name="SelectTDZS08LLEDC" Content="TDZS-08-L-LED-C" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYTouchdownZoneLight" Checked="SelectTDZS08LLEDC_Checked"/>
-                                                        <RadioButton x:Name="SelectTDZS08RLEDC" Content="TDZS-08-R-LED-C" Canvas.Left="4" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYTouchdownZoneLight" Checked="SelectTDZS08RLEDC_Checked"/>
+                                                        <RadioButton x:Name="SelectTDZS08LLEDC" Content="TDZS-08-L-LED-C" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYTouchdownZoneLight" Checked="SelectTDZS08LLEDC_Checked"/>
+                                                        <RadioButton x:Name="SelectTDZS08RLEDC" Content="TDZS-08-R-LED-C" Canvas.Left="0" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYTouchdownZoneLight" Checked="SelectTDZS08RLEDC_Checked"/>
                                                     </Canvas>
                                                 </GroupBox>
                                                 <GroupBox x:Name="Group8inchesRWYEndLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
                                                     <Canvas>
-                                                        <RadioButton x:Name="SelectENDS08LEDR" Content="ENDS-08-LED-R" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupName8inchesRWYEndLight" Checked="SelectENDS08LEDR_Checked"/>
+                                                        <RadioButton x:Name="SelectENDS08LEDR" Content="ENDS-08-LED-R" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupName8inchesRWYEndLight" Checked="SelectENDS08LEDR_Checked"/>
                                                     </Canvas>
                                                 </GroupBox>
                                                 <GroupBox x:Name="GroupRapidExitTWYIndicatorLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
                                                     <Canvas>
-                                                        <RadioButton x:Name="SelectRAPS08LEDY" Content="RAPS-08-LED-Y" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameRapidExitTWYIndicatorLight" Checked="SelectRAPS08LEDY_Checked"/>
+                                                        <RadioButton x:Name="SelectRAPS08LEDY" Content="RAPS-08-LED-Y" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameRapidExitTWYIndicatorLight" Checked="SelectRAPS08LEDY_Checked"/>
                                                     </Canvas>
                                                 </GroupBox>
                                                 <GroupBox x:Name="GroupCombinedRWYEdgeLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
                                                     <Canvas>
-                                                        <RadioButton x:Name="SelectRELC12LEDCYC1P" Content="RELC-12-LED-CY-C-1P" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDCYC1P_Checked"/>
-                                                        <RadioButton x:Name="SelectRELC12LEDCCC1P" Content="RELC-12-LED-CC-C-1P" Canvas.Left="4" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDCCC1P_Checked"/>
-                                                        <RadioButton x:Name="SelectRELC12LEDCRC1P" Content="RELC-12-LED-CR-C-1P" Canvas.Left="4" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDCRC1P_Checked"/>
-                                                        <RadioButton x:Name="SelectRELC12LEDRYC1P" Content="RELC-12-LED-RY-C-1P" Canvas.Left="4" Canvas.Top="107" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDRYC1P_Checked"/>
-                                                        <RadioButton x:Name="SelectRELC12LEDCYB1P" Content="RELC-12-LED-CY-B-1P" Canvas.Left="4" Canvas.Top="136" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDCYB1P_Checked"/>
-                                                        <RadioButton x:Name="SelectRELC12LEDCCB1P" Content="RELC-12-LED-CC-B-1P" Canvas.Left="4" Canvas.Top="165" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDCCB1P_Checked"/>
-                                                        <RadioButton x:Name="SelectRELC12LEDCRB1P" Content="RELC-12-LED-CR-B-1P" Canvas.Left="4" Canvas.Top="194" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDCRB1P_Checked"/>
-                                                        <RadioButton x:Name="SelectRELC12LEDRYB1P" Content="RELC-12-LED-RY-B-1P" Canvas.Left="4" Canvas.Top="223" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDRYB1P_Checked"/>
+                                                        <RadioButton x:Name="SelectRELC12LEDCYC1P" Content="RELC-12-LED-CY-C-1P" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDCYC1P_Checked"/>
+                                                        <RadioButton x:Name="SelectRELC12LEDCCC1P" Content="RELC-12-LED-CC-C-1P" Canvas.Left="0" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDCCC1P_Checked"/>
+                                                        <RadioButton x:Name="SelectRELC12LEDCRC1P" Content="RELC-12-LED-CR-C-1P" Canvas.Left="0" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDCRC1P_Checked"/>
+                                                        <RadioButton x:Name="SelectRELC12LEDRYC1P" Content="RELC-12-LED-RY-C-1P" Canvas.Left="0" Canvas.Top="107" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDRYC1P_Checked"/>
+                                                        <RadioButton x:Name="SelectRELC12LEDCYB1P" Content="RELC-12-LED-CY-B-1P" Canvas.Left="0" Canvas.Top="136" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDCYB1P_Checked"/>
+                                                        <RadioButton x:Name="SelectRELC12LEDCCB1P" Content="RELC-12-LED-CC-B-1P" Canvas.Left="0" Canvas.Top="165" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDCCB1P_Checked"/>
+                                                        <RadioButton x:Name="SelectRELC12LEDCRB1P" Content="RELC-12-LED-CR-B-1P" Canvas.Left="0" Canvas.Top="194" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDCRB1P_Checked"/>
+                                                        <RadioButton x:Name="SelectRELC12LEDRYB1P" Content="RELC-12-LED-RY-B-1P" Canvas.Left="0" Canvas.Top="223" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDRYB1P_Checked"/>
                                                     </Canvas>
                                                 </GroupBox>
                                             </Canvas>
                                         </GroupBox>
                                     </Border>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="150" Height="443" Canvas.Left="639" Canvas.Top="10">
-                                        <GroupBox Header="开路选择" FontSize="16" Width="150" Height="443" BorderThickness="0">
+                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="210" Height="400" Canvas.Left="580" Canvas.Top="10">
+                                        <GroupBox Header="{DynamicResource LangsFactoryModeOpenCircuitSelect}" FontSize="16" Width="210" Height="400" BorderThickness="0" x:Name="FactoryModeOpenCircuitSelect">
                                             <Canvas>
-                                                <RadioButton x:Name="SelectOpenCircuitTrue" Content="带开路" Canvas.Left="10" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="SelectOpenCircuit" Checked="SelectOpenCircuitTrue_Checked"/>
-                                                <RadioButton x:Name="SelectOpenCircuitFalse" Content="不带开路" Canvas.Left="10" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="SelectOpenCircuit" Checked="SelectOpenCircuitFalse_Checked"/>
+                                                <RadioButton x:Name="SelectOpenCircuitTrue" Content="{DynamicResource LangsSelectOpenCircuitTrue}" Canvas.Left="4" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="SelectOpenCircuit" Checked="SelectOpenCircuitTrue_Checked"/>
+                                                <RadioButton x:Name="SelectOpenCircuitFalse" Content="{DynamicResource LangsSelectOpenCircuitFalse}" Canvas.Left="4" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="SelectOpenCircuit" Checked="SelectOpenCircuitFalse_Checked"/>
                                             </Canvas>
                                         </GroupBox>
                                     </Border>
-                                    <Label Content="配置参数确认：" FontSize="16" Canvas.Left="10" Canvas.Top="453"/>
+                                    <Label Content="{DynamicResource LangsFactoryModeConfigurationParameterConfirm}" FontSize="16" Canvas.Left="10" Canvas.Top="420" x:Name="FactoryModeConfigurationParameterConfirm"/>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="130" Height="40" Canvas.Left="10" Canvas.Top="538" Background="AliceBlue">
-                                        <Button x:Name="SetLightParametersInFactoryMode" Content="参数设置" Click="SetLightParametersInFactoryMode_Click"/>
+                                        <Button x:Name="SetLightParametersInFactoryMode" Content="{DynamicResource LangsSetLightParametersInFactoryMode}" Click="SetLightParametersInFactoryMode_Click"/>
                                     </Border>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="367" Height="40" Canvas.Left="10" Canvas.Top="483">
-                                        <TextBlock x:Name="ConfirmLampName" Width="367" Height="40" HorizontalAlignment="Left" Margin="0,0,-2,-2" Padding="10,8,0,0" FontSize="16"/>
+                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="340" Height="60" Canvas.Left="10" Canvas.Top="450">
+                                        <TextBlock x:Name="ConfirmLampName" Width="340" Height="60"  Margin="0,0,-2,-2" Padding="10,8,0,0" FontSize="16" TextWrapping="Wrap" TextAlignment="Left"/>
                                     </Border>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="222" Height="40" Canvas.Left="397" Canvas.Top="483">
-                                        <TextBlock x:Name="ConfirmLampModel" Width="222" Height="40" HorizontalAlignment="Left" Margin="0,0,-2,-2" Padding="10,8,0,0" FontSize="16"/>
+                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="210" Height="60" Canvas.Left="360" Canvas.Top="450">
+                                        <TextBlock x:Name="ConfirmLampModel" Width="210" Height="60" TextAlignment="Left" Margin="0,0,-2,-2" Padding="10,8,0,0" FontSize="16" TextWrapping="Wrap"/>
                                     </Border>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="150" Height="40" Canvas.Left="639" Canvas.Top="483">
-                                        <TextBlock x:Name="ConfirmSettingOpenCircuitParameter" Width="150" Height="40" HorizontalAlignment="Left" Margin="0,0,-2,-2" FontSize="16" Padding="10,8,0,0"/>
+                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="210" Height="60" Canvas.Left="580" Canvas.Top="450">
+                                        <TextBlock x:Name="ConfirmSettingOpenCircuitParameter" Width="210" Height="60" TextAlignment="Left" Margin="0,0,-2,-2" FontSize="16" Padding="10,8,0,0" TextWrapping="Wrap"/>
                                     </Border>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="130" Height="40" Canvas.Right="10" Canvas.Top="538" Background="AliceBlue">
-                                        <Button x:Name="RestoreOriginalStatus" Content="恢复初始设置" Click="RestoreOriginalStatus_Click" />
+                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="200" Height="40" Canvas.Right="10" Canvas.Top="538" Background="AliceBlue">
+                                        <Button x:Name="RestoreOriginalStatus" Content="{DynamicResource LangsRestoreOriginalStatus}" Click="RestoreOriginalStatus_Click" Width="200"/>
                                     </Border>
                                     
                                 </Canvas>
                             </GroupBox>
                         </Border>
                         <Border BorderBrush="#FF0A51A1" BorderThickness="3" CornerRadius="5" Height="612" Canvas.Right="7" Canvas.Top="10" Width="330" >
-                            <GroupBox  Header="版本查询" Width="328" Height="612" FontSize="16" BorderThickness="0">
+                            <GroupBox  Header="{DynamicResource LangsFactoryModeVersionQuery}" Width="328" Height="612" FontSize="16" BorderThickness="0" x:Name="FactoryModeVersionQuery">
                                 <Canvas>
-                                    <Label  Content="硬件版本号：" Canvas.Left="0" Canvas.Top="10"/>
+                                    <Label  Content="{DynamicResource LangsFactoryModeHardwareVersion}" Canvas.Left="0" Canvas.Top="10" x:Name="FactoryModeHardwareVersion"/>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="310" Canvas.Left="0" Canvas.Top="40">
                                         <TextBlock x:Name="AnswerHardwareVersion" Height="40" Width="310" TextWrapping="Wrap" Padding="10,8,0,0"/>
                                     </Border>
-                                    <Label  Content="软件版本号：" Canvas.Left="0" Canvas.Top="90"/>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="310" Canvas.Left="0" Canvas.Top="120">
+                                    <Label  Content="{DynamicResource LangsFactoryModeSoftwareVersion}" Canvas.Left="0" Canvas.Top="80" x:Name="FactoryModeSoftwareVersion"/>
+                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="310" Canvas.Left="0" Canvas.Top="110">
                                         <TextBlock x:Name="AnswerSoftwareVersion" Height="40" Width="310" TextWrapping="Wrap" Padding="10,8,0,0"/>
                                     </Border>
-                                    <Label  Content="灯具型号：" Canvas.Left="0" Canvas.Top="170"/>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="310" Canvas.Left="0" Canvas.Top="200">
-                                        <TextBlock x:Name="AnswerLampModel" Height="40" Width="310" TextWrapping="Wrap" Padding="3,8,0,0"/>
+                                    <Label  Content="{DynamicResource LangsFactoryModeLampModelIllustrate}" Canvas.Left="0" Canvas.Top="150" x:Name="FactoryModeLampModelIllustrate"/>
+                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="60" Width="310" Canvas.Left="0" Canvas.Top="180">
+                                        <TextBlock x:Name="AnswerLampModel" Height="60" Width="310" TextWrapping="Wrap" Padding="3,8,0,0"/>
                                     </Border>
-                                    <Label  Content="电流 IA：" Canvas.Left="0" Canvas.Top="260"/>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="180" Canvas.Left="95" Canvas.Top="260">
+                                    <TextBlock  Text="{DynamicResource LangsFactoryModeCurrentIA}" Canvas.Left="0" Canvas.Top="260" x:Name="FactoryModeCurrentIA" TextAlignment="Center" Width="100"/>
+                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="180" Canvas.Left="105" Canvas.Top="260">
                                         <TextBlock x:Name="AnswerIA" Height="40" Width="180" TextWrapping="Wrap" Padding="10,8,0,0"/>
                                     </Border>
-                                    <Label  Content="电流 IB：" Canvas.Left="0" Canvas.Top="310"/>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="180" Canvas.Left="95" Canvas.Top="310">
+                                    <TextBlock  Text="{DynamicResource LangsFactoryModeCurrentIB}" Canvas.Left="0" Canvas.Top="310" x:Name="FactoryModeCurrentIB" TextAlignment="Center" Width="100"/>
+                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="180" Canvas.Left="105" Canvas.Top="310">
                                         <TextBlock x:Name="AnswerIB" Height="40" Width="180" TextWrapping="Wrap" Padding="10,8,0,0"/>
                                     </Border>
-                                    <Label  Content="电流 IIA：" Canvas.Left="0" Canvas.Top="360"/>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="180" Canvas.Left="95" Canvas.Top="360">
+                                    <TextBlock  Text="{DynamicResource LangsFactoryModeCurrentIIA}" Canvas.Left="0" Canvas.Top="360" x:Name="FactoryModeCurrentIIA" TextAlignment="Center" Width="100"/>
+                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="180" Canvas.Left="105" Canvas.Top="360">
                                         <TextBlock x:Name="AnswerIIA" Height="40" Width="180" TextWrapping="Wrap" Padding="10,8,0,0"/>
                                     </Border>
-                                    <Label  Content="电流 IIB：" Canvas.Left="0" Canvas.Top="410"/>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="180" Canvas.Left="95" Canvas.Top="410">
+                                    <TextBlock  Text="{DynamicResource LangsFactoryModeCurrentIIB}" Canvas.Left="0" Canvas.Top="410" x:Name="FactoryModeCurrentIIB" TextAlignment="Center" Width="100"/>
+                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="180" Canvas.Left="105" Canvas.Top="410">
                                         <TextBlock x:Name="AnswerIIB" Height="40" Width="180" TextWrapping="Wrap" Padding="10,8,0,0"/>
                                     </Border>
-                                    <Label  Content="开路状态：" Canvas.Left="0" Canvas.Top="460"/>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="180" Canvas.Left="95" Canvas.Top="460">
+                                    <TextBlock  Text="{DynamicResource LangsFactoryModeOpenCircuitStatus}" Canvas.Left="0" Canvas.Top="460" x:Name="FactoryModeOpenCircuitStatus" Width="100" TextWrapping="Wrap" TextAlignment="Center"/>
+                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="180" Canvas.Left="105" Canvas.Top="460">
                                         <TextBlock x:Name="AnswerOpenCircuit" Height="40" Width="180" TextWrapping="Wrap" Padding="10,8,0,0"/>
                                     </Border>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40"  Width="130" Background="AliceBlue" Canvas.Left="10" Canvas.Top="538">
-                                        <Button x:Name="QueryVersion" Content="版本查询" Click="QueryVersion_Click"/>
+                                        <Button x:Name="QueryVersion" Content="{DynamicResource LangsQueryVersion}" Click="QueryVersion_Click"/>
                                     </Border>
                                 </Canvas>
                             </GroupBox>
                         </Border>
                     </Canvas>
                 </TabItem>
-                <TabItem Header="开发者模式" FontSize="18" Background="AliceBlue" Height="28" Width="110" Margin="-5,0,5,0" Padding="0" Visibility="Collapsed" x:Name="DeveloperMode">
+                <TabItem Header="{DynamicResource LangsDeveloperMode}" FontSize="18" Background="AliceBlue" Height="28" Width="150" Margin="-5,0,5,0" Padding="0" Visibility="Collapsed" x:Name="DeveloperMode">
                     <Canvas Background="White">
                         <Border BorderBrush="#FF0A51A1" BorderThickness="3" CornerRadius="5" Width="808" Height="612" Canvas.Left="10" Canvas.Top="10">
-                            <GroupBox Header="参数设置" FontSize="16" Width="808" Height="612" BorderThickness="0">
+                            <GroupBox Header="{DynamicResource LangsDeveloperModeParameterSetting}" FontSize="16" Width="808" Height="612" BorderThickness="0" x:Name="DeveloperModeParameterSetting">
                                 <Canvas>
 
                                     <Label  Content="IA:" FontSize="16" Canvas.Left="10" Canvas.Top="10"/>
@@ -248,7 +275,7 @@
                                     <Label  Content="Read-R-Flag:" FontSize="16" Canvas.Left="10" Canvas.Top="220"/>
                                     <Label  Content="MOS-Flag:" FontSize="16" Canvas.Left="10" Canvas.Top="260"/>
                                     <Label  Content="Break-Flag:" FontSize="16" Canvas.Left="10" Canvas.Top="300"/>
-                                    <Label  Content="灯具编号：" FontSize="16" Canvas.Left="10" Canvas.Top="340" />
+                                    <Label  Content="{DynamicResource LangsDeveloperModeLampNumber}" FontSize="16" Canvas.Left="10" Canvas.Top="340" x:Name="DeveloperModeLampNumber"/>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Left="60" Canvas.Top="10">
                                         <TextBox x:Name="SetParameterIA" Height="40" TextWrapping="Wrap" Width="130" BorderThickness="0" Background="{x:Null}" TextChanged="SetParameterIA_TextChanged" Padding="10,8,0,0" GotFocus="SetParameterIA_GotFocus" PreviewMouseDown="SetParameterIA_PreviewMouseDown" LostFocus="SetParameterIA_LostFocus"/>
                                     </Border>
@@ -261,61 +288,62 @@
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Left="60" Canvas.Top="160">
                                         <TextBox x:Name="SetParameterIIB" Height="40" Width="130" TextWrapping="Wrap" BorderThickness="0" Background="{x:Null}" TextChanged="SetParameterIIB_TextChanged" Padding="10,8,0,0" GotFocus="SetParameterIIB_GotFocus" PreviewMouseDown="SetParameterIIB_PreviewMouseDown" LostFocus="SetParameterIIB_LostFocus"/>
                                     </Border>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="467" Canvas.Left="120" Canvas.Top="340" Background="AliceBlue">
-                                        <ComboBox x:Name="SetLightNumber" Width="463" Height="36" Background="{x:Null}" BorderThickness="0" FontSize="16" SelectionChanged="SetLightNumber_SelectionChanged" SelectedIndex="0" MaxDropDownHeight="130" Padding="10,8,0,0">
-                                            <ComboBoxItem>00 无灯具型号</ComboBoxItem>
-                                            <ComboBoxItem>01 LED嵌入式进近中线灯（APPS-12-S-LED-C）</ComboBoxItem>
-                                            <ComboBoxItem>02 LED嵌入式进近横排灯（APPS-12-L-LED-C）</ComboBoxItem>
-                                            <ComboBoxItem>03 LED嵌入式进近横排灯（APPS-12-R-LED-C）</ComboBoxItem>
-                                            <ComboBoxItem>04 LED嵌入式进近侧边灯（APSS-12-L-LED-R）</ComboBoxItem>
-                                            <ComboBoxItem>05 LED嵌入式进近侧边灯（APSS-12-R-LED-R）</ComboBoxItem>
-                                            <ComboBoxItem>06 LED嵌入式跑道入口翼排灯（THWS-12-L-LED-G）</ComboBoxItem>
-                                            <ComboBoxItem>07 LED嵌入式跑道入口翼排灯（THWS-12-R-LED-G）</ComboBoxItem>
-                                            <ComboBoxItem>08 LED嵌入式跑道入口灯（THRS-12-L-LED-G）</ComboBoxItem>
-                                            <ComboBoxItem>09 LED嵌入式跑道入口灯（THRS-12-R-LED-G）</ComboBoxItem>
-                                            <ComboBoxItem>10 LED嵌入式跑道入口灯（THRS-12-S-LED-G）</ComboBoxItem>
-                                            <ComboBoxItem>11 LED嵌入式跑道边灯（RELS-12-L-LED-YC）</ComboBoxItem>
-                                            <ComboBoxItem>12 LED嵌入式跑道边灯（RELS-12-R-LED-YC）</ComboBoxItem>
-                                            <ComboBoxItem>13 LED嵌入式跑道边灯（RELS-12-L-LED-CY）</ComboBoxItem>
-                                            <ComboBoxItem>14 LED嵌入式跑道边灯（RELS-12-R-LED-CY）</ComboBoxItem>
-                                            <ComboBoxItem>15 LED嵌入式跑道边灯（RELS-12-L-LED-CC）</ComboBoxItem>
-                                            <ComboBoxItem>16 LED嵌入式跑道边灯（RELS-12-R-LED-CC）</ComboBoxItem>
-                                            <ComboBoxItem>17 LED嵌入式跑道边灯（RELS-12-L-LED-CR）</ComboBoxItem>
-                                            <ComboBoxItem>18 LED嵌入式跑道边灯（RELS-12-R-LED-CR）</ComboBoxItem>
-                                            <ComboBoxItem>19 LED嵌入式跑道边灯（RELS-12-L-LED-RC）</ComboBoxItem>
-                                            <ComboBoxItem>20 LED嵌入式跑道边灯（RELS-12-R-LED-RC）</ComboBoxItem>
-                                            <ComboBoxItem>21 LED嵌入式跑道末端灯（ENDS-12-LED-R）</ComboBoxItem>
-                                            <ComboBoxItem>22 LED嵌入式跑道入口/末端灯（TAES-12-L-LED-GR-1P）</ComboBoxItem>
-                                            <ComboBoxItem>23 LED嵌入式跑道入口/末端灯（TAES-12-R-LED-GR-1P）</ComboBoxItem>
-                                            <ComboBoxItem>24 LED嵌入式跑道入口/末端灯（TAES-12-S-LED-GR-1P）</ComboBoxItem>
-                                            <ComboBoxItem>25 LED跑道中线灯（RCLS-08-LED-CB-1P）</ComboBoxItem>
-                                            <ComboBoxItem>26 LED跑道中线灯（RCLS-08-LED-RB-1P）</ComboBoxItem>
-                                            <ComboBoxItem>27 LED跑道中线灯（RCLS-08-LED-CC-1P）</ComboBoxItem>
-                                            <ComboBoxItem>28 LED跑道中线灯（RCLS-08-LED-RC-1P）</ComboBoxItem>
-                                            <ComboBoxItem>29 LED跑道接地带灯（TDZS-08-L-LED-C）</ComboBoxItem>
-                                            <ComboBoxItem>30 LED跑道接地带灯（TDZS-08-R-LED-C）</ComboBoxItem>
-                                            <ComboBoxItem>31 LED嵌入式跑道末端灯（ENDS-08-LED-R）</ComboBoxItem>
-                                            <ComboBoxItem>32 LED快速出口滑行道指示灯（RAPS-08-LED-Y）</ComboBoxItem>
-                                            <ComboBoxItem>33 LED嵌入式组合跑道边灯（RELC-12-LED-CY-C-1P）</ComboBoxItem>
-                                            <ComboBoxItem>34 LED嵌入式组合跑道边灯（RELC-12-LED-CC-C-1P）</ComboBoxItem>
-                                            <ComboBoxItem>35 LED嵌入式组合跑道边灯（RELC-12-LED-CR-C-1P）</ComboBoxItem>
-                                            <ComboBoxItem>36 LED嵌入式组合跑道边灯（RELC-12-LED-RY-C-1P）</ComboBoxItem>
-                                            <ComboBoxItem>37 LED嵌入式组合跑道边灯（RELC-12-LED-CY-B-1P）</ComboBoxItem>
-                                            <ComboBoxItem>38 LED嵌入式组合跑道边灯（RELC-12-LED-CC-B-1P）</ComboBoxItem>
-                                            <ComboBoxItem>39 LED嵌入式组合跑道边灯（RELC-12-LED-CR-B-1P）</ComboBoxItem>
-                                            <ComboBoxItem>40 LED嵌入式组合跑道边灯（RELC-12-LED-RY-B-1P）</ComboBoxItem>
+                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="627" Canvas.Left="145" Canvas.Top="340" Background="AliceBlue">
+                                        <ComboBox x:Name="SetLightNumber" Width="623" Height="36" Background="{x:Null}" BorderThickness="0" FontSize="16" SelectionChanged="SetLightNumber_SelectionChanged" SelectedIndex="0" MaxDropDownHeight="130" Padding="10,8,0,0">
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber0}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber1}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber2}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber3}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber4}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber5}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber6}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber7}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber8}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber9}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber10}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber11}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber12}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber13}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber14}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber15}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber16}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber17}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber18}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber19}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber20}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber21}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber22}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber23}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber24}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber25}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber26}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber27}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber28}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber29}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber30}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber31}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber32}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber33}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber34}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber35}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber36}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber37}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber38}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber39}"></ComboBoxItem>
+                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber40}"></ComboBoxItem>
+                                            
                                         </ComboBox>
                                     </Border>
-                                    <RadioButton x:Name="SetReadResistanceFalse" Content="读取电阻" FontSize="16" Canvas.Left="139" Canvas.Top="225" GroupName="ReadResistance" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetReadResistanceFalse_Checked" IsChecked="True"/>
-                                    <RadioButton x:Name="SetReadResistanceTrue" Content="不读取电阻" FontSize="16" Canvas.Left="250" Canvas.Top="225" GroupName="ReadResistance" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetReadResistanceTrue_Checked"/>
-                                    <RadioButton x:Name="SetMosfetTrue" Content="开MOSFET" FontSize="16" Canvas.Left="139" Canvas.Top="265" GroupName="ReadMosfet" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetMosfetTrue_Checked"/>
-                                    <RadioButton x:Name="SetMosfetFalse" Content="不开MOSFET" FontSize="16" Canvas.Left="268" Canvas.Top="265" GroupName="ReadMosfet" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetMosfetFalse_Checked" IsChecked="True"/>
-                                    <RadioButton x:Name="SetBreakTrue" Content="带开路" FontSize="16" Canvas.Left="139" Canvas.Top="305" GroupName="ReadBreak" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetBreakTrue_Checked" IsChecked="True"/>
-                                    <RadioButton x:Name="SetBreakFalse" Content="不带开路" FontSize="16" Canvas.Left="232" Canvas.Top="305" GroupName="ReadBreak" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetBreakFalse_Checked"/>
+                                    <RadioButton x:Name="SetReadResistanceFalse" Content="{DynamicResource LangsSetReadResistanceFalse}" FontSize="16" Canvas.Left="139" Canvas.Top="225" GroupName="ReadResistance" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetReadResistanceFalse_Checked" IsChecked="True"/>
+                                    <RadioButton x:Name="SetReadResistanceTrue" Content="{DynamicResource LangsSetReadResistanceTrue}" FontSize="16" Canvas.Left="310" Canvas.Top="225" GroupName="ReadResistance" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetReadResistanceTrue_Checked"/>
+                                    <RadioButton x:Name="SetMosfetTrue" Content="{DynamicResource LangsSetMosfetTrue}" FontSize="16" Canvas.Left="139" Canvas.Top="265" GroupName="ReadMosfet" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetMosfetTrue_Checked"/>
+                                    <RadioButton x:Name="SetMosfetFalse" Content="{DynamicResource LangsSetMosfetFalse}" FontSize="16" Canvas.Left="310" Canvas.Top="265" GroupName="ReadMosfet" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetMosfetFalse_Checked" IsChecked="True"/>
+                                    <RadioButton x:Name="SetBreakTrue" Content="{DynamicResource LangsSetBreakTrue}" FontSize="16" Canvas.Left="139" Canvas.Top="305" GroupName="ReadBreak" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetBreakTrue_Checked" IsChecked="True"/>
+                                    <RadioButton x:Name="SetBreakFalse" Content="{DynamicResource LangsSetBreakFalse}" FontSize="16" Canvas.Left="310" Canvas.Top="305" GroupName="ReadBreak" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetBreakFalse_Checked"/>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Left="10" Canvas.Top="538" Background="AliceBlue">
-                                        <Button x:Name="SetLightParametersInDeveloperMode" Content="参数设置" Click="SetLightParametersInDeveloperMode_Click"/>
+                                        <Button x:Name="SetLightParametersInDeveloperMode" Content="{DynamicResource LangsSetLightParametersInDeveloperMode}" Click="SetLightParametersInDeveloperMode_Click"/>
                                     </Border>
-                                    <Label Content="发送指令：" FontSize="16" Canvas.Left="10" Canvas.Top="410"/>
+                                    <Label Content="{DynamicResource LangsDeveloperModeSendCommand}" FontSize="16" Canvas.Left="10" Canvas.Top="410" x:Name="DeveloperModeSendCommand"/>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="780" Canvas.Left="10" Canvas.Top="450">
                                         <TextBlock x:Name="ShowSetParameterCommand" Width="780" Height="40" Padding="10,8,0,0"/>
                                     </Border>
@@ -323,47 +351,62 @@
                             </GroupBox>
                         </Border>
                         <Border BorderBrush="#FF0A51A1" BorderThickness="3" CornerRadius="5" Height="612" Canvas.Right="7" Canvas.Top="10" Width="330" >
-                            <GroupBox  Header="状态查询" Width="328" Height="612" FontSize="16" BorderThickness="0">
+                            <GroupBox  Header="{DynamicResource LangsDeveloperModeStatusQuery}" Width="328" Height="612" FontSize="16" BorderThickness="0" x:Name="DeveloperModeStatusQuery">
                                 <Canvas>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Left="10" Canvas.Top="538" Background="AliceBlue">
-                                        <Button Content="状态查询" x:Name="QueryStatus" Click="QueryStatus_Click" />
+                                        <Button Content="{DynamicResource LangsQueryStatus}" x:Name="QueryStatus" Click="QueryStatus_Click" />
                                     </Border>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="310" Canvas.Left="0" Canvas.Top="50">
-                                        <TextBlock x:Name="AnswerStatus" Height="40" Width="310" TextWrapping="Wrap" Padding="10,8,0,0"/>
+                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="60" Width="310" Canvas.Left="0" Canvas.Top="50">
+                                        <TextBlock x:Name="AnswerStatus" Height="60" Width="310" TextWrapping="Wrap" Padding="10,8,0,0"/>
                                     </Border>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Left="10" Canvas.Top="200" Background="AliceBlue">
-                                        <Button Content="导出原始数据" x:Name="CreatTXT" Click="CreatTXT_Click" />
+                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="200" Canvas.Left="10" Canvas.Top="230" Background="AliceBlue">
+                                        <Button Content="{DynamicResource LangsCreatTXT}" x:Name="CreatTXT" Click="CreatTXT_Click" Width="200"/>
                                     </Border>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Left="10" Canvas.Top="270" Background="AliceBlue">
-                                        <Button Content="导出最终数据" x:Name="CreatExcel" Click="CreatExcel_Click" />
+                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="200" Canvas.Left="10" Canvas.Top="320" Background="AliceBlue">
+                                        <Button Content="{DynamicResource LangsCreatExcel}" x:Name="CreatExcel" Click="CreatExcel_Click" Width="200"/>
                                     </Border>
-                                    <Label Content="状态信息：" Canvas.Left="0" Canvas.Top="10"/>
-                                    <TextBlock Text="说明：若灯具状态查询耗时停止刷新，表明灯具状态查询完成，可导出数据。" Height="50" Width="316" TextWrapping="Wrap" Canvas.Left="0" Canvas.Top="110"/>
-                                    <Label x:Name="ShowTXTHandleProcess" Canvas.Left="150" Canvas.Top="200" Width="150" Height="40" Content="正在导出原始数据..." Padding="0,8,0,0" Foreground="Red" Visibility="Hidden"/>
-                                    <Label x:Name="ShowEXCELHandleProcess" Canvas.Left="150" Canvas.Top="270" Width="150" Height="40" Content="正在导出最终数据..." Padding="0,8,0,0" Foreground="Red" Visibility="Hidden"/>
+                                    <Label Content="{DynamicResource LangsDeveloperModeStatusInformation}" Canvas.Left="0" Canvas.Top="10" x:Name="DeveloperModeStatusInformation"/>
+                                    <TextBlock Text="{DynamicResource LangsDeveloperModeNotes}"  Width="316" TextWrapping="Wrap" Canvas.Left="0" Canvas.Top="120" x:Name="DeveloperModeNotes"/>
+                                    <Label x:Name="ShowTXTHandleProcess" Canvas.Left="10" Canvas.Top="270"  Height="40" Content="{DynamicResource LangsShowTXTHandleProcess}" Padding="0,8,0,0" Foreground="Red" Visibility="Hidden"/>
+                                    <Label x:Name="ShowEXCELHandleProcess" Canvas.Left="10" Canvas.Top="360" Height="40" Content="{DynamicResource LangsShowEXCELHandleProcess}" Padding="0,8,0,0" Foreground="Red" Visibility="Hidden"/>
                                 </Canvas>
                             </GroupBox>
                         </Border>
                     </Canvas>
                 </TabItem>
-                <TabItem Header="开发者登录" FontSize="18" Background="AliceBlue" Height="28" Width="110" Margin="-5,0,5,0" Padding="0" x:Name="Login">
+                <TabItem Header="{DynamicResource LangsLogin}" FontSize="18" Background="AliceBlue" Height="28" Width="150" Margin="-5,0,5,0" Padding="0" x:Name="Login">
                     <Canvas>
-                        <Label  Content="账 号：" Canvas.Left="50" Canvas.Top="50" FontSize="16"/>
-                        <Label  Content="密 码：" Canvas.Left="50" Canvas.Top="100" FontSize="16"/>
-                        <Border BorderBrush="#FF0A51A1" CornerRadius="5" BorderThickness="1" Height="40" Canvas.Left="133" Canvas.Top="50" Width="150">
+                        <Label  Content="{DynamicResource LangsDeveloperModeUserName}" Canvas.Left="50" Canvas.Top="50" FontSize="16" x:Name="DeveloperModeUserName"/>
+                        <Label  Content="{DynamicResource LangsDeveloperModePassword}" Canvas.Left="50" Canvas.Top="100" FontSize="16" x:Name="DeveloperModePassword"/>
+                        <Border BorderBrush="#FF0A51A1" CornerRadius="5" BorderThickness="1" Height="40" Canvas.Left="210" Canvas.Top="50" Width="150">
                             <TextBox x:Name="UserName" Height="40" TextWrapping="Wrap" Width="150" Background="{x:Null}" BorderThickness="0" Padding="10,8,0,0" FontSize="16" />
                         </Border>
-                        <Border BorderBrush="#FF0A51A1" CornerRadius="5" BorderThickness="1" Height="40" Canvas.Left="133" Canvas.Top="100" Width="150">
+                        <Border BorderBrush="#FF0A51A1" CornerRadius="5" BorderThickness="1" Height="40" Canvas.Left="210" Canvas.Top="100" Width="150">
                             <PasswordBox x:Name="Password" Height="40" Width="150" Background="{x:Null}" BorderThickness="0" Padding="10,8,0,0" FontSize="16" PasswordChar="*"/>
                         </Border>
                         <Border BorderBrush="#FF0A51A1" CornerRadius="5" BorderThickness="1" Height="40" Canvas.Left="50" Canvas.Top="170" Width="130" Background="AliceBlue">
-                            <Button x:Name="LogIn" Content="登录" Background="{x:Null}" BorderThickness="0" Click="LogIn_Click"/>
+                            <Button x:Name="LogIn" Content="{DynamicResource LangsLogIn}" Background="{x:Null}" BorderThickness="0" Click="LogIn_Click"/>
                         </Border>
                         <Border BorderBrush="#FF0A51A1" CornerRadius="5" BorderThickness="1" Height="40" Canvas.Left="50" Canvas.Top="230" Width="130" Background="AliceBlue">
-                            <Button x:Name="LogOut" Content="退出"  Background="{x:Null}" BorderThickness="0" Click="LogOut_Click"/>
+                            <Button x:Name="LogOut" Content="{DynamicResource LangsLogOut}"  Background="{x:Null}" BorderThickness="0" Click="LogOut_Click"/>
                         </Border>
                     </Canvas>
                 </TabItem>
+                <TabItem Header="{DynamicResource LangsLanguageSetting}" FontSize="18" Background="AliceBlue" Height="28" Width="150" Margin="-5,0,5,0" Padding="0" x:Name="LanguageSetting">
+                    <Canvas>
+                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="150" Height="40" Canvas.Left="210" Canvas.Top="50" Background="{x:Null}">
+                            <ComboBox x:Name="LanguageSelect" Width="146" Height="36" BorderThickness="0" FontSize="16" MaxDropDownHeight="130" HorizontalAlignment="Left" Margin="1,1,0,1" Padding="10,8,0,0" SelectedIndex="1">
+                                <ComboBoxItem>中文</ComboBoxItem>
+                                <ComboBoxItem>English</ComboBoxItem>
+                            </ComboBox>
+                        </Border>
+                        <Label Content="{DynamicResource LangsLanguageSelect}" FontSize="18" Canvas.Left="50" Canvas.Top="50"/>
+                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="130" Height="40" Canvas.Left="50" Canvas.Top="170" Background="AliceBlue">
+                            <Button x:Name="ConfirmLanguageSetting" Content="{DynamicResource LangsConfirmLanguageSetting}" Click="ConfirmLanguageSetting_Click" />
+                        </Border>
+                    </Canvas>
+                </TabItem>
+                
             </TabControl>
         </Canvas>
     </Grid>
