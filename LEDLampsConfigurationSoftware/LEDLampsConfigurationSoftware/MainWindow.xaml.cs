@@ -837,6 +837,25 @@ namespace LEDLampsConfigurationSoftware
                             {
                                 ConfigurationWindow.IsEnabled = false;
                             }
+
+                            SelectApproachChenterlineLight.IsEnabled = false;
+                            SelectApproachCrossbarLight.IsEnabled = false;
+                            SelectApproachSideRowLight.IsEnabled = false;
+                            SelectRWYThresholdWingBarLight.IsEnabled = false;
+                            SelectRWYThresholdLight.IsEnabled = false;
+                            SelectRWYEdgeLight.IsEnabled = false;
+                            Select12inchesRWYEndLight.IsEnabled = false;
+                            SelectRWYThresholdEndLight.IsEnabled = false;
+                            SelectRWYCenterlineLight.IsEnabled = false;
+                            SelectRWYTouchdownZoneLight.IsEnabled = false;
+                            Select8inchesRWYEndLight.IsEnabled = false;
+                            SelectRapidExitTWYIndicatorLight.IsEnabled = false;
+                            SelectCombinedRWYEdgeLight.IsEnabled = false;
+
+                            LampInchesLabel.Content = "";
+
+                            RefreshStringMessageLanguage();
+                            LampInchesLabel.Content = LampInchesLabel1;
                         }));
                         return;
                     }
@@ -853,6 +872,25 @@ namespace LEDLampsConfigurationSoftware
                         {
                             ConfigurationWindow.IsEnabled = false;
                         }
+
+                        SelectApproachChenterlineLight.IsEnabled = false;
+                        SelectApproachCrossbarLight.IsEnabled = false;
+                        SelectApproachSideRowLight.IsEnabled = false;
+                        SelectRWYThresholdWingBarLight.IsEnabled = false;
+                        SelectRWYThresholdLight.IsEnabled = false;
+                        SelectRWYEdgeLight.IsEnabled = false;
+                        Select12inchesRWYEndLight.IsEnabled = false;
+                        SelectRWYThresholdEndLight.IsEnabled = false;
+                        SelectRWYCenterlineLight.IsEnabled = false;
+                        SelectRWYTouchdownZoneLight.IsEnabled = false;
+                        Select8inchesRWYEndLight.IsEnabled = false;
+                        SelectRapidExitTWYIndicatorLight.IsEnabled = false;
+                        SelectCombinedRWYEdgeLight.IsEnabled = false;
+
+                        LampInchesLabel.Content = "";
+
+                        RefreshStringMessageLanguage();
+                        LampInchesLabel.Content = LampInchesLabel1;
                     }));
                     return;
                 }
@@ -869,6 +907,25 @@ namespace LEDLampsConfigurationSoftware
                     {
                         ConfigurationWindow.IsEnabled = false;
                     }
+
+                    SelectApproachChenterlineLight.IsEnabled = false;
+                    SelectApproachCrossbarLight.IsEnabled = false;
+                    SelectApproachSideRowLight.IsEnabled = false;
+                    SelectRWYThresholdWingBarLight.IsEnabled = false;
+                    SelectRWYThresholdLight.IsEnabled = false;
+                    SelectRWYEdgeLight.IsEnabled = false;
+                    Select12inchesRWYEndLight.IsEnabled = false;
+                    SelectRWYThresholdEndLight.IsEnabled = false;
+                    SelectRWYCenterlineLight.IsEnabled = false;
+                    SelectRWYTouchdownZoneLight.IsEnabled = false;
+                    Select8inchesRWYEndLight.IsEnabled = false;
+                    SelectRapidExitTWYIndicatorLight.IsEnabled = false;
+                    SelectCombinedRWYEdgeLight.IsEnabled = false;
+
+                    LampInchesLabel.Content = "";
+
+                    RefreshStringMessageLanguage();
+                    LampInchesLabel.Content = LampInchesLabel1;
                 }));
                 return;
             }
