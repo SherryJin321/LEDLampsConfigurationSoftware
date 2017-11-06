@@ -122,9 +122,11 @@
 
 
     <!--后台代码，串口设置页面-->
-    <system:String x:Key="LangsLampInchesLabel1">Failed to query the size of the lamp drive board.</system:String>
+    <system:String x:Key="LangsLampInchesLabel1">Failed to query the lamp drive board.</system:String>
     <system:String x:Key="LangsLampInchesLabel2">The size of the lamp drive board is</system:String>
     <system:String x:Key="LangsLampInchesLabel3">inches.</system:String>
+    <system:String x:Key="LangsLampInchesLabel4">The lamp uses RWY center light drive with double circuit.</system:String>
+
 
     <!--后台代码，工厂模式页面-->
     <system:String x:Key="LangsAnswerHardwareVersion0">inches</system:String>
@@ -174,8 +176,10 @@
 
     <!--后台代码，开发者模式页面-->
     <system:String x:Key="LangsAnswerStatus1">The time consuming of lamp status query is </system:String>
-    <system:String x:Key="LangsCreateExcel1">inches lamp parameter analysis</system:String>
+    <system:String x:Key="LangsCreateExcel1">lamp parameter analysis</system:String>
     <system:String x:Key="LangsCreateExcel2">sequence number</system:String>
+    <system:String x:Key="LangsCreateExcel3">inches</system:String>
+    <system:String x:Key="LangsCreateExcel4">RWY center light drive with double circuit</system:String>
     <system:String x:Key="LangsCreateTxt1">lamp original data</system:String>
 
     <!--后台代码，MessageBox设置-->
@@ -184,7 +188,7 @@
 
     <system:String x:Key="LangsMessageboxContent1">Are you sure to close the software?</system:String>
     <system:String x:Key="LangsMessageboxContent2">The port is open now! Please close it.</system:String>
-    <system:String x:Key="LangsMessageboxContent3">Failed to query the size of lamp drive board! Please reopen the port.</system:String>
+    <system:String x:Key="LangsMessageboxContent3">Failed to query the lamp drive board! Please reopen the port.</system:String>
     <system:String x:Key="LangsMessageboxContent4">The port is open now!</system:String>
     <system:String x:Key="LangsMessageboxContent5">Failed to open the port! Please try again.</system:String>
     <system:String x:Key="LangsMessageboxContent6">The port is close now!</system:String>

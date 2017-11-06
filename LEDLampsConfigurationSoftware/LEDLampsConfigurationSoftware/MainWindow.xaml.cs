@@ -72,7 +72,6 @@ namespace LEDLampsConfigurationSoftware
         byte InDeveloperModeSettingLampsNumber = 0x00;  //灯具编号
         #endregion
 
-
         #region 发送指令集（尚未计算校验值）
         Byte[] queryStatusCommand = new Byte[28] { 0x02,0x89,0x11,0x58,0x12,0x00,0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x06,0x00,0x00,0x00,0x00 };
         Byte[] queryVersionCommand = new Byte[28] { 0x02, 0x89, 0x22, 0x85, 0x12, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00 };
@@ -125,10 +124,38 @@ namespace LEDLampsConfigurationSoftware
         ArrayList ErrorCodeTwelveinches = new ArrayList();
         #endregion
 
+        #region 双路跑中驱动灯具各项参数存储集合
+        ArrayList RMS1DoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList Val2DoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList RMS2DoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList CurrentRatio1DoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList CurrentRatio2DoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList CurrentRatio3DoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList CurrentRatio4DoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList RMS1LASTDoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList RMS2LASTDoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList SNSIADoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList SNSIBDoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList SNSIIADoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList SNSIIBDoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList LEDF1DoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList LEDF2DoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList RESIADoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList RESIBDoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList RESIIADoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList RESIIBDoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList TDoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList SecondDoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList TCHECKDoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList ErrorCodeDoubleCircuitRWYCenterDrive = new ArrayList();
+        #endregion
+
         #region 后台代码，串口设置页面，中英文切换字符串
         string LampInchesLabel1 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel1");
         string LampInchesLabel2 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel2");
         string LampInchesLabel3 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel3");
+        string LampInchesLabel4 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel4");
+
         #endregion
 
         #region 后台代码，工厂模式页面，中英文切换字符串
@@ -182,6 +209,8 @@ namespace LEDLampsConfigurationSoftware
         string AnswerStatus1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerStatus1");
         string CreateExcel1 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel1");
         string CreateExcel2 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel2");
+        string CreateExcel3 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel3");
+        string CreateExcel4 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel4");
         string CreateTxt1 = (string)System.Windows.Application.Current.FindResource("LangsCreateTxt1");
 
         #endregion
@@ -758,77 +787,45 @@ namespace LEDLampsConfigurationSoftware
 
         private void ConfirmLampInches()
         {
-            judgeFeedbackCommand = 0;
-            if (dataReceived.Length == 24)
+            RefreshStringMessageLanguage();
+
+            this.Dispatcher.Invoke(new System.Action(() =>
             {
-                byte checkOutValue = CalculateCheckOutValue(dataReceived);
-                if (checkOutValue == dataReceived[dataReceived.Length - 1])
+                LampInchesLabel.Content = "";            
+
+                judgeFeedbackCommand = 0;
+                if (dataReceived.Length == 24)
                 {
-                    if (dataReceived[0] == 0x02 && dataReceived[1] == 0x89 && dataReceived[2] == 0x22 && dataReceived[3] == 0x85)
-                    {                        
-                        hardwareVersion1 = dataReceived[16];                        
-
-                        this.Dispatcher.Invoke(new System.Action(() =>
-                        {
-                            LampInchesLabel.Content = "";
-
-                            RefreshStringMessageLanguage();
-                            LampInchesLabel.Content = LampInchesLabel2 + " "+hardwareVersion1.ToString() + " "+LampInchesLabel3;
-                                              
-                            if(hardwareVersion1==8)
-                            {
-                                SelectApproachChenterlineLight.IsEnabled = false;
-                                SelectApproachCrossbarLight.IsEnabled = false;
-                                SelectApproachSideRowLight.IsEnabled = false;
-                                SelectRWYThresholdWingBarLight.IsEnabled = false;
-                                SelectRWYThresholdLight.IsEnabled = false;
-                                SelectRWYEdgeLight.IsEnabled = false;
-                                Select12inchesRWYEndLight.IsEnabled = false;
-                                SelectRWYThresholdEndLight.IsEnabled = false;
-                                SelectRWYCenterlineLight.IsEnabled = true;
-                                SelectRWYTouchdownZoneLight.IsEnabled = true;
-                                Select8inchesRWYEndLight.IsEnabled = true;
-                                SelectRapidExitTWYIndicatorLight.IsEnabled = true;
-                                SelectCombinedRWYEdgeLight.IsEnabled = false;
-                            }
-                            else if (hardwareVersion1 == 12)
-                            {
-                                SelectApproachChenterlineLight.IsEnabled = true;
-                                SelectApproachCrossbarLight.IsEnabled = true;
-                                SelectApproachSideRowLight.IsEnabled = true;
-                                SelectRWYThresholdWingBarLight.IsEnabled = true;
-                                SelectRWYThresholdLight.IsEnabled = true;
-                                SelectRWYEdgeLight.IsEnabled = true;
-                                Select12inchesRWYEndLight.IsEnabled = true;
-                                SelectRWYThresholdEndLight.IsEnabled = true;
-                                SelectRWYCenterlineLight.IsEnabled = false;
-                                SelectRWYTouchdownZoneLight.IsEnabled = false;
-                                Select8inchesRWYEndLight.IsEnabled = false;
-                                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
-                                SelectCombinedRWYEdgeLight.IsEnabled = true;
-                            }
-                            else
-                            {
-                                SelectApproachChenterlineLight.IsEnabled = false;
-                                SelectApproachCrossbarLight.IsEnabled = false;
-                                SelectApproachSideRowLight.IsEnabled = false;
-                                SelectRWYThresholdWingBarLight.IsEnabled = false;
-                                SelectRWYThresholdLight.IsEnabled = false;
-                                SelectRWYEdgeLight.IsEnabled = false;
-                                Select12inchesRWYEndLight.IsEnabled = false;
-                                SelectRWYThresholdEndLight.IsEnabled = false;
-                                SelectRWYCenterlineLight.IsEnabled = false;
-                                SelectRWYTouchdownZoneLight.IsEnabled = false;
-                                Select8inchesRWYEndLight.IsEnabled = false;
-                                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
-                                SelectCombinedRWYEdgeLight.IsEnabled = false;
-                            }
-                        }));
-                    }
-                    else
-                    {                        
-                        this.Dispatcher.Invoke(new System.Action(() =>
-                        {
+                    byte checkOutValue = CalculateCheckOutValue(dataReceived);
+                    if (checkOutValue == dataReceived[dataReceived.Length - 1])
+                    {
+                        if (dataReceived[0] == 0x02 && dataReceived[1] == 0x89 && dataReceived[2] == 0x22 && dataReceived[3] == 0x85)
+                        {                        
+                            hardwareVersion1 = dataReceived[16];                        
+                                                                      
+                                if(hardwareVersion1==8)
+                                {
+                                    LampInchesLabel.Content = LampInchesLabel2 + " " + hardwareVersion1.ToString() + " " + LampInchesLabel3;
+                                    EightInchesLampSelect();
+                                }
+                                else if (hardwareVersion1 == 12)
+                                {
+                                    LampInchesLabel.Content = LampInchesLabel2 + " " + hardwareVersion1.ToString() + " " + LampInchesLabel3;
+                                    TwelveInchesLampSelect();
+                                }
+                                else if(hardwareVersion1==13)
+                                {
+                                    LampInchesLabel.Content = LampInchesLabel4;
+                                    DoubleCircuitRWYCenterLampSelect();
+                                }
+                                else
+                                {
+                                    LampInchesLabel.Content = LampInchesLabel1;
+                                    NoneLampSelect();                                
+                                }                           
+                        }
+                        else
+                        {                                                    
                             if (MessageBox.Show(MessageboxContent3, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                             {
                                 ConfigurationWindow.IsEnabled = true;
@@ -838,32 +835,12 @@ namespace LEDLampsConfigurationSoftware
                                 ConfigurationWindow.IsEnabled = false;
                             }
 
-                            SelectApproachChenterlineLight.IsEnabled = false;
-                            SelectApproachCrossbarLight.IsEnabled = false;
-                            SelectApproachSideRowLight.IsEnabled = false;
-                            SelectRWYThresholdWingBarLight.IsEnabled = false;
-                            SelectRWYThresholdLight.IsEnabled = false;
-                            SelectRWYEdgeLight.IsEnabled = false;
-                            Select12inchesRWYEndLight.IsEnabled = false;
-                            SelectRWYThresholdEndLight.IsEnabled = false;
-                            SelectRWYCenterlineLight.IsEnabled = false;
-                            SelectRWYTouchdownZoneLight.IsEnabled = false;
-                            Select8inchesRWYEndLight.IsEnabled = false;
-                            SelectRapidExitTWYIndicatorLight.IsEnabled = false;
-                            SelectCombinedRWYEdgeLight.IsEnabled = false;
-
-                            LampInchesLabel.Content = "";
-
-                            RefreshStringMessageLanguage();
-                            LampInchesLabel.Content = LampInchesLabel1;
-                        }));
-                        return;
+                            NoneLampSelect();
+                            LampInchesLabel.Content = LampInchesLabel1;                                                      
+                        }
                     }
-                }
-                else
-                {                    
-                    this.Dispatcher.Invoke(new System.Action(() =>
-                    {
+                    else
+                    {                                           
                         if (MessageBox.Show(MessageboxContent3, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                         {
                             ConfigurationWindow.IsEnabled = true;
@@ -873,32 +850,12 @@ namespace LEDLampsConfigurationSoftware
                             ConfigurationWindow.IsEnabled = false;
                         }
 
-                        SelectApproachChenterlineLight.IsEnabled = false;
-                        SelectApproachCrossbarLight.IsEnabled = false;
-                        SelectApproachSideRowLight.IsEnabled = false;
-                        SelectRWYThresholdWingBarLight.IsEnabled = false;
-                        SelectRWYThresholdLight.IsEnabled = false;
-                        SelectRWYEdgeLight.IsEnabled = false;
-                        Select12inchesRWYEndLight.IsEnabled = false;
-                        SelectRWYThresholdEndLight.IsEnabled = false;
-                        SelectRWYCenterlineLight.IsEnabled = false;
-                        SelectRWYTouchdownZoneLight.IsEnabled = false;
-                        Select8inchesRWYEndLight.IsEnabled = false;
-                        SelectRapidExitTWYIndicatorLight.IsEnabled = false;
-                        SelectCombinedRWYEdgeLight.IsEnabled = false;
-
-                        LampInchesLabel.Content = "";
-
-                        RefreshStringMessageLanguage();
-                        LampInchesLabel.Content = LampInchesLabel1;
-                    }));
-                    return;
+                        NoneLampSelect();
+                        LampInchesLabel.Content = LampInchesLabel1;                       
+                    }
                 }
-            }
-            else
-            {                
-                this.Dispatcher.Invoke(new System.Action(() =>
-                {
+                else
+                {                                   
                     if (MessageBox.Show(MessageboxContent3, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
@@ -908,27 +865,90 @@ namespace LEDLampsConfigurationSoftware
                         ConfigurationWindow.IsEnabled = false;
                     }
 
-                    SelectApproachChenterlineLight.IsEnabled = false;
-                    SelectApproachCrossbarLight.IsEnabled = false;
-                    SelectApproachSideRowLight.IsEnabled = false;
-                    SelectRWYThresholdWingBarLight.IsEnabled = false;
-                    SelectRWYThresholdLight.IsEnabled = false;
-                    SelectRWYEdgeLight.IsEnabled = false;
-                    Select12inchesRWYEndLight.IsEnabled = false;
-                    SelectRWYThresholdEndLight.IsEnabled = false;
-                    SelectRWYCenterlineLight.IsEnabled = false;
-                    SelectRWYTouchdownZoneLight.IsEnabled = false;
-                    Select8inchesRWYEndLight.IsEnabled = false;
-                    SelectRapidExitTWYIndicatorLight.IsEnabled = false;
-                    SelectCombinedRWYEdgeLight.IsEnabled = false;
+                    NoneLampSelect();
+                    LampInchesLabel.Content = LampInchesLabel1;                                     
+                }
+         }));
+        }
 
-                    LampInchesLabel.Content = "";
+        public void EightInchesLampSelect()
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                SelectApproachChenterlineLight.IsEnabled = false;
+                SelectApproachCrossbarLight.IsEnabled = false;
+                SelectApproachSideRowLight.IsEnabled = false;
+                SelectRWYThresholdWingBarLight.IsEnabled = false;
+                SelectRWYThresholdLight.IsEnabled = false;
+                SelectRWYEdgeLight.IsEnabled = false;
+                Select12inchesRWYEndLight.IsEnabled = false;
+                SelectRWYThresholdEndLight.IsEnabled = false;
+                SelectRWYCenterlineLight.IsEnabled = true;
+                SelectRWYTouchdownZoneLight.IsEnabled = true;
+                Select8inchesRWYEndLight.IsEnabled = true;
+                SelectRapidExitTWYIndicatorLight.IsEnabled = true;
+                SelectCombinedRWYEdgeLight.IsEnabled = false;
+            }));
+        }
 
-                    RefreshStringMessageLanguage();
-                    LampInchesLabel.Content = LampInchesLabel1;
-                }));
-                return;
-            }
+        public void TwelveInchesLampSelect()
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                SelectApproachChenterlineLight.IsEnabled = true;
+                SelectApproachCrossbarLight.IsEnabled = true;
+                SelectApproachSideRowLight.IsEnabled = true;
+                SelectRWYThresholdWingBarLight.IsEnabled = true;
+                SelectRWYThresholdLight.IsEnabled = true;
+                SelectRWYEdgeLight.IsEnabled = true;
+                Select12inchesRWYEndLight.IsEnabled = true;
+                SelectRWYThresholdEndLight.IsEnabled = true;
+                SelectRWYCenterlineLight.IsEnabled = false;
+                SelectRWYTouchdownZoneLight.IsEnabled = false;
+                Select8inchesRWYEndLight.IsEnabled = false;
+                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
+                SelectCombinedRWYEdgeLight.IsEnabled = true;
+            }));
+        }
+
+        public void DoubleCircuitRWYCenterLampSelect()
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                SelectApproachChenterlineLight.IsEnabled = false;
+                SelectApproachCrossbarLight.IsEnabled = false;
+                SelectApproachSideRowLight.IsEnabled = false;
+                SelectRWYThresholdWingBarLight.IsEnabled = false;
+                SelectRWYThresholdLight.IsEnabled = false;
+                SelectRWYEdgeLight.IsEnabled = false;
+                Select12inchesRWYEndLight.IsEnabled = false;
+                SelectRWYThresholdEndLight.IsEnabled = false;
+                SelectRWYCenterlineLight.IsEnabled = true;
+                SelectRWYTouchdownZoneLight.IsEnabled = true;
+                Select8inchesRWYEndLight.IsEnabled = true;
+                SelectRapidExitTWYIndicatorLight.IsEnabled = true;
+                SelectCombinedRWYEdgeLight.IsEnabled = false;
+            }));
+        }
+
+        public void NoneLampSelect()
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                SelectApproachChenterlineLight.IsEnabled = false;
+                SelectApproachCrossbarLight.IsEnabled = false;
+                SelectApproachSideRowLight.IsEnabled = false;
+                SelectRWYThresholdWingBarLight.IsEnabled = false;
+                SelectRWYThresholdLight.IsEnabled = false;
+                SelectRWYEdgeLight.IsEnabled = false;
+                Select12inchesRWYEndLight.IsEnabled = false;
+                SelectRWYThresholdEndLight.IsEnabled = false;
+                SelectRWYCenterlineLight.IsEnabled = false;
+                SelectRWYTouchdownZoneLight.IsEnabled = false;
+                Select8inchesRWYEndLight.IsEnabled = false;
+                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
+                SelectCombinedRWYEdgeLight.IsEnabled = false;
+            }));
         }
 
         ArrayList ReceivedStatusFeedbackCommand = new ArrayList();  //定义接收到的状态反馈指令        
@@ -1118,6 +1138,10 @@ namespace LEDLampsConfigurationSoftware
             if(hardwareVersion1 == 8)
             {
                 result = original * 0.66;
+            }
+            if(hardwareVersion1==13)
+            {
+                result = original * 0.66;
             }           
 
             result = Math.Round(result, 2,MidpointRounding.AwayFromZero);
@@ -1179,7 +1203,12 @@ namespace LEDLampsConfigurationSoftware
                     {
                         EightInchesLampDataAnalysis(receivedStatusFeedbackCommand);
                         EightInchesLampParametersCreatExcel();
-                    }                    
+                    }
+                    else if (receivedStatusFeedbackCommand[0] == 0x02 && receivedStatusFeedbackCommand[1] == 0xAA && receivedStatusFeedbackCommand[2] == 0x01 && receivedStatusFeedbackCommand[3] == 0x0D && receivedStatusFeedbackCommand[4] == 0x0D)
+                    {
+                        DoubleCircuitRWYCenterDriveLampDataAnalysis(receivedStatusFeedbackCommand);
+                        DoubleCircuitRWYCenterDriveLampParametersCreatExcel();
+                    }
                     else
                     {                       
                         this.Dispatcher.Invoke(new System.Action(() =>
@@ -1407,7 +1436,8 @@ namespace LEDLampsConfigurationSoftware
             SNSIIBTwelveinches.Clear();
             LEDF1Twelveinches.Clear();
             TTwelveinches.Clear();
-            SecondTwelveinches.Clear();            
+            SecondTwelveinches.Clear();
+            ErrorCodeTwelveinches.Clear();
         }
 
         string str_fileName;                                                  //定义变量Excel文件名
@@ -1419,13 +1449,13 @@ namespace LEDLampsConfigurationSoftware
             try
             {
                 //创建excel模板
-                str_fileName = "d:\\12 "+ CreateExcel1 + " "+DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";    //文件保存路径及名称
+                str_fileName = "d:\\12 " + CreateExcel3 + " " + CreateExcel1 + " "+DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";    //文件保存路径及名称
                 ExcelApp = new Microsoft.Office.Interop.Excel.Application();                          //创建Excel应用程序 ExcelApp
                 ExcelDoc = ExcelApp.Workbooks.Add(Type.Missing);                                      //在应用程序ExcelApp下，创建工作簿ExcelDoc
                 ExcelSheet = ExcelDoc.Worksheets.Add(Type.Missing);                                   //在工作簿ExcelDoc下，创建工作表ExcelSheet
 
                 //设置Excel列名           
-                ExcelSheet.Cells[1, 1] = "12 "+ CreateExcel1;
+                ExcelSheet.Cells[1, 1] = "12 " + CreateExcel3 + " " + CreateExcel1;
                 ExcelSheet.Cells[2, 1] = CreateExcel2;
                 ExcelSheet.Cells[2, 2] = "RMS1";
                 ExcelSheet.Cells[2, 3] = "RMS2";
@@ -1661,7 +1691,8 @@ namespace LEDLampsConfigurationSoftware
             SNSIIAEightinches.Clear();
             LEDF1Eightinches.Clear();
             TEightinches.Clear();
-            SecondEightinches.Clear();           
+            SecondEightinches.Clear();
+            ErrorCodeEightinches.Clear();
         }
 
         void EightInchesLampParametersCreatExcel()
@@ -1669,13 +1700,13 @@ namespace LEDLampsConfigurationSoftware
             try
             {
                 //创建excel模板
-                str_fileName = "d:\\8 " + CreateExcel1 +" "+ DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";    //文件保存路径及名称
+                str_fileName = "d:\\8 " +CreateExcel3+" " + CreateExcel1 +" "+ DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";    //文件保存路径及名称
                 ExcelApp = new Microsoft.Office.Interop.Excel.Application();                          //创建Excel应用程序 ExcelApp
                 ExcelDoc = ExcelApp.Workbooks.Add(Type.Missing);                                      //在应用程序ExcelApp下，创建工作簿ExcelDoc
                 ExcelSheet = ExcelDoc.Worksheets.Add(Type.Missing);                                   //在工作簿ExcelDoc下，创建工作表ExcelSheet
 
                 //设置Excel列名           
-                ExcelSheet.Cells[1, 1] = "8 "+ CreateExcel1;
+                ExcelSheet.Cells[1, 1] = "8 " + CreateExcel3 + " " + CreateExcel1;
                 ExcelSheet.Cells[2, 1] = CreateExcel2;
                 ExcelSheet.Cells[2, 2] = "RMS1";
                 ExcelSheet.Cells[2, 3] = "Val2";
@@ -1763,6 +1794,293 @@ namespace LEDLampsConfigurationSoftware
             }
         }
 
+        #endregion
+
+        #region 双路跑中驱动灯具状态信息解析
+        private void DoubleCircuitRWYCenterDriveLampDataAnalysis(byte[] CompleteData)
+        {
+            byte[][] receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray;
+            ArrayList commandCount = new ArrayList();
+
+            for (int i = 0; i < CompleteData.Length; i++)
+            {
+                if (CompleteData[i] == 0x02 && CompleteData[i + 1] == 0xAA && CompleteData[i + 2] == 0x01 && CompleteData[i + 3] == 0x0D && CompleteData[i + 4] == 0x0D)
+                {
+                    commandCount.Add(i);
+                }
+            }
+
+            receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray = new byte[commandCount.Count][];
+
+            for (int i = 0; i < commandCount.Count; i++)
+            {
+                if (i < commandCount.Count - 1)
+                {
+                    receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i] = new byte[(int)commandCount[i + 1] - (int)commandCount[i]];
+                }
+                else
+                {
+                    receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i] = new byte[CompleteData.Length - (int)commandCount[i]];
+                }
+
+                for (int j = 0; j < receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i].Length; j++)
+                {
+                    receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][j] = CompleteData[(int)commandCount[i] + j];
+                }
+            }
+
+            for (int i = 0; i < receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray.Length; i++)
+            {
+                if (receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i].Length == 32)
+                {
+                    byte checkOutValue = CalculateCheckOutValue(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i]);
+                    if (checkOutValue == receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i].Length - 1])
+                    {
+                        RMS1DoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][5] * 1100);
+                        Val2DoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][6] * 20);
+                        RMS2DoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][7] * 1100);
+                        CurrentRatio1DoubleCircuitRWYCenterDrive.Add((float)(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][8] / 10.0));
+                        CurrentRatio2DoubleCircuitRWYCenterDrive.Add((float)(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][9] / 10.0));
+                        CurrentRatio3DoubleCircuitRWYCenterDrive.Add((float)(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][10] / 10.0));
+                        CurrentRatio4DoubleCircuitRWYCenterDrive.Add((float)(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][11] / 10.0));
+                        RMS1LASTDoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][12] * 4);
+                        RMS2LASTDoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][13] * 4);
+                        SNSIADoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][14] * 16);
+                        SNSIBDoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][15] * 16);
+                        SNSIIADoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][16] * 16);
+                        SNSIIBDoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][17] * 16);
+                        LEDF1DoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][18]);
+                        LEDF2DoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][19]);
+                        RESIADoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][20] * 124);
+                        RESIBDoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][21] * 124);
+                        RESIIADoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][22] * 124);
+                        RESIIBDoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][23] * 124);
+                        TDoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][24]);
+                        TCHECKDoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][29]);                                               
+
+                        int SecondResult = 0;
+                        for (int j = 0; j < 4; j++)
+                        {
+                            int SecondOrigin = receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][26 + j];
+                            SecondResult |= SecondOrigin;
+                            if (j < 3)
+                            {
+                                SecondResult <<= 8;
+                            }
+                        }
+                        SecondDoubleCircuitRWYCenterDrive.Add(SecondResult);
+                        ErrorCodeDoubleCircuitRWYCenterDrive.Add("No Error");
+                    }
+                    else
+                    {
+                        DoubleCircuitRWYCenterDriveLampCheckValueErrorHandle();
+                    }
+                }
+                else
+                {
+                    DoubleCircuitRWYCenterDriveLampCommandLengthErrorHandle();
+                }
+            }
+
+        }
+
+        private void DoubleCircuitRWYCenterDriveLampCheckValueErrorHandle()
+        {
+            RMS1DoubleCircuitRWYCenterDrive.Add("Null");
+            Val2DoubleCircuitRWYCenterDrive.Add("Null");
+            RMS2DoubleCircuitRWYCenterDrive.Add("Null");
+            CurrentRatio1DoubleCircuitRWYCenterDrive.Add("Null");
+            CurrentRatio2DoubleCircuitRWYCenterDrive.Add("Null");
+            CurrentRatio3DoubleCircuitRWYCenterDrive.Add("Null");
+            CurrentRatio4DoubleCircuitRWYCenterDrive.Add("Null");
+            RMS1LASTDoubleCircuitRWYCenterDrive.Add("Null");
+            RMS2LASTDoubleCircuitRWYCenterDrive.Add("Null");
+            SNSIADoubleCircuitRWYCenterDrive.Add("Null");
+            SNSIBDoubleCircuitRWYCenterDrive.Add("Null");
+            SNSIIADoubleCircuitRWYCenterDrive.Add("Null");
+            SNSIIBDoubleCircuitRWYCenterDrive.Add("Null");
+            LEDF1DoubleCircuitRWYCenterDrive.Add("Null");
+            LEDF2DoubleCircuitRWYCenterDrive.Add("Null");
+            RESIADoubleCircuitRWYCenterDrive.Add("Null");
+            RESIBDoubleCircuitRWYCenterDrive.Add("Null");
+            RESIIADoubleCircuitRWYCenterDrive.Add("Null");
+            RESIIBDoubleCircuitRWYCenterDrive.Add("Null");
+            TDoubleCircuitRWYCenterDrive.Add("Null");
+            SecondDoubleCircuitRWYCenterDrive.Add("Null");
+            TCHECKDoubleCircuitRWYCenterDrive.Add("Null");
+            ErrorCodeDoubleCircuitRWYCenterDrive.Add("Check Value Error");          
+        }
+
+        private void DoubleCircuitRWYCenterDriveLampCommandLengthErrorHandle()
+        {
+            RMS1DoubleCircuitRWYCenterDrive.Add("Null");
+            Val2DoubleCircuitRWYCenterDrive.Add("Null");
+            RMS2DoubleCircuitRWYCenterDrive.Add("Null");
+            CurrentRatio1DoubleCircuitRWYCenterDrive.Add("Null");
+            CurrentRatio2DoubleCircuitRWYCenterDrive.Add("Null");
+            CurrentRatio3DoubleCircuitRWYCenterDrive.Add("Null");
+            CurrentRatio4DoubleCircuitRWYCenterDrive.Add("Null");
+            RMS1LASTDoubleCircuitRWYCenterDrive.Add("Null");
+            RMS2LASTDoubleCircuitRWYCenterDrive.Add("Null");
+            SNSIADoubleCircuitRWYCenterDrive.Add("Null");
+            SNSIBDoubleCircuitRWYCenterDrive.Add("Null");
+            SNSIIADoubleCircuitRWYCenterDrive.Add("Null");
+            SNSIIBDoubleCircuitRWYCenterDrive.Add("Null");
+            LEDF1DoubleCircuitRWYCenterDrive.Add("Null");
+            LEDF2DoubleCircuitRWYCenterDrive.Add("Null");
+            RESIADoubleCircuitRWYCenterDrive.Add("Null");
+            RESIBDoubleCircuitRWYCenterDrive.Add("Null");
+            RESIIADoubleCircuitRWYCenterDrive.Add("Null");
+            RESIIBDoubleCircuitRWYCenterDrive.Add("Null");
+            TDoubleCircuitRWYCenterDrive.Add("Null");
+            SecondDoubleCircuitRWYCenterDrive.Add("Null");
+            TCHECKDoubleCircuitRWYCenterDrive.Add("Null");
+            ErrorCodeDoubleCircuitRWYCenterDrive.Add("Command Length Error");           
+        }
+
+        private void ClearDoubleCircuitRWYCenterDriveLampsParameters()
+        {
+            RMS1DoubleCircuitRWYCenterDrive.Clear();
+            Val2DoubleCircuitRWYCenterDrive.Clear();
+            RMS2DoubleCircuitRWYCenterDrive.Clear();
+            CurrentRatio1DoubleCircuitRWYCenterDrive.Clear();
+            CurrentRatio2DoubleCircuitRWYCenterDrive.Clear();
+            CurrentRatio3DoubleCircuitRWYCenterDrive.Clear();
+            CurrentRatio4DoubleCircuitRWYCenterDrive.Clear();
+            RMS1LASTDoubleCircuitRWYCenterDrive.Clear();
+            RMS2LASTDoubleCircuitRWYCenterDrive.Clear();
+            SNSIADoubleCircuitRWYCenterDrive.Clear();
+            SNSIBDoubleCircuitRWYCenterDrive.Clear();
+            SNSIIADoubleCircuitRWYCenterDrive.Clear();
+            SNSIIBDoubleCircuitRWYCenterDrive.Clear();
+            LEDF1DoubleCircuitRWYCenterDrive.Clear();
+            LEDF2DoubleCircuitRWYCenterDrive.Clear();
+            RESIADoubleCircuitRWYCenterDrive.Clear();
+            RESIBDoubleCircuitRWYCenterDrive.Clear();
+            RESIIADoubleCircuitRWYCenterDrive.Clear();
+            RESIIBDoubleCircuitRWYCenterDrive.Clear();
+            TDoubleCircuitRWYCenterDrive.Clear();
+            SecondDoubleCircuitRWYCenterDrive.Clear();
+            TCHECKDoubleCircuitRWYCenterDrive.Clear();
+            ErrorCodeDoubleCircuitRWYCenterDrive.Clear();           
+        }
+        
+        void DoubleCircuitRWYCenterDriveLampParametersCreatExcel()
+        {
+            try
+            {
+                //创建excel模板
+                str_fileName = "d:\\ " + CreateExcel4 +" "+CreateExcel1+ " " + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";    //文件保存路径及名称
+                ExcelApp = new Microsoft.Office.Interop.Excel.Application();                          //创建Excel应用程序 ExcelApp
+                ExcelDoc = ExcelApp.Workbooks.Add(Type.Missing);                                      //在应用程序ExcelApp下，创建工作簿ExcelDoc
+                ExcelSheet = ExcelDoc.Worksheets.Add(Type.Missing);                                   //在工作簿ExcelDoc下，创建工作表ExcelSheet
+
+                //设置Excel列名           
+                ExcelSheet.Cells[1, 1] = CreateExcel4 + " " + CreateExcel1;
+                ExcelSheet.Cells[2, 1] = CreateExcel2;
+                ExcelSheet.Cells[2, 2] = "RMS1";
+                ExcelSheet.Cells[2, 3] = "Val2"; 
+                ExcelSheet.Cells[2, 4] = "RMS2";
+                ExcelSheet.Cells[2, 5] = "Current_Ratio1";
+                ExcelSheet.Cells[2, 6] = "Current_Ratio2";
+                ExcelSheet.Cells[2, 7] = "Current_Ratio3";
+                ExcelSheet.Cells[2, 8] = "Current_Ratio4";
+                ExcelSheet.Cells[2, 9] = "RMS1_Last";
+                ExcelSheet.Cells[2, 10] = "RMS2_Last";
+                ExcelSheet.Cells[2, 11] = "SNS_IA";
+                ExcelSheet.Cells[2, 12] = "SNS_IB";
+                ExcelSheet.Cells[2, 13] = "SNS_IIA"; 
+                ExcelSheet.Cells[2, 14] = "SNS_IIB"; 
+                ExcelSheet.Cells[2, 15] = "LED_F1"; 
+                ExcelSheet.Cells[2, 16] = "LED_F2"; 
+                ExcelSheet.Cells[2, 17] = "RES_IA";
+                ExcelSheet.Cells[2, 18] = "RES_IB";
+                ExcelSheet.Cells[2, 19] = "RES_IIA";
+                ExcelSheet.Cells[2, 20] = "RES_IIB";
+                ExcelSheet.Cells[2, 21] = "T";
+                ExcelSheet.Cells[2, 22] = "Second";
+                ExcelSheet.Cells[2, 23] = "T_Check";
+                ExcelSheet.Cells[2, 24] = "Error Code";                
+
+                //输出各个参数值
+                for (int i = 0; i < RMS1DoubleCircuitRWYCenterDrive.Count; i++)
+                {
+                    ExcelSheet.Cells[3 + i, 1] = (i + 1).ToString();
+                    ExcelSheet.Cells[3 + i, 2] = RMS1DoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 3] = Val2DoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 4] = RMS2DoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 5] = CurrentRatio1DoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 6] = CurrentRatio2DoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 7] = CurrentRatio3DoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 8] = CurrentRatio4DoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 9] = RMS1LASTDoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 10] = RMS2LASTDoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 11] = SNSIADoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 12] = SNSIBDoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 13] = SNSIIADoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 14] = SNSIIBDoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 15] = LEDF1DoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 16] = LEDF2DoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 17] = RESIADoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 18] = RESIBDoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 19] = RESIIADoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 20] = RESIIBDoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 21] = TDoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 23] = TCHECKDoubleCircuitRWYCenterDrive[i].ToString();
+                    if (SecondDoubleCircuitRWYCenterDrive[i].ToString() == "Null")
+                    {
+                        ExcelSheet.Cells[3 + i, 22] = SecondDoubleCircuitRWYCenterDrive[i].ToString();
+                    }
+                    else
+                    {
+                        ExcelSheet.Cells[3 + i, 22] = ((int)SecondDoubleCircuitRWYCenterDrive[i] / 3600).ToString() + ":" + (((int)SecondDoubleCircuitRWYCenterDrive[i] % 3600) / 60).ToString() + ":" + (((int)SecondDoubleCircuitRWYCenterDrive[i] % 3600) % 60).ToString();
+                    }
+                    ExcelSheet.Cells[3 + i, 24] = ErrorCodeDoubleCircuitRWYCenterDrive[i].ToString();
+                }
+
+                ExcelSheet.SaveAs(str_fileName);                                                      //保存Excel工作表
+                ExcelDoc.Close(Type.Missing, str_fileName, Type.Missing);                             //关闭Excel工作簿
+                ExcelApp.Quit();                                                                      //退出Excel应用程序    
+
+                ClearDoubleCircuitRWYCenterDriveLampsParameters(); 
+
+                ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
+                }));
+
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show(MessageboxContent28, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
+            }
+            catch
+            {
+                ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
+                }));
+
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show(MessageboxContent29, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
+            }
+        }
         #endregion
 
         #endregion
@@ -4460,6 +4778,8 @@ namespace LEDLampsConfigurationSoftware
             LampInchesLabel1 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel1");
             LampInchesLabel2 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel2");
             LampInchesLabel3 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel3");
+            LampInchesLabel4 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel4");
+
             #endregion
 
             #region 后台代码，工厂模式页面，中英文切换字符串
@@ -4513,6 +4833,8 @@ namespace LEDLampsConfigurationSoftware
             AnswerStatus1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerStatus1");
             CreateExcel1 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel1");
             CreateExcel2 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel2");
+            CreateExcel3 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel3");
+            CreateExcel4 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel4");
             CreateTxt1 = (string)System.Windows.Application.Current.FindResource("LangsCreateTxt1");
             #endregion
 

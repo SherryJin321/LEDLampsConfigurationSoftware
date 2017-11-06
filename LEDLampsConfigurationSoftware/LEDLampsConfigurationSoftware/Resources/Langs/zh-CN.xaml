@@ -121,9 +121,11 @@
 
     
     <!--后台代码，串口设置页面-->
-    <system:String x:Key="LangsLampInchesLabel1">查询当前灯具驱动板尺寸失败。</system:String>
+    <system:String x:Key="LangsLampInchesLabel1">查询当前灯具驱动板失败。</system:String>
     <system:String x:Key="LangsLampInchesLabel2">当前灯具驱动板尺寸为</system:String>
     <system:String x:Key="LangsLampInchesLabel3">寸。</system:String>
+    <system:String x:Key="LangsLampInchesLabel4">当前灯具驱动板为双路跑中驱动。</system:String>
+
 
     <!--后台代码，工厂模式页面-->
     <system:String x:Key="LangsAnswerHardwareVersion0">寸</system:String>
@@ -173,8 +175,10 @@
 
     <!--后台代码，开发者模式页面-->
     <system:String x:Key="LangsAnswerStatus1">灯具状态查询已耗时:</system:String>
-    <system:String x:Key="LangsCreateExcel1">寸灯具参数解析</system:String>
+    <system:String x:Key="LangsCreateExcel1">灯具参数解析</system:String>
     <system:String x:Key="LangsCreateExcel2">序号</system:String>
+    <system:String x:Key="LangsCreateExcel3">寸</system:String>
+    <system:String x:Key="LangsCreateExcel4">双路跑中驱动</system:String>
     <system:String x:Key="LangsCreateTxt1">灯具原始数据</system:String>
 
 
@@ -184,7 +188,7 @@
 
     <system:String x:Key="LangsMessageboxContent1">是否关闭软件？</system:String>
     <system:String x:Key="LangsMessageboxContent2">串口未关闭！请先关闭串口</system:String>
-    <system:String x:Key="LangsMessageboxContent3">查询灯具驱动板尺寸失败!请重新打开串口</system:String>
+    <system:String x:Key="LangsMessageboxContent3">查询灯具驱动板失败!请重新打开串口</system:String>
     <system:String x:Key="LangsMessageboxContent4">串口已打开！</system:String>
     <system:String x:Key="LangsMessageboxContent5">打开串口失败！请再次尝试</system:String>
     <system:String x:Key="LangsMessageboxContent6">串口已关闭！</system:String>
