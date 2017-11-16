@@ -14,7 +14,7 @@
     <system:String x:Key="LangsFactoryModeParameterSetting">Parameter Setting</system:String>
     <system:String x:Key="LangsFactoryModeLampName">Lamp Name</system:String>
     <system:String x:Key="LangsFactoryModeLampModel">Lamp Model</system:String>
-    <system:String x:Key="LangsFactoryModeOpenCircuitSelect">Open Circuit Selection</system:String>
+    <system:String x:Key="LangsFactoryModeOtherConfiguration">Other Configuration</system:String>
     <system:String x:Key="LangsSelectApproachChenterlineLight">LED In-pavement Approach Centerline Light（APPS-12-LED）</system:String>
     <system:String x:Key="LangsSelectApproachCrossbarLight">LED In-pavement Approach Crossbar Light（APPS-12-LED）</system:String>
     <system:String x:Key="LangsSelectApproachSideRowLight">LED In-pavement Approach Side Row Light（APSS-12-LED）</system:String>
@@ -24,12 +24,17 @@
     <system:String x:Key="LangsSelect12inchesRWYEndLight">LED In-pavement Runway End Light（ENDS-12-LED）</system:String>
     <system:String x:Key="LangsSelectRWYThresholdEndLight">LED In-pavement Runway Threshold/End Light（TAES-12-LED）</system:String>
     <system:String x:Key="LangsSelectRWYCenterlineLight">LED Runway Centerline Light（RCLS-08-LED）</system:String>
+    <system:String x:Key="LangsSelect12inchesRWYCenterlineLight">LED Runway Centerline Light（RCLS-12-LED）</system:String>
     <system:String x:Key="LangsSelectRWYTouchdownZoneLight">LED Runway Touchdown Zone Light（TDZS-08-LED）</system:String>
     <system:String x:Key="LangsSelect8inchesRWYEndLight">LED In-pavement Runway End Light（ENDS-08-LED）</system:String>
     <system:String x:Key="LangsSelectRapidExitTWYIndicatorLight">LED Rapid Exit Taxiway Indicator Light（RAPS-08-LED）</system:String>
     <system:String x:Key="LangsSelectCombinedRWYEdgeLight">LED In-pavement Combined Runway Edge Light（RELC-12-LED）</system:String>
+    <system:String x:Key="LangsSelectRWYGuardLight">High Intensity LED In-pavement Runway Guard Light（HRGS-08-LED）</system:String>
     <system:String x:Key="LangsSelectOpenCircuitTrue">With Open Circuit</system:String>
     <system:String x:Key="LangsSelectOpenCircuitFalse">Without Open Circuit</system:String>
+    <system:String x:Key="LangsFactoryModeChannelSelect">Channel Select：</system:String>
+    <system:String x:Key="LangsFactoryModeFlashFrequencySelect">Flash Frequency：</system:String>
+    <system:String x:Key="LangsFactoryModeWaveformSelect">Waveform Select：</system:String>
     <system:String x:Key="LangsFactoryModeConfigurationParameterConfirm">Confirm Configuration Parameter:</system:String>
     <system:String x:Key="LangsSetLightParametersInFactoryMode">Set Parameter</system:String>
     <system:String x:Key="LangsRestoreOriginalStatus">Restore initial Setting</system:String>
@@ -123,13 +128,21 @@
 
     <!--后台代码，串口设置页面-->
     <system:String x:Key="LangsLampInchesLabel1">Failed to query the lamp drive board.</system:String>
-    <system:String x:Key="LangsLampInchesLabel2">The size of the lamp drive board is</system:String>
-    <system:String x:Key="LangsLampInchesLabel3">inches.</system:String>
-    <system:String x:Key="LangsLampInchesLabel4">The lamp uses RWY center light drive with double circuit.</system:String>
+    <system:String x:Key="LangsLampInchesLabel2">The lamp drive board is</system:String>
+    <system:String x:Key="LangsLampInchesLabel3">12 inches.</system:String>
+    <system:String x:Key="LangsLampInchesLabel4">8 inches.</system:String>
+    <system:String x:Key="LangsLampInchesLabel5">RWY center light drive with double circuit.</system:String>
+    <system:String x:Key="LangsLampInchesLabel6">RWY center light drive with double circuit 12 inches.</system:String>
+    <system:String x:Key="LangsLampInchesLabel7">Guard Light 8 inches.</system:String>
 
-
+    
     <!--后台代码，工厂模式页面-->
-    <system:String x:Key="LangsAnswerHardwareVersion0">inches</system:String>
+    <system:String x:Key="LangsAnswerHardwareVersion0">12 inches</system:String>
+    <system:String x:Key="LangsAnswerHardwareVersion1">8 inches</system:String>
+    <system:String x:Key="LangsAnswerHardwareVersion2">RWY Center Drive</system:String>
+    <system:String x:Key="LangsAnswerHardwareVersion3">RWY Center Drive 12 inches</system:String>
+    <system:String x:Key="LangsAnswerHardwareVersion4">Guard Light</system:String>
+    <system:String x:Key="LangsAnswerHardwareVersion5">Unknown</system:String>
     <system:String x:Key="LangsAnswerLampModel0">None lamp model</system:String>
     <system:String x:Key="LangsAnswerLampModel1">Approach Centerline Light(APPS-12-S-LED-C)</system:String>
     <system:String x:Key="LangsAnswerLampModel2">Approach Crossbar Light(APPS-12-L-LED-C)</system:String>
@@ -171,6 +184,11 @@
     <system:String x:Key="LangsAnswerLampModel38">Combined Runway Edge Light（RELC-12-LED-CC-B-1P）</system:String>
     <system:String x:Key="LangsAnswerLampModel39">Combined Runway Edge Light（RELC-12-LED-CR-B-1P）</system:String>
     <system:String x:Key="LangsAnswerLampModel40">Combined Runway Edge Light（RELC-12-LED-RY-B-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel41">Runway Guard Light(HRGS-08-LED-Y)</system:String>
+    <system:String x:Key="LangsAnswerLampModel42">Runway Threshold/End Light（TAES-12-L-LED-GR-MR-2P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel43">Runway Threshold/End Light（TAES-12-R-LED-GR-MR-2P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel44">Runway Enterline Light（RCLS-12-LED-CC-MR-2P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel45">Runway Enterline Light（RCLS-12-LED-RC-MR-2P）</system:String>
     <system:String x:Key="LangsAnswerOpenCircuit1">Without Open Circuit</system:String>
     <system:String x:Key="LangsAnswerOpenCircuit2">With Open Circuit</system:String>
 
@@ -180,6 +198,8 @@
     <system:String x:Key="LangsCreateExcel2">sequence number</system:String>
     <system:String x:Key="LangsCreateExcel3">inches</system:String>
     <system:String x:Key="LangsCreateExcel4">RWY center light drive with double circuit</system:String>
+    <system:String x:Key="LangsCreateExcel5">12 inches RWY center light drive with double circuit</system:String>
+    <system:String x:Key="LangsCreateExcel6">RWY guard light</system:String>
     <system:String x:Key="LangsCreateTxt1">lamp original data</system:String>
 
     <!--后台代码，MessageBox设置-->

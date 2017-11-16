@@ -48,6 +48,7 @@ namespace LEDLampsConfigurationSoftware
         int hardwareVersion1 = 0;
         int hardwareVersion2 = 0;
         int hardwareVersion3 = 0;
+        int softwareNumber = 0;
         #endregion
 
         #region 工厂模式下，设置参数指令参数
@@ -59,6 +60,13 @@ namespace LEDLampsConfigurationSoftware
         byte settingMosFlag = 0x00;  //不开MOSFET
         byte settingBreakFlag = 0x00;  //不带开路
         byte settingLampsNumber = 0x00;  //灯具编号
+        byte settingChannel = 0x00;  //通道选择
+        byte settingFlashFrequency = 0x00;  //闪光频率
+        byte settingWaveform = 0x00;  //波形选择
+        #endregion
+
+        #region 工厂模式下，其他设置参数
+        int[] FlashFrequencyArray = new int[31];        
         #endregion
 
         #region 开发者模式下，设置参数指令参数
@@ -75,7 +83,7 @@ namespace LEDLampsConfigurationSoftware
         #region 发送指令集（尚未计算校验值）
         Byte[] queryStatusCommand = new Byte[28] { 0x02,0x89,0x11,0x58,0x12,0x00,0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x06,0x00,0x00,0x00,0x00 };
         Byte[] queryVersionCommand = new Byte[28] { 0x02, 0x89, 0x22, 0x85, 0x12, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00 };
-        Byte[] settingParameterCommand = new Byte[28] { 0x02, 0x55, 0x11, 0x58, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+        Byte[] settingParameterCommand = new Byte[28] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
         Byte[] InDeveloperModeSettingParameterCommand = new Byte[28] { 0x02, 0x55, 0x11, 0x58, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
         Byte[] InFactoryModeRestoreOriginalCommand = new Byte[28] { 0x02, 0x55, 0x11, 0x58, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00 };
 
@@ -150,16 +158,69 @@ namespace LEDLampsConfigurationSoftware
         ArrayList ErrorCodeDoubleCircuitRWYCenterDrive = new ArrayList();
         #endregion
 
+        #region 12寸双路跑中驱动灯具各项参数存储集合
+        ArrayList RMS1DoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList RMS2DoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList Val2DoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList Val3DoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList RMSMID1DoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList RMSMID2DoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList RMS1LASTDoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList CurrentRatio1DoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList CurrentRatio2DoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList CurrentRatio3DoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList CurrentRatio4DoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList RESIADoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList RESIBDoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList RESIIADoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList RESIIBDoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList SNSIADoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList SNSIBDoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList SNSIIADoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList LEDF2DoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList LEDF1DoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList TDoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList SecondDoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        ArrayList RMS2LASTDoubleCircuitRWYCenterDrive12inches = new ArrayList();              
+        ArrayList ErrorCodeDoubleCircuitRWYCenterDrive12inches = new ArrayList();
+        #endregion
+
+        #region 8寸警戒灯灯具各项参数存储集合
+        ArrayList RMS1RWYGuardLight = new ArrayList();
+        ArrayList Val2RWYGuardLight = new ArrayList();
+        ArrayList Val3RWYGuardLight = new ArrayList();
+        ArrayList RMSRWYGuardLight = new ArrayList();
+        ArrayList CurrentRatio1RWYGuardLight = new ArrayList();
+        ArrayList CurrentRatio3RWYGuardLight = new ArrayList();
+        ArrayList WaveformRWYGuardLight = new ArrayList();
+        ArrayList ChannelRWYGuardLight = new ArrayList();
+        ArrayList SNSIARWYGuardLight = new ArrayList();
+        ArrayList SNSIIARWYGuardLight = new ArrayList();
+        ArrayList LEDF1RWYGuardLight = new ArrayList();
+        ArrayList TRWYGuardLight = new ArrayList();
+        ArrayList SecondRWYGuardLight = new ArrayList();
+        ArrayList FlashFrequencyRWYGuardLight = new ArrayList();
+        ArrayList ModeRWYGuardLight = new ArrayList();
+        ArrayList ErrorCodeRWYGuardLight = new ArrayList();        
+        #endregion
+
         #region 后台代码，串口设置页面，中英文切换字符串
         string LampInchesLabel1 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel1");
         string LampInchesLabel2 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel2");
         string LampInchesLabel3 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel3");
         string LampInchesLabel4 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel4");
-
+        string LampInchesLabel5 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel5");
+        string LampInchesLabel6 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel6");
+        string LampInchesLabel7 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel7");
         #endregion
 
         #region 后台代码，工厂模式页面，中英文切换字符串
         string AnswerHardwareVersion0 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion0");
+        string AnswerHardwareVersion1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion1");
+        string AnswerHardwareVersion2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion2");
+        string AnswerHardwareVersion3 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion3");
+        string AnswerHardwareVersion4 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion4");
+        string AnswerHardwareVersion5 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion5");
         string AnswerLampModel0 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel0");
         string AnswerLampModel1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel1");
         string AnswerLampModel2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel2");
@@ -201,6 +262,11 @@ namespace LEDLampsConfigurationSoftware
         string AnswerLampModel38 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel38");
         string AnswerLampModel39 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel39");
         string AnswerLampModel40 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel40");
+        string AnswerLampModel41 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel41");
+        string AnswerLampModel42 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel42");
+        string AnswerLampModel43 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel43");
+        string AnswerLampModel44 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel44");
+        string AnswerLampModel45 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel45");
         string AnswerOpenCircuit1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit1");
         string AnswerOpenCircuit2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit2");
         #endregion
@@ -211,6 +277,8 @@ namespace LEDLampsConfigurationSoftware
         string CreateExcel2 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel2");
         string CreateExcel3 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel3");
         string CreateExcel4 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel4");
+        string CreateExcel5 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel5");
+        string CreateExcel6 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel6");
         string CreateTxt1 = (string)System.Windows.Application.Current.FindResource("LangsCreateTxt1");
 
         #endregion
@@ -279,6 +347,13 @@ namespace LEDLampsConfigurationSoftware
             string[] portNames = SerialPort.GetPortNames();      //获取当前电脑所有串口号
             PortNameSelect.ItemsSource = portNames;    //将串口号显示在ComboBox
             PortNameSelect.SelectedIndex = portNames.Length - 1;
+
+            for(int i=0;i<FlashFrequencyArray.Length;i++)
+            {
+                FlashFrequencyArray[i] = 30 + i;
+            }
+            FlashFrequencySelect.ItemsSource = FlashFrequencyArray;
+            FlashFrequencySelect.SelectedIndex = 0;
 
             queryVersionCommand[27] = CalculateCheckOutValue(queryVersionCommand);  //计算版本查询指令的校验值
             queryStatusCommand[27] = CalculateCheckOutValue(queryStatusCommand);  //计算状态查询指令的校验值    
@@ -351,8 +426,7 @@ namespace LEDLampsConfigurationSoftware
 
                     Thread.Sleep(50);
                     if (judgeFeedbackCommand == 4)
-                    {
-                        
+                    {                        
                         if ( MessageBox.Show(MessageboxContent3, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
                         {
                             ConfigurationWindow.IsEnabled = true;
@@ -362,25 +436,8 @@ namespace LEDLampsConfigurationSoftware
                             ConfigurationWindow.IsEnabled = false;
                         }
 
-                        SelectApproachChenterlineLight.IsEnabled = false;
-                        SelectApproachCrossbarLight.IsEnabled = false;
-                        SelectApproachSideRowLight.IsEnabled = false;
-                        SelectRWYThresholdWingBarLight.IsEnabled = false;
-                        SelectRWYThresholdLight.IsEnabled = false;
-                        SelectRWYEdgeLight.IsEnabled = false;
-                        Select12inchesRWYEndLight.IsEnabled = false;
-                        SelectRWYThresholdEndLight.IsEnabled = false;
-                        SelectRWYCenterlineLight.IsEnabled = false;
-                        SelectRWYTouchdownZoneLight.IsEnabled = false;
-                        Select8inchesRWYEndLight.IsEnabled = false;
-                        SelectRapidExitTWYIndicatorLight.IsEnabled = false;
-                        SelectCombinedRWYEdgeLight.IsEnabled = false;
-
-                        LampInchesLabel.Content = "";
-
-                        RefreshStringMessageLanguage();
+                        NoneLampSelect();                        
                         LampInchesLabel.Content = LampInchesLabel1;                                                                      
-
                     }
                     else
                     {
@@ -609,7 +666,7 @@ namespace LEDLampsConfigurationSoftware
                 byte checkOutValue = CalculateCheckOutValue(dataReceived);
                 if (checkOutValue == dataReceived[dataReceived.Length - 1])
                 {
-                    if (dataReceived[0] == 0x02 && dataReceived[1] == 0x55 && dataReceived[2] == 0x11)
+                    if ((dataReceived[0] == 0x02 && dataReceived[1] == 0x55 && dataReceived[2] == 0x11)|| (dataReceived[0] == 0x55 && dataReceived[1] == 0x02 && dataReceived[2] == 0x11))
                     {
                         this.Dispatcher.Invoke(new System.Action(() =>
                         {
@@ -693,7 +750,8 @@ namespace LEDLampsConfigurationSoftware
                         lampsNumber = dataReceived[15];
                         hardwareVersion1 = dataReceived[16];
                         hardwareVersion2 = dataReceived[17];
-                        hardwareVersion3 = dataReceived[18];                       
+                        hardwareVersion3 = dataReceived[18];
+                        softwareNumber = dataReceived[19];                       
 
                         currentRatio1 = CalculateRealCurrentValue(dataReceived[10]);
                         currentRatio2 = CalculateRealCurrentValue(dataReceived[11]);
@@ -703,9 +761,8 @@ namespace LEDLampsConfigurationSoftware
                         this.Dispatcher.Invoke(new System.Action(() =>
                         {
                             PurgeAnswerVersionTextblock();
-
                             RefreshStringMessageLanguage();
-                            AnswerHardwareVersion.Text = "V" + hardwareVersion2.ToString() + "." + hardwareVersion3.ToString()+"  "+hardwareVersion1.ToString() + " "+AnswerHardwareVersion0;
+
                             AnswerSoftwareVersion.Text = "V"+softwareVersion1.ToString() + "." + softwareVersion2.ToString() +"."+ softwareVersion3.ToString() + " " + " 20" + year.ToString() + "/" + month.ToString() + "/" + date.ToString();
                             AnswerLampModel.Text= LampsContentShow(lampsNumber);
                             AnswerIA.Text = currentRatio1.ToString();
@@ -721,7 +778,36 @@ namespace LEDLampsConfigurationSoftware
                                 AnswerOpenCircuit.Text = AnswerOpenCircuit2;
                             }
 
-                            
+                            string driveName = "";
+                            if(hardwareVersion1==12&&softwareNumber==0)
+                            {
+                                driveName = AnswerHardwareVersion0;
+                            }
+                            else if(hardwareVersion1 == 8 && softwareNumber == 0)
+                            {
+                                driveName = AnswerHardwareVersion1;
+                            }
+                            else if (hardwareVersion1 == 13 && softwareNumber == 2)
+                            {
+                                driveName = AnswerHardwareVersion2;
+                            }
+                            else if (hardwareVersion1 == 12 && softwareNumber == 3)
+                            {
+                                driveName = AnswerHardwareVersion3;
+                            }
+                            else if (hardwareVersion1 == 8 && softwareNumber == 4)
+                            {
+                                driveName = AnswerHardwareVersion4;
+                            }
+                            else
+                            {
+                                driveName = AnswerHardwareVersion5;
+                            }
+
+                            AnswerHardwareVersion.Text = "V" + hardwareVersion2.ToString() + "." + hardwareVersion3.ToString() + "  " + driveName;
+
+
+
                         }));
                         
                         this.Dispatcher.Invoke(new System.Action(() =>
@@ -787,13 +873,13 @@ namespace LEDLampsConfigurationSoftware
 
         private void ConfirmLampInches()
         {
+            judgeFeedbackCommand = 0;
             RefreshStringMessageLanguage();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 LampInchesLabel.Content = "";            
-
-                judgeFeedbackCommand = 0;
+                
                 if (dataReceived.Length == 24)
                 {
                     byte checkOutValue = CalculateCheckOutValue(dataReceived);
@@ -801,28 +887,41 @@ namespace LEDLampsConfigurationSoftware
                     {
                         if (dataReceived[0] == 0x02 && dataReceived[1] == 0x89 && dataReceived[2] == 0x22 && dataReceived[3] == 0x85)
                         {                        
-                            hardwareVersion1 = dataReceived[16];                        
-                                                                      
-                                if(hardwareVersion1==8)
-                                {
-                                    LampInchesLabel.Content = LampInchesLabel2 + " " + hardwareVersion1.ToString() + " " + LampInchesLabel3;
-                                    EightInchesLampSelect();
-                                }
-                                else if (hardwareVersion1 == 12)
-                                {
-                                    LampInchesLabel.Content = LampInchesLabel2 + " " + hardwareVersion1.ToString() + " " + LampInchesLabel3;
-                                    TwelveInchesLampSelect();
-                                }
-                                else if(hardwareVersion1==13)
-                                {
-                                    LampInchesLabel.Content = LampInchesLabel4;
-                                    DoubleCircuitRWYCenterLampSelect();
-                                }
-                                else
-                                {
-                                    LampInchesLabel.Content = LampInchesLabel1;
-                                    NoneLampSelect();                                
-                                }                           
+                            hardwareVersion1 = dataReceived[16];
+                            softwareNumber = dataReceived[19];
+                            
+                            if (hardwareVersion1 == 12 && softwareNumber == 0)
+                            {
+                                LampInchesLabel.Content = LampInchesLabel2 + " " + LampInchesLabel3;
+                                TwelveInchesLampSelect();
+                            }
+                            else if (hardwareVersion1 == 8 && softwareNumber == 0)
+                            {
+                                LampInchesLabel.Content = LampInchesLabel2 + " " + LampInchesLabel4;
+                                EightInchesLampSelect();
+                            }
+                            else if (hardwareVersion1 == 13 && softwareNumber == 2)
+                            {
+                                LampInchesLabel.Content = LampInchesLabel2 + " " + LampInchesLabel5;
+                                DoubleCircuitRWYCenterLampSelect();
+                            }
+                            else if (hardwareVersion1 == 12 && softwareNumber == 3)
+                            {
+                                LampInchesLabel.Content = LampInchesLabel2 + " " + LampInchesLabel6;
+                                DoubleCircuitRWYCenter12inchesLampSelect();
+                            }
+                            else if (hardwareVersion1 == 8 && softwareNumber == 4)
+                            {
+                                LampInchesLabel.Content = LampInchesLabel2 + " " + LampInchesLabel7;
+                                RWYGuardLampSelect();
+                            }
+                            else
+                            {
+                                LampInchesLabel.Content = LampInchesLabel1;
+                                NoneLampSelect();
+                            }
+
+                                                   
                         }
                         else
                         {                                                    
@@ -884,10 +983,12 @@ namespace LEDLampsConfigurationSoftware
                 Select12inchesRWYEndLight.IsEnabled = false;
                 SelectRWYThresholdEndLight.IsEnabled = false;
                 SelectRWYCenterlineLight.IsEnabled = true;
+                Select12inchesRWYCenterlineLight.IsEnabled = false;
                 SelectRWYTouchdownZoneLight.IsEnabled = true;
                 Select8inchesRWYEndLight.IsEnabled = true;
                 SelectRapidExitTWYIndicatorLight.IsEnabled = true;
                 SelectCombinedRWYEdgeLight.IsEnabled = false;
+                SelectRWYGuardLight.IsEnabled = false;
             }));
         }
 
@@ -904,10 +1005,12 @@ namespace LEDLampsConfigurationSoftware
                 Select12inchesRWYEndLight.IsEnabled = true;
                 SelectRWYThresholdEndLight.IsEnabled = true;
                 SelectRWYCenterlineLight.IsEnabled = false;
+                Select12inchesRWYCenterlineLight.IsEnabled = true;
                 SelectRWYTouchdownZoneLight.IsEnabled = false;
                 Select8inchesRWYEndLight.IsEnabled = false;
                 SelectRapidExitTWYIndicatorLight.IsEnabled = false;
                 SelectCombinedRWYEdgeLight.IsEnabled = true;
+                SelectRWYGuardLight.IsEnabled = false;
             }));
         }
 
@@ -924,10 +1027,56 @@ namespace LEDLampsConfigurationSoftware
                 Select12inchesRWYEndLight.IsEnabled = false;
                 SelectRWYThresholdEndLight.IsEnabled = false;
                 SelectRWYCenterlineLight.IsEnabled = true;
+                Select12inchesRWYCenterlineLight.IsEnabled = false;
                 SelectRWYTouchdownZoneLight.IsEnabled = true;
                 Select8inchesRWYEndLight.IsEnabled = true;
                 SelectRapidExitTWYIndicatorLight.IsEnabled = true;
                 SelectCombinedRWYEdgeLight.IsEnabled = false;
+                SelectRWYGuardLight.IsEnabled = false;
+            }));
+        }
+
+        public void DoubleCircuitRWYCenter12inchesLampSelect()
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                SelectApproachChenterlineLight.IsEnabled = false;
+                SelectApproachCrossbarLight.IsEnabled = false;
+                SelectApproachSideRowLight.IsEnabled = false;
+                SelectRWYThresholdWingBarLight.IsEnabled = false;
+                SelectRWYThresholdLight.IsEnabled = false;
+                SelectRWYEdgeLight.IsEnabled = false;
+                Select12inchesRWYEndLight.IsEnabled = false;
+                SelectRWYThresholdEndLight.IsEnabled = true;
+                SelectRWYCenterlineLight.IsEnabled = false;
+                Select12inchesRWYCenterlineLight.IsEnabled = true;
+                SelectRWYTouchdownZoneLight.IsEnabled = false;
+                Select8inchesRWYEndLight.IsEnabled = false;
+                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
+                SelectCombinedRWYEdgeLight.IsEnabled = false;
+                SelectRWYGuardLight.IsEnabled = false;
+            }));
+        }
+
+        public void RWYGuardLampSelect()
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                SelectApproachChenterlineLight.IsEnabled = false;
+                SelectApproachCrossbarLight.IsEnabled = false;
+                SelectApproachSideRowLight.IsEnabled = false;
+                SelectRWYThresholdWingBarLight.IsEnabled = false;
+                SelectRWYThresholdLight.IsEnabled = false;
+                SelectRWYEdgeLight.IsEnabled = false;
+                Select12inchesRWYEndLight.IsEnabled = false;
+                SelectRWYThresholdEndLight.IsEnabled = false;
+                SelectRWYCenterlineLight.IsEnabled = false;
+                Select12inchesRWYCenterlineLight.IsEnabled = false;
+                SelectRWYTouchdownZoneLight.IsEnabled = false;
+                Select8inchesRWYEndLight.IsEnabled = false;
+                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
+                SelectCombinedRWYEdgeLight.IsEnabled = false;
+                SelectRWYGuardLight.IsEnabled = true;
             }));
         }
 
@@ -944,10 +1093,12 @@ namespace LEDLampsConfigurationSoftware
                 Select12inchesRWYEndLight.IsEnabled = false;
                 SelectRWYThresholdEndLight.IsEnabled = false;
                 SelectRWYCenterlineLight.IsEnabled = false;
+                Select12inchesRWYCenterlineLight.IsEnabled = false;
                 SelectRWYTouchdownZoneLight.IsEnabled = false;
                 Select8inchesRWYEndLight.IsEnabled = false;
                 SelectRapidExitTWYIndicatorLight.IsEnabled = false;
                 SelectCombinedRWYEdgeLight.IsEnabled = false;
+                SelectRWYGuardLight.IsEnabled = false;
             }));
         }
 
@@ -1098,6 +1249,11 @@ namespace LEDLampsConfigurationSoftware
                 case 38: result = AnswerLampModel38; break;
                 case 39: result = AnswerLampModel39; break;
                 case 40: result = AnswerLampModel40; break;
+                case 41: result = AnswerLampModel41; break;
+                case 42: result = AnswerLampModel42; break;
+                case 43: result = AnswerLampModel43; break;
+                case 44: result = AnswerLampModel44; break;
+                case 45: result = AnswerLampModel45; break;
             }
             return result;
         }
@@ -1107,7 +1263,7 @@ namespace LEDLampsConfigurationSoftware
             double original= originalData / 10.0;
             double result = 0.0;
 
-            if(hardwareVersion1 == 12)
+            if(hardwareVersion1 == 12&&softwareNumber==0)
             {
                 result = original;
 
@@ -1135,15 +1291,22 @@ namespace LEDLampsConfigurationSoftware
                     }
                 }
             }
-            if(hardwareVersion1 == 8)
+            else if(hardwareVersion1 == 8&& softwareNumber==0)
             {
                 result = original * 0.66;
             }
-            if(hardwareVersion1==13)
+            else if(hardwareVersion1==13&&softwareNumber==2)
             {
                 result = original * 0.66;
-            }           
-
+            }
+            else if (hardwareVersion1 == 12 && softwareNumber == 3)
+            {
+                result = original;
+            }
+            else if (hardwareVersion1 == 8 && softwareNumber == 4)
+            {
+                result = original * 0.66;
+            }
             result = Math.Round(result, 2,MidpointRounding.AwayFromZero);
 
             return result;
@@ -1208,6 +1371,16 @@ namespace LEDLampsConfigurationSoftware
                     {
                         DoubleCircuitRWYCenterDriveLampDataAnalysis(receivedStatusFeedbackCommand);
                         DoubleCircuitRWYCenterDriveLampParametersCreatExcel();
+                    }                   
+                    else if (receivedStatusFeedbackCommand[0] == 0x02 && receivedStatusFeedbackCommand[1] == 0xAA && receivedStatusFeedbackCommand[2] == 0x01 && receivedStatusFeedbackCommand[3] == 0x0C && receivedStatusFeedbackCommand[4] == 0x0D)
+                    {
+                        DoubleCircuitRWYCenterDrive12inchesLampDataAnalysis(receivedStatusFeedbackCommand);
+                        DoubleCircuitRWYCenterDrive12inchesLampParametersCreatExcel();
+                    }
+                    else if (receivedStatusFeedbackCommand[0] == 0x02 && receivedStatusFeedbackCommand[1] == 0xAA && receivedStatusFeedbackCommand[2] == 0x01 && receivedStatusFeedbackCommand[3] == 0x08 && receivedStatusFeedbackCommand[4] == 0x04)
+                    {
+                        RWYGuardLampDataAnalysis(receivedStatusFeedbackCommand);
+                        RWYGuardLampParametersCreatExcel();
                     }
                     else
                     {                       
@@ -2083,6 +2256,564 @@ namespace LEDLampsConfigurationSoftware
         }
         #endregion
 
+        #region 12寸双路跑中驱动灯具状态信息解析
+        private void DoubleCircuitRWYCenterDrive12inchesLampDataAnalysis(byte[] CompleteData)
+        {
+            byte[][] DataArray;
+            ArrayList commandCount = new ArrayList();
+
+            for (int i = 0; i < CompleteData.Length; i++)
+            {
+                if (CompleteData[i] == 0x02 && CompleteData[i + 1] == 0xAA && CompleteData[i + 2] == 0x01 && CompleteData[i + 3] == 0x0C && CompleteData[i + 4] == 0x0D)
+                {
+                    commandCount.Add(i);
+                }
+            }
+
+            DataArray = new byte[commandCount.Count][];
+
+            for (int i = 0; i < commandCount.Count; i++)
+            {
+                if (i < commandCount.Count - 1)
+                {
+                    DataArray[i] = new byte[(int)commandCount[i + 1] - (int)commandCount[i]];
+                }
+                else
+                {
+                    DataArray[i] = new byte[CompleteData.Length - (int)commandCount[i]];
+                }
+
+                for (int j = 0; j < DataArray[i].Length; j++)
+                {
+                    DataArray[i][j] = CompleteData[(int)commandCount[i] + j];
+                }
+            }
+
+            for (int i = 0; i < DataArray.Length; i++)
+            {
+                if (DataArray[i].Length == 32)
+                {
+                    byte checkOutValue = CalculateCheckOutValue(DataArray[i]);
+                    if (checkOutValue == DataArray[i][DataArray[i].Length - 1])
+                    {
+                        RMS1DoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][5] * 500);
+                        RMS2DoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][6] * 500);
+                        Val2DoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][7] * 20);
+                        Val3DoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][8]);
+                        RMSMID1DoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][9] * 16);
+                        RMSMID2DoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][10] * 16);
+                        RMS1LASTDoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][11] * 4);
+                        CurrentRatio1DoubleCircuitRWYCenterDrive12inches.Add((float)(DataArray[i][12] / 10.0));
+                        CurrentRatio2DoubleCircuitRWYCenterDrive12inches.Add((float)(DataArray[i][13] / 10.0));
+                        CurrentRatio3DoubleCircuitRWYCenterDrive12inches.Add((float)(DataArray[i][14] / 10.0));
+                        CurrentRatio4DoubleCircuitRWYCenterDrive12inches.Add((float)(DataArray[i][15] / 10.0));
+                        RESIADoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][16] * 124);
+                        RESIBDoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][17] * 124);
+                        RESIIADoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][18] * 124);
+                        RESIIBDoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][19] * 124);
+                        SNSIADoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][20] * 16);
+                        SNSIBDoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][21] * 16);
+                        SNSIIADoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][22] * 16);
+                        LEDF2DoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][23]);
+                        LEDF1DoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][24]);
+                        TDoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][25]);
+                        RMS2LASTDoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][30] * 4);                                             
+
+                        int SecondResult = 0;
+                        for (int j = 0; j < 4; j++)
+                        {
+                            int SecondOrigin = DataArray[i][26 + j];
+                            SecondResult |= SecondOrigin;
+                            if (j < 3)
+                            {
+                                SecondResult <<= 8;
+                            }
+                        }
+                        SecondDoubleCircuitRWYCenterDrive12inches.Add(SecondResult);
+                        ErrorCodeDoubleCircuitRWYCenterDrive12inches.Add("No Error");
+                    }
+                    else
+                    {
+                        DoubleCircuitRWYCenterDrive12inchesLampCheckValueErrorHandle();
+                    }
+                }
+                else
+                {
+                    DoubleCircuitRWYCenterDrive12inchesLampCommandLengthErrorHandle();
+                }
+            }
+
+        }
+
+        private void DoubleCircuitRWYCenterDrive12inchesLampCheckValueErrorHandle()
+        {
+            RMS1DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            RMS2DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            Val2DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            Val3DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            RMSMID1DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            RMSMID2DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            RMS1LASTDoubleCircuitRWYCenterDrive12inches.Add("Null");
+            CurrentRatio1DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            CurrentRatio2DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            CurrentRatio3DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            CurrentRatio4DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            RESIADoubleCircuitRWYCenterDrive12inches.Add("Null");
+            RESIBDoubleCircuitRWYCenterDrive12inches.Add("Null");
+            RESIIADoubleCircuitRWYCenterDrive12inches.Add("Null");
+            RESIIBDoubleCircuitRWYCenterDrive12inches.Add("Null");
+            SNSIADoubleCircuitRWYCenterDrive12inches.Add("Null");
+            SNSIBDoubleCircuitRWYCenterDrive12inches.Add("Null");
+            SNSIIADoubleCircuitRWYCenterDrive12inches.Add("Null");
+            LEDF2DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            LEDF1DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            TDoubleCircuitRWYCenterDrive12inches.Add("Null");
+            RMS2LASTDoubleCircuitRWYCenterDrive12inches.Add("Null");
+            SecondDoubleCircuitRWYCenterDrive12inches.Add("Null");
+            ErrorCodeDoubleCircuitRWYCenterDrive12inches.Add("Check Value Error");            
+        }
+
+        private void DoubleCircuitRWYCenterDrive12inchesLampCommandLengthErrorHandle()
+        {
+            RMS1DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            RMS2DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            Val2DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            Val3DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            RMSMID1DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            RMSMID2DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            RMS1LASTDoubleCircuitRWYCenterDrive12inches.Add("Null");
+            CurrentRatio1DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            CurrentRatio2DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            CurrentRatio3DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            CurrentRatio4DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            RESIADoubleCircuitRWYCenterDrive12inches.Add("Null");
+            RESIBDoubleCircuitRWYCenterDrive12inches.Add("Null");
+            RESIIADoubleCircuitRWYCenterDrive12inches.Add("Null");
+            RESIIBDoubleCircuitRWYCenterDrive12inches.Add("Null");
+            SNSIADoubleCircuitRWYCenterDrive12inches.Add("Null");
+            SNSIBDoubleCircuitRWYCenterDrive12inches.Add("Null");
+            SNSIIADoubleCircuitRWYCenterDrive12inches.Add("Null");
+            LEDF2DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            LEDF1DoubleCircuitRWYCenterDrive12inches.Add("Null");
+            TDoubleCircuitRWYCenterDrive12inches.Add("Null");
+            RMS2LASTDoubleCircuitRWYCenterDrive12inches.Add("Null");
+            SecondDoubleCircuitRWYCenterDrive12inches.Add("Null");
+            ErrorCodeDoubleCircuitRWYCenterDrive12inches.Add("Command Length Error");
+        }
+
+        private void ClearDoubleCircuitRWYCenterDrive12inchesLampsParameters()
+        {
+            RMS1DoubleCircuitRWYCenterDrive12inches.Clear();
+            RMS2DoubleCircuitRWYCenterDrive12inches.Clear();
+            Val2DoubleCircuitRWYCenterDrive12inches.Clear();
+            Val3DoubleCircuitRWYCenterDrive12inches.Clear();
+            RMSMID1DoubleCircuitRWYCenterDrive12inches.Clear();
+            RMSMID2DoubleCircuitRWYCenterDrive12inches.Clear();
+            RMS1LASTDoubleCircuitRWYCenterDrive12inches.Clear();
+            CurrentRatio1DoubleCircuitRWYCenterDrive12inches.Clear();
+            CurrentRatio2DoubleCircuitRWYCenterDrive12inches.Clear();
+            CurrentRatio3DoubleCircuitRWYCenterDrive12inches.Clear();
+            CurrentRatio4DoubleCircuitRWYCenterDrive12inches.Clear();
+            RESIADoubleCircuitRWYCenterDrive12inches.Clear();
+            RESIBDoubleCircuitRWYCenterDrive12inches.Clear();
+            RESIIADoubleCircuitRWYCenterDrive12inches.Clear();
+            RESIIBDoubleCircuitRWYCenterDrive12inches.Clear();
+            SNSIADoubleCircuitRWYCenterDrive12inches.Clear();
+            SNSIBDoubleCircuitRWYCenterDrive12inches.Clear();
+            SNSIIADoubleCircuitRWYCenterDrive12inches.Clear();
+            LEDF2DoubleCircuitRWYCenterDrive12inches.Clear();
+            LEDF1DoubleCircuitRWYCenterDrive12inches.Clear();
+            TDoubleCircuitRWYCenterDrive12inches.Clear();
+            RMS2LASTDoubleCircuitRWYCenterDrive12inches.Clear();
+            SecondDoubleCircuitRWYCenterDrive12inches.Clear();
+            ErrorCodeDoubleCircuitRWYCenterDrive12inches.Clear();           
+        }
+
+        void DoubleCircuitRWYCenterDrive12inchesLampParametersCreatExcel()
+        {
+            try
+            {
+                //创建excel模板
+                str_fileName = "d:\\ " + CreateExcel5 + " " + CreateExcel1 + " " + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";    //文件保存路径及名称
+                ExcelApp = new Microsoft.Office.Interop.Excel.Application();                          //创建Excel应用程序 ExcelApp
+                ExcelDoc = ExcelApp.Workbooks.Add(Type.Missing);                                      //在应用程序ExcelApp下，创建工作簿ExcelDoc
+                ExcelSheet = ExcelDoc.Worksheets.Add(Type.Missing);                                   //在工作簿ExcelDoc下，创建工作表ExcelSheet
+
+                //设置Excel列名           
+                ExcelSheet.Cells[1, 1] = CreateExcel5 + " " + CreateExcel1;
+                ExcelSheet.Cells[2, 1] = CreateExcel2;
+                ExcelSheet.Cells[2, 2] = "RMS1";
+                ExcelSheet.Cells[2, 3] = "RMS2"; 
+                ExcelSheet.Cells[2, 4] = "Val2";
+                ExcelSheet.Cells[2, 5] = "Val3";
+                ExcelSheet.Cells[2, 6] = "RMSMID1";
+                ExcelSheet.Cells[2, 7] = "RMSMID2";
+                ExcelSheet.Cells[2, 8] = "RMS1_Last"; 
+                ExcelSheet.Cells[2, 9] = "Current_Ratio1";
+                ExcelSheet.Cells[2, 10] = "Current_Ratio2"; 
+                ExcelSheet.Cells[2, 11] = "Current_Ratio3"; 
+                ExcelSheet.Cells[2, 12] = "Current_Ratio4"; 
+                ExcelSheet.Cells[2, 13] = "RES_IA"; 
+                ExcelSheet.Cells[2, 14] = "RES_IB"; 
+                ExcelSheet.Cells[2, 15] = "RES_IIA"; 
+                ExcelSheet.Cells[2, 16] = "RES_IIB"; 
+                ExcelSheet.Cells[2, 17] = "SNS_IA"; 
+                ExcelSheet.Cells[2, 18] = "SNS_IB"; 
+                ExcelSheet.Cells[2, 19] = "SNS_IIA";
+                ExcelSheet.Cells[2, 20] = "LED_F2";
+                ExcelSheet.Cells[2, 21] = "LED_F1"; 
+                ExcelSheet.Cells[2, 22] = "T"; 
+                ExcelSheet.Cells[2, 23] = "Second";
+                ExcelSheet.Cells[2, 24] = "RMS2_Last"; 
+                ExcelSheet.Cells[2,25]= "Error Code";
+
+                //输出各个参数值
+                for (int i = 0; i < RMS1DoubleCircuitRWYCenterDrive12inches.Count; i++)
+                {
+
+                    ExcelSheet.Cells[3 + i, 1] = (i + 1).ToString();
+                    ExcelSheet.Cells[3 + i, 2] = RMS1DoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 3] = RMS2DoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 4] = Val2DoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 5] = Val3DoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 6] = RMSMID1DoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 7] = RMSMID2DoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 8] = RMS1LASTDoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 9] = CurrentRatio1DoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 10] = CurrentRatio2DoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 11] = CurrentRatio3DoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 12] = CurrentRatio4DoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 13] = RESIADoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 14] = RESIBDoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 15] = RESIIADoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 16] = RESIIBDoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 17] = SNSIADoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 18] = SNSIBDoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 19] = SNSIIADoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 20] = LEDF2DoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 21] = LEDF1DoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 22] = TDoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    if (SecondDoubleCircuitRWYCenterDrive12inches[i].ToString() == "Null")
+                    {
+                        ExcelSheet.Cells[3 + i, 23] = SecondDoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    }
+                    else
+                    {
+                        ExcelSheet.Cells[3 + i, 23] = ((int)SecondDoubleCircuitRWYCenterDrive12inches[i] / 3600).ToString() + ":" + (((int)SecondDoubleCircuitRWYCenterDrive12inches[i] % 3600) / 60).ToString() + ":" + (((int)SecondDoubleCircuitRWYCenterDrive12inches[i] % 3600) % 60).ToString();
+                    }
+                    ExcelSheet.Cells[3 + i, 24] = RMS2LASTDoubleCircuitRWYCenterDrive12inches[i].ToString();
+                    ExcelSheet.Cells[3 + i, 25] = ErrorCodeDoubleCircuitRWYCenterDrive12inches[i].ToString();
+                }
+
+                ExcelSheet.SaveAs(str_fileName);                                                      //保存Excel工作表
+                ExcelDoc.Close(Type.Missing, str_fileName, Type.Missing);                             //关闭Excel工作簿
+                ExcelApp.Quit();                                                                      //退出Excel应用程序    
+
+                ClearDoubleCircuitRWYCenterDrive12inchesLampsParameters();
+
+                ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
+                }));
+
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show(MessageboxContent28, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
+            }
+            catch
+            {
+                ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
+                }));
+
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show(MessageboxContent29, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
+            }
+        }
+        #endregion
+
+        #region 8寸警戒灯灯具状态信息解析
+        private void RWYGuardLampDataAnalysis(byte[] CompleteData)
+        {
+            byte[][] DataArray;
+            ArrayList commandCount = new ArrayList();
+
+            for (int i = 0; i < CompleteData.Length; i++)
+            {
+                if (CompleteData[i] == 0x02 && CompleteData[i + 1] == 0xAA && CompleteData[i + 2] == 0x01 && CompleteData[i + 3] == 0x08 && CompleteData[i + 4] == 0x04)
+                {
+                    commandCount.Add(i);
+                }
+            }
+
+            DataArray = new byte[commandCount.Count][];
+
+            for (int i = 0; i < commandCount.Count; i++)
+            {
+                if (i < commandCount.Count - 1)
+                {
+                    DataArray[i] = new byte[(int)commandCount[i + 1] - (int)commandCount[i]];
+                }
+                else
+                {
+                    DataArray[i] = new byte[CompleteData.Length - (int)commandCount[i]];
+                }
+
+                for (int j = 0; j < DataArray[i].Length; j++)
+                {
+                    DataArray[i][j] = CompleteData[(int)commandCount[i] + j];
+                }
+            }
+
+            for (int i = 0; i < DataArray.Length; i++)
+            {
+                if (DataArray[i].Length == 32)
+                {
+                    byte checkOutValue = CalculateCheckOutValue(DataArray[i]);
+                    if (checkOutValue == DataArray[i][DataArray[i].Length - 1])
+                    {
+                        RMS1RWYGuardLight.Add(DataArray[i][5] * 1100);
+                        Val2RWYGuardLight.Add(DataArray[i][6] * 20);
+                        Val3RWYGuardLight.Add(DataArray[i][7]);
+                        RMSRWYGuardLight.Add(DataArray[i][8] *4);
+                        CurrentRatio1RWYGuardLight.Add((float)(DataArray[i][9] / 10.0));
+                        CurrentRatio3RWYGuardLight.Add((float)(DataArray[i][10] / 10.0));
+                        WaveformRWYGuardLight.Add(DataArray[i][11]);
+                        ChannelRWYGuardLight.Add(DataArray[i][12]);
+                        SNSIARWYGuardLight.Add(DataArray[i][13] * 16);
+                        SNSIIARWYGuardLight.Add(DataArray[i][14] *16);
+                        LEDF1RWYGuardLight.Add(DataArray[i][15]);
+                        TRWYGuardLight.Add(DataArray[i][16]);                        
+                        FlashFrequencyRWYGuardLight.Add(DataArray[i][21]);
+                        ModeRWYGuardLight.Add(DataArray[i][22]);                                               
+
+                        int SecondResult = 0;
+                        for (int j = 0; j < 4; j++)
+                        {
+                            int SecondOrigin = DataArray[i][17 + j];
+                            SecondResult |= SecondOrigin;
+                            if (j < 3)
+                            {
+                                SecondResult <<= 8;
+                            }
+                        }
+                        SecondRWYGuardLight.Add(SecondResult);
+                        ErrorCodeRWYGuardLight.Add("No Error");                        
+                    }
+                    else
+                    {
+                        RWYGuardLampCheckValueErrorHandle();
+                    }
+                }
+                else
+                {
+                    RWYGuardLampCommandLengthErrorHandle();
+                }
+            }
+
+        }
+
+        private void RWYGuardLampCheckValueErrorHandle()
+        {
+            RMS1RWYGuardLight.Add("Null");
+            Val2RWYGuardLight.Add("Null");
+            Val3RWYGuardLight.Add("Null");
+            RMSRWYGuardLight.Add("Null");
+            CurrentRatio1RWYGuardLight.Add("Null");
+            CurrentRatio3RWYGuardLight.Add("Null");
+            WaveformRWYGuardLight.Add("Null");
+            ChannelRWYGuardLight.Add("Null");
+            SNSIARWYGuardLight.Add("Null");
+            SNSIIARWYGuardLight.Add("Null");
+            LEDF1RWYGuardLight.Add("Null");
+            TRWYGuardLight.Add("Null");
+            FlashFrequencyRWYGuardLight.Add("Null");
+            ModeRWYGuardLight.Add("Null");
+            SecondRWYGuardLight.Add("Null");
+            ErrorCodeRWYGuardLight.Add("Check Value Error");           
+        }
+
+        private void RWYGuardLampCommandLengthErrorHandle()
+        {
+            RMS1RWYGuardLight.Add("Null");
+            Val2RWYGuardLight.Add("Null");
+            Val3RWYGuardLight.Add("Null");
+            RMSRWYGuardLight.Add("Null");
+            CurrentRatio1RWYGuardLight.Add("Null");
+            CurrentRatio3RWYGuardLight.Add("Null");
+            WaveformRWYGuardLight.Add("Null");
+            ChannelRWYGuardLight.Add("Null");
+            SNSIARWYGuardLight.Add("Null");
+            SNSIIARWYGuardLight.Add("Null");
+            LEDF1RWYGuardLight.Add("Null");
+            TRWYGuardLight.Add("Null");
+            FlashFrequencyRWYGuardLight.Add("Null");
+            ModeRWYGuardLight.Add("Null");
+            SecondRWYGuardLight.Add("Null");
+            ErrorCodeRWYGuardLight.Add("Command Length Error");            
+        }
+
+        private void ClearRWYGuardLampsParameters()
+        {
+            RMS1RWYGuardLight.Clear();
+            Val2RWYGuardLight.Clear();
+            Val3RWYGuardLight.Clear();
+            RMSRWYGuardLight.Clear();
+            CurrentRatio1RWYGuardLight.Clear();
+            CurrentRatio3RWYGuardLight.Clear();
+            WaveformRWYGuardLight.Clear();
+            ChannelRWYGuardLight.Clear();
+            SNSIARWYGuardLight.Clear();
+            SNSIIARWYGuardLight.Clear();
+            LEDF1RWYGuardLight.Clear();
+            TRWYGuardLight.Clear();
+            FlashFrequencyRWYGuardLight.Clear();
+            ModeRWYGuardLight.Clear();
+            SecondRWYGuardLight.Clear();
+            ErrorCodeRWYGuardLight.Clear();           
+        }
+
+        void RWYGuardLampParametersCreatExcel()
+        {
+            try
+            {
+                //创建excel模板
+                str_fileName = "d:\\ " + CreateExcel6 + " " + CreateExcel1 + " " + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";    //文件保存路径及名称
+                ExcelApp = new Microsoft.Office.Interop.Excel.Application();                          //创建Excel应用程序 ExcelApp
+                ExcelDoc = ExcelApp.Workbooks.Add(Type.Missing);                                      //在应用程序ExcelApp下，创建工作簿ExcelDoc
+                ExcelSheet = ExcelDoc.Worksheets.Add(Type.Missing);                                   //在工作簿ExcelDoc下，创建工作表ExcelSheet
+
+                //设置Excel列名           
+                ExcelSheet.Cells[1, 1] = CreateExcel6 + " " + CreateExcel1;
+                ExcelSheet.Cells[2, 1] = CreateExcel2;
+                ExcelSheet.Cells[2, 2] = "RMS1";
+                ExcelSheet.Cells[2, 3] = "Val2";
+                ExcelSheet.Cells[2, 4] = "Val3";
+                ExcelSheet.Cells[2, 5] = "RMS";
+                ExcelSheet.Cells[2, 6] = "Current_Ratio1";
+                ExcelSheet.Cells[2, 7] = "Current_Ratio3";
+                ExcelSheet.Cells[2, 8] = "Waveform";
+                ExcelSheet.Cells[2, 9] = "Channel";
+                ExcelSheet.Cells[2, 10] = "SNS_IA";
+                ExcelSheet.Cells[2, 11] = "SNS_IIA";
+                ExcelSheet.Cells[2, 12] = "LED_F1";
+                ExcelSheet.Cells[2, 13] = "T";
+                ExcelSheet.Cells[2, 14] = "Second";
+                ExcelSheet.Cells[2, 15] = "Flash Frequency";
+                ExcelSheet.Cells[2, 16] = "Mode";               
+                ExcelSheet.Cells[2, 17] = "Error Code";
+
+                //输出各个参数值
+                for (int i = 0; i < RMS1RWYGuardLight.Count; i++)
+                {
+                    RMS1RWYGuardLight.Clear();
+                    Val2RWYGuardLight.Clear();
+                    Val3RWYGuardLight.Clear();
+                    RMSRWYGuardLight.Clear();
+                    CurrentRatio1RWYGuardLight.Clear();
+                    CurrentRatio3RWYGuardLight.Clear();
+                    WaveformRWYGuardLight.Clear();
+                    ChannelRWYGuardLight.Clear();
+                    SNSIARWYGuardLight.Clear();
+                    SNSIIARWYGuardLight.Clear();
+                    LEDF1RWYGuardLight.Clear();
+                    TRWYGuardLight.Clear();
+                    FlashFrequencyRWYGuardLight.Clear();
+                    ModeRWYGuardLight.Clear();
+                    SecondRWYGuardLight.Clear();
+                    ErrorCodeRWYGuardLight.Clear();
+
+                    ExcelSheet.Cells[3 + i, 1] = (i + 1).ToString();
+                    ExcelSheet.Cells[3 + i, 2] = RMS1RWYGuardLight[i].ToString();
+                    ExcelSheet.Cells[3 + i, 3] = Val2RWYGuardLight[i].ToString();
+                    ExcelSheet.Cells[3 + i, 4] = Val3RWYGuardLight[i].ToString();
+                    ExcelSheet.Cells[3 + i, 5] = RMSRWYGuardLight[i].ToString();
+                    ExcelSheet.Cells[3 + i, 6] = CurrentRatio1RWYGuardLight[i].ToString();
+                    ExcelSheet.Cells[3 + i, 7] = CurrentRatio3RWYGuardLight[i].ToString();
+                    ExcelSheet.Cells[3 + i, 8] = WaveformRWYGuardLight[i].ToString();
+                    ExcelSheet.Cells[3 + i, 9] = ChannelRWYGuardLight[i].ToString();
+                    ExcelSheet.Cells[3 + i, 10] = SNSIARWYGuardLight[i].ToString();
+                    ExcelSheet.Cells[3 + i, 11] = SNSIIARWYGuardLight[i].ToString();
+                    ExcelSheet.Cells[3 + i, 12] = LEDF1RWYGuardLight[i].ToString();
+                    ExcelSheet.Cells[3 + i, 13] = TRWYGuardLight[i].ToString();
+                    ExcelSheet.Cells[3 + i, 15] = FlashFrequencyRWYGuardLight[i].ToString();
+                    ExcelSheet.Cells[3 + i, 16] = ModeRWYGuardLight[i].ToString();
+                    ExcelSheet.Cells[3 + i, 17] = ErrorCodeRWYGuardLight[i].ToString();
+                   
+                    if (SecondRWYGuardLight[i].ToString() == "Null")
+                    {
+                        ExcelSheet.Cells[3 + i, 14] = SecondRWYGuardLight[i].ToString();
+                    }
+                    else
+                    {
+                        ExcelSheet.Cells[3 + i, 14] = ((int)SecondRWYGuardLight[i] / 3600).ToString() + ":" + (((int)SecondRWYGuardLight[i] % 3600) / 60).ToString() + ":" + (((int)SecondRWYGuardLight[i] % 3600) % 60).ToString();
+                    }
+                    
+                }
+
+                ExcelSheet.SaveAs(str_fileName);                                                      //保存Excel工作表
+                ExcelDoc.Close(Type.Missing, str_fileName, Type.Missing);                             //关闭Excel工作簿
+                ExcelApp.Quit();                                                                      //退出Excel应用程序    
+
+                ClearRWYGuardLampsParameters();
+
+                ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
+                }));
+
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show(MessageboxContent28, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
+            }
+            catch
+            {
+                ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
+                }));
+
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show(MessageboxContent29, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
+            }
+        }
+        #endregion
+
         #endregion
 
         #region 导出原始数据
@@ -2173,7 +2904,25 @@ namespace LEDLampsConfigurationSoftware
 
                 if(ConfirmLampName.Text!=""&&ConfirmLampModel.Text!=""&&ConfirmSettingOpenCircuitParameter.Text!="")
                 {
-                    ConfigureSettingParametersCommand();
+                    if(SelectRWYGuardLight.IsChecked==true)
+                    {
+                        settingChannel = Convert.ToByte(ChannelSelect.SelectedIndex);
+                        settingFlashFrequency = Convert.ToByte(FlashFrequencySelect.SelectedItem);
+                        settingWaveform = Convert.ToByte(WaveformSelect.SelectedIndex);
+
+                        ConfigureRWYGuardLightSettingParametersCommand();
+                    }
+                    else
+                    {
+                        ConfigureSettingParametersCommand();
+                    }
+
+                    //临时校验工厂模式下的设置参数指令
+                    //AnswerLampModel.Text = "";
+                    //for (int i = 0; i < settingParameterCommand.Length; i++)
+                    //{
+                    //    AnswerLampModel.Text += Convert.ToString(settingParameterCommand[i], 16).PadLeft(2, '0').ToUpper() + " ";
+                    //}
 
                     MessageBoxResult result = MessageBox.Show(MessageboxContent33, MessageboxHeader2, MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Yes)
@@ -2240,19 +2989,30 @@ namespace LEDLampsConfigurationSoftware
             Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
             GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
             GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
             Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
 
             SelectAPPS12SLEDC.IsChecked = false;
 
             SelectOpenCircuitTrue.IsEnabled = true;
             SelectOpenCircuitFalse.IsEnabled = true;
-
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+           
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = TBSelectApproachChenterlineLight.Text.ToString();
@@ -2272,19 +3032,31 @@ namespace LEDLampsConfigurationSoftware
             Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
             GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
             GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
             Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
+
 
             SelectAPPS12LLEDC.IsChecked = false;
             SelectAPPS12RLEDC.IsChecked = false;
 
             SelectOpenCircuitTrue.IsEnabled = true;
             SelectOpenCircuitFalse.IsEnabled = true;
-
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -2305,19 +3077,31 @@ namespace LEDLampsConfigurationSoftware
             Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
             GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
             GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
             Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
+
 
             SelectAPSS12LLEDR.IsChecked = false;
             SelectAPSS12RLEDR.IsChecked = false;
 
             SelectOpenCircuitTrue.IsEnabled = false;
             SelectOpenCircuitFalse.IsEnabled = true;
-
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -2338,19 +3122,31 @@ namespace LEDLampsConfigurationSoftware
             Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
             GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
             GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
             Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
+
 
             SelectTHWS12LLEDG.IsChecked = false;
             SelectTHWS12RLEDG.IsChecked = false;
 
             SelectOpenCircuitTrue.IsEnabled = false;
             SelectOpenCircuitFalse.IsEnabled = true;
-
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -2371,10 +3167,13 @@ namespace LEDLampsConfigurationSoftware
             Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
             GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
             GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
             Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
+
 
             SelectTHRS12LLEDG.IsChecked = false;
             SelectTHRS12RLEDG.IsChecked = false;
@@ -2382,9 +3181,18 @@ namespace LEDLampsConfigurationSoftware
 
             SelectOpenCircuitTrue.IsEnabled = false;
             SelectOpenCircuitFalse.IsEnabled = true;
-
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -2405,10 +3213,13 @@ namespace LEDLampsConfigurationSoftware
             Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
             GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
             GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
             Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
+
 
             SelectRELS12LLEDYC.IsChecked = false;
             SelectRELS12RLEDYC.IsChecked = false;
@@ -2423,9 +3234,18 @@ namespace LEDLampsConfigurationSoftware
 
             SelectOpenCircuitTrue.IsEnabled = false;
             SelectOpenCircuitFalse.IsEnabled = true;
-
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -2446,18 +3266,30 @@ namespace LEDLampsConfigurationSoftware
             Group12inchesRWYEndLight.Visibility = Visibility.Visible;
             GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
             GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
             GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
             Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
+
 
             SelectENDS12LEDR.IsChecked = false;
 
             SelectOpenCircuitTrue.IsEnabled = false;
             SelectOpenCircuitFalse.IsEnabled = true;
-
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -2478,20 +3310,34 @@ namespace LEDLampsConfigurationSoftware
             Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRWYThresholdEndLight.Visibility = Visibility.Visible;
             GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
             GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
             Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
+
 
             SelectTAES12LLEDGR1P.IsChecked = false;
             SelectTAES12RLEDGR1P.IsChecked = false;
             SelectTAES12SLEDGR1P.IsChecked = false;
+            SelectTAES12LLEDGRMR2P.IsChecked = false;
+            SelectTAES12RLEDGRMR2P.IsChecked = false;
 
             SelectOpenCircuitTrue.IsEnabled = false;
             SelectOpenCircuitFalse.IsEnabled = true;
-
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -2512,10 +3358,13 @@ namespace LEDLampsConfigurationSoftware
             Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
             GroupRWYCenterlineLight.Visibility = Visibility.Visible;
+            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
             GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
             Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
+
 
             SelectRCLS08LEDCB1P.IsChecked = false;
             SelectRCLS08LEDRB1P.IsChecked = false;
@@ -2524,13 +3373,67 @@ namespace LEDLampsConfigurationSoftware
 
             SelectOpenCircuitTrue.IsEnabled = false;
             SelectOpenCircuitFalse.IsEnabled = true;
-
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = TBSelectRWYCenterlineLight.Text.ToString();
+                ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
+            }));
+        }
+
+        private void Select12inchesRWYCenterlineLight_Checked(object sender, RoutedEventArgs e)
+        {
+            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
+            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
+            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYCenterlineLight.Visibility = Visibility.Visible;
+            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
+            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
+            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
+
+
+            SelectRCLS12LEDCCMR2P.IsChecked = false;
+            SelectRCLS12LEDRCMR2P.IsChecked = false;            
+
+            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampName.Text = TBSelect12inchesRWYCenterlineLight.Text.ToString();
                 ConfirmLampModel.Text = "";
                 ConfirmSettingOpenCircuitParameter.Text = "";
             }));
@@ -2547,19 +3450,31 @@ namespace LEDLampsConfigurationSoftware
             Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
             GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
             GroupRWYTouchdownZoneLight.Visibility = Visibility.Visible;
             Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
+
 
             SelectTDZS08LLEDC.IsChecked = false;
             SelectTDZS08RLEDC.IsChecked = false;
 
             SelectOpenCircuitTrue.IsEnabled = false;
             SelectOpenCircuitFalse.IsEnabled = true;
-
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -2580,18 +3495,30 @@ namespace LEDLampsConfigurationSoftware
             Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
             GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
             GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
             Group8inchesRWYEndLight.Visibility = Visibility.Visible;
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
+
 
             SelectENDS08LEDR.IsChecked = false;
 
             SelectOpenCircuitTrue.IsEnabled = false;
             SelectOpenCircuitFalse.IsEnabled = true;
-
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -2612,18 +3539,30 @@ namespace LEDLampsConfigurationSoftware
             Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
             GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
             GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
             Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Visible;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
+
 
             SelectRAPS08LEDY.IsChecked = false;
 
             SelectOpenCircuitTrue.IsEnabled = false;
             SelectOpenCircuitFalse.IsEnabled = true;
-
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -2644,10 +3583,13 @@ namespace LEDLampsConfigurationSoftware
             Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
             GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
             GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
             Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Visible;
+            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
+
 
             SelectRELC12LEDCYC1P.IsChecked = false;
             SelectRELC12LEDCCC1P.IsChecked = false;
@@ -2660,13 +3602,67 @@ namespace LEDLampsConfigurationSoftware
 
             SelectOpenCircuitTrue.IsEnabled = true;
             SelectOpenCircuitFalse.IsEnabled = true;
-
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = TBSelectCombinedRWYEdgeLight.Text.ToString();
+                ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
+            }));
+        }
+       
+        private void SelectRWYGuardLight_Checked(object sender, RoutedEventArgs e)
+        {
+            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
+            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
+            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
+            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
+            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            GroupRWYGuardLight.Visibility = Visibility.Visible;
+
+
+            SelectHRGS08LEDY.IsChecked = false;
+            
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Visible;
+            FlashFrequencySelectBorder.Visibility = Visibility.Visible;
+            FlashFrequencySelect.Visibility = Visibility.Visible;
+            ChannelSelectLabel.Visibility = Visibility.Visible;
+            ChannelSelectBorder.Visibility = Visibility.Visible;
+            ChannelSelect.Visibility = Visibility.Visible;
+            WaveformSelectLabel.Visibility = Visibility.Visible;
+            WaveformSelectBorder.Visibility = Visibility.Visible;
+            WaveformSelect.Visibility = Visibility.Visible;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampName.Text = TBSelectRWYGuardLight.Text.ToString();
                 ConfirmLampModel.Text = "";
                 ConfirmSettingOpenCircuitParameter.Text = "";
             }));
@@ -2914,6 +3910,26 @@ namespace LEDLampsConfigurationSoftware
             ConfigureTAES12SLEDGR1PParameters();
         }
 
+        private void SelectTAES12LLEDGRMR2P_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = TBSelectTAES12LLEDGRMR2P.Text.ToString();
+            }));
+
+            ConfigureTAES12LLEDGRMR2PParameters();
+        }
+
+        private void SelectTAES12RLEDGRMR2P_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = TBSelectTAES12RLEDGRMR2P.Text.ToString();
+            }));
+
+            ConfigureTAES12RLEDGRMR2PParameters();
+        }
+
         private void SelectRCLS08LEDCB1P_Checked(object sender, RoutedEventArgs e)
         {
             this.Dispatcher.Invoke(new System.Action(() =>
@@ -2952,6 +3968,26 @@ namespace LEDLampsConfigurationSoftware
             }));
 
             ConfigureRCLS08LEDRC1PParameters();
+        }
+
+        private void SelectRCLS12LEDCCMR2P_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = TBSelectRCLS12LEDCCMR2P.Text.ToString();
+            }));
+
+            ConfigureRCLS12LEDCCMR2PParameters();
+        }
+
+        private void SelectRCLS12LEDRCMR2P_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = TBSelectRCLS12LEDRCMR2P.Text.ToString();
+            }));
+
+            ConfigureRCLS12LEDRCMR2PParameters();
         }
 
         private void SelectTDZS08LLEDC_Checked(object sender, RoutedEventArgs e)
@@ -3073,7 +4109,17 @@ namespace LEDLampsConfigurationSoftware
 
             ConfigureRELC12LEDRYB1PParameters();
         }
-    #endregion
+        
+        private void SelectHRGS08LEDY_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectHRGS08LEDY.Content.ToString();
+            }));
+
+            ConfigureHRGS08LEDYParameters();
+        }
+        #endregion
 
         #region 开路选择
         private void SelectOpenCircuitTrue_Checked(object sender, RoutedEventArgs e)
@@ -3095,7 +4141,8 @@ namespace LEDLampsConfigurationSoftware
 
             ConfigureOpenCircuitFalse();
         }
-    #endregion
+       
+        #endregion
 
         #region 工厂模式配置灯具参数
         private void ConfigureAPPS12SLEDCParameters()
@@ -3650,6 +4697,52 @@ namespace LEDLampsConfigurationSoftware
             settingLampsNumber = 0x18;
         }
 
+        private void ConfigureTAES12LLEDGRMR2PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x2A;
+        }
+
+        private void ConfigureTAES12RLEDGRMR2PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x2B;
+        }      
+
         private void ConfigureRCLS08LEDCB1PParameters()
         {
             settingIA[0] = 0x00;
@@ -3741,6 +4834,52 @@ namespace LEDLampsConfigurationSoftware
             settingMosFlag = 0x00;
             settingLampsNumber = 0x1C;
         }
+
+        private void ConfigureRCLS12LEDCCMR2PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x05;
+            settingIA[2] = 0x05;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x05;
+            settingIIA[2] = 0x05;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x01;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x2C;
+        }
+
+        private void ConfigureRCLS12LEDRCMR2PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x03;
+            settingIA[2] = 0x03;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x05;
+            settingIIA[2] = 0x05;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x01;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x2D;
+        }       
 
         private void ConfigureTDZS08LLEDCParameters()
         {
@@ -4017,6 +5156,29 @@ namespace LEDLampsConfigurationSoftware
             settingMosFlag = 0x00;
             settingLampsNumber = 0x28;
         }
+
+        private void ConfigureHRGS08LEDYParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x08;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x08;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x01;            
+            settingLampsNumber = 0x29;
+        }
+        
         #endregion
 
         #region 工厂模式配置灯具参数是否开路
@@ -4035,6 +5197,12 @@ namespace LEDLampsConfigurationSoftware
         #region 工厂模式下，生成设置参数指令
         public void ConfigureSettingParametersCommand()
         {
+            settingParameterCommand[0] = 0x02;
+            settingParameterCommand[1] = 0x55;
+            settingParameterCommand[2] = 0x11;
+            settingParameterCommand[3] = 0x58;
+            settingParameterCommand[4] = 0x12;
+
             for (int i = 0; i < settingIA.Length; i++)
             {
                 settingParameterCommand[5 + i] = settingIA[i];
@@ -4057,6 +5225,41 @@ namespace LEDLampsConfigurationSoftware
             settingParameterCommand[24] = settingLampsNumber;
             settingParameterCommand[27] = CalculateCheckOutValue(settingParameterCommand);
         }
+
+        //跑道警戒灯，生成设置参数指令
+        public void ConfigureRWYGuardLightSettingParametersCommand()
+        {
+            settingParameterCommand[0] = 0x55;
+            settingParameterCommand[1] = 0x02;
+            settingParameterCommand[2] = 0x11;
+            settingParameterCommand[3] = 0x58;
+            settingParameterCommand[4] = 0x12;
+
+            for (int i = 0; i < settingIA.Length; i++)
+            {
+                settingParameterCommand[5 + i] = settingIA[i];
+            }
+            for (int i = 0; i < settingIB.Length; i++)
+            {
+                settingParameterCommand[9 + i] = settingIB[i];
+            }
+            for (int i = 0; i < settingIIA.Length; i++)
+            {
+                settingParameterCommand[13 + i] = settingIIA[i];
+            }
+            for (int i = 0; i < settingIIB.Length; i++)
+            {
+                settingParameterCommand[17 + i] = settingIIB[i];
+            }
+            settingParameterCommand[21] = settingReadRFlag;
+            settingParameterCommand[22] = settingChannel;
+            settingParameterCommand[23] = settingBreakFlag;
+            settingParameterCommand[24] = settingLampsNumber;
+            settingParameterCommand[25] = settingFlashFrequency;
+            settingParameterCommand[26] = settingWaveform;
+            settingParameterCommand[27] = CalculateCheckOutValue(settingParameterCommand);
+        }
+
         #endregion
 
         #region 工厂模式下，恢复初始设置
@@ -4779,11 +5982,18 @@ namespace LEDLampsConfigurationSoftware
             LampInchesLabel2 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel2");
             LampInchesLabel3 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel3");
             LampInchesLabel4 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel4");
-
+            LampInchesLabel5 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel5");
+            LampInchesLabel6 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel6");
+            LampInchesLabel7 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel7");
             #endregion
 
             #region 后台代码，工厂模式页面，中英文切换字符串
             AnswerHardwareVersion0 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion0");
+            AnswerHardwareVersion1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion1");
+            AnswerHardwareVersion2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion2");
+            AnswerHardwareVersion3 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion3");
+            AnswerHardwareVersion4 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion4");
+            AnswerHardwareVersion5 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion5");
             AnswerLampModel0 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel0");
             AnswerLampModel1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel1");
             AnswerLampModel2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel2");
@@ -4825,6 +6035,11 @@ namespace LEDLampsConfigurationSoftware
             AnswerLampModel38 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel38");
             AnswerLampModel39 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel39");
             AnswerLampModel40 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel40");
+            AnswerLampModel41 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel41");
+            AnswerLampModel42 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel42");
+            AnswerLampModel43 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel43");
+            AnswerLampModel44 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel44");
+            AnswerLampModel45 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel45");
             AnswerOpenCircuit1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit1");
             AnswerOpenCircuit2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit2");
             #endregion
@@ -4835,6 +6050,8 @@ namespace LEDLampsConfigurationSoftware
             CreateExcel2 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel2");
             CreateExcel3 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel3");
             CreateExcel4 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel4");
+            CreateExcel5 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel5");
+            CreateExcel6 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel6");
             CreateTxt1 = (string)System.Windows.Application.Current.FindResource("LangsCreateTxt1");
             #endregion
 
@@ -4886,8 +6103,14 @@ namespace LEDLampsConfigurationSoftware
             MessageboxContent42 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent42");
             #endregion
         }
+
+
+
+
+
+
         #endregion
 
-       
+        
     }
 }
