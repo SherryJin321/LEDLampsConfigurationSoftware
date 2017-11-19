@@ -328,7 +328,9 @@ namespace LEDLampsConfigurationSoftware
         string MessageboxContent39 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent39");
         string MessageboxContent40 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent40");
         string MessageboxContent41 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent41");
-        string MessageboxContent42 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent42");       
+        string MessageboxContent42 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent42");
+        string MessageboxContent43 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent43");
+
         #endregion
 
         public MainWindow()
@@ -1301,7 +1303,14 @@ namespace LEDLampsConfigurationSoftware
             }
             else if (hardwareVersion1 == 12 && softwareNumber == 3)
             {
-                result = original;
+                if(original==0.4)
+                {
+                    result = 0.45 * 1;
+                }
+                else
+                {
+                    result = original;
+                }
             }
             else if (hardwareVersion1 == 8 && softwareNumber == 4)
             {
@@ -2898,7 +2907,18 @@ namespace LEDLampsConfigurationSoftware
         private void SetLightParametersInFactoryMode_Click(object sender, RoutedEventArgs e)
         {
             RefreshStringMessageLanguage();
-            if (MessageBox.Show(MessageboxContent32, MessageboxHeader1, MessageBoxButton.OK,MessageBoxImage.Information)==MessageBoxResult.OK)
+
+            string judgeResult = "";
+            if(hardwareVersion1==12&&softwareNumber==3)
+            {
+                judgeResult = MessageboxContent43;
+            }
+            else
+            {
+                judgeResult = MessageboxContent32;
+            }
+
+            if (MessageBox.Show(judgeResult, MessageboxHeader1, MessageBoxButton.OK,MessageBoxImage.Information)==MessageBoxResult.OK)
             {
                 ConfigurationWindow.IsEnabled = true;            
 
@@ -2998,11 +3018,8 @@ namespace LEDLampsConfigurationSoftware
 
             SelectAPPS12SLEDC.IsChecked = false;
 
-            SelectOpenCircuitTrue.IsEnabled = true;
-            SelectOpenCircuitFalse.IsEnabled = true;
-            SelectOpenCircuitTrue.IsChecked = false;
-            SelectOpenCircuitFalse.IsChecked = false;
-
+            SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
+            SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
             FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
             FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
             FlashFrequencySelect.Visibility = Visibility.Collapsed;
@@ -3012,7 +3029,7 @@ namespace LEDLampsConfigurationSoftware
             WaveformSelectLabel.Visibility = Visibility.Collapsed;
             WaveformSelectBorder.Visibility = Visibility.Collapsed;
             WaveformSelect.Visibility = Visibility.Collapsed;
-           
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = TBSelectApproachChenterlineLight.Text.ToString();
@@ -3043,11 +3060,8 @@ namespace LEDLampsConfigurationSoftware
             SelectAPPS12LLEDC.IsChecked = false;
             SelectAPPS12RLEDC.IsChecked = false;
 
-            SelectOpenCircuitTrue.IsEnabled = true;
-            SelectOpenCircuitFalse.IsEnabled = true;
-            SelectOpenCircuitTrue.IsChecked = false;
-            SelectOpenCircuitFalse.IsChecked = false;
-
+            SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
+            SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
             FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
             FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
             FlashFrequencySelect.Visibility = Visibility.Collapsed;
@@ -3057,6 +3071,7 @@ namespace LEDLampsConfigurationSoftware
             WaveformSelectLabel.Visibility = Visibility.Collapsed;
             WaveformSelectBorder.Visibility = Visibility.Collapsed;
             WaveformSelect.Visibility = Visibility.Collapsed;
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -3088,11 +3103,8 @@ namespace LEDLampsConfigurationSoftware
             SelectAPSS12LLEDR.IsChecked = false;
             SelectAPSS12RLEDR.IsChecked = false;
 
-            SelectOpenCircuitTrue.IsEnabled = false;
-            SelectOpenCircuitFalse.IsEnabled = true;
-            SelectOpenCircuitTrue.IsChecked = false;
-            SelectOpenCircuitFalse.IsChecked = false;
-
+            SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
+            SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
             FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
             FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
             FlashFrequencySelect.Visibility = Visibility.Collapsed;
@@ -3133,11 +3145,8 @@ namespace LEDLampsConfigurationSoftware
             SelectTHWS12LLEDG.IsChecked = false;
             SelectTHWS12RLEDG.IsChecked = false;
 
-            SelectOpenCircuitTrue.IsEnabled = false;
-            SelectOpenCircuitFalse.IsEnabled = true;
-            SelectOpenCircuitTrue.IsChecked = false;
-            SelectOpenCircuitFalse.IsChecked = false;
-
+            SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
+            SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
             FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
             FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
             FlashFrequencySelect.Visibility = Visibility.Collapsed;
@@ -3179,11 +3188,8 @@ namespace LEDLampsConfigurationSoftware
             SelectTHRS12RLEDG.IsChecked = false;
             SelectTHRS12SLEDG.IsChecked = false;
 
-            SelectOpenCircuitTrue.IsEnabled = false;
-            SelectOpenCircuitFalse.IsEnabled = true;
-            SelectOpenCircuitTrue.IsChecked = false;
-            SelectOpenCircuitFalse.IsChecked = false;
-
+            SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
+            SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
             FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
             FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
             FlashFrequencySelect.Visibility = Visibility.Collapsed;
@@ -3232,11 +3238,8 @@ namespace LEDLampsConfigurationSoftware
             SelectRELS12LLEDRC.IsChecked = false;
             SelectRELS12RLEDRC.IsChecked = false;
 
-            SelectOpenCircuitTrue.IsEnabled = false;
-            SelectOpenCircuitFalse.IsEnabled = true;
-            SelectOpenCircuitTrue.IsChecked = false;
-            SelectOpenCircuitFalse.IsChecked = false;
-
+            SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
+            SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
             FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
             FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
             FlashFrequencySelect.Visibility = Visibility.Collapsed;
@@ -3276,11 +3279,8 @@ namespace LEDLampsConfigurationSoftware
 
             SelectENDS12LEDR.IsChecked = false;
 
-            SelectOpenCircuitTrue.IsEnabled = false;
-            SelectOpenCircuitFalse.IsEnabled = true;
-            SelectOpenCircuitTrue.IsChecked = false;
-            SelectOpenCircuitFalse.IsChecked = false;
-
+            SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
+            SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
             FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
             FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
             FlashFrequencySelect.Visibility = Visibility.Collapsed;
@@ -3324,11 +3324,8 @@ namespace LEDLampsConfigurationSoftware
             SelectTAES12LLEDGRMR2P.IsChecked = false;
             SelectTAES12RLEDGRMR2P.IsChecked = false;
 
-            SelectOpenCircuitTrue.IsEnabled = false;
-            SelectOpenCircuitFalse.IsEnabled = true;
-            SelectOpenCircuitTrue.IsChecked = false;
-            SelectOpenCircuitFalse.IsChecked = false;
-
+            SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
+            SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
             FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
             FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
             FlashFrequencySelect.Visibility = Visibility.Collapsed;
@@ -3371,11 +3368,8 @@ namespace LEDLampsConfigurationSoftware
             SelectRCLS08LEDCC1P.IsChecked = false;
             SelectRCLS08LEDRC1P.IsChecked = false;
 
-            SelectOpenCircuitTrue.IsEnabled = false;
-            SelectOpenCircuitFalse.IsEnabled = true;
-            SelectOpenCircuitTrue.IsChecked = false;
-            SelectOpenCircuitFalse.IsChecked = false;
-
+            SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
+            SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
             FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
             FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
             FlashFrequencySelect.Visibility = Visibility.Collapsed;
@@ -3414,13 +3408,10 @@ namespace LEDLampsConfigurationSoftware
 
 
             SelectRCLS12LEDCCMR2P.IsChecked = false;
-            SelectRCLS12LEDRCMR2P.IsChecked = false;            
+            SelectRCLS12LEDRCMR2P.IsChecked = false;
 
-            SelectOpenCircuitTrue.IsEnabled = true;
-            SelectOpenCircuitFalse.IsEnabled = true;
-            SelectOpenCircuitTrue.IsChecked = false;
-            SelectOpenCircuitFalse.IsChecked = false;
-
+            SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
+            SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
             FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
             FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
             FlashFrequencySelect.Visibility = Visibility.Collapsed;
@@ -3461,11 +3452,8 @@ namespace LEDLampsConfigurationSoftware
             SelectTDZS08LLEDC.IsChecked = false;
             SelectTDZS08RLEDC.IsChecked = false;
 
-            SelectOpenCircuitTrue.IsEnabled = false;
-            SelectOpenCircuitFalse.IsEnabled = true;
-            SelectOpenCircuitTrue.IsChecked = false;
-            SelectOpenCircuitFalse.IsChecked = false;
-
+            SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
+            SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
             FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
             FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
             FlashFrequencySelect.Visibility = Visibility.Collapsed;
@@ -3505,11 +3493,8 @@ namespace LEDLampsConfigurationSoftware
 
             SelectENDS08LEDR.IsChecked = false;
 
-            SelectOpenCircuitTrue.IsEnabled = false;
-            SelectOpenCircuitFalse.IsEnabled = true;
-            SelectOpenCircuitTrue.IsChecked = false;
-            SelectOpenCircuitFalse.IsChecked = false;
-
+            SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
+            SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
             FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
             FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
             FlashFrequencySelect.Visibility = Visibility.Collapsed;
@@ -3549,11 +3534,8 @@ namespace LEDLampsConfigurationSoftware
 
             SelectRAPS08LEDY.IsChecked = false;
 
-            SelectOpenCircuitTrue.IsEnabled = false;
-            SelectOpenCircuitFalse.IsEnabled = true;
-            SelectOpenCircuitTrue.IsChecked = false;
-            SelectOpenCircuitFalse.IsChecked = false;
-
+            SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
+            SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
             FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
             FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
             FlashFrequencySelect.Visibility = Visibility.Collapsed;
@@ -3600,11 +3582,8 @@ namespace LEDLampsConfigurationSoftware
             SelectRELC12LEDCRB1P.IsChecked = false;
             SelectRELC12LEDRYB1P.IsChecked = false;
 
-            SelectOpenCircuitTrue.IsEnabled = true;
-            SelectOpenCircuitFalse.IsEnabled = true;
-            SelectOpenCircuitTrue.IsChecked = false;
-            SelectOpenCircuitFalse.IsChecked = false;
-
+            SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
+            SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
             FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
             FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
             FlashFrequencySelect.Visibility = Visibility.Collapsed;
@@ -3643,7 +3622,1353 @@ namespace LEDLampsConfigurationSoftware
 
 
             SelectHRGS08LEDY.IsChecked = false;
-            
+
+            SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
+            SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampName.Text = TBSelectRWYGuardLight.Text.ToString();
+                ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
+            }));
+        }
+        #endregion
+
+        #region 灯具型号
+        private void SelectAPPS12SLEDC_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectAPPS12SLEDC.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureAPPS12SLEDCParameters();
+        }
+
+        private void SelectAPPS12LLEDC_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectAPPS12LLEDC.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureAPPS12LLEDCParameters();
+        }
+
+        private void SelectAPPS12RLEDC_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectAPPS12RLEDC.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureAPPS12RLEDCParameters();
+        }
+
+        private void SelectAPSS12LLEDR_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectAPSS12LLEDR.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureAPSS12LLEDRParameters();
+        }
+
+        private void SelectAPSS12RLEDR_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectAPSS12RLEDR.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureAPSS12RLEDRParameters();
+        }
+
+        private void SelectTHWS12LLEDG_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTHWS12LLEDG.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTHWS12LLEDGParameters();
+        }
+
+        private void SelectTHWS12RLEDG_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTHWS12RLEDG.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTHWS12RLEDGParameters();
+        }
+
+        private void SelectTHRS12LLEDG_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTHRS12LLEDG.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTHRS12LLEDGParameters();
+        }
+
+        private void SelectTHRS12RLEDG_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTHRS12RLEDG.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTHRS12RLEDGParameters();
+        }
+
+        private void SelectTHRS12SLEDG_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTHRS12SLEDG.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTHRS12SLEDGParameters();
+        }
+
+        private void SelectRELS12LLEDYC_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELS12LLEDYC.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRELS12LLEDYCParameters();
+        }
+
+        private void SelectRELS12RLEDYC_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELS12RLEDYC.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRELS12RLEDYCParameters();
+        }
+
+        private void SelectRELS12LLEDCY_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELS12LLEDCY.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRELS12LLEDCYParameters();
+        }
+
+        private void SelectRELS12RLEDCY_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELS12RLEDCY.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRELS12RLEDCYParameters();
+        }
+
+        private void SelectRELS12LLEDCC_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELS12LLEDCC.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRELS12LLEDCCParameters();
+        }
+
+        private void SelectRELS12RLEDCC_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELS12RLEDCC.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRELS12RLEDCCParameters();
+        }
+
+        private void SelectRELS12LLEDCR_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELS12LLEDCR.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRELS12LLEDCRParameters();
+        }
+
+        private void SelectRELS12RLEDCR_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELS12RLEDCR.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRELS12RLEDCRParameters();
+        }
+
+        private void SelectRELS12LLEDRC_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELS12LLEDRC.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRELS12LLEDRCParameters();
+        }
+
+        private void SelectRELS12RLEDRC_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELS12RLEDRC.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRELS12RLEDRCParameters();
+        }
+
+        private void SelectENDS12LEDR_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectENDS12LEDR.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureENDS12LEDRParameters();
+        }
+
+        private void SelectTAES12LLEDGR1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTAES12LLEDGR1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTAES12LLEDGR1PParameters();
+        }
+
+        private void SelectTAES12RLEDGR1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTAES12RLEDGR1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTAES12RLEDGR1PParameters();
+        }
+
+        private void SelectTAES12SLEDGR1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTAES12SLEDGR1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTAES12SLEDGR1PParameters();
+        }
+
+        private void SelectTAES12LLEDGRMR2P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = TBSelectTAES12LLEDGRMR2P.Text.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTAES12LLEDGRMR2PParameters();
+        }
+
+        private void SelectTAES12RLEDGRMR2P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = TBSelectTAES12RLEDGRMR2P.Text.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTAES12RLEDGRMR2PParameters();
+        }
+
+        private void SelectRCLS08LEDCB1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRCLS08LEDCB1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRCLS08LEDCB1PParameters();
+        }
+
+        private void SelectRCLS08LEDRB1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRCLS08LEDRB1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRCLS08LEDRB1PParameters();
+        }
+
+        private void SelectRCLS08LEDCC1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRCLS08LEDCC1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRCLS08LEDCC1PParameters();
+        }
+
+        private void SelectRCLS08LEDRC1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRCLS08LEDRC1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRCLS08LEDRC1PParameters();
+        }
+
+        private void SelectRCLS12LEDCCMR2P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = TBSelectRCLS12LEDCCMR2P.Text.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRCLS12LEDCCMR2PParameters();
+        }
+
+        private void SelectRCLS12LEDRCMR2P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = TBSelectRCLS12LEDRCMR2P.Text.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRCLS12LEDRCMR2PParameters();
+        }
+
+        private void SelectTDZS08LLEDC_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTDZS08LLEDC.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTDZS08LLEDCParameters();
+        }
+
+        private void SelectTDZS08RLEDC_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTDZS08RLEDC.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTDZS08RLEDCParameters();
+        }
+
+        private void SelectENDS08LEDR_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectENDS08LEDR.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureENDS08LEDRParameters();
+        }
+
+        private void SelectRAPS08LEDY_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRAPS08LEDY.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRAPS08LEDYParameters();
+        }
+
+        private void SelectRELC12LEDCYC1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELC12LEDCYC1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRELC12LEDCYC1PParameters();
+        }
+
+        private void SelectRELC12LEDCCC1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELC12LEDCCC1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRELC12LEDCCC1PParameters();
+        }
+
+        private void SelectRELC12LEDCRC1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELC12LEDCRC1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRELC12LEDCRC1PParameters();
+        }
+
+        private void SelectRELC12LEDRYC1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELC12LEDRYC1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRELC12LEDRYC1PParameters();
+        }
+
+        private void SelectRELC12LEDCYB1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELC12LEDCYB1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRELC12LEDCYB1PParameters();
+        }
+
+        private void SelectRELC12LEDCCB1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELC12LEDCCB1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRELC12LEDCCB1PParameters();
+        }
+
+        private void SelectRELC12LEDCRB1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELC12LEDCRB1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRELC12LEDCRB1PParameters();
+        }
+
+        private void SelectRELC12LEDRYB1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELC12LEDRYB1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRELC12LEDRYB1PParameters();
+        }
+        
+        private void SelectHRGS08LEDY_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
 
             SelectOpenCircuitTrue.IsEnabled = false;
             SelectOpenCircuitFalse.IsEnabled = true;
@@ -3662,459 +4987,8 @@ namespace LEDLampsConfigurationSoftware
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
-                ConfirmLampName.Text = TBSelectRWYGuardLight.Text.ToString();
-                ConfirmLampModel.Text = "";
-                ConfirmSettingOpenCircuitParameter.Text = "";
-            }));
-        }
-        #endregion
-
-        #region 灯具型号
-        private void SelectAPPS12SLEDC_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectAPPS12SLEDC.Content.ToString();
-            }));
-
-            ConfigureAPPS12SLEDCParameters();
-        }
-
-        private void SelectAPPS12LLEDC_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectAPPS12LLEDC.Content.ToString();
-            }));
-
-            ConfigureAPPS12LLEDCParameters();
-        }
-
-        private void SelectAPPS12RLEDC_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectAPPS12RLEDC.Content.ToString();
-            }));
-
-            ConfigureAPPS12RLEDCParameters();
-        }
-
-        private void SelectAPSS12LLEDR_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectAPSS12LLEDR.Content.ToString();
-            }));
-
-            ConfigureAPSS12LLEDRParameters();
-        }
-
-        private void SelectAPSS12RLEDR_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectAPSS12RLEDR.Content.ToString();
-            }));
-
-            ConfigureAPSS12RLEDRParameters();
-        }
-
-        private void SelectTHWS12LLEDG_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectTHWS12LLEDG.Content.ToString();
-            }));
-
-            ConfigureTHWS12LLEDGParameters();
-        }
-
-        private void SelectTHWS12RLEDG_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectTHWS12RLEDG.Content.ToString();
-            }));
-
-            ConfigureTHWS12RLEDGParameters();
-        }
-
-        private void SelectTHRS12LLEDG_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectTHRS12LLEDG.Content.ToString();
-            }));
-
-            ConfigureTHRS12LLEDGParameters();
-        }
-
-        private void SelectTHRS12RLEDG_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectTHRS12RLEDG.Content.ToString();
-            }));
-
-            ConfigureTHRS12RLEDGParameters();
-        }
-
-        private void SelectTHRS12SLEDG_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectTHRS12SLEDG.Content.ToString();
-            }));
-
-            ConfigureTHRS12SLEDGParameters();
-        }
-
-        private void SelectRELS12LLEDYC_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRELS12LLEDYC.Content.ToString();
-            }));
-
-            ConfigureRELS12LLEDYCParameters();
-        }
-
-        private void SelectRELS12RLEDYC_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRELS12RLEDYC.Content.ToString();
-            }));
-
-            ConfigureRELS12RLEDYCParameters();
-        }
-
-        private void SelectRELS12LLEDCY_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRELS12LLEDCY.Content.ToString();
-            }));
-
-            ConfigureRELS12LLEDCYParameters();
-        }
-
-        private void SelectRELS12RLEDCY_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRELS12RLEDCY.Content.ToString();
-            }));
-
-            ConfigureRELS12RLEDCYParameters();
-        }
-
-        private void SelectRELS12LLEDCC_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRELS12LLEDCC.Content.ToString();
-            }));
-
-            ConfigureRELS12LLEDCCParameters();
-        }
-
-        private void SelectRELS12RLEDCC_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRELS12RLEDCC.Content.ToString();
-            }));
-
-            ConfigureRELS12RLEDCCParameters();
-        }
-
-        private void SelectRELS12LLEDCR_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRELS12LLEDCR.Content.ToString();
-            }));
-
-            ConfigureRELS12LLEDCRParameters();
-        }
-
-        private void SelectRELS12RLEDCR_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRELS12RLEDCR.Content.ToString();
-            }));
-
-            ConfigureRELS12RLEDCRParameters();
-        }
-
-        private void SelectRELS12LLEDRC_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRELS12LLEDRC.Content.ToString();
-            }));
-
-            ConfigureRELS12LLEDRCParameters();
-        }
-
-        private void SelectRELS12RLEDRC_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRELS12RLEDRC.Content.ToString();
-            }));
-
-            ConfigureRELS12RLEDRCParameters();
-        }
-
-        private void SelectENDS12LEDR_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectENDS12LEDR.Content.ToString();
-            }));
-
-            ConfigureENDS12LEDRParameters();
-        }
-
-        private void SelectTAES12LLEDGR1P_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectTAES12LLEDGR1P.Content.ToString();
-            }));
-
-            ConfigureTAES12LLEDGR1PParameters();
-        }
-
-        private void SelectTAES12RLEDGR1P_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectTAES12RLEDGR1P.Content.ToString();
-            }));
-
-            ConfigureTAES12RLEDGR1PParameters();
-        }
-
-        private void SelectTAES12SLEDGR1P_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectTAES12SLEDGR1P.Content.ToString();
-            }));
-
-            ConfigureTAES12SLEDGR1PParameters();
-        }
-
-        private void SelectTAES12LLEDGRMR2P_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = TBSelectTAES12LLEDGRMR2P.Text.ToString();
-            }));
-
-            ConfigureTAES12LLEDGRMR2PParameters();
-        }
-
-        private void SelectTAES12RLEDGRMR2P_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = TBSelectTAES12RLEDGRMR2P.Text.ToString();
-            }));
-
-            ConfigureTAES12RLEDGRMR2PParameters();
-        }
-
-        private void SelectRCLS08LEDCB1P_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRCLS08LEDCB1P.Content.ToString();
-            }));
-
-            ConfigureRCLS08LEDCB1PParameters();
-        }
-
-        private void SelectRCLS08LEDRB1P_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRCLS08LEDRB1P.Content.ToString();
-            }));
-
-            ConfigureRCLS08LEDRB1PParameters();
-        }
-
-        private void SelectRCLS08LEDCC1P_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRCLS08LEDCC1P.Content.ToString();
-            }));
-
-            ConfigureRCLS08LEDCC1PParameters();
-        }
-
-        private void SelectRCLS08LEDRC1P_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRCLS08LEDRC1P.Content.ToString();
-            }));
-
-            ConfigureRCLS08LEDRC1PParameters();
-        }
-
-        private void SelectRCLS12LEDCCMR2P_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = TBSelectRCLS12LEDCCMR2P.Text.ToString();
-            }));
-
-            ConfigureRCLS12LEDCCMR2PParameters();
-        }
-
-        private void SelectRCLS12LEDRCMR2P_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = TBSelectRCLS12LEDRCMR2P.Text.ToString();
-            }));
-
-            ConfigureRCLS12LEDRCMR2PParameters();
-        }
-
-        private void SelectTDZS08LLEDC_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectTDZS08LLEDC.Content.ToString();
-            }));
-
-            ConfigureTDZS08LLEDCParameters();
-        }
-
-        private void SelectTDZS08RLEDC_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectTDZS08RLEDC.Content.ToString();
-            }));
-
-            ConfigureTDZS08RLEDCParameters();
-        }
-
-        private void SelectENDS08LEDR_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectENDS08LEDR.Content.ToString();
-            }));
-
-            ConfigureENDS08LEDRParameters();
-        }
-
-        private void SelectRAPS08LEDY_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRAPS08LEDY.Content.ToString();
-            }));
-
-            ConfigureRAPS08LEDYParameters();
-        }
-
-        private void SelectRELC12LEDCYC1P_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRELC12LEDCYC1P.Content.ToString();
-            }));
-
-            ConfigureRELC12LEDCYC1PParameters();
-        }
-
-        private void SelectRELC12LEDCCC1P_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRELC12LEDCCC1P.Content.ToString();
-            }));
-
-            ConfigureRELC12LEDCCC1PParameters();
-        }
-
-        private void SelectRELC12LEDCRC1P_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRELC12LEDCRC1P.Content.ToString();
-            }));
-
-            ConfigureRELC12LEDCRC1PParameters();
-        }
-
-        private void SelectRELC12LEDRYC1P_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRELC12LEDRYC1P.Content.ToString();
-            }));
-
-            ConfigureRELC12LEDRYC1PParameters();
-        }
-
-        private void SelectRELC12LEDCYB1P_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRELC12LEDCYB1P.Content.ToString();
-            }));
-
-            ConfigureRELC12LEDCYB1PParameters();
-        }
-
-        private void SelectRELC12LEDCCB1P_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRELC12LEDCCB1P.Content.ToString();
-            }));
-
-            ConfigureRELC12LEDCCB1PParameters();
-        }
-
-        private void SelectRELC12LEDCRB1P_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRELC12LEDCRB1P.Content.ToString();
-            }));
-
-            ConfigureRELC12LEDCRB1PParameters();
-        }
-
-        private void SelectRELC12LEDRYB1P_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampModel.Text = SelectRELC12LEDRYB1P.Content.ToString();
-            }));
-
-            ConfigureRELC12LEDRYB1PParameters();
-        }
-        
-        private void SelectHRGS08LEDY_Checked(object sender, RoutedEventArgs e)
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
                 ConfirmLampModel.Text = SelectHRGS08LEDY.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
             }));
 
             ConfigureHRGS08LEDYParameters();
@@ -4700,22 +5574,22 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureTAES12LLEDGRMR2PParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x00;
-            settingIA[2] = 0x00;
+            settingIA[1] = 0x07;
+            settingIA[2] = 0x06;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
-            settingIB[1] = 0x00;
-            settingIB[2] = 0x00;
+            settingIB[1] = 0x07;
+            settingIB[2] = 0x06;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
-            settingIIA[1] = 0x00;
-            settingIIA[2] = 0x00;
+            settingIIA[1] = 0x04;
+            settingIIA[2] = 0x05;
             settingIIA[3] = 0x00;
             settingIIB[0] = 0x00;
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x00;
+            settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x2A;
         }
@@ -4723,22 +5597,22 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureTAES12RLEDGRMR2PParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x00;
-            settingIA[2] = 0x00;
+            settingIA[1] = 0x07;
+            settingIA[2] = 0x06;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
-            settingIB[1] = 0x00;
-            settingIB[2] = 0x00;
+            settingIB[1] = 0x07;
+            settingIB[2] = 0x06;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
-            settingIIA[1] = 0x00;
-            settingIIA[2] = 0x00;
+            settingIIA[1] = 0x04;
+            settingIIA[2] = 0x05;
             settingIIA[3] = 0x00;
             settingIIB[0] = 0x00;
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x00;
+            settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x2B;
         }      
@@ -6101,6 +6975,8 @@ namespace LEDLampsConfigurationSoftware
             MessageboxContent40 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent40");
             MessageboxContent41 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent41");
             MessageboxContent42 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent42");
+            MessageboxContent43 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent43");
+
             #endregion
         }
 
@@ -6111,6 +6987,6 @@ namespace LEDLampsConfigurationSoftware
 
         #endregion
 
-        
+
     }
 }

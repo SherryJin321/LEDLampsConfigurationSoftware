@@ -248,6 +248,8 @@
     <system:String x:Key="LangsMessageboxContent40">Decimal places error! Rounded to three decimal places most, such as 0.123.</system:String>
     <system:String x:Key="LangsMessageboxContent41">Password error! Please re-enter it.</system:String>
     <system:String x:Key="LangsMessageboxContent42">Username error! Please re-enter it.</system:String>
+    <system:String x:Key="LangsMessageboxContent43">Please make sure that version query has been done! The software suits for hardware V3.1 only.</system:String>
+
 
 
 </ResourceDictionary>
