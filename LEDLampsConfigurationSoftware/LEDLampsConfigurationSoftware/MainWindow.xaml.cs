@@ -5582,8 +5582,8 @@ namespace LEDLampsConfigurationSoftware
             settingIB[2] = 0x06;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
-            settingIIA[1] = 0x04;
-            settingIIA[2] = 0x05;
+            settingIIA[1] = 0x08;
+            settingIIA[2] = 0x00;
             settingIIA[3] = 0x00;
             settingIIB[0] = 0x00;
             settingIIB[1] = 0x00;
@@ -5605,8 +5605,8 @@ namespace LEDLampsConfigurationSoftware
             settingIB[2] = 0x06;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
-            settingIIA[1] = 0x04;
-            settingIIA[2] = 0x05;
+            settingIIA[1] = 0x08;
+            settingIIA[2] = 0x00;
             settingIIA[3] = 0x00;
             settingIIB[0] = 0x00;
             settingIIB[1] = 0x00;
@@ -6647,10 +6647,12 @@ namespace LEDLampsConfigurationSoftware
                 Select12inchesRWYEndLight.IsChecked = false;
                 SelectRWYThresholdEndLight.IsChecked = false;
                 SelectRWYCenterlineLight.IsChecked = false;
+                Select12inchesRWYCenterlineLight.IsChecked = false;
                 SelectRWYTouchdownZoneLight.IsChecked = false;
                 Select8inchesRWYEndLight.IsChecked = false;
                 SelectRapidExitTWYIndicatorLight.IsChecked = false;
                 SelectCombinedRWYEdgeLight.IsChecked = false;
+                SelectRWYGuardLight.IsChecked = false;
 
                 SelectAPPS12SLEDC.IsChecked = false;
                 SelectAPPS12LLEDC.IsChecked = false;
@@ -6676,10 +6678,14 @@ namespace LEDLampsConfigurationSoftware
                 SelectTAES12LLEDGR1P.IsChecked = false;
                 SelectTAES12RLEDGR1P.IsChecked = false;
                 SelectTAES12SLEDGR1P.IsChecked = false;
+                SelectTAES12LLEDGRMR2P.IsChecked = false;
+                SelectTAES12RLEDGRMR2P.IsChecked = false;
                 SelectRCLS08LEDCB1P.IsChecked = false;
                 SelectRCLS08LEDRB1P.IsChecked = false;
                 SelectRCLS08LEDCC1P.IsChecked = false;
                 SelectRCLS08LEDRC1P.IsChecked = false;
+                SelectRCLS12LEDCCMR2P.IsChecked = false;
+                SelectRCLS12LEDRCMR2P.IsChecked = false;
                 SelectTDZS08LLEDC.IsChecked = false;
                 SelectTDZS08RLEDC.IsChecked = false;
                 SelectENDS08LEDR.IsChecked = false;
@@ -6692,6 +6698,7 @@ namespace LEDLampsConfigurationSoftware
                 SelectRELC12LEDCCB1P.IsChecked = false;
                 SelectRELC12LEDCRB1P.IsChecked = false;
                 SelectRELC12LEDRYB1P.IsChecked = false;
+                SelectHRGS08LEDY.IsChecked = false;
 
                 SelectOpenCircuitTrue.IsChecked = false;
                 SelectOpenCircuitFalse.IsChecked = false;
@@ -6705,13 +6712,14 @@ namespace LEDLampsConfigurationSoftware
                 Select12inchesRWYEndLight.IsEnabled = true;
                 SelectRWYThresholdEndLight.IsEnabled = true;
                 SelectRWYCenterlineLight.IsEnabled = true;
+                Select12inchesRWYCenterlineLight.IsEnabled = true;
                 SelectRWYTouchdownZoneLight.IsEnabled = true;
                 Select8inchesRWYEndLight.IsEnabled = true;
                 SelectRapidExitTWYIndicatorLight.IsEnabled = true;
                 SelectCombinedRWYEdgeLight.IsEnabled = true;
+                SelectRWYGuardLight.IsEnabled = true;
 
-                SelectOpenCircuitTrue.IsEnabled = true;
-                SelectOpenCircuitFalse.IsEnabled = true;
+             
             }));
         }
 
