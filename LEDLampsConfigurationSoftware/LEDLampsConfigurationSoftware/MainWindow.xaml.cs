@@ -5712,16 +5712,16 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureRCLS12LEDCCMR2PParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x05;
-            settingIA[2] = 0x05;
+            settingIA[1] = 0x07;
+            settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
             settingIB[1] = 0x00;
             settingIB[2] = 0x00;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
-            settingIIA[1] = 0x05;
-            settingIIA[2] = 0x05;
+            settingIIA[1] = 0x07;
+            settingIIA[2] = 0x00;
             settingIIA[3] = 0x00;
             settingIIB[0] = 0x00;
             settingIIB[1] = 0x00;
@@ -5743,8 +5743,8 @@ namespace LEDLampsConfigurationSoftware
             settingIB[2] = 0x00;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
-            settingIIA[1] = 0x05;
-            settingIIA[2] = 0x05;
+            settingIIA[1] = 0x07;
+            settingIIA[2] = 0x00;
             settingIIA[3] = 0x00;
             settingIIB[0] = 0x00;
             settingIIB[1] = 0x00;
