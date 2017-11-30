@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LEDLampsConfigurationSoftware"
         mc:Ignorable="d"
-        Title="ASCMS V1.4.3" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Name="ConfigurationWindow" Icon=".\Images\tubiao.png">
+        Title="ASCMS V1.4.4" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Name="ConfigurationWindow" Icon=".\Images\tubiao.png">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontSize" Value="18"/>
@@ -144,6 +144,8 @@
                                                         <RadioButton x:Name="SelectRELS12RLEDCR" Content="RELS-12-R-LED-CR" Canvas.Left="0" Canvas.Top="223" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12RLEDCR_Checked"/>
                                                         <RadioButton x:Name="SelectRELS12LLEDRC" Content="RELS-12-L-LED-RC" Canvas.Left="0" Canvas.Top="252" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12LLEDRC_Checked"/>
                                                         <RadioButton x:Name="SelectRELS12RLEDRC" Content="RELS-12-R-LED-RC" Canvas.Left="0" Canvas.Top="281" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELS12RLEDRC_Checked"/>
+                                                        <RadioButton x:Name="SelectRELC12LEDRRB1P" Content="RELC-12-LED-RR-B-1P" Canvas.Left="0" Canvas.Top="310" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYEdgeLight" Checked="SelectRELC12LEDRRB1P_Checked" />
+
                                                     </Canvas>
                                                 </GroupBox>
                                                 <GroupBox x:Name="Group12inchesRWYEndLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
@@ -208,6 +210,8 @@
                                                         <RadioButton x:Name="SelectRELC12LEDCCB1P" Content="RELC-12-LED-CC-B-1P" Canvas.Left="0" Canvas.Top="165" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDCCB1P_Checked"/>
                                                         <RadioButton x:Name="SelectRELC12LEDCRB1P" Content="RELC-12-LED-CR-B-1P" Canvas.Left="0" Canvas.Top="194" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDCRB1P_Checked"/>
                                                         <RadioButton x:Name="SelectRELC12LEDRYB1P" Content="RELC-12-LED-RY-B-1P" Canvas.Left="0" Canvas.Top="223" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDRYB1P_Checked"/>
+                                                        <RadioButton x:Name="SelectRELC12LEDCBC1P" Content="RELC-12-LED-CB-C-1P" Canvas.Left="0" Canvas.Top="252" BorderBrush="#FF0A51A1" GroupName="CombinedRWYEdgeLight" Checked="SelectRELC12LEDCBC1P_Checked" />
+
                                                     </Canvas>
                                                 </GroupBox>
                                                 <GroupBox x:Name="GroupRWYGuardLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
