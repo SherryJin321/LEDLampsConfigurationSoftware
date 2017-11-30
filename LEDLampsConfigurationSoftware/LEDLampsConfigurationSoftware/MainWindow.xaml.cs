@@ -267,6 +267,8 @@ namespace LEDLampsConfigurationSoftware
         string AnswerLampModel43 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel43");
         string AnswerLampModel44 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel44");
         string AnswerLampModel45 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel45");
+        string AnswerLampModel46 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel46");
+        string AnswerLampModel47 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel47");
         string AnswerOpenCircuit1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit1");
         string AnswerOpenCircuit2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit2");
         #endregion
@@ -1256,6 +1258,8 @@ namespace LEDLampsConfigurationSoftware
                 case 43: result = AnswerLampModel43; break;
                 case 44: result = AnswerLampModel44; break;
                 case 45: result = AnswerLampModel45; break;
+                case 46: result = AnswerLampModel46; break;
+                case 47: result = AnswerLampModel47; break;
             }
             return result;
         }
@@ -1273,7 +1277,7 @@ namespace LEDLampsConfigurationSoftware
                 {
                     result = original * 1.3;
                 }
-                if(lampsNumber>=33&&lampsNumber<=40)
+                if((lampsNumber>=33&&lampsNumber<=40)|| lampsNumber==47)
                 {
                     if(original==0.9)
                     {
@@ -3237,6 +3241,7 @@ namespace LEDLampsConfigurationSoftware
             SelectRELS12RLEDCR.IsChecked = false;
             SelectRELS12LLEDRC.IsChecked = false;
             SelectRELS12RLEDRC.IsChecked = false;
+            SelectRELC12LEDRRB1P.IsChecked = false;
 
             SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
             SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
@@ -3581,6 +3586,7 @@ namespace LEDLampsConfigurationSoftware
             SelectRELC12LEDCCB1P.IsChecked = false;
             SelectRELC12LEDCRB1P.IsChecked = false;
             SelectRELC12LEDRYB1P.IsChecked = false;
+            SelectRELC12LEDCBC1P.IsChecked = false;
 
             SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
             SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
@@ -4243,6 +4249,36 @@ namespace LEDLampsConfigurationSoftware
             }));
 
             ConfigureRELS12RLEDRCParameters();
+        }
+
+        private void SelectRELC12LEDRRB1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELC12LEDRRB1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRELC12LEDRRB1PParameters();
         }
 
         private void SelectENDS12LEDR_Checked(object sender, RoutedEventArgs e)
@@ -4964,7 +5000,37 @@ namespace LEDLampsConfigurationSoftware
 
             ConfigureRELC12LEDRYB1PParameters();
         }
-        
+
+        private void SelectRELC12LEDCBC1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRELC12LEDCBC1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRELC12LEDCBC1PParameters();
+        }
+
         private void SelectHRGS08LEDY_Checked(object sender, RoutedEventArgs e)
         {
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
@@ -5478,6 +5544,30 @@ namespace LEDLampsConfigurationSoftware
             settingMosFlag = 0x00;
             settingLampsNumber = 0x14;
         }
+
+        private void ConfigureRELC12LEDRRB1PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x2E;
+        }
+        
 
         private void ConfigureENDS12LEDRParameters()
         {
@@ -6030,6 +6120,30 @@ namespace LEDLampsConfigurationSoftware
             settingMosFlag = 0x00;
             settingLampsNumber = 0x28;
         }
+
+        private void ConfigureRELC12LEDCBC1PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x09;
+            settingIA[2] = 0x03;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x04;
+            settingIIA[2] = 0x05;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x01;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x2F;
+        }
+        
 
         private void ConfigureHRGS08LEDYParameters()
         {
@@ -6674,6 +6788,7 @@ namespace LEDLampsConfigurationSoftware
                 SelectRELS12RLEDCR.IsChecked = false;
                 SelectRELS12LLEDRC.IsChecked = false;
                 SelectRELS12RLEDRC.IsChecked = false;
+                SelectRELC12LEDRRB1P.IsChecked = false;
                 SelectENDS12LEDR.IsChecked = false;
                 SelectTAES12LLEDGR1P.IsChecked = false;
                 SelectTAES12RLEDGR1P.IsChecked = false;
@@ -6698,6 +6813,7 @@ namespace LEDLampsConfigurationSoftware
                 SelectRELC12LEDCCB1P.IsChecked = false;
                 SelectRELC12LEDCRB1P.IsChecked = false;
                 SelectRELC12LEDRYB1P.IsChecked = false;
+                SelectRELC12LEDCBC1P.IsChecked = false;
                 SelectHRGS08LEDY.IsChecked = false;
 
                 SelectOpenCircuitTrue.IsChecked = false;
@@ -6849,6 +6965,7 @@ namespace LEDLampsConfigurationSoftware
             {
                 languageFileName = "/Resources/Langs/zh-CN.xaml";
             }
+
             if (LanguageSelect.SelectedIndex == 1)
             {
                 languageFileName = "/Resources/Langs/en-US.xaml";
@@ -6922,6 +7039,8 @@ namespace LEDLampsConfigurationSoftware
             AnswerLampModel43 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel43");
             AnswerLampModel44 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel44");
             AnswerLampModel45 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel45");
+            AnswerLampModel46 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel46");
+            AnswerLampModel47 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel47");
             AnswerOpenCircuit1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit1");
             AnswerOpenCircuit2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit2");
             #endregion
@@ -6993,8 +7112,10 @@ namespace LEDLampsConfigurationSoftware
 
 
 
+
+
         #endregion
 
-
+        
     }
 }
