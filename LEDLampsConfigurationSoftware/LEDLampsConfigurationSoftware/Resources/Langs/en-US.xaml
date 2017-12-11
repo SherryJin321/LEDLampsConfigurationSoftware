@@ -47,6 +47,9 @@
     <system:String x:Key="LangsFactoryModeCurrentIIA">Current IIA:</system:String>
     <system:String x:Key="LangsFactoryModeCurrentIIB">Current IIB:</system:String>
     <system:String x:Key="LangsFactoryModeOpenCircuitStatus">Open Circuit Status:</system:String>
+    <system:String x:Key="LangsFactoryModeChannelSelectStatus">Channel Select:</system:String>
+    <system:String x:Key="LangsFactoryModeFlashFrequencyStatus">Flash Frequency:</system:String>
+    <system:String x:Key="LangsFactoryModeWaveformSelectStatus">Waveform Select:</system:String>
     <system:String x:Key="LangsQueryVersion">Query Version</system:String>
 
     <!--前台代码，开发者模式页面-->

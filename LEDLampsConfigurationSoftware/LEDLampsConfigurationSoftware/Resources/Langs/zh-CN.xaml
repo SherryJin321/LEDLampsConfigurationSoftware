@@ -48,6 +48,10 @@
     <system:String x:Key="LangsFactoryModeCurrentIIA">电流IIA:</system:String>
     <system:String x:Key="LangsFactoryModeCurrentIIB">电流IIB:</system:String>
     <system:String x:Key="LangsFactoryModeOpenCircuitStatus">开路状态:</system:String>
+    <system:String x:Key="LangsFactoryModeChannelSelectStatus">通道选择:</system:String>
+    <system:String x:Key="LangsFactoryModeFlashFrequencyStatus">闪光频率:</system:String>
+    <system:String x:Key="LangsFactoryModeWaveformSelectStatus">波形选择:</system:String>
+
     <system:String x:Key="LangsQueryVersion">版本查询</system:String>
 
     <!--前台代码，开发者模式页面-->
@@ -101,6 +105,11 @@
     <system:String x:Key="LangsSetLightNumber38">38 LED嵌入式组合跑道边灯（RELC-12-LED-CC-B-1P）</system:String>
     <system:String x:Key="LangsSetLightNumber39">39 LED嵌入式组合跑道边灯（RELC-12-LED-CR-B-1P）</system:String>
     <system:String x:Key="LangsSetLightNumber40">40 LED嵌入式组合跑道边灯（RELC-12-LED-RY-B-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber41">41 高光强LED嵌入式跑道警戒灯（HRGS-08-LED-Y）</system:String>
+    <system:String x:Key="LangsSetLightNumber42">42 LED嵌入式跑道入口/末端灯（TAES-12-L-LED-GR-MR-2P）</system:String>
+    <system:String x:Key="LangsSetLightNumber43">43 LED嵌入式跑道入口/末端灯（TAES-12-R-LED-GR-MR-2P）</system:String>
+    <system:String x:Key="LangsSetLightNumber44">44 LED跑道中线灯（RCLS-12-LED-CC-MR-2P）</system:String>
+    <system:String x:Key="LangsSetLightNumber45">45 LED跑道中线灯（RCLS-12-LED-RC-MR-2P）</system:String>
     <system:String x:Key="LangsDeveloperModeSendCommand">发送指令：</system:String>
     <system:String x:Key="LangsSetLightParametersInDeveloperMode">参数设置</system:String>
     <system:String x:Key="LangsDeveloperModeStatusQuery">状态查询</system:String>

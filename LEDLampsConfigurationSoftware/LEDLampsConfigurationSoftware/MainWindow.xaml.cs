@@ -49,6 +49,11 @@ namespace LEDLampsConfigurationSoftware
         int hardwareVersion2 = 0;
         int hardwareVersion3 = 0;
         int softwareNumber = 0;
+
+        //跑道警戒灯特有
+        int channelSelect = 0;
+        int flashFrequency = 0;
+        int waveformSelect = 0;
         #endregion
 
         #region 工厂模式下，设置参数指令参数
@@ -78,14 +83,20 @@ namespace LEDLampsConfigurationSoftware
         byte InDeveloperModeSettingMosFlag = 0x00;  //不开MOSFET
         byte InDeveloperModeSettingBreakFlag = 0x00;  //不带开路
         byte InDeveloperModeSettingLampsNumber = 0x00;  //灯具编号
+
+        //跑道警戒灯设置参数
+        byte InDeveloperModeChannelSelectContent = 0x00;
+        byte InDeveloperModeFlashFrequencyContent = 0x00;
+        byte InDeveloperModeWaveformSelectContent = 0x00;
         #endregion
 
         #region 发送指令集（尚未计算校验值）
         Byte[] queryStatusCommand = new Byte[28] { 0x02,0x89,0x11,0x58,0x12,0x00,0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x06,0x00,0x00,0x00,0x00 };
         Byte[] queryVersionCommand = new Byte[28] { 0x02, 0x89, 0x22, 0x85, 0x12, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00 };
         Byte[] settingParameterCommand = new Byte[28] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
-        Byte[] InDeveloperModeSettingParameterCommand = new Byte[28] { 0x02, 0x55, 0x11, 0x58, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
-        Byte[] InFactoryModeRestoreOriginalCommand = new Byte[28] { 0x02, 0x55, 0x11, 0x58, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00 };
+        Byte[] InDeveloperModeSettingParameterCommand = new Byte[28] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+        Byte[] InFactoryModeCommonLightRestoreOriginalCommand = new Byte[28] { 0x02, 0x55, 0x11, 0x58, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00 };
+        Byte[] InFactoryModeRWYGuardLightRestoreOriginalCommand = new Byte[28] { 0x55, 0x02, 0x11, 0x58, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x1F, 0x00, 0x00 };
 
         #endregion
 
@@ -359,9 +370,13 @@ namespace LEDLampsConfigurationSoftware
             FlashFrequencySelect.ItemsSource = FlashFrequencyArray;
             FlashFrequencySelect.SelectedIndex = 0;
 
+            InDeveloperModeFlashFrequencySelect.ItemsSource = FlashFrequencyArray;
+            InDeveloperModeFlashFrequencySelect.SelectedIndex = 0;
+
             queryVersionCommand[27] = CalculateCheckOutValue(queryVersionCommand);  //计算版本查询指令的校验值
             queryStatusCommand[27] = CalculateCheckOutValue(queryStatusCommand);  //计算状态查询指令的校验值    
-            InFactoryModeRestoreOriginalCommand[27] = CalculateCheckOutValue(InFactoryModeRestoreOriginalCommand);
+            InFactoryModeCommonLightRestoreOriginalCommand[27] = CalculateCheckOutValue(InFactoryModeCommonLightRestoreOriginalCommand);
+            InFactoryModeRWYGuardLightRestoreOriginalCommand[27] = CalculateCheckOutValue(InFactoryModeRWYGuardLightRestoreOriginalCommand);
 
             SettingSerialPort.IsSelected = true;                             
         }
@@ -428,7 +443,7 @@ namespace LEDLampsConfigurationSoftware
                     LampInchesLabel.Content = "";
                     lampsPort.Write(queryVersionCommand, 0, 28);
 
-                    Thread.Sleep(50);
+                    Thread.Sleep(1000);
                     if (judgeFeedbackCommand == 4)
                     {                        
                         if ( MessageBox.Show(MessageboxContent3, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
@@ -530,7 +545,7 @@ namespace LEDLampsConfigurationSoftware
             {
                 judgeFeedbackCommand = 2;                
                 lampsPort.Write(queryVersionCommand, 0, 28);
-                Thread.Sleep(50);
+                Thread.Sleep(1000);
                 if(judgeFeedbackCommand==2)
                 {
                     if( MessageBox.Show(MessageboxContent8, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
@@ -755,7 +770,10 @@ namespace LEDLampsConfigurationSoftware
                         hardwareVersion1 = dataReceived[16];
                         hardwareVersion2 = dataReceived[17];
                         hardwareVersion3 = dataReceived[18];
-                        softwareNumber = dataReceived[19];                       
+                        softwareNumber = dataReceived[19];
+                        channelSelect = dataReceived[20];
+                        flashFrequency = dataReceived[21];
+                        waveformSelect = dataReceived[22];                       
 
                         currentRatio1 = CalculateRealCurrentValue(dataReceived[10]);
                         currentRatio2 = CalculateRealCurrentValue(dataReceived[11]);
@@ -810,7 +828,17 @@ namespace LEDLampsConfigurationSoftware
 
                             AnswerHardwareVersion.Text = "V" + hardwareVersion2.ToString() + "." + hardwareVersion3.ToString() + "  " + driveName;
 
-
+                            if (hardwareVersion1 == 8 && softwareNumber == 4)
+                            {
+                                RWYGuardLightVersionStatus.Visibility = Visibility.Visible;
+                                AnswerChannelSelect.Text = channelSelect.ToString();
+                                AnswerFlashFrequency.Text = flashFrequency.ToString();
+                                AnswerWaveformSelect.Text = waveformSelect.ToString();
+                            }
+                            else
+                            {
+                                RWYGuardLightVersionStatus.Visibility = Visibility.Collapsed;
+                            }
 
                         }));
                         
@@ -925,6 +953,20 @@ namespace LEDLampsConfigurationSoftware
                                 NoneLampSelect();
                             }
 
+                            if(hardwareVersion1 == 8 && softwareNumber == 4)
+                            {
+                                this.Dispatcher.Invoke(new System.Action(() =>
+                                {
+                                    InDeveloperModeRWYGuardLightParametersSetting.Visibility = Visibility.Visible;
+                                }));
+                            }
+                            else
+                            {
+                                this.Dispatcher.Invoke(new System.Action(() =>
+                                {
+                                    InDeveloperModeRWYGuardLightParametersSetting.Visibility = Visibility.Collapsed;
+                                }));
+                            }
                                                    
                         }
                         else
@@ -2736,24 +2778,7 @@ namespace LEDLampsConfigurationSoftware
 
                 //输出各个参数值
                 for (int i = 0; i < RMS1RWYGuardLight.Count; i++)
-                {
-                    RMS1RWYGuardLight.Clear();
-                    Val2RWYGuardLight.Clear();
-                    Val3RWYGuardLight.Clear();
-                    RMSRWYGuardLight.Clear();
-                    CurrentRatio1RWYGuardLight.Clear();
-                    CurrentRatio3RWYGuardLight.Clear();
-                    WaveformRWYGuardLight.Clear();
-                    ChannelRWYGuardLight.Clear();
-                    SNSIARWYGuardLight.Clear();
-                    SNSIIARWYGuardLight.Clear();
-                    LEDF1RWYGuardLight.Clear();
-                    TRWYGuardLight.Clear();
-                    FlashFrequencyRWYGuardLight.Clear();
-                    ModeRWYGuardLight.Clear();
-                    SecondRWYGuardLight.Clear();
-                    ErrorCodeRWYGuardLight.Clear();
-
+                {                    
                     ExcelSheet.Cells[3 + i, 1] = (i + 1).ToString();
                     ExcelSheet.Cells[3 + i, 2] = RMS1RWYGuardLight[i].ToString();
                     ExcelSheet.Cells[3 + i, 3] = Val2RWYGuardLight[i].ToString();
@@ -6263,7 +6288,15 @@ namespace LEDLampsConfigurationSoftware
                 if (lampsPort.IsOpen)
                 {
                     judgeFeedbackCommand = 1;
-                    lampsPort.Write(InFactoryModeRestoreOriginalCommand, 0, 28);
+
+                    if((hardwareVersion1 == 8 && softwareNumber == 4))
+                    {
+                        lampsPort.Write(InFactoryModeRWYGuardLightRestoreOriginalCommand, 0, 28);
+                    }
+                    else
+                    {
+                        lampsPort.Write(InFactoryModeCommonLightRestoreOriginalCommand, 0, 28);
+                    }                    
                 }
                 else
                 {
@@ -6649,27 +6682,72 @@ namespace LEDLampsConfigurationSoftware
         #region 开发者模式下，生成设置参数指令
         public void InDeveloperModeConfigureSettingParametersCommand()
         {
-            for (int i = 0; i < InDeveloperModeSettingIA.Length; i++)
+            if(hardwareVersion1 == 8 && softwareNumber == 4)
             {
-                InDeveloperModeSettingParameterCommand[5 + i] = InDeveloperModeSettingIA[i];
+                InDeveloperModeChannelSelectContent = Convert.ToByte(InDeveloperModeChannelSelect.SelectedIndex);
+                InDeveloperModeFlashFrequencyContent = Convert.ToByte(InDeveloperModeFlashFrequencySelect.SelectedItem);
+                InDeveloperModeWaveformSelectContent = Convert.ToByte(InDeveloperModeWaveformSelect.SelectedIndex);
+
+                InDeveloperModeSettingParameterCommand[0] = 0x55;
+                InDeveloperModeSettingParameterCommand[1] = 0x02;
+                InDeveloperModeSettingParameterCommand[2] = 0x11;
+                InDeveloperModeSettingParameterCommand[3] = 0x58;
+                InDeveloperModeSettingParameterCommand[4] = 0x12;
+
+                for (int i = 0; i < InDeveloperModeSettingIA.Length; i++)
+                {
+                    InDeveloperModeSettingParameterCommand[5 + i] = InDeveloperModeSettingIA[i];
+                }
+                for (int i = 0; i < InDeveloperModeSettingIB.Length; i++)
+                {
+                    InDeveloperModeSettingParameterCommand[9 + i] = InDeveloperModeSettingIB[i];
+                }
+                for (int i = 0; i < InDeveloperModeSettingIIA.Length; i++)
+                {
+                    InDeveloperModeSettingParameterCommand[13 + i] = InDeveloperModeSettingIIA[i];
+                }
+                for (int i = 0; i < InDeveloperModeSettingIIB.Length; i++)
+                {
+                    InDeveloperModeSettingParameterCommand[17 + i] = InDeveloperModeSettingIIB[i];
+                }
+                InDeveloperModeSettingParameterCommand[21] = InDeveloperModeSettingReadRFlag;
+                InDeveloperModeSettingParameterCommand[22] = InDeveloperModeChannelSelectContent;
+                InDeveloperModeSettingParameterCommand[23] = InDeveloperModeSettingBreakFlag;
+                InDeveloperModeSettingParameterCommand[24] = InDeveloperModeSettingLampsNumber;
+                InDeveloperModeSettingParameterCommand[25] = InDeveloperModeFlashFrequencyContent;
+                InDeveloperModeSettingParameterCommand[26] = InDeveloperModeWaveformSelectContent;
+                InDeveloperModeSettingParameterCommand[27] = CalculateCheckOutValue(InDeveloperModeSettingParameterCommand);
             }
-            for (int i = 0; i < InDeveloperModeSettingIB.Length; i++)
+            else
             {
-                InDeveloperModeSettingParameterCommand[9 + i] = InDeveloperModeSettingIB[i];
+                InDeveloperModeSettingParameterCommand[0] = 0x02;
+                InDeveloperModeSettingParameterCommand[1] = 0x55;
+                InDeveloperModeSettingParameterCommand[2] = 0x11;
+                InDeveloperModeSettingParameterCommand[3] = 0x58;
+                InDeveloperModeSettingParameterCommand[4] = 0x12;
+                for (int i = 0; i < InDeveloperModeSettingIA.Length; i++)
+                {
+                    InDeveloperModeSettingParameterCommand[5 + i] = InDeveloperModeSettingIA[i];
+                }
+                for (int i = 0; i < InDeveloperModeSettingIB.Length; i++)
+                {
+                    InDeveloperModeSettingParameterCommand[9 + i] = InDeveloperModeSettingIB[i];
+                }
+                for (int i = 0; i < InDeveloperModeSettingIIA.Length; i++)
+                {
+                    InDeveloperModeSettingParameterCommand[13 + i] = InDeveloperModeSettingIIA[i];
+                }
+                for (int i = 0; i < InDeveloperModeSettingIIB.Length; i++)
+                {
+                    InDeveloperModeSettingParameterCommand[17 + i] = InDeveloperModeSettingIIB[i];
+                }
+                InDeveloperModeSettingParameterCommand[21] = InDeveloperModeSettingReadRFlag;
+                InDeveloperModeSettingParameterCommand[22] = InDeveloperModeSettingMosFlag;
+                InDeveloperModeSettingParameterCommand[23] = InDeveloperModeSettingBreakFlag;
+                InDeveloperModeSettingParameterCommand[24] = InDeveloperModeSettingLampsNumber;
+                InDeveloperModeSettingParameterCommand[27] = CalculateCheckOutValue(InDeveloperModeSettingParameterCommand);
             }
-            for (int i = 0; i < InDeveloperModeSettingIIA.Length; i++)
-            {
-                InDeveloperModeSettingParameterCommand[13 + i] = InDeveloperModeSettingIIA[i];
-            }
-            for (int i = 0; i < InDeveloperModeSettingIIB.Length; i++)
-            {
-                InDeveloperModeSettingParameterCommand[17 + i] = InDeveloperModeSettingIIB[i];
-            }
-            InDeveloperModeSettingParameterCommand[21] = InDeveloperModeSettingReadRFlag;
-            InDeveloperModeSettingParameterCommand[22] = InDeveloperModeSettingMosFlag;
-            InDeveloperModeSettingParameterCommand[23] = InDeveloperModeSettingBreakFlag;
-            InDeveloperModeSettingParameterCommand[24] = InDeveloperModeSettingLampsNumber;
-            InDeveloperModeSettingParameterCommand[27] = CalculateCheckOutValue(InDeveloperModeSettingParameterCommand);
+            
         }
         #endregion
 
@@ -6751,6 +6829,9 @@ namespace LEDLampsConfigurationSoftware
                 AnswerOpenCircuit.Text = "";
                 AnswerSoftwareVersion.Text = "";
                 AnswerHardwareVersion.Text = "";
+                AnswerChannelSelect.Text = "";
+                AnswerFlashFrequency.Text = "";
+                AnswerWaveformSelect.Text = "";
 
                 SelectApproachChenterlineLight.IsChecked = false;
                 SelectApproachCrossbarLight.IsChecked = false;

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LEDLampsConfigurationSoftware"
         mc:Ignorable="d"
-        Title="ASCMS V1.4.4" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Name="ConfigurationWindow" Icon=".\Images\tubiao.png">
+        Title="ASCMS V1.4.5" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Name="ConfigurationWindow" Icon=".\Images\tubiao.png">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontSize" Value="18"/>
@@ -279,38 +279,60 @@
                         <Border BorderBrush="#FF0A51A1" BorderThickness="3" CornerRadius="5" Height="612" Canvas.Right="7" Canvas.Top="10" Width="330" >
                             <GroupBox  Header="{DynamicResource LangsFactoryModeVersionQuery}" Width="328" Height="612" FontSize="16" BorderThickness="0" x:Name="FactoryModeVersionQuery">
                                 <Canvas>
-                                    <Label  Content="{DynamicResource LangsFactoryModeHardwareVersion}" Canvas.Left="0" Canvas.Top="10" x:Name="FactoryModeHardwareVersion"/>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="310" Canvas.Left="0" Canvas.Top="40">
-                                        <TextBlock x:Name="AnswerHardwareVersion" Height="40" Width="310" TextWrapping="Wrap" Padding="10,8,0,0"/>
-                                    </Border>
-                                    <Label  Content="{DynamicResource LangsFactoryModeSoftwareVersion}" Canvas.Left="0" Canvas.Top="80" x:Name="FactoryModeSoftwareVersion"/>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="310" Canvas.Left="0" Canvas.Top="110">
-                                        <TextBlock x:Name="AnswerSoftwareVersion" Height="40" Width="310" TextWrapping="Wrap" Padding="10,8,0,0"/>
-                                    </Border>
-                                    <Label  Content="{DynamicResource LangsFactoryModeLampModelIllustrate}" Canvas.Left="0" Canvas.Top="150" x:Name="FactoryModeLampModelIllustrate"/>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="60" Width="310" Canvas.Left="0" Canvas.Top="180">
-                                        <TextBlock x:Name="AnswerLampModel" Height="60" Width="310" TextWrapping="Wrap" Padding="3,8,0,0"/>
-                                    </Border>
-                                    <TextBlock  Text="{DynamicResource LangsFactoryModeCurrentIA}" Canvas.Left="0" Canvas.Top="260" x:Name="FactoryModeCurrentIA" TextAlignment="Center" Width="100"/>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="180" Canvas.Left="105" Canvas.Top="260">
-                                        <TextBlock x:Name="AnswerIA" Height="40" Width="180" TextWrapping="Wrap" Padding="10,8,0,0"/>
-                                    </Border>
-                                    <TextBlock  Text="{DynamicResource LangsFactoryModeCurrentIB}" Canvas.Left="0" Canvas.Top="310" x:Name="FactoryModeCurrentIB" TextAlignment="Center" Width="100"/>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="180" Canvas.Left="105" Canvas.Top="310">
-                                        <TextBlock x:Name="AnswerIB" Height="40" Width="180" TextWrapping="Wrap" Padding="10,8,0,0"/>
-                                    </Border>
-                                    <TextBlock  Text="{DynamicResource LangsFactoryModeCurrentIIA}" Canvas.Left="0" Canvas.Top="360" x:Name="FactoryModeCurrentIIA" TextAlignment="Center" Width="100"/>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="180" Canvas.Left="105" Canvas.Top="360">
-                                        <TextBlock x:Name="AnswerIIA" Height="40" Width="180" TextWrapping="Wrap" Padding="10,8,0,0"/>
-                                    </Border>
-                                    <TextBlock  Text="{DynamicResource LangsFactoryModeCurrentIIB}" Canvas.Left="0" Canvas.Top="410" x:Name="FactoryModeCurrentIIB" TextAlignment="Center" Width="100"/>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="180" Canvas.Left="105" Canvas.Top="410">
-                                        <TextBlock x:Name="AnswerIIB" Height="40" Width="180" TextWrapping="Wrap" Padding="10,8,0,0"/>
-                                    </Border>
-                                    <TextBlock  Text="{DynamicResource LangsFactoryModeOpenCircuitStatus}" Canvas.Left="0" Canvas.Top="460" x:Name="FactoryModeOpenCircuitStatus" Width="100" TextWrapping="Wrap" TextAlignment="Center"/>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="180" Canvas.Left="105" Canvas.Top="460">
-                                        <TextBlock x:Name="AnswerOpenCircuit" Height="40" Width="180" TextWrapping="Wrap" Padding="10,8,0,0"/>
-                                    </Border>
+                                    <GroupBox Width="316" Height="520" BorderThickness="0">
+                                        <ScrollViewer VerticalScrollBarVisibility="Visible" >
+                                            <WrapPanel  Orientation="Vertical">
+                                                <Label  Content="{DynamicResource LangsFactoryModeHardwareVersion}" x:Name="FactoryModeHardwareVersion" Margin="0,10,0,0"/>
+                                                <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="60" Width="250" Margin="0,0,0,0" HorizontalAlignment="Left">
+                                                    <TextBlock x:Name="AnswerHardwareVersion" Height="60" Width="250" TextWrapping="Wrap" Padding="10,8,0,0"/>
+                                                </Border>
+                                                <Label  Content="{DynamicResource LangsFactoryModeSoftwareVersion}" x:Name="FactoryModeSoftwareVersion" Margin="0,10,0,0"/>
+                                                <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="60" Width="250" Margin="0,0,0,0" HorizontalAlignment="Left">
+                                                    <TextBlock x:Name="AnswerSoftwareVersion" Height="60" Width="250" TextWrapping="Wrap" Padding="10,8,0,0"/>
+                                                </Border>
+                                                <Label  Content="{DynamicResource LangsFactoryModeLampModelIllustrate}" x:Name="FactoryModeLampModelIllustrate" Margin="0,10,0,0"/>
+                                                <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="80" Width="250" Margin="0,0,0,0">
+                                                    <TextBlock x:Name="AnswerLampModel" Height="80" Width="250" TextWrapping="Wrap" Padding="10,8,0,0"/>
+                                                </Border>
+                                                <Label  Content="{DynamicResource LangsFactoryModeCurrentIA}" x:Name="FactoryModeCurrentIA" Margin="0,10,0,0"/>
+                                                <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="150" Margin="0,0,0,0" HorizontalAlignment="Left">
+                                                    <TextBlock x:Name="AnswerIA" Height="40" Width="150" TextWrapping="Wrap" Padding="10,8,0,0"/>
+                                                </Border>
+                                                <Label  Content="{DynamicResource LangsFactoryModeCurrentIB}" x:Name="FactoryModeCurrentIB" Margin="0,10,0,0"/>
+                                                <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="150" Margin="0,0,0,0" HorizontalAlignment="Left">
+                                                    <TextBlock x:Name="AnswerIB" Height="40" Width="150" TextWrapping="Wrap" Padding="10,8,0,0"/>
+                                                </Border>
+                                                <Label  Content="{DynamicResource LangsFactoryModeCurrentIIA}" x:Name="FactoryModeCurrentIIA" Margin="0,10,0,0"/>
+                                                <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="150" Margin="0,0,0,0" HorizontalAlignment="Left">
+                                                    <TextBlock x:Name="AnswerIIA" Height="40" Width="150" TextWrapping="Wrap" Padding="10,8,0,0"/>
+                                                </Border>
+                                                <Label  Content="{DynamicResource LangsFactoryModeCurrentIIB}" x:Name="FactoryModeCurrentIIB" Margin="0,10,0,0"/>
+                                                <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="150" Margin="0,0,0,0" HorizontalAlignment="Left">
+                                                    <TextBlock x:Name="AnswerIIB" Height="40" Width="150" TextWrapping="Wrap" Padding="10,8,0,0"/>
+                                                </Border>
+                                                <Label  Content="{DynamicResource LangsFactoryModeOpenCircuitStatus}" x:Name="FactoryModeOpenCircuitStatus" Margin="0,10,0,0"/>
+                                                <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="150" Margin="0,0,0,0" HorizontalAlignment="Left">
+                                                    <TextBlock x:Name="AnswerOpenCircuit" Height="40" Width="150" TextWrapping="Wrap" Padding="10,8,0,0"/>
+                                                </Border>
+                                                <GroupBox x:Name="RWYGuardLightVersionStatus" Height="300" Margin="-5,10,0,0" BorderThickness="0" HorizontalAlignment="Left" Visibility="Collapsed">
+                                                    <Canvas>
+                                                        <Label  Content="{DynamicResource LangsFactoryModeChannelSelectStatus}" Canvas.Left="0" Canvas.Top="10"/>
+                                                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="150" Canvas.Left="0" Canvas.Top="40">
+                                                            <TextBlock x:Name="AnswerChannelSelect" Height="40" Width="150" TextWrapping="Wrap" Padding="10,8,0,0"/>
+                                                        </Border>
+                                                        <Label  Content="{DynamicResource LangsFactoryModeFlashFrequencyStatus}" Canvas.Left="0" Canvas.Top="90"/>
+                                                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="150" Canvas.Left="0" Canvas.Top="130">
+                                                            <TextBlock x:Name="AnswerFlashFrequency" Height="40" Width="150" TextWrapping="Wrap" Padding="10,8,0,0"/>
+                                                        </Border>
+                                                        <Label  Content="{DynamicResource LangsFactoryModeWaveformSelectStatus}" Canvas.Left="0" Canvas.Top="180"/>
+                                                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="150" Canvas.Left="0" Canvas.Top="220">
+                                                            <TextBlock x:Name="AnswerWaveformSelect" Height="40" Width="150" TextWrapping="Wrap" Padding="10,8,0,0"/>
+                                                        </Border>
+                                                    </Canvas>
+                                                </GroupBox>
+                                            </WrapPanel>
+                                        </ScrollViewer>
+                                    </GroupBox>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40"  Width="130" Background="AliceBlue" Canvas.Left="10" Canvas.Top="538">
                                         <Button x:Name="QueryVersion" Content="{DynamicResource LangsQueryVersion}" Click="QueryVersion_Click"/>
                                     </Border>
@@ -324,79 +346,124 @@
                         <Border BorderBrush="#FF0A51A1" BorderThickness="3" CornerRadius="5" Width="808" Height="612" Canvas.Left="10" Canvas.Top="10">
                             <GroupBox Header="{DynamicResource LangsDeveloperModeParameterSetting}" FontSize="16" Width="808" Height="612" BorderThickness="0" x:Name="DeveloperModeParameterSetting">
                                 <Canvas>
+                                    <GroupBox Width="800" Height="400" BorderThickness="0">
+                                        <ScrollViewer VerticalScrollBarVisibility="Visible" >
+                                            <WrapPanel  Orientation="Vertical">
+                                                <GroupBox Width="780" Height="390" Margin="-10,0,0,0" BorderThickness="0">
+                                                    <Canvas>
+                                                        <Label  Content="IA:" FontSize="16" Canvas.Left="10" Canvas.Top="10"/>
+                                                        <Label  Content="IB:" FontSize="16" Canvas.Left="10" Canvas.Top="60"/>
+                                                        <Label  Content="IIA:" FontSize="16" Canvas.Left="10" Canvas.Top="110"/>
+                                                        <Label  Content="IIB:" FontSize="16" Canvas.Left="10" Canvas.Top="160"/>
+                                                        <Label  Content="Read-R-Flag:" FontSize="16" Canvas.Left="10" Canvas.Top="220"/>
+                                                        <Label  Content="MOS-Flag:" FontSize="16" Canvas.Left="10" Canvas.Top="260"/>
+                                                        <Label  Content="Break-Flag:" FontSize="16" Canvas.Left="10" Canvas.Top="300"/>
+                                                        <Label  Content="{DynamicResource LangsDeveloperModeLampNumber}" FontSize="16" Canvas.Left="10" Canvas.Top="340" x:Name="DeveloperModeLampNumber"/>
+                                                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Left="60" Canvas.Top="10">
+                                                            <TextBox x:Name="SetParameterIA" Height="40" TextWrapping="Wrap" Width="130" BorderThickness="0" Background="{x:Null}" TextChanged="SetParameterIA_TextChanged" Padding="10,8,0,0" GotFocus="SetParameterIA_GotFocus" PreviewMouseDown="SetParameterIA_PreviewMouseDown" LostFocus="SetParameterIA_LostFocus"/>
+                                                        </Border>
+                                                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Left="60" Canvas.Top="60">
+                                                            <TextBox x:Name="SetParameterIB" Height="40" Width="130" TextWrapping="Wrap" BorderThickness="0" Background="{x:Null}" TextChanged="SetParameterIB_TextChanged" Padding="10,8,0,0" GotFocus="SetParameterIB_GotFocus" PreviewMouseDown="SetParameterIB_PreviewMouseDown" LostFocus="SetParameterIB_LostFocus" />
+                                                        </Border>
+                                                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Left="60" Canvas.Top="110">
+                                                            <TextBox x:Name="SetParameterIIA" Height="40" Width="130" TextWrapping="Wrap" BorderThickness="0" Background="{x:Null}" TextChanged="SetParameterIIA_TextChanged" Padding="10,8,0,0" LostFocus="SetParameterIIA_LostFocus" PreviewMouseDown="SetParameterIIA_PreviewMouseDown" GotFocus="SetParameterIIA_GotFocus"/>
+                                                        </Border>
+                                                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Left="60" Canvas.Top="160">
+                                                            <TextBox x:Name="SetParameterIIB" Height="40" Width="130" TextWrapping="Wrap" BorderThickness="0" Background="{x:Null}" TextChanged="SetParameterIIB_TextChanged" Padding="10,8,0,0" GotFocus="SetParameterIIB_GotFocus" PreviewMouseDown="SetParameterIIB_PreviewMouseDown" LostFocus="SetParameterIIB_LostFocus"/>
+                                                        </Border>
+                                                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="627" Canvas.Left="145" Canvas.Top="340" Background="AliceBlue">
+                                                            <ComboBox x:Name="SetLightNumber" Width="623" Height="36" Background="{x:Null}" BorderThickness="0" FontSize="16" SelectionChanged="SetLightNumber_SelectionChanged" SelectedIndex="0" MaxDropDownHeight="130" Padding="10,8,0,0">
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber0}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber1}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber2}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber3}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber4}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber5}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber6}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber7}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber8}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber9}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber10}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber11}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber12}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber13}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber14}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber15}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber16}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber17}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber18}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber19}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber20}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber21}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber22}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber23}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber24}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber25}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber26}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber27}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber28}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber29}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber30}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber31}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber32}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber33}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber34}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber35}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber36}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber37}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber38}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber39}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber40}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber41}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber42}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber43}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber44}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber45}"></ComboBoxItem>
+                                                            </ComboBox>
+                                                        </Border>
+                                                        <RadioButton x:Name="SetReadResistanceFalse" Content="{DynamicResource LangsSetReadResistanceFalse}" FontSize="16" Canvas.Left="139" Canvas.Top="225" GroupName="ReadResistance" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetReadResistanceFalse_Checked" IsChecked="True"/>
+                                                        <RadioButton x:Name="SetReadResistanceTrue" Content="{DynamicResource LangsSetReadResistanceTrue}" FontSize="16" Canvas.Left="310" Canvas.Top="225" GroupName="ReadResistance" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetReadResistanceTrue_Checked"/>
+                                                        <RadioButton x:Name="SetMosfetTrue" Content="{DynamicResource LangsSetMosfetTrue}" FontSize="16" Canvas.Left="139" Canvas.Top="265" GroupName="ReadMosfet" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetMosfetTrue_Checked"/>
+                                                        <RadioButton x:Name="SetMosfetFalse" Content="{DynamicResource LangsSetMosfetFalse}" FontSize="16" Canvas.Left="310" Canvas.Top="265" GroupName="ReadMosfet" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetMosfetFalse_Checked" IsChecked="True"/>
+                                                        <RadioButton x:Name="SetBreakTrue" Content="{DynamicResource LangsSetBreakTrue}" FontSize="16" Canvas.Left="139" Canvas.Top="305" GroupName="ReadBreak" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetBreakTrue_Checked" IsChecked="True"/>
+                                                        <RadioButton x:Name="SetBreakFalse" Content="{DynamicResource LangsSetBreakFalse}" FontSize="16" Canvas.Left="310" Canvas.Top="305" GroupName="ReadBreak" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetBreakFalse_Checked"/>
+                                                    </Canvas>
+                                                </GroupBox>
+                                                <GroupBox x:Name="InDeveloperModeRWYGuardLightParametersSetting" Width="780" Height="250" Margin="0,10,0,0" BorderThickness="0" Visibility="Collapsed">
+                                                    <Canvas>
+                                                        <Label Content="{DynamicResource LangsFactoryModeChannelSelect}" Canvas.Left="0" Canvas.Top="0"/>
+                                                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="150" Height="40" Canvas.Left="0" Canvas.Top="30" Background="{x:Null}">
+                                                            <ComboBox x:Name="InDeveloperModeChannelSelect" Width="146" Height="36" BorderThickness="0" FontSize="16" MaxDropDownHeight="130" HorizontalAlignment="Left" Margin="1,1,0,1" Padding="10,8,0,0" SelectedIndex="0">
+                                                                <ComboBoxItem>0</ComboBoxItem>
+                                                                <ComboBoxItem>1</ComboBoxItem>
+                                                            </ComboBox>
+                                                        </Border>
+                                                        <Label Content="{DynamicResource LangsFactoryModeFlashFrequencySelect}" Canvas.Left="0" Canvas.Top="80"/>
+                                                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="150" Height="40" Canvas.Left="0" Canvas.Top="110" Background="{x:Null}">
+                                                            <ComboBox x:Name="InDeveloperModeFlashFrequencySelect" Width="146" Height="36" BorderThickness="0" FontSize="16" MaxDropDownHeight="130" HorizontalAlignment="Left" Margin="1,1,0,1" Padding="10,8,0,0"/>
+                                                        </Border>
+                                                        <Label Content="{DynamicResource LangsFactoryModeWaveformSelect}" Canvas.Left="0" Canvas.Top="160"/>
+                                                        <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="150" Height="40" Canvas.Left="0" Canvas.Top="190" Background="{x:Null}">
+                                                            <ComboBox x:Name="InDeveloperModeWaveformSelect" Width="146" Height="36" BorderThickness="0" FontSize="16" MaxDropDownHeight="130" HorizontalAlignment="Left" Margin="1,1,0,1" Padding="10,8,0,0" SelectedIndex="0">
+                                                                <ComboBoxItem>0</ComboBoxItem>
+                                                                <ComboBoxItem>1</ComboBoxItem>
+                                                                <ComboBoxItem>2</ComboBoxItem>
+                                                                <ComboBoxItem>3</ComboBoxItem>
+                                                                <ComboBoxItem>4</ComboBoxItem>
+                                                                <ComboBoxItem>5</ComboBoxItem>
+                                                                <ComboBoxItem>6</ComboBoxItem>
+                                                                <ComboBoxItem>7</ComboBoxItem>
+                                                                <ComboBoxItem>8</ComboBoxItem>
+                                                                <ComboBoxItem>9</ComboBoxItem>
+                                                            </ComboBox>
+                                                        </Border>
+                                                    </Canvas>
+                                                </GroupBox>
+                                            </WrapPanel>
+                                        </ScrollViewer>
+                                    </GroupBox>
 
-                                    <Label  Content="IA:" FontSize="16" Canvas.Left="10" Canvas.Top="10"/>
-                                    <Label  Content="IB:" FontSize="16" Canvas.Left="10" Canvas.Top="60"/>
-                                    <Label  Content="IIA:" FontSize="16" Canvas.Left="10" Canvas.Top="110"/>
-                                    <Label  Content="IIB:" FontSize="16" Canvas.Left="10" Canvas.Top="160"/>
-                                    <Label  Content="Read-R-Flag:" FontSize="16" Canvas.Left="10" Canvas.Top="220"/>
-                                    <Label  Content="MOS-Flag:" FontSize="16" Canvas.Left="10" Canvas.Top="260"/>
-                                    <Label  Content="Break-Flag:" FontSize="16" Canvas.Left="10" Canvas.Top="300"/>
-                                    <Label  Content="{DynamicResource LangsDeveloperModeLampNumber}" FontSize="16" Canvas.Left="10" Canvas.Top="340" x:Name="DeveloperModeLampNumber"/>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Left="60" Canvas.Top="10">
-                                        <TextBox x:Name="SetParameterIA" Height="40" TextWrapping="Wrap" Width="130" BorderThickness="0" Background="{x:Null}" TextChanged="SetParameterIA_TextChanged" Padding="10,8,0,0" GotFocus="SetParameterIA_GotFocus" PreviewMouseDown="SetParameterIA_PreviewMouseDown" LostFocus="SetParameterIA_LostFocus"/>
-                                    </Border>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Left="60" Canvas.Top="60">
-                                        <TextBox x:Name="SetParameterIB" Height="40" Width="130" TextWrapping="Wrap" BorderThickness="0" Background="{x:Null}" TextChanged="SetParameterIB_TextChanged" Padding="10,8,0,0" GotFocus="SetParameterIB_GotFocus" PreviewMouseDown="SetParameterIB_PreviewMouseDown" LostFocus="SetParameterIB_LostFocus" />
-                                    </Border>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Left="60" Canvas.Top="110">
-                                        <TextBox x:Name="SetParameterIIA" Height="40" Width="130" TextWrapping="Wrap" BorderThickness="0" Background="{x:Null}" TextChanged="SetParameterIIA_TextChanged" Padding="10,8,0,0" LostFocus="SetParameterIIA_LostFocus" PreviewMouseDown="SetParameterIIA_PreviewMouseDown" GotFocus="SetParameterIIA_GotFocus"/>
-                                    </Border>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Left="60" Canvas.Top="160">
-                                        <TextBox x:Name="SetParameterIIB" Height="40" Width="130" TextWrapping="Wrap" BorderThickness="0" Background="{x:Null}" TextChanged="SetParameterIIB_TextChanged" Padding="10,8,0,0" GotFocus="SetParameterIIB_GotFocus" PreviewMouseDown="SetParameterIIB_PreviewMouseDown" LostFocus="SetParameterIIB_LostFocus"/>
-                                    </Border>
-                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="627" Canvas.Left="145" Canvas.Top="340" Background="AliceBlue">
-                                        <ComboBox x:Name="SetLightNumber" Width="623" Height="36" Background="{x:Null}" BorderThickness="0" FontSize="16" SelectionChanged="SetLightNumber_SelectionChanged" SelectedIndex="0" MaxDropDownHeight="130" Padding="10,8,0,0">
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber0}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber1}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber2}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber3}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber4}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber5}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber6}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber7}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber8}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber9}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber10}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber11}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber12}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber13}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber14}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber15}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber16}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber17}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber18}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber19}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber20}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber21}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber22}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber23}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber24}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber25}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber26}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber27}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber28}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber29}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber30}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber31}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber32}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber33}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber34}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber35}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber36}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber37}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber38}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber39}"></ComboBoxItem>
-                                            <ComboBoxItem Content="{DynamicResource LangsSetLightNumber40}"></ComboBoxItem>
-                                            
-                                        </ComboBox>
-                                    </Border>
-                                    <RadioButton x:Name="SetReadResistanceFalse" Content="{DynamicResource LangsSetReadResistanceFalse}" FontSize="16" Canvas.Left="139" Canvas.Top="225" GroupName="ReadResistance" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetReadResistanceFalse_Checked" IsChecked="True"/>
-                                    <RadioButton x:Name="SetReadResistanceTrue" Content="{DynamicResource LangsSetReadResistanceTrue}" FontSize="16" Canvas.Left="310" Canvas.Top="225" GroupName="ReadResistance" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetReadResistanceTrue_Checked"/>
-                                    <RadioButton x:Name="SetMosfetTrue" Content="{DynamicResource LangsSetMosfetTrue}" FontSize="16" Canvas.Left="139" Canvas.Top="265" GroupName="ReadMosfet" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetMosfetTrue_Checked"/>
-                                    <RadioButton x:Name="SetMosfetFalse" Content="{DynamicResource LangsSetMosfetFalse}" FontSize="16" Canvas.Left="310" Canvas.Top="265" GroupName="ReadMosfet" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetMosfetFalse_Checked" IsChecked="True"/>
-                                    <RadioButton x:Name="SetBreakTrue" Content="{DynamicResource LangsSetBreakTrue}" FontSize="16" Canvas.Left="139" Canvas.Top="305" GroupName="ReadBreak" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetBreakTrue_Checked" IsChecked="True"/>
-                                    <RadioButton x:Name="SetBreakFalse" Content="{DynamicResource LangsSetBreakFalse}" FontSize="16" Canvas.Left="310" Canvas.Top="305" GroupName="ReadBreak" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetBreakFalse_Checked"/>
+                                    
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40" Width="130" Canvas.Left="10" Canvas.Top="538" Background="AliceBlue">
                                         <Button x:Name="SetLightParametersInDeveloperMode" Content="{DynamicResource LangsSetLightParametersInDeveloperMode}" Click="SetLightParametersInDeveloperMode_Click"/>
                                     </Border>
