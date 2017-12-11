@@ -103,6 +103,11 @@
     <system:String x:Key="LangsSetLightNumber38">38 LED In-pavement Combined Runway Edge Light（RELC-12-LED-CC-B-1P）</system:String>
     <system:String x:Key="LangsSetLightNumber39">39 LED In-pavement Combined Runway Edge Light（RELC-12-LED-CR-B-1P）</system:String>
     <system:String x:Key="LangsSetLightNumber40">40 LED In-pavement Combined Runway Edge Light（RELC-12-LED-RY-B-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber41">41 High Intensity LED In-pavement Runway Guard Light（HRGS-08-LED-Y）</system:String>
+    <system:String x:Key="LangsSetLightNumber42">42 LED In-pavement Runway Threshold/end Light(TAES-12-L-LED-GR-MR-2P）</system:String>
+    <system:String x:Key="LangsSetLightNumber43">43 LED In-pavement Runway Threshold/end Light（TAES-12-R-LED-GR-MR-2P）</system:String>
+    <system:String x:Key="LangsSetLightNumber44">44 LED Runway Centerline Light（RCLS-12-LED-CC-MR-2P）</system:String>
+    <system:String x:Key="LangsSetLightNumber45">45 LED Runway Centerline Light（RCLS-12-LED-RC-MR-2P）</system:String>
     <system:String x:Key="LangsDeveloperModeSendCommand">Sending Command:</system:String>
     <system:String x:Key="LangsSetLightParametersInDeveloperMode">Set Parameter</system:String>
     <system:String x:Key="LangsDeveloperModeStatusQuery">Status Query</system:String>

@@ -15,13 +15,13 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_68D5D2F5B0D6468DAE542C81CC07D302"
+        "MsmKey" = "8:_325EEDCCA1D24B2FB459CDF03D3ED766"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_B2D2648BBE7648AABFE4E7F6E93B5C5E"
+        "MsmKey" = "8:_A75162ECB98543BAA82A1BB624904603"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -33,14 +33,14 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_F78106F8E69448E294C6E75E9EFAB98E"
+        "MsmKey" = "8:_CFF63A3F496D44EFA43143ABE0CFEAAD"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F78106F8E69448E294C6E75E9EFAB98E"
+        "OwnerKey" = "8:_CFF63A3F496D44EFA43143ABE0CFEAAD"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -138,10 +138,10 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_68D5D2F5B0D6468DAE542C81CC07D302"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_325EEDCCA1D24B2FB459CDF03D3ED766"
             {
-            "SourcePath" = "8:..\\..\\LEDLampsConfigurationSoftware\\LEDLampsConfigurationSoftware\\bin\\Debug\\LEDLampsConfigurationSoftware.exe.config"
-            "TargetName" = "8:LEDLampsConfigurationSoftware.exe.config"
+            "SourcePath" = "8:..\\..\\LEDLampsConfigurationSoftware\\LEDLampsConfigurationSoftware\\bin\\Debug\\LEDLampsConfigurationSoftware.pdb"
+            "TargetName" = "8:LEDLampsConfigurationSoftware.pdb"
             "Tag" = "8:"
             "Folder" = "8:_8905A588B2D34F9C8E3D5A215DC64FA8"
             "Condition" = "8:"
@@ -158,10 +158,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B2D2648BBE7648AABFE4E7F6E93B5C5E"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A75162ECB98543BAA82A1BB624904603"
             {
-            "SourcePath" = "8:..\\..\\LEDLampsConfigurationSoftware\\LEDLampsConfigurationSoftware\\bin\\Debug\\LEDLampsConfigurationSoftware.pdb"
-            "TargetName" = "8:LEDLampsConfigurationSoftware.pdb"
+            "SourcePath" = "8:..\\..\\LEDLampsConfigurationSoftware\\LEDLampsConfigurationSoftware\\bin\\Debug\\LEDLampsConfigurationSoftware.exe.config"
+            "TargetName" = "8:LEDLampsConfigurationSoftware.exe.config"
             "Tag" = "8:"
             "Folder" = "8:_8905A588B2D34F9C8E3D5A215DC64FA8"
             "Condition" = "8:"
@@ -198,14 +198,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F78106F8E69448E294C6E75E9EFAB98E"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CFF63A3F496D44EFA43143ABE0CFEAAD"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:LEDLampsConfigurationSoftware, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_F78106F8E69448E294C6E75E9EFAB98E"
+                    "_CFF63A3F496D44EFA43143ABE0CFEAAD"
                     {
                     "Name" = "8:LEDLampsConfigurationSoftware.exe"
                     "Attributes" = "3:512"
@@ -417,7 +417,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_64DAB9B50EE945A38313B4812F417DD2"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_C1D0E08A9F7B4834A808E420F8E06D21"
             {
             "Name" = "8:ASCMS"
             "Arguments" = "8:"
@@ -425,7 +425,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_F78106F8E69448E294C6E75E9EFAB98E"
+            "Target" = "8:_CFF63A3F496D44EFA43143ABE0CFEAAD"
             "Folder" = "8:_C5CFC6BA24A749F58C6841611BA21B65"
             "WorkingFolder" = "8:_8905A588B2D34F9C8E3D5A215DC64FA8"
             "Icon" = "8:_C7E2883F908548A08257267A707251FF"
