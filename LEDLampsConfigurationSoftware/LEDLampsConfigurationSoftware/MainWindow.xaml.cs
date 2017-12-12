@@ -958,6 +958,7 @@ namespace LEDLampsConfigurationSoftware
                                 this.Dispatcher.Invoke(new System.Action(() =>
                                 {
                                     InDeveloperModeRWYGuardLightParametersSetting.Visibility = Visibility.Visible;
+                                    RestoreOriginalStatus.IsEnabled = false;
                                 }));
                             }
                             else
@@ -965,6 +966,7 @@ namespace LEDLampsConfigurationSoftware
                                 this.Dispatcher.Invoke(new System.Action(() =>
                                 {
                                     InDeveloperModeRWYGuardLightParametersSetting.Visibility = Visibility.Collapsed;
+                                    RestoreOriginalStatus.IsEnabled = true;
                                 }));
                             }
                                                    
@@ -6291,7 +6293,7 @@ namespace LEDLampsConfigurationSoftware
 
                     if((hardwareVersion1 == 8 && softwareNumber == 4))
                     {
-                        lampsPort.Write(InFactoryModeRWYGuardLightRestoreOriginalCommand, 0, 28);
+                        //lampsPort.Write(InFactoryModeRWYGuardLightRestoreOriginalCommand, 0, 28);
                     }
                     else
                     {
