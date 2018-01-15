@@ -212,7 +212,25 @@ namespace LEDLampsConfigurationSoftware
         ArrayList SecondRWYGuardLight = new ArrayList();
         ArrayList FlashFrequencyRWYGuardLight = new ArrayList();
         ArrayList ModeRWYGuardLight = new ArrayList();
-        ArrayList ErrorCodeRWYGuardLight = new ArrayList();        
+        ArrayList ErrorCodeRWYGuardLight = new ArrayList();
+        #endregion
+
+        #region 双路滑中驱动各项参数存储集合
+        ArrayList RMS1DoubleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList RMS2DoubleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList RMS1LASTDoubleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList RMS2LASTDoubleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList Val2DoubleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList TCHECKDoubleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList LEDF1DoubleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList LEDF2DoubleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList Shock1DoubleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList ShockDoubleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList ShortFlagDoubleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList TDoubleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList SecondDoubleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList AMaxDoubleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList ErrorCodeDoubleCircuitTWYCenterDrive = new ArrayList();        
         #endregion
 
         #region 后台代码，串口设置页面，中英文切换字符串
@@ -292,6 +310,7 @@ namespace LEDLampsConfigurationSoftware
         string CreateExcel4 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel4");
         string CreateExcel5 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel5");
         string CreateExcel6 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel6");
+        string CreateExcel7 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel7");
         string CreateTxt1 = (string)System.Windows.Application.Current.FindResource("LangsCreateTxt1");
 
         #endregion
@@ -1438,6 +1457,11 @@ namespace LEDLampsConfigurationSoftware
                     {
                         RWYGuardLampDataAnalysis(receivedStatusFeedbackCommand);
                         RWYGuardLampParametersCreatExcel();
+                    }
+                    else if (receivedStatusFeedbackCommand[0] == 0x02 && receivedStatusFeedbackCommand[1] == 0xAA && receivedStatusFeedbackCommand[2] == 0x01 && receivedStatusFeedbackCommand[3] == 0x05 && receivedStatusFeedbackCommand[4] == 0x06)
+                    {
+                        DoubleCircuitTWYCenterDriveLampDataAnalysis(receivedStatusFeedbackCommand);
+                        DoubleCircuitTWYCenterDriveParametersCreatExcel();
                     }
                     else
                     {                       
@@ -2854,6 +2878,264 @@ namespace LEDLampsConfigurationSoftware
         }
         #endregion
 
+        #region 双路滑中驱动灯具状态信息解析
+        private void DoubleCircuitTWYCenterDriveLampDataAnalysis(byte[] CompleteData)
+        {
+            byte[][] DataArray;
+            ArrayList commandCount = new ArrayList();
+
+            for (int i = 0; i < CompleteData.Length; i++)
+            {
+                if (CompleteData[i] == 0x02 && CompleteData[i + 1] == 0xAA && CompleteData[i + 2] == 0x01 && CompleteData[i + 3] == 0x05 && CompleteData[i + 4] == 0x06)
+                {
+                    commandCount.Add(i);
+                }
+            }
+
+            DataArray = new byte[commandCount.Count][];
+
+            for (int i = 0; i < commandCount.Count; i++)
+            {
+                if (i < commandCount.Count - 1)
+                {
+                    DataArray[i] = new byte[(int)commandCount[i + 1] - (int)commandCount[i]];
+                }
+                else
+                {
+                    DataArray[i] = new byte[CompleteData.Length - (int)commandCount[i]];
+                }
+
+                for (int j = 0; j < DataArray[i].Length; j++)
+                {
+                    DataArray[i][j] = CompleteData[(int)commandCount[i] + j];
+                }
+            }
+
+            for (int i = 0; i < DataArray.Length; i++)
+            {
+                if (DataArray[i].Length == 32)
+                {
+                    byte checkOutValue = CalculateCheckOutValue(DataArray[i]);
+                    if (checkOutValue == DataArray[i][DataArray[i].Length - 1])
+                    {                        
+                        RMS1DoubleCircuitTWYCenterDrive.Add(DataArray[i][5] * 500);
+                        RMS2DoubleCircuitTWYCenterDrive.Add(DataArray[i][6] * 500);
+                        RMS1LASTDoubleCircuitTWYCenterDrive.Add(DataArray[i][7] * 4);
+                        RMS2LASTDoubleCircuitTWYCenterDrive.Add(DataArray[i][8] * 4);
+                        Val2DoubleCircuitTWYCenterDrive.Add(DataArray[i][9] *20);
+                        TCHECKDoubleCircuitTWYCenterDrive.Add(DataArray[i][10] *16);
+                        LEDF1DoubleCircuitTWYCenterDrive.Add(DataArray[i][11]);
+                        LEDF2DoubleCircuitTWYCenterDrive.Add(DataArray[i][12]);
+                        Shock1DoubleCircuitTWYCenterDrive.Add(DataArray[i][13]);
+                        ShockDoubleCircuitTWYCenterDrive.Add(DataArray[i][14]);
+                        ShortFlagDoubleCircuitTWYCenterDrive.Add(DataArray[i][15]);
+                        TDoubleCircuitTWYCenterDrive.Add(DataArray[i][16]);
+                        AMaxDoubleCircuitTWYCenterDrive.Add(DataArray[i][21]*16);
+
+                        int SecondResult = 0;
+                        for (int j = 0; j < 4; j++)
+                        {
+                            int SecondOrigin = DataArray[i][17 + j];
+                            SecondResult |= SecondOrigin;
+                            if (j < 3)
+                            {
+                                SecondResult <<= 8;
+                            }
+                        }
+                        SecondDoubleCircuitTWYCenterDrive.Add(SecondResult);
+                        ErrorCodeDoubleCircuitTWYCenterDrive.Add("No Error");
+                    }
+                    else
+                    {
+                        DoubleCircuitTWYCenterDriveLampCheckValueErrorHandle();
+                    }
+                }
+                else
+                {
+                    DoubleCircuitTWYCenterDriveLampCommandLengthErrorHandle();
+                }
+            }
+
+        }
+
+        private void DoubleCircuitTWYCenterDriveLampCheckValueErrorHandle()
+        {
+            RMS1DoubleCircuitTWYCenterDrive.Add("Null");
+            RMS2DoubleCircuitTWYCenterDrive.Add("Null");
+            RMS1LASTDoubleCircuitTWYCenterDrive.Add("Null");
+            RMS2LASTDoubleCircuitTWYCenterDrive.Add("Null");
+            Val2DoubleCircuitTWYCenterDrive.Add("Null");
+            TCHECKDoubleCircuitTWYCenterDrive.Add("Null");
+            LEDF1DoubleCircuitTWYCenterDrive.Add("Null");
+            LEDF2DoubleCircuitTWYCenterDrive.Add("Null");
+            Shock1DoubleCircuitTWYCenterDrive.Add("Null");
+            ShockDoubleCircuitTWYCenterDrive.Add("Null");
+            ShortFlagDoubleCircuitTWYCenterDrive.Add("Null");
+            TDoubleCircuitTWYCenterDrive.Add("Null");
+            AMaxDoubleCircuitTWYCenterDrive.Add("Null");
+            SecondDoubleCircuitTWYCenterDrive.Add("Null");
+            ErrorCodeDoubleCircuitTWYCenterDrive.Add("Check Value Error");  
+        }
+
+        private void DoubleCircuitTWYCenterDriveLampCommandLengthErrorHandle()
+        {
+            RMS1DoubleCircuitTWYCenterDrive.Add("Null");
+            RMS2DoubleCircuitTWYCenterDrive.Add("Null");
+            RMS1LASTDoubleCircuitTWYCenterDrive.Add("Null");
+            RMS2LASTDoubleCircuitTWYCenterDrive.Add("Null");
+            Val2DoubleCircuitTWYCenterDrive.Add("Null");
+            TCHECKDoubleCircuitTWYCenterDrive.Add("Null");
+            LEDF1DoubleCircuitTWYCenterDrive.Add("Null");
+            LEDF2DoubleCircuitTWYCenterDrive.Add("Null");
+            Shock1DoubleCircuitTWYCenterDrive.Add("Null");
+            ShockDoubleCircuitTWYCenterDrive.Add("Null");
+            ShortFlagDoubleCircuitTWYCenterDrive.Add("Null");
+            TDoubleCircuitTWYCenterDrive.Add("Null");
+            AMaxDoubleCircuitTWYCenterDrive.Add("Null");
+            SecondDoubleCircuitTWYCenterDrive.Add("Null");
+            ErrorCodeDoubleCircuitTWYCenterDrive.Add("Command Length Error");           
+        }
+
+        private void ClearDoubleCircuitTWYCenterDriveParameters()
+        {
+            RMS1DoubleCircuitTWYCenterDrive.Clear();
+            RMS2DoubleCircuitTWYCenterDrive.Clear();
+            RMS1LASTDoubleCircuitTWYCenterDrive.Clear();
+            RMS2LASTDoubleCircuitTWYCenterDrive.Clear();
+            Val2DoubleCircuitTWYCenterDrive.Clear();
+            TCHECKDoubleCircuitTWYCenterDrive.Clear();
+            LEDF1DoubleCircuitTWYCenterDrive.Clear();
+            LEDF2DoubleCircuitTWYCenterDrive.Clear();
+            Shock1DoubleCircuitTWYCenterDrive.Clear();
+            ShockDoubleCircuitTWYCenterDrive.Clear();
+            ShortFlagDoubleCircuitTWYCenterDrive.Clear();
+            TDoubleCircuitTWYCenterDrive.Clear();
+            AMaxDoubleCircuitTWYCenterDrive.Clear();
+            SecondDoubleCircuitTWYCenterDrive.Clear();
+            ErrorCodeDoubleCircuitTWYCenterDrive.Clear();           
+        }
+
+        void DoubleCircuitTWYCenterDriveParametersCreatExcel()
+        {
+            try
+            {
+                //创建excel模板
+                str_fileName = "d:\\ " + CreateExcel7 + " " + CreateExcel1 + " " + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";    //文件保存路径及名称
+                ExcelApp = new Microsoft.Office.Interop.Excel.Application();                          //创建Excel应用程序 ExcelApp
+                ExcelDoc = ExcelApp.Workbooks.Add(Type.Missing);                                      //在应用程序ExcelApp下，创建工作簿ExcelDoc
+                ExcelSheet = ExcelDoc.Worksheets.Add(Type.Missing);                                   //在工作簿ExcelDoc下，创建工作表ExcelSheet
+
+                //设置Excel列名           
+                ExcelSheet.Cells[1, 1] = CreateExcel7 + " " + CreateExcel1;
+                ExcelSheet.Cells[2, 1] = CreateExcel2;
+                ExcelSheet.Cells[2, 2] = "RMS1";
+                ExcelSheet.Cells[2, 3] = "RMS2";
+                ExcelSheet.Cells[2, 4] = "RMS1_LAST";
+                ExcelSheet.Cells[2, 5] = "RMS2_LAST";
+                ExcelSheet.Cells[2, 6] = "Val2";
+                ExcelSheet.Cells[2, 7] = "T_CHECK";
+                ExcelSheet.Cells[2, 8] = "LED_F1";
+                ExcelSheet.Cells[2, 9] = "LED_F2";
+                ExcelSheet.Cells[2, 10] = "Shock1";
+                ExcelSheet.Cells[2, 11] = "Shock";
+                ExcelSheet.Cells[2, 12] = "Short_Flag";
+                ExcelSheet.Cells[2, 13] = "T";
+                ExcelSheet.Cells[2, 14] = "Second";
+                ExcelSheet.Cells[2, 15] = "A_MAX";
+                ExcelSheet.Cells[2, 16] = "Error Code";
+
+                //输出各个参数值
+                for (int i = 0; i < RMS1DoubleCircuitTWYCenterDrive.Count; i++)
+                {
+                    RMS1DoubleCircuitTWYCenterDrive.Clear();
+                    RMS2DoubleCircuitTWYCenterDrive.Clear();
+                    RMS1LASTDoubleCircuitTWYCenterDrive.Clear();
+                    RMS2LASTDoubleCircuitTWYCenterDrive.Clear();
+                    Val2DoubleCircuitTWYCenterDrive.Clear();
+                    TCHECKDoubleCircuitTWYCenterDrive.Clear();
+                    LEDF1DoubleCircuitTWYCenterDrive.Clear();
+                    LEDF2DoubleCircuitTWYCenterDrive.Clear();
+                    Shock1DoubleCircuitTWYCenterDrive.Clear();
+                    ShockDoubleCircuitTWYCenterDrive.Clear();
+                    ShortFlagDoubleCircuitTWYCenterDrive.Clear();
+                    TDoubleCircuitTWYCenterDrive.Clear();
+                    AMaxDoubleCircuitTWYCenterDrive.Clear();
+                    SecondDoubleCircuitTWYCenterDrive.Clear();
+                    ErrorCodeDoubleCircuitTWYCenterDrive.Clear();
+
+
+                    ExcelSheet.Cells[3 + i, 1] = (i + 1).ToString();
+                    ExcelSheet.Cells[3 + i, 2] = RMS1DoubleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 3] = RMS2DoubleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 4] = RMS1LASTDoubleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 5] = RMS2LASTDoubleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 6] = Val2DoubleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 7] = TCHECKDoubleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 8] = LEDF1DoubleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 9] = LEDF2DoubleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 10] = Shock1DoubleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 11] = ShockDoubleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 12] = ShortFlagDoubleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 13] = TDoubleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 15] = AMaxDoubleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 16] = ErrorCodeDoubleCircuitTWYCenterDrive[i].ToString();
+
+                    if (SecondDoubleCircuitTWYCenterDrive[i].ToString() == "Null")
+                    {
+                        ExcelSheet.Cells[3 + i, 14] = SecondDoubleCircuitTWYCenterDrive[i].ToString();
+                    }
+                    else
+                    {
+                        ExcelSheet.Cells[3 + i, 14] = ((int)SecondDoubleCircuitTWYCenterDrive[i] / 3600).ToString() + ":" + (((int)SecondDoubleCircuitTWYCenterDrive[i] % 3600) / 60).ToString() + ":" + (((int)SecondDoubleCircuitTWYCenterDrive[i] % 3600) % 60).ToString();
+                    }
+
+                }
+
+                ExcelSheet.SaveAs(str_fileName);                                                      //保存Excel工作表
+                ExcelDoc.Close(Type.Missing, str_fileName, Type.Missing);                             //关闭Excel工作簿
+                ExcelApp.Quit();                                                                      //退出Excel应用程序    
+
+                ClearDoubleCircuitTWYCenterDriveParameters();
+
+                ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
+                }));
+
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show(MessageboxContent28, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
+            }
+            catch
+            {
+                ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
+                }));
+
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show(MessageboxContent29, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
+            }
+        }
+        #endregion
+
         #endregion
 
         #region 导出原始数据
@@ -3046,6 +3328,11 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
             GroupRWYGuardLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
+            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
+            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
+            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
 
             SelectAPPS12SLEDC.IsChecked = false;
 
@@ -3086,7 +3373,11 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
             GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-
+            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
+            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
+            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
+            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
 
             SelectAPPS12LLEDC.IsChecked = false;
             SelectAPPS12RLEDC.IsChecked = false;
@@ -3129,7 +3420,11 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
             GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-
+            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
+            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
+            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
+            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
 
             SelectAPSS12LLEDR.IsChecked = false;
             SelectAPSS12RLEDR.IsChecked = false;
@@ -3171,7 +3466,11 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
             GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-
+            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
+            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
+            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
+            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
 
             SelectTHWS12LLEDG.IsChecked = false;
             SelectTHWS12RLEDG.IsChecked = false;
@@ -3213,7 +3512,11 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
             GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-
+            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
+            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
+            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
+            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
 
             SelectTHRS12LLEDG.IsChecked = false;
             SelectTHRS12RLEDG.IsChecked = false;
@@ -3256,7 +3559,11 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
             GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-
+            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
+            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
+            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
+            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
 
             SelectRELS12LLEDYC.IsChecked = false;
             SelectRELS12RLEDYC.IsChecked = false;
@@ -3307,7 +3614,11 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
             GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-
+            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
+            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
+            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
+            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
 
             SelectENDS12LEDR.IsChecked = false;
 
@@ -3348,7 +3659,11 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
             GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-
+            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
+            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
+            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
+            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
 
             SelectTAES12LLEDGR1P.IsChecked = false;
             SelectTAES12RLEDGR1P.IsChecked = false;
@@ -3393,7 +3708,11 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
             GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-
+            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
+            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
+            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
+            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
 
             SelectRCLS08LEDCB1P.IsChecked = false;
             SelectRCLS08LEDRB1P.IsChecked = false;
@@ -3437,7 +3756,11 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
             GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-
+            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
+            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
+            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
+            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
 
             SelectRCLS12LEDCCMR2P.IsChecked = false;
             SelectRCLS12LEDRCMR2P.IsChecked = false;
@@ -3479,7 +3802,11 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
             GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-
+            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
+            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
+            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
+            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
 
             SelectTDZS08LLEDC.IsChecked = false;
             SelectTDZS08RLEDC.IsChecked = false;
@@ -3521,7 +3848,11 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
             GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-
+            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
+            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
+            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
+            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
 
             SelectENDS08LEDR.IsChecked = false;
 
@@ -3562,7 +3893,11 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Visible;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
             GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-
+            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
+            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
+            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
+            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
 
             SelectRAPS08LEDY.IsChecked = false;
 
@@ -3603,7 +3938,11 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Visible;
             GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-
+            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
+            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
+            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
+            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
 
             SelectRELC12LEDCYC1P.IsChecked = false;
             SelectRELC12LEDCCC1P.IsChecked = false;
@@ -3652,7 +3991,11 @@ namespace LEDLampsConfigurationSoftware
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
             GroupRWYGuardLight.Visibility = Visibility.Visible;
-
+            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
+            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
+            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
+            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
 
             SelectHRGS08LEDY.IsChecked = false;
 
@@ -3671,6 +4014,249 @@ namespace LEDLampsConfigurationSoftware
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampName.Text = TBSelectRWYGuardLight.Text.ToString();
+                ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
+            }));
+        }
+
+        private void SelectTWYCenterLight_Checked(object sender, RoutedEventArgs e)
+        {
+            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
+            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
+            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
+            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
+            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight.Visibility = Visibility.Visible;
+            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
+            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
+            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
+            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+
+            SelectTCLMS08SLEDGG1P.IsChecked = false;
+            SelectTCLMS08SLEDGY1P.IsChecked = false;
+            SelectTCLMS08SLEDYY1P.IsChecked = false;
+            SelectTCLMS08SLEDYB1P.IsChecked = false;
+            SelectTCLMS08SLEDGB1P.IsChecked = false;
+            SelectTCLMS08CLEDGG1P.IsChecked = false;
+            SelectTCLMS08CLEDGY1P.IsChecked = false;
+            SelectTCLMS08CLEDYY1P.IsChecked = false;
+            SelectTCLMS08CLEDYB1P.IsChecked = false;
+            SelectTCLMS08CLEDGB1P.IsChecked = false;
+
+            SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
+            SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampName.Text = TBSelectTWYCenterLight.Text.ToString();
+                ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
+            }));
+        }
+
+        private void SelectTWYCenterLight2P_Checked(object sender, RoutedEventArgs e)
+        {
+            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
+            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
+            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
+            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
+            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight2P.Visibility = Visibility.Visible;
+            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
+            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
+            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+
+            SelectTCLMS08SLEDGG2P.IsChecked = false;
+            SelectTCLMS08SLEDGY2P.IsChecked = false;
+            SelectTCLMS08SLEDYY2P.IsChecked = false;
+            SelectTCLMS08SLEDYB2P.IsChecked = false;
+            SelectTCLMS08SLEDGB2P.IsChecked = false;
+            SelectTCLMS08CLEDGG2P.IsChecked = false;
+            SelectTCLMS08CLEDGY2P.IsChecked = false;
+            SelectTCLMS08CLEDYY2P.IsChecked = false;
+            SelectTCLMS08CLEDYB2P.IsChecked = false;
+            SelectTCLMS08CLEDGB2P.IsChecked = false;
+
+            SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
+            SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampName.Text = TBSelectTWYCenterLight2P.Text.ToString();
+                ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
+            }));
+        }
+
+        private void SelectTWYStopBarLight_Checked(object sender, RoutedEventArgs e)
+        {
+            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
+            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
+            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
+            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
+            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
+            GroupTWYStopBarLight.Visibility = Visibility.Visible;
+            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
+            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+
+            SelectSBLMS08SLEDR.IsChecked = false;
+
+            SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
+            SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampName.Text = TBSelectTWYStopBarLight.Text.ToString();
+                ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
+            }));
+        }
+
+        private void SelectIntermediateHoldingPositionLight_Checked(object sender, RoutedEventArgs e)
+        {
+            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
+            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
+            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
+            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
+            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
+            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
+            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Visible;
+            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+
+            SelectTPLMS08SLEDY.IsChecked = false;
+
+            SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
+            SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampName.Text = TBSelectIntermediateHoldingPositionLight.Text.ToString();
+                ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
+            }));
+        }
+
+        private void SelectTWYIntersectionsLight_Checked(object sender, RoutedEventArgs e)
+        {
+            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
+            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
+            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
+            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
+            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
+            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
+            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
+            GroupTWYIntersectionsLight.Visibility = Visibility.Visible;
+
+            SelectTOIL08LLEDY.IsChecked = false;
+
+            SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
+            SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampName.Text = TBSelectTWYIntersectionsLight.Text.ToString();
                 ConfirmLampModel.Text = "";
                 ConfirmSettingOpenCircuitParameter.Text = "";
             }));
@@ -5085,6 +5671,696 @@ namespace LEDLampsConfigurationSoftware
             }));
 
             ConfigureHRGS08LEDYParameters();
+        }
+
+        private void SelectTCLMS08SLEDGG1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTCLMS08SLEDGG1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTCLMS08SLEDGG1PParameters();
+        }
+
+        private void SelectTCLMS08SLEDGY1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTCLMS08SLEDGY1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTCLMS08SLEDGY1PParameters();
+        }
+
+        private void SelectTCLMS08SLEDYY1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTCLMS08SLEDYY1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTCLMS08SLEDYY1PParameters();
+        }
+
+        private void SelectTCLMS08SLEDYB1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTCLMS08SLEDYB1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTCLMS08SLEDYB1PParameters();
+        }
+
+        private void SelectTCLMS08SLEDGB1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTCLMS08SLEDGB1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTCLMS08SLEDGB1PParameters();
+        }
+
+        private void SelectTCLMS08CLEDGG1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTCLMS08CLEDGG1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTCLMS08CLEDGG1PParameters();
+        }
+
+        private void SelectTCLMS08CLEDGY1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTCLMS08CLEDGY1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTCLMS08CLEDGY1PParameters();
+        }
+
+        private void SelectTCLMS08CLEDYY1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTCLMS08CLEDYY1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTCLMS08CLEDYY1PParameters();
+        }
+
+        private void SelectTCLMS08CLEDYB1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTCLMS08CLEDYB1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTCLMS08CLEDYB1PParameters();
+        }
+
+        private void SelectTCLMS08CLEDGB1P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTCLMS08CLEDGB1P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTCLMS08CLEDGB1PParameters();
+        }
+
+        private void SelectTCLMS08SLEDGG2P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTCLMS08SLEDGG2P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTCLMS08SLEDGG2PParameters();
+        }
+
+        private void SelectTCLMS08SLEDGY2P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTCLMS08SLEDGY2P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTCLMS08SLEDGY2PParameters();
+        }
+
+        private void SelectTCLMS08SLEDYY2P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTCLMS08SLEDYY2P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTCLMS08SLEDYY2PParameters();
+        }
+
+        private void SelectTCLMS08SLEDYB2P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTCLMS08SLEDYB2P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTCLMS08SLEDYB2PParameters();
+        }
+
+        private void SelectTCLMS08SLEDGB2P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTCLMS08SLEDGB2P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTCLMS08SLEDGB2PParameters();
+        }
+
+        private void SelectTCLMS08CLEDGG2P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTCLMS08CLEDGG2P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTCLMS08CLEDGG2PParameters();
+        }
+
+        private void SelectTCLMS08CLEDGY2P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTCLMS08CLEDGY2P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTCLMS08CLEDGY2PParameters();
+        }
+
+        private void SelectTCLMS08CLEDYY2P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTCLMS08CLEDYY2P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTCLMS08CLEDYY2PParameters();
+        }
+
+        private void SelectTCLMS08CLEDYB2P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTCLMS08CLEDYB2P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTCLMS08CLEDYB2PParameters();
+        }
+
+        private void SelectTCLMS08CLEDGB2P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTCLMS08CLEDGB2P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTCLMS08CLEDGB2PParameters();
+        }
+
+        private void SelectSBLMS08SLEDR_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectSBLMS08SLEDR.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureSBLMS08SLEDRParameters();
+        }
+
+        private void SelectTPLMS08SLEDY_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTPLMS08SLEDY.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTPLMS08SLEDYParameters();
+        }
+
+        private void SelectTOIL08LLEDY_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTOIL08LLEDY.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTOIL08LLEDYParameters();
         }
         #endregion
 
@@ -7136,6 +8412,7 @@ namespace LEDLampsConfigurationSoftware
             CreateExcel4 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel4");
             CreateExcel5 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel5");
             CreateExcel6 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel6");
+            CreateExcel7 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel7");
             CreateTxt1 = (string)System.Windows.Application.Current.FindResource("LangsCreateTxt1");
             #endregion
 
@@ -7189,12 +8466,6 @@ namespace LEDLampsConfigurationSoftware
 
             #endregion
         }
-
-
-
-
-
-
 
 
         #endregion

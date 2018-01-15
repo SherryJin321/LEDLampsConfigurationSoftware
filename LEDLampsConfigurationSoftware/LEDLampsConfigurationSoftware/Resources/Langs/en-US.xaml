@@ -30,6 +30,11 @@
     <system:String x:Key="LangsSelectRapidExitTWYIndicatorLight">LED Rapid Exit Taxiway Indicator Light（RAPS-08-LED）</system:String>
     <system:String x:Key="LangsSelectCombinedRWYEdgeLight">LED In-pavement Combined Runway Edge Light（RELC-12-LED）</system:String>
     <system:String x:Key="LangsSelectRWYGuardLight">High Intensity LED In-pavement Runway Guard Light（HRGS-08-LED）</system:String>
+    <system:String x:Key="LangsSelectTWYCenterLight">LED Taxiway Centerline Light 2P（TCLMS-08-LED）</system:String>
+    <system:String x:Key="LangsSelectTWYCenterLight2P">LED Taxiway Centerline Light 2P（TCLMS-08-LED）</system:String>
+    <system:String x:Key="LangsSelectTWYStopBarLight">LED In-pavement Taxiway Stop Bar Light（SBLMS-08-LED）</system:String>
+    <system:String x:Key="LangsSelectIntermediateHoldingPositionLight">LED Intermediate Holding Position Light（TPLMS-08-LED）</system:String>
+    <system:String x:Key="LangsSelectTWYIntersectionsLight">LED Taxiway Intersections Light（TOIL-08-LED）</system:String>
     <system:String x:Key="LangsSelectOpenCircuitTrue">With Open Circuit</system:String>
     <system:String x:Key="LangsSelectOpenCircuitFalse">Without Open Circuit</system:String>
     <system:String x:Key="LangsFactoryModeChannelSelect">Channel Select：</system:String>
@@ -210,6 +215,7 @@
     <system:String x:Key="LangsCreateExcel4">RWY center light drive with double circuit</system:String>
     <system:String x:Key="LangsCreateExcel5">12 inches RWY center light drive with double circuit</system:String>
     <system:String x:Key="LangsCreateExcel6">RWY guard light</system:String>
+    <system:String x:Key="LangsCreateExcel7">TWY center light drive with double circuit</system:String>
     <system:String x:Key="LangsCreateTxt1">lamp original data</system:String>
 
     <!--后台代码，MessageBox设置-->

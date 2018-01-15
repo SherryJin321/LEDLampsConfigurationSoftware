@@ -29,6 +29,11 @@
     <system:String x:Key="LangsSelectRapidExitTWYIndicatorLight">LED快速出口滑行道指示灯（RAPS-08-LED）</system:String>
     <system:String x:Key="LangsSelectCombinedRWYEdgeLight">LED嵌入式组合跑道边灯（RELC-12-LED）</system:String>
     <system:String x:Key="LangsSelectRWYGuardLight">高光强LED嵌入式跑道警戒灯（HRGS-08-LED）</system:String>
+    <system:String x:Key="LangsSelectTWYCenterLight">LED滑行道中线灯（TCLMS-08-LED）</system:String>
+    <system:String x:Key="LangsSelectTWYCenterLight2P">LED滑行道中线灯2P（TCLMS-08-LED）</system:String>
+    <system:String x:Key="LangsSelectTWYStopBarLight">LED嵌入式停止排灯（SBLMS-08-LED）</system:String>
+    <system:String x:Key="LangsSelectIntermediateHoldingPositionLight">LED中间等待位置灯（TPLMS-08-LED）</system:String>
+    <system:String x:Key="LangsSelectTWYIntersectionsLight">LED滑行道交叉口灯（TOIL-08-LED）</system:String>
     <system:String x:Key="LangsSelectOpenCircuitTrue">带开路</system:String>
     <system:String x:Key="LangsSelectOpenCircuitFalse">不带开路</system:String>
     <system:String x:Key="LangsFactoryModeChannelSelect">通道选择：</system:String>
@@ -213,6 +218,7 @@
     <system:String x:Key="LangsCreateExcel4">双路跑中驱动</system:String>
     <system:String x:Key="LangsCreateExcel5">双路跑中驱动12寸</system:String>
     <system:String x:Key="LangsCreateExcel6">跑道警戒灯</system:String>
+    <system:String x:Key="LangsCreateExcel7">双路滑中驱动</system:String>
     <system:String x:Key="LangsCreateTxt1">灯具原始数据</system:String>
 
 
