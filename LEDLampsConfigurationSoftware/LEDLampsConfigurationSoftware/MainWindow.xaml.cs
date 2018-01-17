@@ -28,10 +28,11 @@ namespace LEDLampsConfigurationSoftware
     {
         #region 设置全局变量
         SerialPort lampsPort = new SerialPort();  //定义串口       
-        int judgeFeedbackCommand = 0;  //设置参数反馈指令为1，版本查询反馈指令为2，状态查询反馈指令为3，无反馈指令为0，打开串口时发送版本查询指令为4
-                
+        int judgeFeedbackCommand = 0;  //设置参数指令为1，版本查询指令为2，状态查询指令为3，无反馈指令为0，打开串口时发送版本查询指令为4,总时间查询指令为5
+
         #endregion
 
+        #region 工厂模式
         #region 版本反馈指令参数
         int year = 0;
         int month = 0;
@@ -56,6 +57,11 @@ namespace LEDLampsConfigurationSoftware
         int waveformSelect = 0;
         #endregion
 
+        #region 总时间查询指令参数
+        int breakDownCount = 0;
+        int totalTime = 0;
+        #endregion
+
         #region 工厂模式下，设置参数指令参数
         byte[] settingIA = new byte[4] { 0x00, 0x00, 0x00, 0x00 };
         byte[] settingIB = new byte[4] { 0x00, 0x00, 0x00, 0x00 };
@@ -71,8 +77,10 @@ namespace LEDLampsConfigurationSoftware
         #endregion
 
         #region 工厂模式下，其他设置参数
-        int[] FlashFrequencyArray = new int[31];        
+        int[] FlashFrequencyArray = new int[31];
         #endregion
+        #endregion
+
 
         #region 开发者模式下，设置参数指令参数
         byte[] InDeveloperModeSettingIA = new byte[4] { 0x00, 0x00, 0x00, 0x00 };
@@ -97,9 +105,11 @@ namespace LEDLampsConfigurationSoftware
         Byte[] InDeveloperModeSettingParameterCommand = new Byte[28] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
         Byte[] InFactoryModeCommonLightRestoreOriginalCommand = new Byte[28] { 0x02, 0x55, 0x11, 0x58, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00 };
         Byte[] InFactoryModeRWYGuardLightRestoreOriginalCommand = new Byte[28] { 0x55, 0x02, 0x11, 0x58, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x1F, 0x00, 0x00 };
+        Byte[] queryTotalTimeCommand = new Byte[28] { 0x02, 0x89, 0x58, 0x22, 0x12, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00 };
 
         #endregion
 
+        #region 状态反馈指令参数集
         #region 8寸灯具各项参数存储集合
         ArrayList RMS1Eightinches = new ArrayList();
         ArrayList Val2Eightinches = new ArrayList();
@@ -192,7 +202,7 @@ namespace LEDLampsConfigurationSoftware
         ArrayList LEDF1DoubleCircuitRWYCenterDrive12inches = new ArrayList();
         ArrayList TDoubleCircuitRWYCenterDrive12inches = new ArrayList();
         ArrayList SecondDoubleCircuitRWYCenterDrive12inches = new ArrayList();
-        ArrayList RMS2LASTDoubleCircuitRWYCenterDrive12inches = new ArrayList();              
+        ArrayList RMS2LASTDoubleCircuitRWYCenterDrive12inches = new ArrayList();
         ArrayList ErrorCodeDoubleCircuitRWYCenterDrive12inches = new ArrayList();
         #endregion
 
@@ -230,9 +240,11 @@ namespace LEDLampsConfigurationSoftware
         ArrayList TDoubleCircuitTWYCenterDrive = new ArrayList();
         ArrayList SecondDoubleCircuitTWYCenterDrive = new ArrayList();
         ArrayList AMaxDoubleCircuitTWYCenterDrive = new ArrayList();
-        ArrayList ErrorCodeDoubleCircuitTWYCenterDrive = new ArrayList();        
+        ArrayList ErrorCodeDoubleCircuitTWYCenterDrive = new ArrayList();
+        #endregion
         #endregion
 
+        #region 中英文切换字符
         #region 后台代码，串口设置页面，中英文切换字符串
         string LampInchesLabel1 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel1");
         string LampInchesLabel2 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel2");
@@ -241,6 +253,8 @@ namespace LEDLampsConfigurationSoftware
         string LampInchesLabel5 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel5");
         string LampInchesLabel6 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel6");
         string LampInchesLabel7 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel7");
+        string LampInchesLabel8 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel8");
+
         #endregion
 
         #region 后台代码，工厂模式页面，中英文切换字符串
@@ -250,6 +264,7 @@ namespace LEDLampsConfigurationSoftware
         string AnswerHardwareVersion3 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion3");
         string AnswerHardwareVersion4 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion4");
         string AnswerHardwareVersion5 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion5");
+        string AnswerHardwareVersion6 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion6");
         string AnswerLampModel0 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel0");
         string AnswerLampModel1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel1");
         string AnswerLampModel2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel2");
@@ -298,6 +313,29 @@ namespace LEDLampsConfigurationSoftware
         string AnswerLampModel45 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel45");
         string AnswerLampModel46 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel46");
         string AnswerLampModel47 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel47");
+        string AnswerLampModel48 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel48");
+        string AnswerLampModel49 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel49");
+        string AnswerLampModel50 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel50");
+        string AnswerLampModel51 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel51");
+        string AnswerLampModel52 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel52");
+        string AnswerLampModel53 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel53");
+        string AnswerLampModel54 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel54");
+        string AnswerLampModel55 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel55");
+        string AnswerLampModel56 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel56");
+        string AnswerLampModel57 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel57");
+        string AnswerLampModel58 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel58");
+        string AnswerLampModel59 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel59");
+        string AnswerLampModel60 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel60");
+        string AnswerLampModel61 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel61");
+        string AnswerLampModel62 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel62");
+        string AnswerLampModel63 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel63");
+        string AnswerLampModel64 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel64");
+        string AnswerLampModel65 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel65");
+        string AnswerLampModel66 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel66");
+        string AnswerLampModel67 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel67");
+        string AnswerLampModel69 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel69");
+        string AnswerLampModel70 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel70");
+        string AnswerLampModel71 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel71");
         string AnswerOpenCircuit1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit1");
         string AnswerOpenCircuit2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit2");
         #endregion
@@ -362,8 +400,12 @@ namespace LEDLampsConfigurationSoftware
         string MessageboxContent41 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent41");
         string MessageboxContent42 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent42");
         string MessageboxContent43 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent43");
+        string MessageboxContent44 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent44");
 
         #endregion
+        #endregion
+
+
 
         public MainWindow()
         {                      
@@ -397,7 +439,8 @@ namespace LEDLampsConfigurationSoftware
             InFactoryModeCommonLightRestoreOriginalCommand[27] = CalculateCheckOutValue(InFactoryModeCommonLightRestoreOriginalCommand);
             InFactoryModeRWYGuardLightRestoreOriginalCommand[27] = CalculateCheckOutValue(InFactoryModeRWYGuardLightRestoreOriginalCommand);
 
-            SettingSerialPort.IsSelected = true;                             
+            SettingSerialPort.IsSelected = true;
+            
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -465,17 +508,23 @@ namespace LEDLampsConfigurationSoftware
                     Thread.Sleep(1000);
                     if (judgeFeedbackCommand == 4)
                     {                        
-                        if ( MessageBox.Show(MessageboxContent3, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error)==MessageBoxResult.OK)
+                        lampsPort.Close();                           
+                        
+                        if(lampsPort.IsOpen == false)
                         {
-                            ConfigurationWindow.IsEnabled = true;
-                        }
-                        else
-                        {
-                            ConfigurationWindow.IsEnabled = false;
-                        }
+                            if (MessageBox.Show(MessageboxContent3, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                            {
+                                ConfigurationWindow.IsEnabled = true;
+                            }
+                            else
+                            {
+                                ConfigurationWindow.IsEnabled = false;
+                            }
 
-                        NoneLampSelect();                        
-                        LampInchesLabel.Content = LampInchesLabel1;                                                                      
+                            NoneLampSelect();
+                            LampInchesLabel.Content = LampInchesLabel1;
+                        }
+                                                                         
                     }
                     else
                     {
@@ -633,6 +682,42 @@ namespace LEDLampsConfigurationSoftware
         }
         #endregion
 
+        #region 总时间查询
+        private void QueryTotalTime_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshStringMessageLanguage();
+            if (lampsPort.IsOpen)
+            {
+                judgeFeedbackCommand = 5;
+                lampsPort.Write(queryTotalTimeCommand, 0, 28);
+                Thread.Sleep(1000);
+                if (judgeFeedbackCommand == 5)
+                {
+                    if (MessageBox.Show(MessageboxContent44, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }
+            }
+            else
+            {
+                if (MessageBox.Show(MessageboxContent9, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                {
+                    ConfigurationWindow.IsEnabled = true;
+                }
+                else
+                {
+                    ConfigurationWindow.IsEnabled = false;
+                }
+            }
+        }
+
+        #endregion
+
         #region 串口数据接收函数
         byte[] dataReceived;
         private void lampsPortDataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -652,6 +737,7 @@ namespace LEDLampsConfigurationSoftware
                         case 2: QueryVersionFeedbackCommand(); break;
                         case 3: QueryStatusFeedbackCommand(); break;
                         case 4: ConfirmLampInches(); break;
+                        case 5: QueryTotalTimeFeedbackCommand();break;
                     }
                 }
                 
@@ -673,9 +759,10 @@ namespace LEDLampsConfigurationSoftware
             }
         }
 
+        #region NoFeedbackCommand
         private void NoFeedbackCommand()
         {
-            if(dataReceived.Length==1&&dataReceived[0]==0x00)
+            if (dataReceived.Length == 1 && dataReceived[0] == 0x00)
             {
                 return;
             }
@@ -694,33 +781,35 @@ namespace LEDLampsConfigurationSoftware
                 }));
             }
         }
+        #endregion
 
+        #region SetParameterFeedbackCommand
         private void SetParameterFeedbackCommand()
         {
-            judgeFeedbackCommand = 0;            
-            
+            judgeFeedbackCommand = 0;
+
             if (dataReceived.Length == 4)
             {
                 byte checkOutValue = CalculateCheckOutValue(dataReceived);
                 if (checkOutValue == dataReceived[dataReceived.Length - 1])
                 {
-                    if ((dataReceived[0] == 0x02 && dataReceived[1] == 0x55 && dataReceived[2] == 0x11)|| (dataReceived[0] == 0x55 && dataReceived[1] == 0x02 && dataReceived[2] == 0x11))
+                    if ((dataReceived[0] == 0x02 && dataReceived[1] == 0x55 && dataReceived[2] == 0x11) || (dataReceived[0] == 0x55 && dataReceived[1] == 0x02 && dataReceived[2] == 0x11))
                     {
                         this.Dispatcher.Invoke(new System.Action(() =>
                         {
-                            if ( MessageBox.Show(MessageboxContent12, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
-                            {                           
-                                    ConfigurationWindow.IsEnabled = true;                                                     
+                            if (MessageBox.Show(MessageboxContent12, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                            {
+                                ConfigurationWindow.IsEnabled = true;
                             }
                             else
-                            {                           
-                                    ConfigurationWindow.IsEnabled = false;                            
+                            {
+                                ConfigurationWindow.IsEnabled = false;
                             }
                         }));
                         return;
                     }
                     else
-                    {                       
+                    {
                         this.Dispatcher.Invoke(new System.Action(() =>
                         {
                             if (MessageBox.Show(MessageboxContent13, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
@@ -736,7 +825,7 @@ namespace LEDLampsConfigurationSoftware
                     }
                 }
                 else
-                {                   
+                {
                     this.Dispatcher.Invoke(new System.Action(() =>
                     {
                         if (MessageBox.Show(MessageboxContent14, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
@@ -752,7 +841,7 @@ namespace LEDLampsConfigurationSoftware
                 }
             }
             else
-            {               
+            {
                 this.Dispatcher.Invoke(new System.Action(() =>
                 {
                     if (MessageBox.Show(MessageboxContent15, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
@@ -766,8 +855,10 @@ namespace LEDLampsConfigurationSoftware
                 }));
                 return;
             }
-        }        
+        }
+        #endregion
 
+        #region QueryVersionFeedbackCommand
         private void QueryVersionFeedbackCommand()
         {
             judgeFeedbackCommand = 0;
@@ -792,24 +883,24 @@ namespace LEDLampsConfigurationSoftware
                         softwareNumber = dataReceived[19];
                         channelSelect = dataReceived[20];
                         flashFrequency = dataReceived[21];
-                        waveformSelect = dataReceived[22];                       
+                        waveformSelect = dataReceived[22];
 
                         currentRatio1 = CalculateRealCurrentValue(dataReceived[10]);
                         currentRatio2 = CalculateRealCurrentValue(dataReceived[11]);
                         currentRatio3 = CalculateRealCurrentValue(dataReceived[12]);
                         currentRatio4 = CalculateRealCurrentValue(dataReceived[13]);
-                        
+
                         this.Dispatcher.Invoke(new System.Action(() =>
                         {
                             PurgeAnswerVersionTextblock();
                             RefreshStringMessageLanguage();
 
-                            AnswerSoftwareVersion.Text = "V"+softwareVersion1.ToString() + "." + softwareVersion2.ToString() +"."+ softwareVersion3.ToString() + " " + " 20" + year.ToString() + "/" + month.ToString() + "/" + date.ToString();
-                            AnswerLampModel.Text= LampsContentShow(lampsNumber);
+                            AnswerSoftwareVersion.Text = "V" + softwareVersion1.ToString() + "." + softwareVersion2.ToString() + "." + softwareVersion3.ToString() + " " + " 20" + year.ToString() + "/" + month.ToString() + "/" + date.ToString();
+                            AnswerLampModel.Text = LampsContentShow(lampsNumber);
                             AnswerIA.Text = currentRatio1.ToString();
                             AnswerIB.Text = currentRatio2.ToString();
                             AnswerIIA.Text = currentRatio3.ToString();
-                            AnswerIIB.Text = currentRatio4.ToString();                           
+                            AnswerIIB.Text = currentRatio4.ToString();
                             if (breakFlag == 0)
                             {
                                 AnswerOpenCircuit.Text = AnswerOpenCircuit1;
@@ -820,11 +911,11 @@ namespace LEDLampsConfigurationSoftware
                             }
 
                             string driveName = "";
-                            if(hardwareVersion1==12&&softwareNumber==0)
+                            if (hardwareVersion1 == 12 && softwareNumber == 0)
                             {
                                 driveName = AnswerHardwareVersion0;
                             }
-                            else if(hardwareVersion1 == 8 && softwareNumber == 0)
+                            else if (hardwareVersion1 == 8 && softwareNumber == 0)
                             {
                                 driveName = AnswerHardwareVersion1;
                             }
@@ -839,6 +930,10 @@ namespace LEDLampsConfigurationSoftware
                             else if (hardwareVersion1 == 8 && softwareNumber == 4)
                             {
                                 driveName = AnswerHardwareVersion4;
+                            }
+                            else if (hardwareVersion1 == 5 && softwareNumber == 6)
+                            {
+                                driveName = AnswerHardwareVersion6;
                             }
                             else
                             {
@@ -860,7 +955,7 @@ namespace LEDLampsConfigurationSoftware
                             }
 
                         }));
-                        
+
                         this.Dispatcher.Invoke(new System.Action(() =>
                         {
                             if (MessageBox.Show(MessageboxContent16, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
@@ -874,356 +969,10 @@ namespace LEDLampsConfigurationSoftware
                         }));
                     }
                     else
-                    {                        
-                        this.Dispatcher.Invoke(new System.Action(() =>
-                        {
-                            if (MessageBox.Show(MessageboxContent17, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
-                            {
-                                ConfigurationWindow.IsEnabled = true;
-                            }
-                            else
-                            {
-                                ConfigurationWindow.IsEnabled = false;
-                            }
-                        }));
-                        return;
-                    }
-                }
-                else
-                {                    
-                    this.Dispatcher.Invoke(new System.Action(() =>
-                    {
-                        if (MessageBox.Show(MessageboxContent18, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
-                        {
-                            ConfigurationWindow.IsEnabled = true;
-                        }
-                        else
-                        {
-                            ConfigurationWindow.IsEnabled = false;
-                        }
-                    }));
-                    return;
-                }
-            }
-            else
-            {               
-                this.Dispatcher.Invoke(new System.Action(() =>
-                {
-                    if (MessageBox.Show(MessageboxContent19, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
-                    {
-                        ConfigurationWindow.IsEnabled = true;
-                    }
-                    else
-                    {
-                        ConfigurationWindow.IsEnabled = false;
-                    }
-                }));
-                return;
-            }
-        }
-
-        private void ConfirmLampInches()
-        {
-            judgeFeedbackCommand = 0;
-            RefreshStringMessageLanguage();
-
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                LampInchesLabel.Content = "";            
-                
-                if (dataReceived.Length == 24)
-                {
-                    byte checkOutValue = CalculateCheckOutValue(dataReceived);
-                    if (checkOutValue == dataReceived[dataReceived.Length - 1])
-                    {
-                        if (dataReceived[0] == 0x02 && dataReceived[1] == 0x89 && dataReceived[2] == 0x22 && dataReceived[3] == 0x85)
-                        {                        
-                            hardwareVersion1 = dataReceived[16];
-                            softwareNumber = dataReceived[19];
-                            
-                            if (hardwareVersion1 == 12 && softwareNumber == 0)
-                            {
-                                LampInchesLabel.Content = LampInchesLabel2 + " " + LampInchesLabel3;
-                                TwelveInchesLampSelect();
-                            }
-                            else if (hardwareVersion1 == 8 && softwareNumber == 0)
-                            {
-                                LampInchesLabel.Content = LampInchesLabel2 + " " + LampInchesLabel4;
-                                EightInchesLampSelect();
-                            }
-                            else if (hardwareVersion1 == 13 && softwareNumber == 2)
-                            {
-                                LampInchesLabel.Content = LampInchesLabel2 + " " + LampInchesLabel5;
-                                DoubleCircuitRWYCenterLampSelect();
-                            }
-                            else if (hardwareVersion1 == 12 && softwareNumber == 3)
-                            {
-                                LampInchesLabel.Content = LampInchesLabel2 + " " + LampInchesLabel6;
-                                DoubleCircuitRWYCenter12inchesLampSelect();
-                            }
-                            else if (hardwareVersion1 == 8 && softwareNumber == 4)
-                            {
-                                LampInchesLabel.Content = LampInchesLabel2 + " " + LampInchesLabel7;
-                                RWYGuardLampSelect();
-                            }
-                            else
-                            {
-                                LampInchesLabel.Content = LampInchesLabel1;
-                                NoneLampSelect();
-                            }
-
-                            if(hardwareVersion1 == 8 && softwareNumber == 4)
-                            {
-                                this.Dispatcher.Invoke(new System.Action(() =>
-                                {
-                                    InDeveloperModeRWYGuardLightParametersSetting.Visibility = Visibility.Visible;
-                                    RestoreOriginalStatus.IsEnabled = false;
-                                }));
-                            }
-                            else
-                            {
-                                this.Dispatcher.Invoke(new System.Action(() =>
-                                {
-                                    InDeveloperModeRWYGuardLightParametersSetting.Visibility = Visibility.Collapsed;
-                                    RestoreOriginalStatus.IsEnabled = true;
-                                }));
-                            }
-                                                   
-                        }
-                        else
-                        {                                                    
-                            if (MessageBox.Show(MessageboxContent3, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
-                            {
-                                ConfigurationWindow.IsEnabled = true;
-                            }
-                            else
-                            {
-                                ConfigurationWindow.IsEnabled = false;
-                            }
-
-                            NoneLampSelect();
-                            LampInchesLabel.Content = LampInchesLabel1;                                                      
-                        }
-                    }
-                    else
-                    {                                           
-                        if (MessageBox.Show(MessageboxContent3, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
-                        {
-                            ConfigurationWindow.IsEnabled = true;
-                        }
-                        else
-                        {
-                            ConfigurationWindow.IsEnabled = false;
-                        }
-
-                        NoneLampSelect();
-                        LampInchesLabel.Content = LampInchesLabel1;                       
-                    }
-                }
-                else
-                {                                   
-                    if (MessageBox.Show(MessageboxContent3, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
-                    {
-                        ConfigurationWindow.IsEnabled = true;
-                    }
-                    else
-                    {
-                        ConfigurationWindow.IsEnabled = false;
-                    }
-
-                    NoneLampSelect();
-                    LampInchesLabel.Content = LampInchesLabel1;                                     
-                }
-         }));
-        }
-
-        public void EightInchesLampSelect()
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                SelectApproachChenterlineLight.IsEnabled = false;
-                SelectApproachCrossbarLight.IsEnabled = false;
-                SelectApproachSideRowLight.IsEnabled = false;
-                SelectRWYThresholdWingBarLight.IsEnabled = false;
-                SelectRWYThresholdLight.IsEnabled = false;
-                SelectRWYEdgeLight.IsEnabled = false;
-                Select12inchesRWYEndLight.IsEnabled = false;
-                SelectRWYThresholdEndLight.IsEnabled = false;
-                SelectRWYCenterlineLight.IsEnabled = true;
-                Select12inchesRWYCenterlineLight.IsEnabled = false;
-                SelectRWYTouchdownZoneLight.IsEnabled = true;
-                Select8inchesRWYEndLight.IsEnabled = true;
-                SelectRapidExitTWYIndicatorLight.IsEnabled = true;
-                SelectCombinedRWYEdgeLight.IsEnabled = false;
-                SelectRWYGuardLight.IsEnabled = false;
-            }));
-        }
-
-        public void TwelveInchesLampSelect()
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                SelectApproachChenterlineLight.IsEnabled = true;
-                SelectApproachCrossbarLight.IsEnabled = true;
-                SelectApproachSideRowLight.IsEnabled = true;
-                SelectRWYThresholdWingBarLight.IsEnabled = true;
-                SelectRWYThresholdLight.IsEnabled = true;
-                SelectRWYEdgeLight.IsEnabled = true;
-                Select12inchesRWYEndLight.IsEnabled = true;
-                SelectRWYThresholdEndLight.IsEnabled = true;
-                SelectRWYCenterlineLight.IsEnabled = false;
-                Select12inchesRWYCenterlineLight.IsEnabled = true;
-                SelectRWYTouchdownZoneLight.IsEnabled = false;
-                Select8inchesRWYEndLight.IsEnabled = false;
-                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
-                SelectCombinedRWYEdgeLight.IsEnabled = true;
-                SelectRWYGuardLight.IsEnabled = false;
-            }));
-        }
-
-        public void DoubleCircuitRWYCenterLampSelect()
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                SelectApproachChenterlineLight.IsEnabled = false;
-                SelectApproachCrossbarLight.IsEnabled = false;
-                SelectApproachSideRowLight.IsEnabled = false;
-                SelectRWYThresholdWingBarLight.IsEnabled = false;
-                SelectRWYThresholdLight.IsEnabled = false;
-                SelectRWYEdgeLight.IsEnabled = false;
-                Select12inchesRWYEndLight.IsEnabled = false;
-                SelectRWYThresholdEndLight.IsEnabled = false;
-                SelectRWYCenterlineLight.IsEnabled = true;
-                Select12inchesRWYCenterlineLight.IsEnabled = false;
-                SelectRWYTouchdownZoneLight.IsEnabled = true;
-                Select8inchesRWYEndLight.IsEnabled = true;
-                SelectRapidExitTWYIndicatorLight.IsEnabled = true;
-                SelectCombinedRWYEdgeLight.IsEnabled = false;
-                SelectRWYGuardLight.IsEnabled = false;
-            }));
-        }
-
-        public void DoubleCircuitRWYCenter12inchesLampSelect()
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                SelectApproachChenterlineLight.IsEnabled = false;
-                SelectApproachCrossbarLight.IsEnabled = false;
-                SelectApproachSideRowLight.IsEnabled = false;
-                SelectRWYThresholdWingBarLight.IsEnabled = false;
-                SelectRWYThresholdLight.IsEnabled = false;
-                SelectRWYEdgeLight.IsEnabled = false;
-                Select12inchesRWYEndLight.IsEnabled = false;
-                SelectRWYThresholdEndLight.IsEnabled = true;
-                SelectRWYCenterlineLight.IsEnabled = false;
-                Select12inchesRWYCenterlineLight.IsEnabled = true;
-                SelectRWYTouchdownZoneLight.IsEnabled = false;
-                Select8inchesRWYEndLight.IsEnabled = false;
-                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
-                SelectCombinedRWYEdgeLight.IsEnabled = false;
-                SelectRWYGuardLight.IsEnabled = false;
-            }));
-        }
-
-        public void RWYGuardLampSelect()
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                SelectApproachChenterlineLight.IsEnabled = false;
-                SelectApproachCrossbarLight.IsEnabled = false;
-                SelectApproachSideRowLight.IsEnabled = false;
-                SelectRWYThresholdWingBarLight.IsEnabled = false;
-                SelectRWYThresholdLight.IsEnabled = false;
-                SelectRWYEdgeLight.IsEnabled = false;
-                Select12inchesRWYEndLight.IsEnabled = false;
-                SelectRWYThresholdEndLight.IsEnabled = false;
-                SelectRWYCenterlineLight.IsEnabled = false;
-                Select12inchesRWYCenterlineLight.IsEnabled = false;
-                SelectRWYTouchdownZoneLight.IsEnabled = false;
-                Select8inchesRWYEndLight.IsEnabled = false;
-                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
-                SelectCombinedRWYEdgeLight.IsEnabled = false;
-                SelectRWYGuardLight.IsEnabled = true;
-            }));
-        }
-
-        public void NoneLampSelect()
-        {
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                SelectApproachChenterlineLight.IsEnabled = false;
-                SelectApproachCrossbarLight.IsEnabled = false;
-                SelectApproachSideRowLight.IsEnabled = false;
-                SelectRWYThresholdWingBarLight.IsEnabled = false;
-                SelectRWYThresholdLight.IsEnabled = false;
-                SelectRWYEdgeLight.IsEnabled = false;
-                Select12inchesRWYEndLight.IsEnabled = false;
-                SelectRWYThresholdEndLight.IsEnabled = false;
-                SelectRWYCenterlineLight.IsEnabled = false;
-                Select12inchesRWYCenterlineLight.IsEnabled = false;
-                SelectRWYTouchdownZoneLight.IsEnabled = false;
-                Select8inchesRWYEndLight.IsEnabled = false;
-                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
-                SelectCombinedRWYEdgeLight.IsEnabled = false;
-                SelectRWYGuardLight.IsEnabled = false;
-            }));
-        }
-
-        ArrayList ReceivedStatusFeedbackCommand = new ArrayList();  //定义接收到的状态反馈指令        
-        private void QueryStatusFeedbackCommand()
-        {
-            ReceivedStatusFeedbackCommand.AddRange(dataReceived);
-
-            RefreshStringMessageLanguage();
-            QueryStatusTimeSpan = DateTime.Now - StartQueryStatus;
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                AnswerStatus.Text = AnswerStatus1 + " "+QueryStatusTimeSpan.Hours.ToString().PadLeft(2, '0') + ":" + QueryStatusTimeSpan.Minutes.ToString().PadLeft(2, '0') + ":" + QueryStatusTimeSpan.Seconds.ToString().PadLeft(2, '0') + ":" + QueryStatusTimeSpan.Milliseconds.ToString().PadLeft(3, '0');
-            }));
-
-            if (dataReceived.Length == 4)
-            {
-                byte checkOutValue = CalculateCheckOutValue(dataReceived);
-                if (checkOutValue == dataReceived[dataReceived.Length - 1])
-                {
-                    if (dataReceived[0] == 0x02 && dataReceived[1] == 0x89 && dataReceived[2] == 0x11)
-                    {
-                        QueryStatusNoContentFeedbackCommand();
-                    }
-                }
-            }
-                        
-        }
-
-        private void QueryStatusNoContentFeedbackCommand()
-        {
-            judgeFeedbackCommand = 0;
-
-            if (dataReceived.Length == 4)
-            {
-                byte checkOutValue = CalculateCheckOutValue(dataReceived);
-                if (checkOutValue == dataReceived[dataReceived.Length - 1])
-                {
-                    if (dataReceived[0] == 0x02 && dataReceived[1] == 0x89 && dataReceived[2] == 0x11)
                     {
                         this.Dispatcher.Invoke(new System.Action(() =>
                         {
-                            if (MessageBox.Show(MessageboxContent21, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
-                            {
-                                ConfigurationWindow.IsEnabled = true;
-                            }
-                            else
-                            {
-                                ConfigurationWindow.IsEnabled = false;
-                            }
-                        }));
-                        return;
-                    }
-                    else
-                    {
-                        this.Dispatcher.Invoke(new System.Action(() =>
-                        {
-                            if (MessageBox.Show(MessageboxContent22, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                            if (MessageBox.Show(MessageboxContent13, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                             {
                                 ConfigurationWindow.IsEnabled = true;
                             }
@@ -1239,7 +988,7 @@ namespace LEDLampsConfigurationSoftware
                 {
                     this.Dispatcher.Invoke(new System.Action(() =>
                     {
-                        if (MessageBox.Show(MessageboxContent23, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                        if (MessageBox.Show(MessageboxContent14, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                         {
                             ConfigurationWindow.IsEnabled = true;
                         }
@@ -1255,7 +1004,7 @@ namespace LEDLampsConfigurationSoftware
             {
                 this.Dispatcher.Invoke(new System.Action(() =>
                 {
-                    if (MessageBox.Show(MessageboxContent24, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    if (MessageBox.Show(MessageboxContent15, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                     {
                         ConfigurationWindow.IsEnabled = true;
                     }
@@ -1278,7 +1027,7 @@ namespace LEDLampsConfigurationSoftware
                 case 0: result = AnswerLampModel0; break;
                 case 1: result = AnswerLampModel1; break;
                 case 2: result = AnswerLampModel2; break;
-                case 3: result = AnswerLampModel3; break;               
+                case 3: result = AnswerLampModel3; break;
                 case 4: result = AnswerLampModel4; break;
                 case 5: result = AnswerLampModel5; break;
                 case 6: result = AnswerLampModel6; break;
@@ -1323,54 +1072,78 @@ namespace LEDLampsConfigurationSoftware
                 case 45: result = AnswerLampModel45; break;
                 case 46: result = AnswerLampModel46; break;
                 case 47: result = AnswerLampModel47; break;
+                case 48: result = AnswerLampModel48; break;
+                case 49: result = AnswerLampModel49; break;
+                case 50: result = AnswerLampModel50; break;
+                case 51: result = AnswerLampModel51; break;
+                case 52: result = AnswerLampModel52; break;
+                case 53: result = AnswerLampModel53; break;
+                case 54: result = AnswerLampModel54; break;
+                case 55: result = AnswerLampModel55; break;
+                case 56: result = AnswerLampModel56; break;
+                case 57: result = AnswerLampModel57; break;
+                case 58: result = AnswerLampModel58; break;
+                case 59: result = AnswerLampModel59; break;
+                case 60: result = AnswerLampModel60; break;
+                case 61: result = AnswerLampModel61; break;
+                case 62: result = AnswerLampModel62; break;
+                case 63: result = AnswerLampModel63; break;
+                case 64: result = AnswerLampModel64; break;
+                case 65: result = AnswerLampModel65; break;
+                case 66: result = AnswerLampModel66; break;
+                case 67: result = AnswerLampModel67; break;
+                case 69: result = AnswerLampModel69; break;
+                case 70: result = AnswerLampModel70; break;
+                case 71: result = AnswerLampModel71; break;
+
             }
             return result;
         }
 
         private double CalculateRealCurrentValue(byte originalData)
         {
-            double original= originalData / 10.0;
+            double original = originalData / 10.0;
             double result = 0.0;
 
-            if(hardwareVersion1 == 12&&softwareNumber==0)
+            if (hardwareVersion1 == 12 && softwareNumber == 0)
             {
                 result = original;
 
-                if (lampsNumber == 1 || lampsNumber == 2 ||lampsNumber==3)
+                if (lampsNumber == 1 || lampsNumber == 2 || lampsNumber == 3)
                 {
                     result = original * 1.3;
                 }
-                if((lampsNumber>=33&&lampsNumber<=40)|| lampsNumber==47)
+                if ((lampsNumber >= 33 && lampsNumber <= 40) || lampsNumber == 47)
                 {
-                    if(original==0.9)
+                    if (original == 0.9)
                     {
                         result = 0.93 * 1.3;
                     }
-                    if(original==0.7)
+                    if (original == 0.7)
                     {
                         result = 0.7 * 1;
                     }
-                    if(original==0.6)
+                    if (original == 0.6)
                     {
                         result = 0.55 * 1;
                     }
-                    if(original==0.4)
+                    if (original == 0.4)
                     {
                         result = 0.45 * 1;
                     }
                 }
             }
-            else if(hardwareVersion1 == 8&& softwareNumber==0)
+            else if (hardwareVersion1 == 8 && softwareNumber == 0)
             {
                 result = original * 0.66;
             }
-            else if(hardwareVersion1==13&&softwareNumber==2)
+            else if (hardwareVersion1 == 13 && softwareNumber == 2)
             {
                 result = original * 0.66;
             }
             else if (hardwareVersion1 == 12 && softwareNumber == 3)
             {
-                if(original==0.4)
+                if (original == 0.4)
                 {
                     result = 0.45 * 1;
                 }
@@ -1383,7 +1156,11 @@ namespace LEDLampsConfigurationSoftware
             {
                 result = original * 0.66;
             }
-            result = Math.Round(result, 2,MidpointRounding.AwayFromZero);
+            else if (hardwareVersion1 == 5 && softwareNumber == 6)
+            {
+                result = original / 1.95;             //
+            }
+            result = Math.Round(result, 2, MidpointRounding.AwayFromZero);
 
             return result;
 
@@ -1403,6 +1180,518 @@ namespace LEDLampsConfigurationSoftware
                 AnswerOpenCircuit.Text = "";
             }));
         }
+        #endregion
+
+        #region QueryStatusFeedbackCommand
+        ArrayList ReceivedStatusFeedbackCommand = new ArrayList();  //定义接收到的状态反馈指令        
+        private void QueryStatusFeedbackCommand()
+        {
+            ReceivedStatusFeedbackCommand.AddRange(dataReceived);
+
+            RefreshStringMessageLanguage();
+            QueryStatusTimeSpan = DateTime.Now - StartQueryStatus;
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                AnswerStatus.Text = AnswerStatus1 + " " + QueryStatusTimeSpan.Hours.ToString().PadLeft(2, '0') + ":" + QueryStatusTimeSpan.Minutes.ToString().PadLeft(2, '0') + ":" + QueryStatusTimeSpan.Seconds.ToString().PadLeft(2, '0') + ":" + QueryStatusTimeSpan.Milliseconds.ToString().PadLeft(3, '0');
+            }));
+
+            if (dataReceived.Length == 4)
+            {
+                byte checkOutValue = CalculateCheckOutValue(dataReceived);
+                if (checkOutValue == dataReceived[dataReceived.Length - 1])
+                {
+                    if (dataReceived[0] == 0x02 && dataReceived[1] == 0x89 && dataReceived[2] == 0x11)
+                    {
+                        QueryStatusNoContentFeedbackCommand();
+                    }
+                }
+            }
+
+        }
+
+        private void QueryStatusNoContentFeedbackCommand()
+        {
+            judgeFeedbackCommand = 0;
+
+            if (dataReceived.Length == 4)
+            {
+                byte checkOutValue = CalculateCheckOutValue(dataReceived);
+                if (checkOutValue == dataReceived[dataReceived.Length - 1])
+                {
+                    if (dataReceived[0] == 0x02 && dataReceived[1] == 0x89 && dataReceived[2] == 0x11)
+                    {
+                        this.Dispatcher.Invoke(new System.Action(() =>
+                        {
+                            if (MessageBox.Show(MessageboxContent21, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                            {
+                                ConfigurationWindow.IsEnabled = true;
+                            }
+                            else
+                            {
+                                ConfigurationWindow.IsEnabled = false;
+                            }
+                        }));
+                        return;
+                    }
+                    else
+                    {
+                        this.Dispatcher.Invoke(new System.Action(() =>
+                        {
+                            if (MessageBox.Show(MessageboxContent13, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                            {
+                                ConfigurationWindow.IsEnabled = true;
+                            }
+                            else
+                            {
+                                ConfigurationWindow.IsEnabled = false;
+                            }
+                        }));
+                        return;
+                    }
+                }
+                else
+                {
+                    this.Dispatcher.Invoke(new System.Action(() =>
+                    {
+                        if (MessageBox.Show(MessageboxContent14, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                        {
+                            ConfigurationWindow.IsEnabled = true;
+                        }
+                        else
+                        {
+                            ConfigurationWindow.IsEnabled = false;
+                        }
+                    }));
+                    return;
+                }
+            }
+            else
+            {
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show(MessageboxContent15, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
+                return;
+            }
+        }
+
+        #endregion
+
+        #region ConfirmLampInches
+        private void ConfirmLampInches()
+        {
+            judgeFeedbackCommand = 0;
+            RefreshStringMessageLanguage();
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                LampInchesLabel.Content = "";
+
+                if (dataReceived.Length == 24)
+                {
+                    byte checkOutValue = CalculateCheckOutValue(dataReceived);
+                    if (checkOutValue == dataReceived[dataReceived.Length - 1])
+                    {
+                        if (dataReceived[0] == 0x02 && dataReceived[1] == 0x89 && dataReceived[2] == 0x22 && dataReceived[3] == 0x85)
+                        {
+                            hardwareVersion1 = dataReceived[16];
+                            softwareNumber = dataReceived[19];
+
+                            if (hardwareVersion1 == 12 && softwareNumber == 0)
+                            {
+                                LampInchesLabel.Content = LampInchesLabel2 + " " + LampInchesLabel3;
+                                TwelveInchesLampSelect();
+                            }
+                            else if (hardwareVersion1 == 8 && softwareNumber == 0)
+                            {
+                                LampInchesLabel.Content = LampInchesLabel2 + " " + LampInchesLabel4;
+                                EightInchesLampSelect();
+                            }
+                            else if (hardwareVersion1 == 13 && softwareNumber == 2)
+                            {
+                                LampInchesLabel.Content = LampInchesLabel2 + " " + LampInchesLabel5;
+                                DoubleCircuitRWYCenterLampSelect();
+                            }
+                            else if (hardwareVersion1 == 12 && softwareNumber == 3)
+                            {
+                                LampInchesLabel.Content = LampInchesLabel2 + " " + LampInchesLabel6;
+                                DoubleCircuitRWYCenter12inchesLampSelect();
+                            }
+                            else if (hardwareVersion1 == 8 && softwareNumber == 4)
+                            {
+                                LampInchesLabel.Content = LampInchesLabel2 + " " + LampInchesLabel7;
+                                RWYGuardLampSelect();
+                            }
+                            else if (hardwareVersion1 == 5 && softwareNumber == 6)
+                            {
+                                LampInchesLabel.Content = LampInchesLabel2 + " " + LampInchesLabel8;
+                                DoubleCircuitTWYCenterLampSelect();
+                            }
+                            else
+                            {
+                                LampInchesLabel.Content = LampInchesLabel1;
+                                NoneLampSelect();
+                            }
+
+                            if (hardwareVersion1 == 8 && softwareNumber == 4)
+                            {
+                                this.Dispatcher.Invoke(new System.Action(() =>
+                                {
+                                    InDeveloperModeRWYGuardLightParametersSetting.Visibility = Visibility.Visible;
+                                    RestoreOriginalStatus.IsEnabled = false;
+                                }));
+                            }
+                            else
+                            {
+                                this.Dispatcher.Invoke(new System.Action(() =>
+                                {
+                                    InDeveloperModeRWYGuardLightParametersSetting.Visibility = Visibility.Collapsed;
+                                    RestoreOriginalStatus.IsEnabled = true;
+                                }));
+                            }
+
+                        }
+                        else
+                        {
+                            if (MessageBox.Show(MessageboxContent3, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                            {
+                                ConfigurationWindow.IsEnabled = true;
+                            }
+                            else
+                            {
+                                ConfigurationWindow.IsEnabled = false;
+                            }
+
+                            NoneLampSelect();
+                            LampInchesLabel.Content = LampInchesLabel1;
+                        }
+                    }
+                    else
+                    {
+                        if (MessageBox.Show(MessageboxContent3, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                        {
+                            ConfigurationWindow.IsEnabled = true;
+                        }
+                        else
+                        {
+                            ConfigurationWindow.IsEnabled = false;
+                        }
+
+                        NoneLampSelect();
+                        LampInchesLabel.Content = LampInchesLabel1;
+                    }
+                }
+                else
+                {
+                    if (MessageBox.Show(MessageboxContent3, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+
+                    NoneLampSelect();
+                    LampInchesLabel.Content = LampInchesLabel1;
+                }
+            }));
+        }
+
+        public void EightInchesLampSelect()
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                SelectApproachChenterlineLight.IsEnabled = false;
+                SelectApproachCrossbarLight.IsEnabled = false;
+                SelectApproachSideRowLight.IsEnabled = false;
+                SelectRWYThresholdWingBarLight.IsEnabled = false;
+                SelectRWYThresholdLight.IsEnabled = false;
+                SelectRWYEdgeLight.IsEnabled = false;
+                Select12inchesRWYEndLight.IsEnabled = false;
+                SelectRWYThresholdEndLight.IsEnabled = false;
+                SelectRWYCenterlineLight.IsEnabled = true;
+                Select12inchesRWYCenterlineLight.IsEnabled = false;
+                SelectRWYTouchdownZoneLight.IsEnabled = true;
+                Select8inchesRWYEndLight.IsEnabled = true;
+                SelectRapidExitTWYIndicatorLight.IsEnabled = true;
+                SelectCombinedRWYEdgeLight.IsEnabled = false;
+                SelectRWYGuardLight.IsEnabled = false;
+                SelectTWYCenterLight.IsEnabled = false;
+                SelectTWYCenterLight2P.IsEnabled = false;
+                SelectTWYStopBarLight.IsEnabled = false;
+                SelectIntermediateHoldingPositionLight.IsEnabled = false;
+                SelectTWYIntersectionsLight.IsEnabled = false;
+            }));
+        }
+
+        public void TwelveInchesLampSelect()
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                SelectApproachChenterlineLight.IsEnabled = true;
+                SelectApproachCrossbarLight.IsEnabled = true;
+                SelectApproachSideRowLight.IsEnabled = true;
+                SelectRWYThresholdWingBarLight.IsEnabled = true;
+                SelectRWYThresholdLight.IsEnabled = true;
+                SelectRWYEdgeLight.IsEnabled = true;
+                Select12inchesRWYEndLight.IsEnabled = true;
+                SelectRWYThresholdEndLight.IsEnabled = true;
+                SelectRWYCenterlineLight.IsEnabled = false;
+                Select12inchesRWYCenterlineLight.IsEnabled = true;
+                SelectRWYTouchdownZoneLight.IsEnabled = false;
+                Select8inchesRWYEndLight.IsEnabled = false;
+                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
+                SelectCombinedRWYEdgeLight.IsEnabled = true;
+                SelectRWYGuardLight.IsEnabled = false;
+                SelectTWYCenterLight.IsEnabled = false;
+                SelectTWYCenterLight2P.IsEnabled = false;
+                SelectTWYStopBarLight.IsEnabled = false;
+                SelectIntermediateHoldingPositionLight.IsEnabled = false;
+                SelectTWYIntersectionsLight.IsEnabled = false;
+            }));
+        }
+
+        public void DoubleCircuitRWYCenterLampSelect()
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                SelectApproachChenterlineLight.IsEnabled = false;
+                SelectApproachCrossbarLight.IsEnabled = false;
+                SelectApproachSideRowLight.IsEnabled = false;
+                SelectRWYThresholdWingBarLight.IsEnabled = false;
+                SelectRWYThresholdLight.IsEnabled = false;
+                SelectRWYEdgeLight.IsEnabled = false;
+                Select12inchesRWYEndLight.IsEnabled = false;
+                SelectRWYThresholdEndLight.IsEnabled = false;
+                SelectRWYCenterlineLight.IsEnabled = true;
+                Select12inchesRWYCenterlineLight.IsEnabled = false;
+                SelectRWYTouchdownZoneLight.IsEnabled = true;
+                Select8inchesRWYEndLight.IsEnabled = true;
+                SelectRapidExitTWYIndicatorLight.IsEnabled = true;
+                SelectCombinedRWYEdgeLight.IsEnabled = false;
+                SelectRWYGuardLight.IsEnabled = false;
+                SelectTWYCenterLight.IsEnabled = false;
+                SelectTWYCenterLight2P.IsEnabled = false;
+                SelectTWYStopBarLight.IsEnabled = false;
+                SelectIntermediateHoldingPositionLight.IsEnabled = false;
+                SelectTWYIntersectionsLight.IsEnabled = false;
+            }));
+        }
+
+        public void DoubleCircuitRWYCenter12inchesLampSelect()
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                SelectApproachChenterlineLight.IsEnabled = false;
+                SelectApproachCrossbarLight.IsEnabled = false;
+                SelectApproachSideRowLight.IsEnabled = false;
+                SelectRWYThresholdWingBarLight.IsEnabled = false;
+                SelectRWYThresholdLight.IsEnabled = false;
+                SelectRWYEdgeLight.IsEnabled = false;
+                Select12inchesRWYEndLight.IsEnabled = false;
+                SelectRWYThresholdEndLight.IsEnabled = true;
+                SelectRWYCenterlineLight.IsEnabled = false;
+                Select12inchesRWYCenterlineLight.IsEnabled = true;
+                SelectRWYTouchdownZoneLight.IsEnabled = false;
+                Select8inchesRWYEndLight.IsEnabled = false;
+                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
+                SelectCombinedRWYEdgeLight.IsEnabled = false;
+                SelectRWYGuardLight.IsEnabled = false;
+                SelectTWYCenterLight.IsEnabled = false;
+                SelectTWYCenterLight2P.IsEnabled = false;
+                SelectTWYStopBarLight.IsEnabled = false;
+                SelectIntermediateHoldingPositionLight.IsEnabled = false;
+                SelectTWYIntersectionsLight.IsEnabled = false;
+            }));
+        }
+
+        public void RWYGuardLampSelect()
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                SelectApproachChenterlineLight.IsEnabled = false;
+                SelectApproachCrossbarLight.IsEnabled = false;
+                SelectApproachSideRowLight.IsEnabled = false;
+                SelectRWYThresholdWingBarLight.IsEnabled = false;
+                SelectRWYThresholdLight.IsEnabled = false;
+                SelectRWYEdgeLight.IsEnabled = false;
+                Select12inchesRWYEndLight.IsEnabled = false;
+                SelectRWYThresholdEndLight.IsEnabled = false;
+                SelectRWYCenterlineLight.IsEnabled = false;
+                Select12inchesRWYCenterlineLight.IsEnabled = false;
+                SelectRWYTouchdownZoneLight.IsEnabled = false;
+                Select8inchesRWYEndLight.IsEnabled = false;
+                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
+                SelectCombinedRWYEdgeLight.IsEnabled = false;
+                SelectRWYGuardLight.IsEnabled = true;
+                SelectTWYCenterLight.IsEnabled = false;
+                SelectTWYCenterLight2P.IsEnabled = false;
+                SelectTWYStopBarLight.IsEnabled = false;
+                SelectIntermediateHoldingPositionLight.IsEnabled = false;
+                SelectTWYIntersectionsLight.IsEnabled = false;
+            }));
+        }
+
+        public void NoneLampSelect()
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                SelectApproachChenterlineLight.IsEnabled = false;
+                SelectApproachCrossbarLight.IsEnabled = false;
+                SelectApproachSideRowLight.IsEnabled = false;
+                SelectRWYThresholdWingBarLight.IsEnabled = false;
+                SelectRWYThresholdLight.IsEnabled = false;
+                SelectRWYEdgeLight.IsEnabled = false;
+                Select12inchesRWYEndLight.IsEnabled = false;
+                SelectRWYThresholdEndLight.IsEnabled = false;
+                SelectRWYCenterlineLight.IsEnabled = false;
+                Select12inchesRWYCenterlineLight.IsEnabled = false;
+                SelectRWYTouchdownZoneLight.IsEnabled = false;
+                Select8inchesRWYEndLight.IsEnabled = false;
+                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
+                SelectCombinedRWYEdgeLight.IsEnabled = false;
+                SelectRWYGuardLight.IsEnabled = false;
+                SelectTWYCenterLight.IsEnabled = false;
+                SelectTWYCenterLight2P.IsEnabled = false;
+                SelectTWYStopBarLight.IsEnabled = false;
+                SelectIntermediateHoldingPositionLight.IsEnabled = false;
+                SelectTWYIntersectionsLight.IsEnabled = false;
+            }));
+        }
+
+        public void DoubleCircuitTWYCenterLampSelect()
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                SelectApproachChenterlineLight.IsEnabled = false;
+                SelectApproachCrossbarLight.IsEnabled = false;
+                SelectApproachSideRowLight.IsEnabled = false;
+                SelectRWYThresholdWingBarLight.IsEnabled = false;
+                SelectRWYThresholdLight.IsEnabled = false;
+                SelectRWYEdgeLight.IsEnabled = false;
+                Select12inchesRWYEndLight.IsEnabled = false;
+                SelectRWYThresholdEndLight.IsEnabled = false;
+                SelectRWYCenterlineLight.IsEnabled = false;
+                Select12inchesRWYCenterlineLight.IsEnabled = false;
+                SelectRWYTouchdownZoneLight.IsEnabled = false;
+                Select8inchesRWYEndLight.IsEnabled = false;
+                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
+                SelectCombinedRWYEdgeLight.IsEnabled = false;
+                SelectRWYGuardLight.IsEnabled = false;
+                SelectTWYCenterLight.IsEnabled = false;
+                SelectTWYCenterLight2P.IsEnabled = true;
+                SelectTWYStopBarLight.IsEnabled = true;
+                SelectIntermediateHoldingPositionLight.IsEnabled = true;
+                SelectTWYIntersectionsLight.IsEnabled = true;
+
+            }));
+        }
+        #endregion
+
+        #region QueryTotalTimeFeedbackCommand
+        private void QueryTotalTimeFeedbackCommand()
+        {
+            judgeFeedbackCommand = 0;
+
+            if (dataReceived.Length == 16)
+            {
+                byte checkOutValue = CalculateCheckOutValue(dataReceived);
+                if (checkOutValue == dataReceived[dataReceived.Length - 1])
+                {
+                    if (dataReceived[0] == 0x02 && dataReceived[1] == 0x89 && dataReceived[2] == 0x22 && dataReceived[3] == 0x85)
+                    {
+                        int breakDownCount = 0;
+                        for (int j = 0; j < 4; j++)
+                        {
+                            int SecondOrigin = dataReceived[4 + j];
+                            breakDownCount |= SecondOrigin;
+                            if (j < 3)
+                            {
+                                breakDownCount <<= 8;
+                            }
+                        }
+
+                        int totalTime = 0;
+                        for (int j = 0; j < 4; j++)
+                        {
+                            int SecondOrigin = dataReceived[8 + j];
+                            totalTime |= SecondOrigin;
+                            if (j < 3)
+                            {
+                                totalTime <<= 8;
+                            }
+                        }
+
+                        this.Dispatcher.Invoke(new System.Action(() =>
+                        {
+                            TotalTimeEnquiryWindows myTotalTimeEnquiryWindows = new TotalTimeEnquiryWindows();
+                            myTotalTimeEnquiryWindows.breakDownCount = breakDownCount;
+                            myTotalTimeEnquiryWindows.totalTime = totalTime;
+                            myTotalTimeEnquiryWindows.ShowDialog();                            
+                        }));
+                        return;
+                    }
+                    else
+                    {
+                        this.Dispatcher.Invoke(new System.Action(() =>
+                        {
+                            if (MessageBox.Show(MessageboxContent13, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                            {
+                                ConfigurationWindow.IsEnabled = true;
+                            }
+                            else
+                            {
+                                ConfigurationWindow.IsEnabled = false;
+                            }
+                        }));
+                        return;
+                    }
+                }
+                else
+                {
+                    this.Dispatcher.Invoke(new System.Action(() =>
+                    {
+                        if (MessageBox.Show(MessageboxContent14, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                        {
+                            ConfigurationWindow.IsEnabled = true;
+                        }
+                        else
+                        {
+                            ConfigurationWindow.IsEnabled = false;
+                        }
+                    }));
+                    return;
+                }
+            }
+            else
+            {
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show(MessageboxContent15, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
+                return;
+            }
+        }
+
+
+        #endregion
+
+  
         #endregion
 
         #region 导出最终数据
@@ -1467,7 +1756,7 @@ namespace LEDLampsConfigurationSoftware
                     {                       
                         this.Dispatcher.Invoke(new System.Action(() =>
                         {
-                            if (MessageBox.Show(MessageboxContent22, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                            if (MessageBox.Show(MessageboxContent13, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
                             {
                                 ConfigurationWindow.IsEnabled = true;
                             }
@@ -7469,7 +7758,538 @@ namespace LEDLampsConfigurationSoftware
             settingReadRFlag = 0x01;            
             settingLampsNumber = 0x29;
         }
+
+        private void ConfigureTCLMS08SLEDGG1PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x30;
+        }
+
+        private void ConfigureTCLMS08SLEDGY1PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x31;
+        }
+
+        private void ConfigureTCLMS08SLEDYY1PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x32;
+        }
+
+        private void ConfigureTCLMS08SLEDYB1PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x33;
+        }
+
+        private void ConfigureTCLMS08SLEDGB1PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x34;
+        }
+
+        private void ConfigureTCLMS08CLEDGG1PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x35;
+        }
+
+        private void ConfigureTCLMS08CLEDGY1PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x36;
+        }
+
+        private void ConfigureTCLMS08CLEDYY1PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x37;
+        }
+
+        private void ConfigureTCLMS08CLEDYB1PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x38;
+        }
+
+        private void ConfigureTCLMS08CLEDGB1PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x39;
+        }
+
+        private void ConfigureTCLMS08SLEDGG2PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x3A;
+        }
+
+        private void ConfigureTCLMS08SLEDGY2PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x3B;
+        }
+
+        private void ConfigureTCLMS08SLEDYY2PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x3C;
+        }
+
+        private void ConfigureTCLMS08SLEDYB2PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x3D;
+        }
+
+        private void ConfigureTCLMS08SLEDGB2PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x3E;
+        }
+
+        private void ConfigureTCLMS08CLEDGG2PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x3F;
+        }
+
+        private void ConfigureTCLMS08CLEDGY2PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x40;
+        }
+
+        private void ConfigureTCLMS08CLEDYY2PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x41;
+        }
+
+        private void ConfigureTCLMS08CLEDYB2PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x42;
+        }
+
+        private void ConfigureTCLMS08CLEDGB2PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x43;
+        }
+
+        private void ConfigureSBLMS08SLEDRParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x45;
+        }
+
+        private void ConfigureTPLMS08SLEDYParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x46;
+        }
+
+        private void ConfigureTOIL08LLEDYParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x47;
+        }
+
         
+
         #endregion
 
         #region 工厂模式配置灯具参数是否开路
@@ -8126,6 +8946,12 @@ namespace LEDLampsConfigurationSoftware
                 SelectRapidExitTWYIndicatorLight.IsChecked = false;
                 SelectCombinedRWYEdgeLight.IsChecked = false;
                 SelectRWYGuardLight.IsChecked = false;
+                SelectTWYCenterLight.IsChecked = false;
+                SelectTWYCenterLight2P.IsChecked = false;
+                SelectTWYStopBarLight.IsChecked = false;
+                SelectIntermediateHoldingPositionLight.IsChecked = false;
+                SelectTWYIntersectionsLight.IsChecked = false;
+
 
                 SelectAPPS12SLEDC.IsChecked = false;
                 SelectAPPS12LLEDC.IsChecked = false;
@@ -8174,6 +9000,30 @@ namespace LEDLampsConfigurationSoftware
                 SelectRELC12LEDRYB1P.IsChecked = false;
                 SelectRELC12LEDCBC1P.IsChecked = false;
                 SelectHRGS08LEDY.IsChecked = false;
+                SelectTCLMS08SLEDGG1P.IsChecked = false;
+                SelectTCLMS08SLEDGY1P.IsChecked = false;
+                SelectTCLMS08SLEDYY1P.IsChecked = false;
+                SelectTCLMS08SLEDYB1P.IsChecked = false;
+                SelectTCLMS08SLEDGB1P.IsChecked = false;
+                SelectTCLMS08CLEDGG1P.IsChecked = false;
+                SelectTCLMS08CLEDGY1P.IsChecked = false;
+                SelectTCLMS08CLEDYY1P.IsChecked = false;
+                SelectTCLMS08CLEDYB1P.IsChecked = false;
+                SelectTCLMS08CLEDGB1P.IsChecked = false;
+                SelectTCLMS08SLEDGG2P.IsChecked = false;
+                SelectTCLMS08SLEDGY2P.IsChecked = false;
+                SelectTCLMS08SLEDYY2P.IsChecked = false;
+                SelectTCLMS08SLEDYB2P.IsChecked = false;
+                SelectTCLMS08SLEDGB2P.IsChecked = false;
+                SelectTCLMS08CLEDGG2P.IsChecked = false;
+                SelectTCLMS08CLEDGY2P.IsChecked = false;
+                SelectTCLMS08CLEDYY2P.IsChecked = false;
+                SelectTCLMS08CLEDYB2P.IsChecked = false;
+                SelectTCLMS08CLEDGB2P.IsChecked = false;
+                SelectSBLMS08SLEDR.IsChecked = false;
+                SelectTPLMS08SLEDY.IsChecked = false;
+                SelectTOIL08LLEDY.IsChecked = false;
+
 
                 SelectOpenCircuitTrue.IsChecked = false;
                 SelectOpenCircuitFalse.IsChecked = false;
@@ -8193,8 +9043,12 @@ namespace LEDLampsConfigurationSoftware
                 SelectRapidExitTWYIndicatorLight.IsEnabled = true;
                 SelectCombinedRWYEdgeLight.IsEnabled = true;
                 SelectRWYGuardLight.IsEnabled = true;
+                SelectTWYCenterLight.IsEnabled = false;
+                SelectTWYCenterLight2P.IsEnabled = false;
+                SelectTWYStopBarLight.IsEnabled = false;
+                SelectIntermediateHoldingPositionLight.IsEnabled = false;
+                SelectTWYIntersectionsLight.IsEnabled = false;
 
-             
             }));
         }
 
@@ -8343,6 +9197,8 @@ namespace LEDLampsConfigurationSoftware
             LampInchesLabel5 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel5");
             LampInchesLabel6 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel6");
             LampInchesLabel7 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel7");
+            LampInchesLabel8 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel8");
+
             #endregion
 
             #region 后台代码，工厂模式页面，中英文切换字符串
@@ -8352,6 +9208,7 @@ namespace LEDLampsConfigurationSoftware
             AnswerHardwareVersion3 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion3");
             AnswerHardwareVersion4 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion4");
             AnswerHardwareVersion5 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion5");
+            AnswerHardwareVersion6 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion6");
             AnswerLampModel0 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel0");
             AnswerLampModel1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel1");
             AnswerLampModel2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel2");
@@ -8400,6 +9257,29 @@ namespace LEDLampsConfigurationSoftware
             AnswerLampModel45 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel45");
             AnswerLampModel46 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel46");
             AnswerLampModel47 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel47");
+            AnswerLampModel48 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel48");
+            AnswerLampModel49 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel49");
+            AnswerLampModel50 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel50");
+            AnswerLampModel51 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel51");
+            AnswerLampModel52 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel52");
+            AnswerLampModel53 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel53");
+            AnswerLampModel54 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel54");
+            AnswerLampModel55 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel55");
+            AnswerLampModel56 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel56");
+            AnswerLampModel57 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel57");
+            AnswerLampModel58 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel58");
+            AnswerLampModel59 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel59");
+            AnswerLampModel60 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel60");
+            AnswerLampModel61 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel61");
+            AnswerLampModel62 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel62");
+            AnswerLampModel63 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel63");
+            AnswerLampModel64 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel64");
+            AnswerLampModel65 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel65");
+            AnswerLampModel66 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel66");
+            AnswerLampModel67 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel67");
+            AnswerLampModel69 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel69");
+            AnswerLampModel70 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel70");
+            AnswerLampModel71 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel71");
             AnswerOpenCircuit1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit1");
             AnswerOpenCircuit2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit2");
             #endregion
@@ -8463,13 +9343,15 @@ namespace LEDLampsConfigurationSoftware
             MessageboxContent41 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent41");
             MessageboxContent42 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent42");
             MessageboxContent43 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent43");
+            MessageboxContent44 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent44");
 
             #endregion
         }
 
 
+
         #endregion
 
-        
+
     }
 }

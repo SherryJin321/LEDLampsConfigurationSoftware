@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LEDLampsConfigurationSoftware"
         mc:Ignorable="d"
-        Title="ASCMS V1.4.5" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Name="ConfigurationWindow" Icon=".\Images\tubiao.png">
+        Title="ASCMS V1.5" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Name="ConfigurationWindow" Icon=".\Images\tubiao.png">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontSize" Value="18"/>
@@ -237,30 +237,30 @@
 
                                                 <GroupBox x:Name="GroupTWYCenterlineLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
                                                     <Canvas>
-                                                        <RadioButton x:Name="SelectTCLMS08SLEDGG1P" Content="TCLMS-08-S-LED-GG-1P" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight" Checked="SelectTCLMS08SLEDGG1P_Checked"/>
-                                                        <RadioButton x:Name="SelectTCLMS08SLEDGY1P" Content="TCLMS-08-S-LED-GY-1P" Canvas.Left="0" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight" Checked="SelectTCLMS08SLEDGY1P_Checked"/>
-                                                        <RadioButton x:Name="SelectTCLMS08SLEDYY1P" Content="TCLMS-08-S-LED-YY-1P" Canvas.Left="0" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight" Checked="SelectTCLMS08SLEDYY1P_Checked"/>
-                                                        <RadioButton x:Name="SelectTCLMS08SLEDYB1P" Content="TCLMS-08-S-LED-YB-1P" Canvas.Left="0" Canvas.Top="107" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight" Checked="SelectTCLMS08SLEDYB1P_Checked"/>
-                                                        <RadioButton x:Name="SelectTCLMS08SLEDGB1P" Content="TCLMS-08-S-LED-GB-1P" Canvas.Left="0" Canvas.Top="136" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight" Checked="SelectTCLMS08SLEDGB1P_Checked"/>
-                                                        <RadioButton x:Name="SelectTCLMS08CLEDGG1P" Content="TCLMS-08-C-LED-GG-1P" Canvas.Left="0" Canvas.Top="165" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight" Checked="SelectTCLMS08CLEDGG1P_Checked"/>
-                                                        <RadioButton x:Name="SelectTCLMS08CLEDGY1P" Content="TCLMS-08-C-LED-GY-1P" Canvas.Left="0" Canvas.Top="194" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight" Checked="SelectTCLMS08CLEDGY1P_Checked"/>
-                                                        <RadioButton x:Name="SelectTCLMS08CLEDYY1P" Content="TCLMS-08-C-LED-YY-1P" Canvas.Left="0" Canvas.Top="223" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight" Checked="SelectTCLMS08CLEDYY1P_Checked"/>
-                                                        <RadioButton x:Name="SelectTCLMS08CLEDYB1P" Content="TCLMS-08-C-LED-YB-1P" Canvas.Left="0" Canvas.Top="252" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight" Checked="SelectTCLMS08CLEDYB1P_Checked"/>
-                                                        <RadioButton x:Name="SelectTCLMS08CLEDGB1P" Content="TCLMS-08-C-LED-GB-1P" Canvas.Left="0" Canvas.Top="281" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight" Checked="SelectTCLMS08CLEDGB1P_Checked"/>
+                                                        <RadioButton x:Name="SelectTCLMS08SLEDGG1P" Content="TCLMS-08-S-LED-GG-1P" Canvas.Left="-12" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight" Checked="SelectTCLMS08SLEDGG1P_Checked"/>
+                                                        <RadioButton x:Name="SelectTCLMS08SLEDGY1P" Content="TCLMS-08-S-LED-GY-1P" Canvas.Left="-12" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight" Checked="SelectTCLMS08SLEDGY1P_Checked"/>
+                                                        <RadioButton x:Name="SelectTCLMS08SLEDYY1P" Content="TCLMS-08-S-LED-YY-1P" Canvas.Left="-12" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight" Checked="SelectTCLMS08SLEDYY1P_Checked"/>
+                                                        <RadioButton x:Name="SelectTCLMS08SLEDYB1P" Content="TCLMS-08-S-LED-YB-1P" Canvas.Left="-12" Canvas.Top="107" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight" Checked="SelectTCLMS08SLEDYB1P_Checked"/>
+                                                        <RadioButton x:Name="SelectTCLMS08SLEDGB1P" Content="TCLMS-08-S-LED-GB-1P" Canvas.Left="-12" Canvas.Top="136" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight" Checked="SelectTCLMS08SLEDGB1P_Checked"/>
+                                                        <RadioButton x:Name="SelectTCLMS08CLEDGG1P" Content="TCLMS-08-C-LED-GG-1P" Canvas.Left="-12" Canvas.Top="165" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight" Checked="SelectTCLMS08CLEDGG1P_Checked"/>
+                                                        <RadioButton x:Name="SelectTCLMS08CLEDGY1P" Content="TCLMS-08-C-LED-GY-1P" Canvas.Left="-12" Canvas.Top="194" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight" Checked="SelectTCLMS08CLEDGY1P_Checked"/>
+                                                        <RadioButton x:Name="SelectTCLMS08CLEDYY1P" Content="TCLMS-08-C-LED-YY-1P" Canvas.Left="-12" Canvas.Top="223" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight" Checked="SelectTCLMS08CLEDYY1P_Checked"/>
+                                                        <RadioButton x:Name="SelectTCLMS08CLEDYB1P" Content="TCLMS-08-C-LED-YB-1P" Canvas.Left="-12" Canvas.Top="252" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight" Checked="SelectTCLMS08CLEDYB1P_Checked"/>
+                                                        <RadioButton x:Name="SelectTCLMS08CLEDGB1P" Content="TCLMS-08-C-LED-GB-1P" Canvas.Left="-12" Canvas.Top="281" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight" Checked="SelectTCLMS08CLEDGB1P_Checked"/>
                                                     </Canvas>
                                                 </GroupBox>
                                                 <GroupBox x:Name="GroupTWYCenterlineLight2P" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
                                                     <Canvas>
-                                                        <RadioButton x:Name="SelectTCLMS08SLEDGG2P" Content="TCLMS-08-S-LED-GG-2P" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight2P" Checked="SelectTCLMS08SLEDGG2P_Checked"/>
-                                                        <RadioButton x:Name="SelectTCLMS08SLEDGY2P" Content="TCLMS-08-S-LED-GY-2P" Canvas.Left="0" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight2P" Checked="SelectTCLMS08SLEDGY2P_Checked"/>
-                                                        <RadioButton x:Name="SelectTCLMS08SLEDYY2P" Content="TCLMS-08-S-LED-YY-2P" Canvas.Left="0" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight2P" Checked="SelectTCLMS08SLEDYY2P_Checked"/>
-                                                        <RadioButton x:Name="SelectTCLMS08SLEDYB2P" Content="TCLMS-08-S-LED-YB-2P" Canvas.Left="0" Canvas.Top="107" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight2P" Checked="SelectTCLMS08SLEDYB2P_Checked"/>
-                                                        <RadioButton x:Name="SelectTCLMS08SLEDGB2P" Content="TCLMS-08-S-LED-GB-2P" Canvas.Left="0" Canvas.Top="136" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight2P" Checked="SelectTCLMS08SLEDGB2P_Checked"/>
-                                                        <RadioButton x:Name="SelectTCLMS08CLEDGG2P" Content="TCLMS-08-C-LED-GG-2P" Canvas.Left="0" Canvas.Top="165" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight2P" Checked="SelectTCLMS08CLEDGG2P_Checked"/>
-                                                        <RadioButton x:Name="SelectTCLMS08CLEDGY2P" Content="TCLMS-08-C-LED-GY-2P" Canvas.Left="0" Canvas.Top="194" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight2P" Checked="SelectTCLMS08CLEDGY2P_Checked"/>
-                                                        <RadioButton x:Name="SelectTCLMS08CLEDYY2P" Content="TCLMS-08-C-LED-YY-2P" Canvas.Left="0" Canvas.Top="223" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight2P" Checked="SelectTCLMS08CLEDYY2P_Checked"/>
-                                                        <RadioButton x:Name="SelectTCLMS08CLEDYB2P" Content="TCLMS-08-C-LED-YB-2P" Canvas.Left="0" Canvas.Top="252" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight2P" Checked="SelectTCLMS08CLEDYB2P_Checked"/>
-                                                        <RadioButton x:Name="SelectTCLMS08CLEDGB2P" Content="TCLMS-08-C-LED-GB-2P" Canvas.Left="0" Canvas.Top="281" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight2P" Checked="SelectTCLMS08CLEDGB2P_Checked"/>
+                                                        <RadioButton x:Name="SelectTCLMS08SLEDGG2P" Content="TCLMS-08-S-LED-GG-2P" Canvas.Left="-12" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight2P" Checked="SelectTCLMS08SLEDGG2P_Checked"/>
+                                                        <RadioButton x:Name="SelectTCLMS08SLEDGY2P" Content="TCLMS-08-S-LED-GY-2P" Canvas.Left="-12" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight2P" Checked="SelectTCLMS08SLEDGY2P_Checked"/>
+                                                        <RadioButton x:Name="SelectTCLMS08SLEDYY2P" Content="TCLMS-08-S-LED-YY-2P" Canvas.Left="-12" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight2P" Checked="SelectTCLMS08SLEDYY2P_Checked"/>
+                                                        <RadioButton x:Name="SelectTCLMS08SLEDYB2P" Content="TCLMS-08-S-LED-YB-2P" Canvas.Left="-12" Canvas.Top="107" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight2P" Checked="SelectTCLMS08SLEDYB2P_Checked"/>
+                                                        <RadioButton x:Name="SelectTCLMS08SLEDGB2P" Content="TCLMS-08-S-LED-GB-2P" Canvas.Left="-12" Canvas.Top="136" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight2P" Checked="SelectTCLMS08SLEDGB2P_Checked"/>
+                                                        <RadioButton x:Name="SelectTCLMS08CLEDGG2P" Content="TCLMS-08-C-LED-GG-2P" Canvas.Left="-12" Canvas.Top="165" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight2P" Checked="SelectTCLMS08CLEDGG2P_Checked"/>
+                                                        <RadioButton x:Name="SelectTCLMS08CLEDGY2P" Content="TCLMS-08-C-LED-GY-2P" Canvas.Left="-12" Canvas.Top="194" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight2P" Checked="SelectTCLMS08CLEDGY2P_Checked"/>
+                                                        <RadioButton x:Name="SelectTCLMS08CLEDYY2P" Content="TCLMS-08-C-LED-YY-2P" Canvas.Left="-12" Canvas.Top="223" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight2P" Checked="SelectTCLMS08CLEDYY2P_Checked"/>
+                                                        <RadioButton x:Name="SelectTCLMS08CLEDYB2P" Content="TCLMS-08-C-LED-YB-2P" Canvas.Left="-12" Canvas.Top="252" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight2P" Checked="SelectTCLMS08CLEDYB2P_Checked"/>
+                                                        <RadioButton x:Name="SelectTCLMS08CLEDGB2P" Content="TCLMS-08-C-LED-GB-2P" Canvas.Left="-12" Canvas.Top="281" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight2P" Checked="SelectTCLMS08CLEDGB2P_Checked"/>
                                                     </Canvas>
                                                 </GroupBox>
                                                 <GroupBox x:Name="GroupTWYStopBarLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
@@ -394,6 +394,9 @@
                                     </GroupBox>
                                     <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40"  Width="130" Background="AliceBlue" Canvas.Left="10" Canvas.Top="538">
                                         <Button x:Name="QueryVersion" Content="{DynamicResource LangsQueryVersion}" Click="QueryVersion_Click"/>
+                                    </Border>
+                                    <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Height="40"  Width="130" Background="AliceBlue" Canvas.Right="10" Canvas.Top="538">
+                                        <Button x:Name="QueryTotalTime" Content="{DynamicResource LangsQueryTotalTime}" Click="QueryTotalTime_Click" />
                                     </Border>
                                 </Canvas>
                             </GroupBox>

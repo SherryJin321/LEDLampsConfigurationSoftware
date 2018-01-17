@@ -58,6 +58,8 @@
     <system:String x:Key="LangsFactoryModeWaveformSelectStatus">波形选择:</system:String>
 
     <system:String x:Key="LangsQueryVersion">版本查询</system:String>
+    <system:String x:Key="LangsQueryTotalTime">总时间查询</system:String>
+
 
     <!--前台代码，开发者模式页面-->
     <system:String x:Key="LangsDeveloperMode">开发者模式</system:String>
@@ -141,6 +143,14 @@
     <system:String x:Key="LangsConfirmLanguageSetting">设置语言</system:String>
 
     
+    <!--前台代码，总时间查询窗口-->
+    <system:String x:Key="LangsTotalTimeEnquiryWindows">总时间查询</system:String>
+    <system:String x:Key="LangsTotalTimeEnquiryWindowsBreakDownCount">故障次数：</system:String>
+    <system:String x:Key="LangsTotalTimeEnquiryWindowsTotalTime">总时间：</system:String>
+    <system:String x:Key="LangsTotalTimeEnquiryWindowsCloseWindows">关闭</system:String>
+
+
+
     <!--后台代码，串口设置页面-->
     <system:String x:Key="LangsLampInchesLabel1">查询当前灯具驱动板失败。</system:String>
     <system:String x:Key="LangsLampInchesLabel2">当前灯具驱动板为</system:String>
@@ -149,7 +159,8 @@
     <system:String x:Key="LangsLampInchesLabel5">双路跑中驱动。</system:String>
     <system:String x:Key="LangsLampInchesLabel6">双路跑中驱动12寸。</system:String>
     <system:String x:Key="LangsLampInchesLabel7">警戒灯8寸。</system:String>
-    
+    <system:String x:Key="LangsLampInchesLabel8">双路滑中驱动。</system:String>
+
 
 
     <!--后台代码，工厂模式页面-->
@@ -159,6 +170,7 @@
     <system:String x:Key="LangsAnswerHardwareVersion3">双路跑中驱动12寸</system:String>
     <system:String x:Key="LangsAnswerHardwareVersion4">警戒灯8寸</system:String>
     <system:String x:Key="LangsAnswerHardwareVersion5">驱动未知</system:String>
+    <system:String x:Key="LangsAnswerHardwareVersion6">双路滑中驱动</system:String>
     <system:String x:Key="LangsAnswerLampModel0">无灯具型号</system:String>
     <system:String x:Key="LangsAnswerLampModel1">进近中线灯(APPS-12-S-LED-C)</system:String>
     <system:String x:Key="LangsAnswerLampModel2">进近横排灯(APPS-12-L-LED-C)</system:String>
@@ -207,6 +219,29 @@
     <system:String x:Key="LangsAnswerLampModel45">跑道中线灯（RCLS-12-LED-RC-MR-2P）</system:String>
     <system:String x:Key="LangsAnswerLampModel46">跑道边灯（RELC-12-LED-RR-B-1P）</system:String>
     <system:String x:Key="LangsAnswerLampModel47">组合跑道边灯（RELC-12-LED-CB-C-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel48">滑行道中线灯（TCLMS-08-S-LED-GG-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel49">滑行道中线灯(TCLMS-08-S-LED-GY-1P)</system:String>
+    <system:String x:Key="LangsAnswerLampModel50">滑行道中线灯（TCLMS-08-S-LED-YY-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel51">滑行道中线灯（TCLMS-08-S-LED-YB-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel52">滑行道中线灯（TCLMS-08-S-LED-GB-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel53">滑行道中线灯（TCLMS-08-C-LED-GG-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel54">滑行道中线灯（TCLMS-08-C-LED-GY-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel55">滑行道中线灯（TCLMS-08-C-LED-YY-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel56">滑行道中线灯（TCLMS-08-C-LED-YB-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel57">滑行道中线灯(TCLMS-08-C-LED-GB-1P)</system:String>
+    <system:String x:Key="LangsAnswerLampModel58">滑行道中线灯（TCLMS-08-S-LED-GG-2P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel59">滑行道中线灯（TCLMS-08-S-LED-GY-2P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel60">滑行道中线灯（TCLMS-08-S-LED-YY-2P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel61">滑行道中线灯（TCLMS-08-S-LED-YB-2P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel62">滑行道中线灯（TCLMS-08-S-LED-GB-2P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel63">滑行道中线灯（TCLMS-08-C-LED-GG-2P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel64">滑行道中线灯（TCLMS-08-C-LED-GY-2P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel65">滑行道中线灯(TCLMS-08-C-LED-YY-2P)</system:String>
+    <system:String x:Key="LangsAnswerLampModel66">滑行道中线灯（TCLMS-08-C-LED-YB-2P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel67">滑行道中线灯（TCLMS-08-C-LED-GB-2P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel69">停止排灯（SBLMS-08-S-LED-R）</system:String>
+    <system:String x:Key="LangsAnswerLampModel70">中间等待位置灯（TPLMS-08-S-LED-Y）</system:String>
+    <system:String x:Key="LangsAnswerLampModel71">滑行道交叉口灯（TOIL-08-L-LED-Y）</system:String>
     <system:String x:Key="LangsAnswerOpenCircuit1">不带开路</system:String>
     <system:String x:Key="LangsAnswerOpenCircuit2">带开路</system:String>
 
@@ -227,36 +262,36 @@
     <system:String x:Key="LangsMessageboxHeader2">问询</system:String>
 
     <system:String x:Key="LangsMessageboxContent1">是否关闭软件？</system:String>
-    <system:String x:Key="LangsMessageboxContent2">串口未关闭！请先关闭串口</system:String>
-    <system:String x:Key="LangsMessageboxContent3">查询灯具驱动板失败!请重新打开串口</system:String>
+    <system:String x:Key="LangsMessageboxContent2">串口未关闭！请关闭串口</system:String>
+    <system:String x:Key="LangsMessageboxContent3">查询灯具驱动失败，串口已关闭! 请检查灯具</system:String>
     <system:String x:Key="LangsMessageboxContent4">串口已打开！</system:String>
-    <system:String x:Key="LangsMessageboxContent5">打开串口失败！请再次尝试</system:String>
+    <system:String x:Key="LangsMessageboxContent5">打开串口失败！请检查灯具串口号</system:String>
     <system:String x:Key="LangsMessageboxContent6">串口已关闭！</system:String>
-    <system:String x:Key="LangsMessageboxContent7">关闭串口失败！请再次尝试</system:String>
-    <system:String x:Key="LangsMessageboxContent8">未接收到反馈指令！请重新查询版本</system:String>
+    <system:String x:Key="LangsMessageboxContent7">关闭串口失败！请重新关闭串口</system:String>
+    <system:String x:Key="LangsMessageboxContent8">版本查询失败！请检查灯具</system:String>
     <system:String x:Key="LangsMessageboxContent9">未打开串口！请打开串口</system:String>
     <system:String x:Key="LangsMessageboxContent10">正在导出数据！请稍候进行状态查询</system:String>
-    <system:String x:Key="LangsMessageboxContent11">反馈指令错误！请再次尝试</system:String>
+    <system:String x:Key="LangsMessageboxContent11">检测到灯具正在上传数据！请检查灯具</system:String>
     <system:String x:Key="LangsMessageboxContent12">参数设置成功！</system:String>
-    <system:String x:Key="LangsMessageboxContent13">帧头错误!请重新设置参数</system:String>
-    <system:String x:Key="LangsMessageboxContent14">校验错误!请重新设置参数</system:String>
-    <system:String x:Key="LangsMessageboxContent15">指令长度错误!请重新设置参数</system:String>
+    <system:String x:Key="LangsMessageboxContent13">帧头错误!请检查灯具</system:String>
+    <system:String x:Key="LangsMessageboxContent14">校验错误!请检查灯具</system:String>
+    <system:String x:Key="LangsMessageboxContent15">指令长度错误!请检查灯具</system:String>
     <system:String x:Key="LangsMessageboxContent16">版本查询成功！</system:String>
-    <system:String x:Key="LangsMessageboxContent17">帧头错误!请重新查询版本</system:String>
-    <system:String x:Key="LangsMessageboxContent18">校验错误!请重新查询版本</system:String>
-    <system:String x:Key="LangsMessageboxContent19">指令长度错误!请重新查询版本</system:String>
+    <system:String x:Key="LangsMessageboxContent17">空缺，暂不使用</system:String>
+    <system:String x:Key="LangsMessageboxContent18">空缺，暂不使用</system:String>
+    <system:String x:Key="LangsMessageboxContent19">空缺，暂不使用</system:String>
     <system:String x:Key="LangsMessageboxContent20">空缺，暂不使用</system:String>
     <system:String x:Key="LangsMessageboxContent21">灯具状态信息为空！</system:String>
-    <system:String x:Key="LangsMessageboxContent22">帧头错误!请重新查询状态</system:String>
-    <system:String x:Key="LangsMessageboxContent23">校验错误!请重新查询状态</system:String>
-    <system:String x:Key="LangsMessageboxContent24">指令长度错误!请重新查询状态</system:String>
+    <system:String x:Key="LangsMessageboxContent22">空缺，暂不使用</system:String>
+    <system:String x:Key="LangsMessageboxContent23">空缺，暂不使用</system:String>
+    <system:String x:Key="LangsMessageboxContent24">空缺，暂不使用</system:String>
     <system:String x:Key="LangsMessageboxContent25">空缺，暂不使用</system:String>
-    <system:String x:Key="LangsMessageboxContent26">接收指令不能为空！请重新查询状态</system:String>
-    <system:String x:Key="LangsMessageboxContent27">未进行状态查询或是状态信息为空！不能导出最终数据</system:String>
+    <system:String x:Key="LangsMessageboxContent26">查询状态反馈指令为空！请检查灯具</system:String>
+    <system:String x:Key="LangsMessageboxContent27">未进行状态查询或状态信息为空！不能导出最终数据</system:String>
     <system:String x:Key="LangsMessageboxContent28">数据已导出! 保存至D盘Excel文档</system:String>
     <system:String x:Key="LangsMessageboxContent29">导出数据失败！请重新导出</system:String>
     <system:String x:Key="LangsMessageboxContent30">数据已导出! 保存至D盘TXT文档</system:String>
-    <system:String x:Key="LangsMessageboxContent31">未进行状态查询或是状态信息为空！不能导出原始数据</system:String>
+    <system:String x:Key="LangsMessageboxContent31">未进行状态查询或状态信息为空！不能导出原始数据</system:String>
     <system:String x:Key="LangsMessageboxContent32">请确保已进行版本查询！硬件版本号为V3.0以上的可使用本软件</system:String>
     <system:String x:Key="LangsMessageboxContent33">是否将指令写入灯具？</system:String>
     <system:String x:Key="LangsMessageboxContent34">参数选择不能为空！请完成配置</system:String>
@@ -269,7 +304,8 @@
     <system:String x:Key="LangsMessageboxContent41">密码错误！请重新输入密码</system:String>
     <system:String x:Key="LangsMessageboxContent42">账号错误！请重新输入账号</system:String>
     <system:String x:Key="LangsMessageboxContent43">请确保已进行版本查询！双路跑中驱动12寸的扩展板版本号为V3.1的可使用本软件</system:String>
-
+    <system:String x:Key="LangsMessageboxContent44">总时间查询失败！请检查灯具</system:String>
+    
 
 
 </ResourceDictionary>

@@ -56,6 +56,8 @@
     <system:String x:Key="LangsFactoryModeFlashFrequencyStatus">Flash Frequency:</system:String>
     <system:String x:Key="LangsFactoryModeWaveformSelectStatus">Waveform Select:</system:String>
     <system:String x:Key="LangsQueryVersion">Query Version</system:String>
+    <system:String x:Key="LangsQueryTotalTime">Query Total Time</system:String>
+
 
     <!--前台代码，开发者模式页面-->
     <system:String x:Key="LangsDeveloperMode">Developer Mode</system:String>
@@ -144,18 +146,21 @@
     <system:String x:Key="LangsLampInchesLabel2">The lamp drive board is</system:String>
     <system:String x:Key="LangsLampInchesLabel3">12 inches.</system:String>
     <system:String x:Key="LangsLampInchesLabel4">8 inches.</system:String>
-    <system:String x:Key="LangsLampInchesLabel5">RWY center light drive with double circuit.</system:String>
+    <system:String x:Key="LangsLampInchesLabel5">RWY centerline light drive with double circuit.</system:String>
     <system:String x:Key="LangsLampInchesLabel6">RWY center light drive with double circuit 12 inches.</system:String>
     <system:String x:Key="LangsLampInchesLabel7">Guard Light 8 inches.</system:String>
+    <system:String x:Key="LangsLampInchesLabel8">TWY centerline light drive with double circuit.</system:String>
 
-    
+
+
     <!--后台代码，工厂模式页面-->
     <system:String x:Key="LangsAnswerHardwareVersion0">12 inches</system:String>
     <system:String x:Key="LangsAnswerHardwareVersion1">8 inches</system:String>
-    <system:String x:Key="LangsAnswerHardwareVersion2">RWY Center Drive</system:String>
-    <system:String x:Key="LangsAnswerHardwareVersion3">RWY Center Drive 12 inches</system:String>
+    <system:String x:Key="LangsAnswerHardwareVersion2">RWY Centerline Drive</system:String>
+    <system:String x:Key="LangsAnswerHardwareVersion3">RWY Centerline Drive 12 inches</system:String>
     <system:String x:Key="LangsAnswerHardwareVersion4">Guard Light</system:String>
     <system:String x:Key="LangsAnswerHardwareVersion5">Unknown</system:String>
+    <system:String x:Key="LangsAnswerHardwareVersion6">TWY Centerline Drive With Double Circuit</system:String>
     <system:String x:Key="LangsAnswerLampModel0">None lamp model</system:String>
     <system:String x:Key="LangsAnswerLampModel1">Approach Centerline Light(APPS-12-S-LED-C)</system:String>
     <system:String x:Key="LangsAnswerLampModel2">Approach Crossbar Light(APPS-12-L-LED-C)</system:String>
@@ -204,6 +209,29 @@
     <system:String x:Key="LangsAnswerLampModel45">Runway Enterline Light（RCLS-12-LED-RC-MR-2P）</system:String>
     <system:String x:Key="LangsAnswerLampModel46">Runway Edge Light（RELC-12-LED-RR-B-1P）</system:String>
     <system:String x:Key="LangsAnswerLampModel47">Combined Runway Edge Light（RELC-12-LED-CB-C-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel48">Taxiway Centerline Light（TCLMS-08-S-LED-GG-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel49">Taxiway Centerline Light(TCLMS-08-S-LED-GY-1P)</system:String>
+    <system:String x:Key="LangsAnswerLampModel50">Taxiway Centerline Light（TCLMS-08-S-LED-YY-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel51">Taxiway Centerline Light（TCLMS-08-S-LED-YB-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel52">Taxiway Centerline Light（TCLMS-08-S-LED-GB-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel53">Taxiway Centerline Light（TCLMS-08-C-LED-GG-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel54">Taxiway Centerline Light（TCLMS-08-C-LED-GY-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel55">Taxiway Centerline Light（TCLMS-08-C-LED-YY-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel56">Taxiway Centerline Light（TCLMS-08-C-LED-YB-1P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel57">Taxiway Centerline Light(TCLMS-08-C-LED-GB-1P)</system:String>
+    <system:String x:Key="LangsAnswerLampModel58">Taxiway Centerline Light（TCLMS-08-S-LED-GG-2P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel59">Taxiway Centerline Light（TCLMS-08-S-LED-GY-2P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel60">Taxiway Centerline Light（TCLMS-08-S-LED-YY-2P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel61">Taxiway Centerline Light（TCLMS-08-S-LED-YB-2P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel62">Taxiway Centerline Light（TCLMS-08-S-LED-GB-2P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel63">Taxiway Centerline Light（TCLMS-08-C-LED-GG-2P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel64">Taxiway Centerline Light（TCLMS-08-C-LED-GY-2P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel65">Taxiway Centerline Light(TCLMS-08-C-LED-YY-2P)</system:String>
+    <system:String x:Key="LangsAnswerLampModel66">Taxiway Centerline Light（TCLMS-08-C-LED-YB-2P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel67">Taxiway Centerline Light（TCLMS-08-C-LED-GB-2P）</system:String>
+    <system:String x:Key="LangsAnswerLampModel69">Taxiway Stop Bar Light（SBLMS-08-S-LED-R）</system:String>
+    <system:String x:Key="LangsAnswerLampModel70">Intermediate Holding Position Light（TPLMS-08-S-LED-Y）</system:String>
+    <system:String x:Key="LangsAnswerLampModel71">Taxiway Intersections Light（TOIL-08-L-LED-Y）</system:String>
     <system:String x:Key="LangsAnswerOpenCircuit1">Without Open Circuit</system:String>
     <system:String x:Key="LangsAnswerOpenCircuit2">With Open Circuit</system:String>
 
@@ -224,30 +252,30 @@
 
     <system:String x:Key="LangsMessageboxContent1">Are you sure to close the software?</system:String>
     <system:String x:Key="LangsMessageboxContent2">The port is open now! Please close it.</system:String>
-    <system:String x:Key="LangsMessageboxContent3">Failed to query the lamp drive board! Please reopen the port.</system:String>
+    <system:String x:Key="LangsMessageboxContent3">Failed to query the lamp drive，the port is closed! Please check the lamp.</system:String>
     <system:String x:Key="LangsMessageboxContent4">The port is open now!</system:String>
-    <system:String x:Key="LangsMessageboxContent5">Failed to open the port! Please try again.</system:String>
+    <system:String x:Key="LangsMessageboxContent5">Failed to open the port! Please check the port name.</system:String>
     <system:String x:Key="LangsMessageboxContent6">The port is close now!</system:String>
     <system:String x:Key="LangsMessageboxContent7">Failed to close the port! Please try agian.</system:String>
-    <system:String x:Key="LangsMessageboxContent8">Failed to receive the feedback command! Please requery version.</system:String>
+    <system:String x:Key="LangsMessageboxContent8">Failed to query the lamp version! Please check the lamp.</system:String>
     <system:String x:Key="LangsMessageboxContent9">The port is close now! Please open it.</system:String>
     <system:String x:Key="LangsMessageboxContent10">Exporting data now! Please query status later.</system:String>
-    <system:String x:Key="LangsMessageboxContent11">Feedback command error! Please try again.</system:String>
+    <system:String x:Key="LangsMessageboxContent11">The lamp is uploading data! Please check the lamp.</system:String>
     <system:String x:Key="LangsMessageboxContent12">Parameter setting succeed!</system:String>
-    <system:String x:Key="LangsMessageboxContent13">Frame header error! Please reset the parameter.</system:String>
-    <system:String x:Key="LangsMessageboxContent14">Check code error! Please reset the parameter.</system:String>
-    <system:String x:Key="LangsMessageboxContent15">Command length error! Please reset the parameter.</system:String>
+    <system:String x:Key="LangsMessageboxContent13">Frame header error! Please check the lamp.</system:String>
+    <system:String x:Key="LangsMessageboxContent14">Check code error! Please check the lamp.</system:String>
+    <system:String x:Key="LangsMessageboxContent15">Command length error! Please check the lamp.</system:String>
     <system:String x:Key="LangsMessageboxContent16">Version query succeed!</system:String>
-    <system:String x:Key="LangsMessageboxContent17">Frame header error! Please requery version.</system:String>
-    <system:String x:Key="LangsMessageboxContent18">Check code error! Please requery version.</system:String>
-    <system:String x:Key="LangsMessageboxContent19">Command length error! Please requery version.</system:String>
+    <system:String x:Key="LangsMessageboxContent17">Empty! Not used.</system:String>
+    <system:String x:Key="LangsMessageboxContent18">Empty! Not used.</system:String>
+    <system:String x:Key="LangsMessageboxContent19">Empty! Not used.</system:String>
     <system:String x:Key="LangsMessageboxContent20">Empty! Not used.</system:String>
     <system:String x:Key="LangsMessageboxContent21">Lamp status information is empty!</system:String>
-    <system:String x:Key="LangsMessageboxContent22">Frame header error! Please requery status.</system:String>
-    <system:String x:Key="LangsMessageboxContent23">Check code error! Please requery status.</system:String>
-    <system:String x:Key="LangsMessageboxContent24">Command length error! Please requery status.</system:String>
+    <system:String x:Key="LangsMessageboxContent22">Empty! Not used.</system:String>
+    <system:String x:Key="LangsMessageboxContent23">Empty! Not used.</system:String>
+    <system:String x:Key="LangsMessageboxContent24">Empty! Not used.</system:String>
     <system:String x:Key="LangsMessageboxContent25">Empty! Not used.</system:String>
-    <system:String x:Key="LangsMessageboxContent26">Feedback command is empty! Please requery status.</system:String>
+    <system:String x:Key="LangsMessageboxContent26">Feedback command is empty! Please check the lamp.</system:String>
     <system:String x:Key="LangsMessageboxContent27">Status query is not performed or the status information is empty! Can not export the final data.</system:String>
     <system:String x:Key="LangsMessageboxContent28">Data is exported! Saved as an Excel document in D drive.</system:String>
     <system:String x:Key="LangsMessageboxContent29">Failed to export the data! Please try again.</system:String>
@@ -265,7 +293,8 @@
     <system:String x:Key="LangsMessageboxContent41">Password error! Please re-enter it.</system:String>
     <system:String x:Key="LangsMessageboxContent42">Username error! Please re-enter it.</system:String>
     <system:String x:Key="LangsMessageboxContent43">Please make sure that version query has been done! The software suits for hardware V3.1 only, if the driver is RWY center light drive with double circuit 12 inches.</system:String>
-
+    <system:String x:Key="LangsMessageboxContent44">Failed to query the total time! Please check the lamp.</system:String>
+    
 
 
 </ResourceDictionary>
