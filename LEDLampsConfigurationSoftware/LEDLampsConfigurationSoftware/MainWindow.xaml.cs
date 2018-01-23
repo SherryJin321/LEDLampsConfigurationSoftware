@@ -401,6 +401,7 @@ namespace LEDLampsConfigurationSoftware
         string MessageboxContent42 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent42");
         string MessageboxContent43 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent43");
         string MessageboxContent44 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent44");
+        string MessageboxContent45 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent45");
 
         #endregion
         #endregion
@@ -438,6 +439,7 @@ namespace LEDLampsConfigurationSoftware
             queryStatusCommand[27] = CalculateCheckOutValue(queryStatusCommand);  //计算状态查询指令的校验值    
             InFactoryModeCommonLightRestoreOriginalCommand[27] = CalculateCheckOutValue(InFactoryModeCommonLightRestoreOriginalCommand);
             InFactoryModeRWYGuardLightRestoreOriginalCommand[27] = CalculateCheckOutValue(InFactoryModeRWYGuardLightRestoreOriginalCommand);
+            queryTotalTimeCommand[27] = CalculateCheckOutValue(queryTotalTimeCommand);
 
             SettingSerialPort.IsSelected = true;
             
@@ -3336,23 +3338,7 @@ namespace LEDLampsConfigurationSoftware
                 //输出各个参数值
                 for (int i = 0; i < RMS1DoubleCircuitTWYCenterDrive.Count; i++)
                 {
-                    RMS1DoubleCircuitTWYCenterDrive.Clear();
-                    RMS2DoubleCircuitTWYCenterDrive.Clear();
-                    RMS1LASTDoubleCircuitTWYCenterDrive.Clear();
-                    RMS2LASTDoubleCircuitTWYCenterDrive.Clear();
-                    Val2DoubleCircuitTWYCenterDrive.Clear();
-                    TCHECKDoubleCircuitTWYCenterDrive.Clear();
-                    LEDF1DoubleCircuitTWYCenterDrive.Clear();
-                    LEDF2DoubleCircuitTWYCenterDrive.Clear();
-                    Shock1DoubleCircuitTWYCenterDrive.Clear();
-                    ShockDoubleCircuitTWYCenterDrive.Clear();
-                    ShortFlagDoubleCircuitTWYCenterDrive.Clear();
-                    TDoubleCircuitTWYCenterDrive.Clear();
-                    AMaxDoubleCircuitTWYCenterDrive.Clear();
-                    SecondDoubleCircuitTWYCenterDrive.Clear();
-                    ErrorCodeDoubleCircuitTWYCenterDrive.Clear();
-
-
+                   
                     ExcelSheet.Cells[3 + i, 1] = (i + 1).ToString();
                     ExcelSheet.Cells[3 + i, 2] = RMS1DoubleCircuitTWYCenterDrive[i].ToString();
                     ExcelSheet.Cells[3 + i, 3] = RMS2DoubleCircuitTWYCenterDrive[i].ToString();
@@ -3514,6 +3500,10 @@ namespace LEDLampsConfigurationSoftware
             if(hardwareVersion1==12&&softwareNumber==3)
             {
                 judgeResult = MessageboxContent43;
+            }
+            else if(hardwareVersion1 == 5 && softwareNumber == 6)
+            {
+                judgeResult = MessageboxContent45;
             }
             else
             {
@@ -9344,6 +9334,7 @@ namespace LEDLampsConfigurationSoftware
             MessageboxContent42 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent42");
             MessageboxContent43 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent43");
             MessageboxContent44 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent44");
+            MessageboxContent45 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent45");
 
             #endregion
         }

@@ -38,7 +38,7 @@ namespace LEDLampsConfigurationSoftware
             }
             else
             {
-                AnswerTotalTime.Text = (totalTime / 3600).ToString() + ":" + ((totalTime % 3600) / 60).ToString() + ":" + ((totalTime % 3600) % 60).ToString();
+                AnswerTotalTime.Text = Convert.ToString(totalTime / 3600).PadLeft(2,'0') + ":" + Convert.ToString((totalTime % 3600) / 60).PadLeft(2, '0') + ":" + Convert.ToString((totalTime % 3600) % 60).PadLeft(2, '0');
             }
            
         }
