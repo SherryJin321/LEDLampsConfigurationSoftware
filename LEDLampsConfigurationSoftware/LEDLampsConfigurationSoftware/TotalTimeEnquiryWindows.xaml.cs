@@ -19,8 +19,8 @@ namespace LEDLampsConfigurationSoftware
     /// </summary>
     public partial class TotalTimeEnquiryWindows : Window
     {
-        public int breakDownCount { get; set; }
-        public int totalTime { get; set; }
+        public uint breakDownCount { get; set; }
+        public uint totalTime { get; set; }
 
 
         public TotalTimeEnquiryWindows()
@@ -30,11 +30,19 @@ namespace LEDLampsConfigurationSoftware
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            AnswerBreakDownCount.Text = breakDownCount.ToString();
-
-            if(totalTime==0)
+            if(breakDownCount==0xFFFFFFFF)
             {
-                AnswerTotalTime.Text = totalTime.ToString();
+                AnswerBreakDownCount.Text = 0.ToString();
+            }
+            else
+            {
+                AnswerBreakDownCount.Text = breakDownCount.ToString();
+            }
+
+
+            if (totalTime==0||totalTime==0xFFFFFFFF)
+            {
+                AnswerTotalTime.Text = 0.ToString();
             }
             else
             {

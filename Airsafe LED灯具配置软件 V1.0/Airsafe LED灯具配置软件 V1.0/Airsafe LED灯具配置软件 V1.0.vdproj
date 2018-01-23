@@ -15,13 +15,37 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_325EEDCCA1D24B2FB459CDF03D3ED766"
+        "MsmKey" = "8:_36C92C558C03487AA2F961049C079298"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_A75162ECB98543BAA82A1BB624904603"
+        "MsmKey" = "8:_3869D815DDD34A4D9DC881FA3C67BB0D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_7F3CA0626B864AC0B3EEEB46E3713C0B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9243C557712C43D08FAD47F64C5BFC8B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9BC13C04DD1C4B1F90A0AA4D55B0D3E5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C228427A596F413A9D9FD0398AC00BB2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -33,14 +57,26 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_CFF63A3F496D44EFA43143ABE0CFEAAD"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_E29A406DE8185451C58EFA955DC75E40"
+        "OwnerKey" = "8:_3869D815DDD34A4D9DC881FA3C67BB0D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_CFF63A3F496D44EFA43143ABE0CFEAAD"
+        "OwnerKey" = "8:_36C92C558C03487AA2F961049C079298"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_3869D815DDD34A4D9DC881FA3C67BB0D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_E29A406DE8185451C58EFA955DC75E40"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -138,7 +174,109 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_325EEDCCA1D24B2FB459CDF03D3ED766"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_36C92C558C03487AA2F961049C079298"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:LEDLampsConfigurationSoftware, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_36C92C558C03487AA2F961049C079298"
+                    {
+                    "Name" = "8:LEDLampsConfigurationSoftware.exe"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\..\\LEDLampsConfigurationSoftware\\LEDLampsConfigurationSoftware\\bin\\Debug\\LEDLampsConfigurationSoftware.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8905A588B2D34F9C8E3D5A215DC64FA8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3869D815DDD34A4D9DC881FA3C67BB0D"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:vshost32, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86"
+                "ScatterAssemblies"
+                {
+                    "_3869D815DDD34A4D9DC881FA3C67BB0D"
+                    {
+                    "Name" = "8:LEDLampsConfigurationSoftware.vshost.exe"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\..\\LEDLampsConfigurationSoftware\\LEDLampsConfigurationSoftware\\bin\\Debug\\LEDLampsConfigurationSoftware.vshost.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8905A588B2D34F9C8E3D5A215DC64FA8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7F3CA0626B864AC0B3EEEB46E3713C0B"
+            {
+            "SourcePath" = "8:..\\..\\LEDLampsConfigurationSoftware\\LEDLampsConfigurationSoftware\\bin\\Debug\\LEDLampsConfigurationSoftware.vshost.exe.config"
+            "TargetName" = "8:LEDLampsConfigurationSoftware.vshost.exe.config"
+            "Tag" = "8:"
+            "Folder" = "8:_8905A588B2D34F9C8E3D5A215DC64FA8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9243C557712C43D08FAD47F64C5BFC8B"
+            {
+            "SourcePath" = "8:..\\..\\LEDLampsConfigurationSoftware\\LEDLampsConfigurationSoftware\\bin\\Debug\\LEDLampsConfigurationSoftware.vshost.exe.manifest"
+            "TargetName" = "8:LEDLampsConfigurationSoftware.vshost.exe.manifest"
+            "Tag" = "8:"
+            "Folder" = "8:_8905A588B2D34F9C8E3D5A215DC64FA8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9BC13C04DD1C4B1F90A0AA4D55B0D3E5"
             {
             "SourcePath" = "8:..\\..\\LEDLampsConfigurationSoftware\\LEDLampsConfigurationSoftware\\bin\\Debug\\LEDLampsConfigurationSoftware.pdb"
             "TargetName" = "8:LEDLampsConfigurationSoftware.pdb"
@@ -158,7 +296,7 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A75162ECB98543BAA82A1BB624904603"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C228427A596F413A9D9FD0398AC00BB2"
             {
             "SourcePath" = "8:..\\..\\LEDLampsConfigurationSoftware\\LEDLampsConfigurationSoftware\\bin\\Debug\\LEDLampsConfigurationSoftware.exe.config"
             "TargetName" = "8:LEDLampsConfigurationSoftware.exe.config"
@@ -198,20 +336,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CFF63A3F496D44EFA43143ABE0CFEAAD"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E29A406DE8185451C58EFA955DC75E40"
             {
             "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:LEDLampsConfigurationSoftware, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyIsInGAC" = "11:TRUE"
+            "AssemblyAsmDisplayName" = "8:Microsoft.VisualStudio.HostingProcess.Utilities.Sync, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_CFF63A3F496D44EFA43143ABE0CFEAAD"
+                    "_E29A406DE8185451C58EFA955DC75E40"
                     {
-                    "Name" = "8:LEDLampsConfigurationSoftware.exe"
+                    "Name" = "8:Microsoft.VisualStudio.HostingProcess.Utilities.Sync.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:..\\..\\LEDLampsConfigurationSoftware\\LEDLampsConfigurationSoftware\\bin\\Debug\\LEDLampsConfigurationSoftware.exe"
+            "SourcePath" = "8:Microsoft.VisualStudio.HostingProcess.Utilities.Sync.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8905A588B2D34F9C8E3D5A215DC64FA8"
@@ -226,7 +364,7 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
         }
@@ -417,7 +555,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_C1D0E08A9F7B4834A808E420F8E06D21"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A018DC34917F46E180D95DD178A92605"
             {
             "Name" = "8:ASCMS"
             "Arguments" = "8:"
@@ -425,7 +563,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_CFF63A3F496D44EFA43143ABE0CFEAAD"
+            "Target" = "8:_36C92C558C03487AA2F961049C079298"
             "Folder" = "8:_C5CFC6BA24A749F58C6841611BA21B65"
             "WorkingFolder" = "8:_8905A588B2D34F9C8E3D5A215DC64FA8"
             "Icon" = "8:_C7E2883F908548A08257267A707251FF"

@@ -577,6 +577,8 @@ namespace LEDLampsConfigurationSoftware
                     {
                         ConfigurationWindow.IsEnabled = false;
                     }
+
+                    LampInchesLabel.Content = "";
                 }
             }
             catch
@@ -1160,7 +1162,7 @@ namespace LEDLampsConfigurationSoftware
             }
             else if (hardwareVersion1 == 5 && softwareNumber == 6)
             {
-                result = original / 1.95;             //
+                result = original / 1.95;             
             }
             result = Math.Round(result, 2, MidpointRounding.AwayFromZero);
 
@@ -1609,11 +1611,11 @@ namespace LEDLampsConfigurationSoftware
                 if (checkOutValue == dataReceived[dataReceived.Length - 1])
                 {
                     if (dataReceived[0] == 0x02 && dataReceived[1] == 0x89 && dataReceived[2] == 0x22 && dataReceived[3] == 0x85)
-                    {
-                        int breakDownCount = 0;
+                    {                        
+                        uint breakDownCount = 0;
                         for (int j = 0; j < 4; j++)
                         {
-                            int SecondOrigin = dataReceived[4 + j];
+                            uint SecondOrigin = dataReceived[4 + j];
                             breakDownCount |= SecondOrigin;
                             if (j < 3)
                             {
@@ -1621,10 +1623,10 @@ namespace LEDLampsConfigurationSoftware
                             }
                         }
 
-                        int totalTime = 0;
+                        uint totalTime = 0;
                         for (int j = 0; j < 4; j++)
                         {
-                            int SecondOrigin = dataReceived[8 + j];
+                            uint SecondOrigin = dataReceived[8 + j];
                             totalTime |= SecondOrigin;
                             if (j < 3)
                             {
@@ -6257,7 +6259,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
             SelectOpenCircuitFalse.Visibility = Visibility.Visible;
 
-            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitTrue.IsEnabled = true;
             SelectOpenCircuitFalse.IsEnabled = true;
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
@@ -6287,7 +6289,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
             SelectOpenCircuitFalse.Visibility = Visibility.Visible;
 
-            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitTrue.IsEnabled = true;
             SelectOpenCircuitFalse.IsEnabled = true;
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
@@ -6317,7 +6319,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
             SelectOpenCircuitFalse.Visibility = Visibility.Visible;
 
-            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitTrue.IsEnabled = true;
             SelectOpenCircuitFalse.IsEnabled = true;
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
@@ -6407,7 +6409,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
             SelectOpenCircuitFalse.Visibility = Visibility.Visible;
 
-            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitTrue.IsEnabled = true;
             SelectOpenCircuitFalse.IsEnabled = true;
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
@@ -6437,7 +6439,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
             SelectOpenCircuitFalse.Visibility = Visibility.Visible;
 
-            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitTrue.IsEnabled = true;
             SelectOpenCircuitFalse.IsEnabled = true;
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
@@ -6467,7 +6469,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
             SelectOpenCircuitFalse.Visibility = Visibility.Visible;
 
-            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitTrue.IsEnabled = true;
             SelectOpenCircuitFalse.IsEnabled = true;
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
@@ -6557,7 +6559,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
             SelectOpenCircuitFalse.Visibility = Visibility.Visible;
 
-            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitTrue.IsEnabled = true;
             SelectOpenCircuitFalse.IsEnabled = true;
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
@@ -6587,7 +6589,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
             SelectOpenCircuitFalse.Visibility = Visibility.Visible;
 
-            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitTrue.IsEnabled = true;
             SelectOpenCircuitFalse.IsEnabled = true;
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
@@ -6617,7 +6619,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
             SelectOpenCircuitFalse.Visibility = Visibility.Visible;
 
-            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitTrue.IsEnabled = true;
             SelectOpenCircuitFalse.IsEnabled = true;
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
@@ -7982,7 +7984,7 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureTCLMS08SLEDGG2PParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x00;
+            settingIA[1] = 0x08;
             settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
@@ -7990,14 +7992,14 @@ namespace LEDLampsConfigurationSoftware
             settingIB[2] = 0x00;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
-            settingIIA[1] = 0x00;
+            settingIIA[1] = 0x08;
             settingIIA[2] = 0x00;
             settingIIA[3] = 0x00;
             settingIIB[0] = 0x00;
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x00;
+            settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x3A;
         }
@@ -8005,7 +8007,7 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureTCLMS08SLEDGY2PParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x00;
+            settingIA[1] = 0x08;
             settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
@@ -8013,14 +8015,14 @@ namespace LEDLampsConfigurationSoftware
             settingIB[2] = 0x00;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
-            settingIIA[1] = 0x00;
+            settingIIA[1] = 0x09;
             settingIIA[2] = 0x00;
             settingIIA[3] = 0x00;
             settingIIB[0] = 0x00;
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x00;
+            settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x3B;
         }
@@ -8028,7 +8030,7 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureTCLMS08SLEDYY2PParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x00;
+            settingIA[1] = 0x09;
             settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
@@ -8036,14 +8038,14 @@ namespace LEDLampsConfigurationSoftware
             settingIB[2] = 0x00;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
-            settingIIA[1] = 0x00;
+            settingIIA[1] = 0x09;
             settingIIA[2] = 0x00;
             settingIIA[3] = 0x00;
             settingIIB[0] = 0x00;
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x00;
+            settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x3C;
         }
@@ -8097,7 +8099,7 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureTCLMS08CLEDGG2PParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x00;
+            settingIA[1] = 0x08;
             settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
@@ -8105,14 +8107,14 @@ namespace LEDLampsConfigurationSoftware
             settingIB[2] = 0x00;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
-            settingIIA[1] = 0x00;
+            settingIIA[1] = 0x08;
             settingIIA[2] = 0x00;
             settingIIA[3] = 0x00;
             settingIIB[0] = 0x00;
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x00;
+            settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x3F;
         }
@@ -8120,7 +8122,7 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureTCLMS08CLEDGY2PParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x00;
+            settingIA[1] = 0x08;
             settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
@@ -8128,14 +8130,14 @@ namespace LEDLampsConfigurationSoftware
             settingIB[2] = 0x00;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
-            settingIIA[1] = 0x00;
+            settingIIA[1] = 0x09;
             settingIIA[2] = 0x00;
             settingIIA[3] = 0x00;
             settingIIB[0] = 0x00;
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x00;
+            settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x40;
         }
@@ -8143,7 +8145,7 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureTCLMS08CLEDYY2PParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x00;
+            settingIA[1] = 0x09;
             settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
@@ -8151,14 +8153,14 @@ namespace LEDLampsConfigurationSoftware
             settingIB[2] = 0x00;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
-            settingIIA[1] = 0x00;
+            settingIIA[1] = 0x09;
             settingIIA[2] = 0x00;
             settingIIA[3] = 0x00;
             settingIIB[0] = 0x00;
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x00;
+            settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x41;
         }
@@ -8211,7 +8213,7 @@ namespace LEDLampsConfigurationSoftware
 
         private void ConfigureSBLMS08SLEDRParameters()
         {
-            settingIA[0] = 0x00;
+            settingIA[0] = 0x01;
             settingIA[1] = 0x00;
             settingIA[2] = 0x00;
             settingIA[3] = 0x00;
@@ -8227,7 +8229,7 @@ namespace LEDLampsConfigurationSoftware
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x00;
+            settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x45;
         }
@@ -8235,7 +8237,7 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureTPLMS08SLEDYParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x00;
+            settingIA[1] = 0x09;
             settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
@@ -8250,7 +8252,7 @@ namespace LEDLampsConfigurationSoftware
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x00;
+            settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x46;
         }
@@ -8258,7 +8260,7 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureTOIL08LLEDYParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x00;
+            settingIA[1] = 0x09;
             settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
@@ -8273,7 +8275,7 @@ namespace LEDLampsConfigurationSoftware
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x00;
+            settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x47;
         }
