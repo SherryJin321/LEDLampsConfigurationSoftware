@@ -79,8 +79,20 @@ namespace LEDLampsConfigurationSoftware
         #region 工厂模式下，其他设置参数
         int[] FlashFrequencyArray = new int[31];
         #endregion
-        #endregion
 
+        #region 总时间查询按钮适用对象
+        //第五列为总时间查询功能是否适用，适用为：0x01，不适用为：0x02
+        byte[][] totalTimeObject = new byte[][]
+        {
+            new byte[5]{0x05,0x06,0x01,0x03,0x01 },
+            new byte[5]{0x08,0x00,0x01,0x03,0x02 },
+            new byte[5]{0x08,0x04,0x01,0x01,0x02 },
+            new byte[5]{0x0C,0x00,0x01,0x03,0x02 },
+            new byte[5]{0x0C,0x03,0x01,0x00,0x02 },
+            new byte[5]{0x0D,0x02,0x01,0x00,0x02 }
+        };
+        #endregion
+        #endregion
 
         #region 开发者模式下，设置参数指令参数
         byte[] InDeveloperModeSettingIA = new byte[4] { 0x00, 0x00, 0x00, 0x00 };
@@ -1305,8 +1317,12 @@ namespace LEDLampsConfigurationSoftware
                     {
                         if (dataReceived[0] == 0x02 && dataReceived[1] == 0x89 && dataReceived[2] == 0x22 && dataReceived[3] == 0x85)
                         {
+                            softwareVersion1 = dataReceived[7];
+                            softwareVersion2 = dataReceived[8];                            
                             hardwareVersion1 = dataReceived[16];
                             softwareNumber = dataReceived[19];
+
+                            ConfirmQueryTotalTimeIsUseOrNot(hardwareVersion1, softwareNumber, softwareVersion1, softwareVersion2);
 
                             if (hardwareVersion1 == 12 && softwareNumber == 0)
                             {
@@ -1409,6 +1425,7 @@ namespace LEDLampsConfigurationSoftware
             }));
         }
 
+        #region 不同驱动可选的灯具类型
         public void EightInchesLampSelect()
         {
             this.Dispatcher.Invoke(new System.Action(() =>
@@ -1592,12 +1609,43 @@ namespace LEDLampsConfigurationSoftware
                 SelectRWYGuardLight.IsEnabled = false;
                 SelectTWYCenterLight.IsEnabled = false;
                 SelectTWYCenterLight2P.IsEnabled = true;
-                SelectTWYStopBarLight.IsEnabled = true;
-                SelectIntermediateHoldingPositionLight.IsEnabled = true;
-                SelectTWYIntersectionsLight.IsEnabled = true;
+                SelectTWYStopBarLight.IsEnabled = false;
+                SelectIntermediateHoldingPositionLight.IsEnabled = false;
+                SelectTWYIntersectionsLight.IsEnabled = false;
 
             }));
         }
+
+        #endregion
+
+        public void ConfirmQueryTotalTimeIsUseOrNot(int hardware,int s,int software1,int software2)
+        {
+            byte result = 0x00;
+
+            for(int i=0;i<totalTimeObject.Length;i++)
+            {
+                if(hardware==totalTimeObject[i][0]&&s==totalTimeObject[i][1]&&software1==totalTimeObject[i][2]&&software2==totalTimeObject[i][3])
+                {
+                    result = totalTimeObject[i][4];
+                }
+            }
+
+            if(result==0x01)
+            {
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    QueryTotalTime.IsEnabled = true;
+                }));
+            }
+            else
+            {
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    QueryTotalTime.IsEnabled = false;
+                }));
+            }
+        }
+
         #endregion
 
         #region QueryTotalTimeFeedbackCommand
@@ -6559,7 +6607,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
             SelectOpenCircuitFalse.Visibility = Visibility.Visible;
 
-            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitTrue.IsEnabled = false;
             SelectOpenCircuitFalse.IsEnabled = true;
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
@@ -6589,7 +6637,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
             SelectOpenCircuitFalse.Visibility = Visibility.Visible;
 
-            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitTrue.IsEnabled = false;
             SelectOpenCircuitFalse.IsEnabled = true;
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
@@ -6619,7 +6667,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
             SelectOpenCircuitFalse.Visibility = Visibility.Visible;
 
-            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitTrue.IsEnabled = false;
             SelectOpenCircuitFalse.IsEnabled = true;
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
@@ -8213,7 +8261,7 @@ namespace LEDLampsConfigurationSoftware
 
         private void ConfigureSBLMS08SLEDRParameters()
         {
-            settingIA[0] = 0x01;
+            settingIA[0] = 0x00;
             settingIA[1] = 0x00;
             settingIA[2] = 0x00;
             settingIA[3] = 0x00;
@@ -8229,7 +8277,7 @@ namespace LEDLampsConfigurationSoftware
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x01;
+            settingReadRFlag = 0x00;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x45;
         }
@@ -8237,7 +8285,7 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureTPLMS08SLEDYParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x09;
+            settingIA[1] = 0x00;
             settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
@@ -8252,7 +8300,7 @@ namespace LEDLampsConfigurationSoftware
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x01;
+            settingReadRFlag = 0x00;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x46;
         }
@@ -8260,7 +8308,7 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureTOIL08LLEDYParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x09;
+            settingIA[1] = 0x00;
             settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
@@ -8275,7 +8323,7 @@ namespace LEDLampsConfigurationSoftware
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x01;
+            settingReadRFlag = 0x00;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x47;
         }
