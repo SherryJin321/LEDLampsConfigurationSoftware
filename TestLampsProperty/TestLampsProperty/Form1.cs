@@ -58,6 +58,7 @@ namespace TestLampsProperty
                 //    }
                 //}
 
+
                 lampsSerialPort.Write(queryVersionCommand, 0, 28);
 
                 textBox1.Text += "TX:";
