@@ -30,8 +30,9 @@
     <system:String x:Key="LangsSelectRapidExitTWYIndicatorLight">LED Rapid Exit Taxiway Indicator Light（RAPS-08-LED）</system:String>
     <system:String x:Key="LangsSelectCombinedRWYEdgeLight">LED In-pavement Combined Runway Edge Light（RELC-12-LED）</system:String>
     <system:String x:Key="LangsSelectRWYGuardLight">High Intensity LED In-pavement Runway Guard Light（HRGS-08-LED）</system:String>
-    <system:String x:Key="LangsSelectTWYCenterLight">LED Taxiway Centerline Light 2P（TCLMS-08-LED）</system:String>
+    <system:String x:Key="LangsSelectTWYCenterLight">LED Taxiway Centerline Light 1P（TCLMS-08-LED）</system:String>
     <system:String x:Key="LangsSelectTWYCenterLight2P">LED Taxiway Centerline Light 2P（TCLMS-08-LED）</system:String>
+    <system:String x:Key="LangsSelectTWYEdgeLight">LED In-pavement Taxiway Edge Light（TOEL-08-LED）</system:String>
     <system:String x:Key="LangsSelectTWYStopBarLight">LED In-pavement Taxiway Stop Bar Light（SBLMS-08-LED）</system:String>
     <system:String x:Key="LangsSelectIntermediateHoldingPositionLight">LED Intermediate Holding Position Light（TPLMS-08-LED）</system:String>
     <system:String x:Key="LangsSelectTWYIntersectionsLight">LED Taxiway Intersections Light（TOIL-08-LED）</system:String>
@@ -150,6 +151,8 @@
     <system:String x:Key="LangsLampInchesLabel6">RWY center light drive with double circuit 12 inches.</system:String>
     <system:String x:Key="LangsLampInchesLabel7">Guard Light 8 inches.</system:String>
     <system:String x:Key="LangsLampInchesLabel8">TWY centerline light drive with double circuit.</system:String>
+    <system:String x:Key="LangsLampInchesLabel9">TWY centerline light drive with single circuit.</system:String>
+
 
 
 
@@ -161,6 +164,7 @@
     <system:String x:Key="LangsAnswerHardwareVersion4">Guard Light</system:String>
     <system:String x:Key="LangsAnswerHardwareVersion5">Unknown</system:String>
     <system:String x:Key="LangsAnswerHardwareVersion6">TWY Centerline Drive With Double Circuit</system:String>
+    <system:String x:Key="LangsAnswerHardwareVersion7">TWY Centerline Drive With Single Circuit</system:String>
     <system:String x:Key="LangsAnswerLampModel0">None lamp model</system:String>
     <system:String x:Key="LangsAnswerLampModel1">Approach Centerline Light(APPS-12-S-LED-C)</system:String>
     <system:String x:Key="LangsAnswerLampModel2">Approach Crossbar Light(APPS-12-L-LED-C)</system:String>
@@ -232,6 +236,8 @@
     <system:String x:Key="LangsAnswerLampModel69">Taxiway Stop Bar Light（SBLMS-08-S-LED-R）</system:String>
     <system:String x:Key="LangsAnswerLampModel70">Intermediate Holding Position Light（TPLMS-08-S-LED-Y）</system:String>
     <system:String x:Key="LangsAnswerLampModel71">Taxiway Intersections Light（TOIL-08-L-LED-Y）</system:String>
+    <system:String x:Key="LangsAnswerLampModel72">Taxiway Edge Light（TOEL-08-LED-B）</system:String>
+
     <system:String x:Key="LangsAnswerOpenCircuit1">Without Open Circuit</system:String>
     <system:String x:Key="LangsAnswerOpenCircuit2">With Open Circuit</system:String>
 
@@ -244,6 +250,8 @@
     <system:String x:Key="LangsCreateExcel5">12 inches RWY center light drive with double circuit</system:String>
     <system:String x:Key="LangsCreateExcel6">RWY guard light</system:String>
     <system:String x:Key="LangsCreateExcel7">TWY center light drive with double circuit</system:String>
+    <system:String x:Key="LangsCreateExcel8">TWY center light drive with single circuit</system:String>
+
     <system:String x:Key="LangsCreateTxt1">lamp original data</system:String>
 
     <!--后台代码，MessageBox设置-->

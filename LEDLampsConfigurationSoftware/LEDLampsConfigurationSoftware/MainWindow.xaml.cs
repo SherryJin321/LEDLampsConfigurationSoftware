@@ -80,16 +80,26 @@ namespace LEDLampsConfigurationSoftware
         int[] FlashFrequencyArray = new int[31];
         #endregion
 
-        #region 总时间查询按钮适用对象
-        //第五列为总时间查询功能是否适用，适用为：0x01，不适用为：0x02
-        byte[][] totalTimeObject = new byte[][]
+        #region 总时间查询按钮适用对象，以及版本查询电流值计算方法
+        /* 第一列为<hardware_version1>，驱动识别号的一部分
+         * 第二列为<S_Version>，驱动识别号的一部分
+         * 第三列为<software_version1>，软件版本号的一部分
+         * 第四列为<software_version2>，软件版本号的一部分
+         * 第五列为总时间查询功能是否适用，适用为：1，不适用为：2
+         * 第六列为真实电流计算公式的符号，乘号为：1，除号为：2
+         * 第七列为真实电流计算公式的系数         
+         */
+        double[][] totalTimeObject = new double[][]
         {
-            new byte[5]{0x05,0x06,0x01,0x03,0x01 },
-            new byte[5]{0x08,0x00,0x01,0x03,0x02 },
-            new byte[5]{0x08,0x04,0x01,0x01,0x02 },
-            new byte[5]{0x0C,0x00,0x01,0x03,0x02 },
-            new byte[5]{0x0C,0x03,0x01,0x00,0x02 },
-            new byte[5]{0x0D,0x02,0x01,0x00,0x02 }
+            new double[7]{4,5,1,0,1,2,2.4},
+            new double[7]{5,6,1,3,1,2,1.95 },
+            new double[7]{5,6,1,0,1,2,2.4 },
+            new double[7]{8,0,1,3,2,1,0.66 },
+            new double[7]{8,4,1,1,2,1,0.66 },
+            new double[7]{12,0,1,3,2,1,1 },
+            new double[7]{12,3,1,0,2,1,1 },
+            new double[7]{13,2,1,0,2,1,0.66 }
+            
         };
         #endregion
         #endregion
@@ -254,6 +264,24 @@ namespace LEDLampsConfigurationSoftware
         ArrayList AMaxDoubleCircuitTWYCenterDrive = new ArrayList();
         ArrayList ErrorCodeDoubleCircuitTWYCenterDrive = new ArrayList();
         #endregion
+
+        #region 单路滑中驱动各项参数存储集合
+        ArrayList RMS1SingleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList RMS2SingleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList RMS1LASTSingleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList RMS2LASTSingleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList Val2SingleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList TCHECKSingleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList LEDF1SingleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList LEDF2SingleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList Shock1SingleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList ShockSingleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList ShortFlagSingleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList TSingleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList SecondSingleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList AMaxSingleCircuitTWYCenterDrive = new ArrayList();
+        ArrayList ErrorCodeSingleCircuitTWYCenterDrive = new ArrayList();
+        #endregion
         #endregion
 
         #region 中英文切换字符
@@ -266,6 +294,8 @@ namespace LEDLampsConfigurationSoftware
         string LampInchesLabel6 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel6");
         string LampInchesLabel7 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel7");
         string LampInchesLabel8 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel8");
+        string LampInchesLabel9 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel9");
+
 
         #endregion
 
@@ -277,6 +307,8 @@ namespace LEDLampsConfigurationSoftware
         string AnswerHardwareVersion4 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion4");
         string AnswerHardwareVersion5 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion5");
         string AnswerHardwareVersion6 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion6");
+        string AnswerHardwareVersion7 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion7");
+
         string AnswerLampModel0 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel0");
         string AnswerLampModel1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel1");
         string AnswerLampModel2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel2");
@@ -348,6 +380,7 @@ namespace LEDLampsConfigurationSoftware
         string AnswerLampModel69 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel69");
         string AnswerLampModel70 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel70");
         string AnswerLampModel71 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel71");
+        string AnswerLampModel72 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel72");
         string AnswerOpenCircuit1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit1");
         string AnswerOpenCircuit2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit2");
         #endregion
@@ -361,6 +394,7 @@ namespace LEDLampsConfigurationSoftware
         string CreateExcel5 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel5");
         string CreateExcel6 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel6");
         string CreateExcel7 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel7");
+        string CreateExcel8 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel8");
         string CreateTxt1 = (string)System.Windows.Application.Current.FindResource("LangsCreateTxt1");
 
         #endregion
@@ -951,6 +985,10 @@ namespace LEDLampsConfigurationSoftware
                             {
                                 driveName = AnswerHardwareVersion6;
                             }
+                            else if (hardwareVersion1 == 4 && softwareNumber == 5)
+                            {
+                                driveName = AnswerHardwareVersion7;
+                            }
                             else
                             {
                                 driveName = AnswerHardwareVersion5;
@@ -1111,7 +1149,7 @@ namespace LEDLampsConfigurationSoftware
                 case 69: result = AnswerLampModel69; break;
                 case 70: result = AnswerLampModel70; break;
                 case 71: result = AnswerLampModel71; break;
-
+                case 72: result = AnswerLampModel72; break;
             }
             return result;
         }
@@ -1119,63 +1157,58 @@ namespace LEDLampsConfigurationSoftware
         private double CalculateRealCurrentValue(byte originalData)
         {
             double original = originalData / 10.0;
-            double result = 0.0;
+            double result = 0.0;  
+           
 
-            if (hardwareVersion1 == 12 && softwareNumber == 0)
+            for (int i = 0; i < totalTimeObject.Length; i++)
             {
-                result = original;
+                if (hardwareVersion1 == totalTimeObject[i][0] && softwareNumber == totalTimeObject[i][1] && softwareVersion1 == totalTimeObject[i][2] && softwareVersion2 == totalTimeObject[i][3])
+                {
+                    result = original* totalTimeObject[i][5]*totalTimeObject[i][6];
+                }
+            }
+
+
+
+            if (hardwareVersion1 == 12 && softwareNumber == 0&& softwareVersion1==1&& softwareVersion2==3)
+            {                
 
                 if (lampsNumber == 1 || lampsNumber == 2 || lampsNumber == 3)
                 {
-                    result = original * 1.3;
+                    result = result * 1.3;
                 }
                 if ((lampsNumber >= 33 && lampsNumber <= 40) || lampsNumber == 47)
                 {
-                    if (original == 0.9)
+                    if (result == 0.9)
                     {
                         result = 0.93 * 1.3;
                     }
-                    if (original == 0.7)
+                    if (result == 0.7)
                     {
                         result = 0.7 * 1;
                     }
-                    if (original == 0.6)
+                    if (result == 0.6)
                     {
                         result = 0.55 * 1;
                     }
-                    if (original == 0.4)
+                    if (result == 0.4)
                     {
                         result = 0.45 * 1;
                     }
                 }
             }
-            else if (hardwareVersion1 == 8 && softwareNumber == 0)
+
+            if (hardwareVersion1 == 12 && softwareNumber == 3 && softwareVersion1 == 1 && softwareVersion2 == 0)
             {
-                result = original * 0.66;
-            }
-            else if (hardwareVersion1 == 13 && softwareNumber == 2)
-            {
-                result = original * 0.66;
-            }
-            else if (hardwareVersion1 == 12 && softwareNumber == 3)
-            {
-                if (original == 0.4)
+                if(result==0.4)
                 {
-                    result = 0.45 * 1;
+                    result = 0.45;
                 }
-                else
-                {
-                    result = original;
-                }
+
             }
-            else if (hardwareVersion1 == 8 && softwareNumber == 4)
-            {
-                result = original * 0.66;
-            }
-            else if (hardwareVersion1 == 5 && softwareNumber == 6)
-            {
-                result = original / 1.95;             
-            }
+
+
+
             result = Math.Round(result, 2, MidpointRounding.AwayFromZero);
 
             return result;
@@ -1354,6 +1387,11 @@ namespace LEDLampsConfigurationSoftware
                                 LampInchesLabel.Content = LampInchesLabel2 + " " + LampInchesLabel8;
                                 DoubleCircuitTWYCenterLampSelect();
                             }
+                            else if (hardwareVersion1 == 4 && softwareNumber == 5)
+                            {
+                                LampInchesLabel.Content = LampInchesLabel2 + " " + LampInchesLabel9;
+                                SingleCircuitTWYCenterLampSelect();
+                            }
                             else
                             {
                                 LampInchesLabel.Content = LampInchesLabel1;
@@ -1450,6 +1488,8 @@ namespace LEDLampsConfigurationSoftware
                 SelectTWYStopBarLight.IsEnabled = false;
                 SelectIntermediateHoldingPositionLight.IsEnabled = false;
                 SelectTWYIntersectionsLight.IsEnabled = false;
+                SelectTWYEdgeLight.IsEnabled = false;
+
             }));
         }
 
@@ -1477,6 +1517,8 @@ namespace LEDLampsConfigurationSoftware
                 SelectTWYStopBarLight.IsEnabled = false;
                 SelectIntermediateHoldingPositionLight.IsEnabled = false;
                 SelectTWYIntersectionsLight.IsEnabled = false;
+                SelectTWYEdgeLight.IsEnabled = false;
+
             }));
         }
 
@@ -1504,6 +1546,8 @@ namespace LEDLampsConfigurationSoftware
                 SelectTWYStopBarLight.IsEnabled = false;
                 SelectIntermediateHoldingPositionLight.IsEnabled = false;
                 SelectTWYIntersectionsLight.IsEnabled = false;
+                SelectTWYEdgeLight.IsEnabled = false;
+
             }));
         }
 
@@ -1531,6 +1575,8 @@ namespace LEDLampsConfigurationSoftware
                 SelectTWYStopBarLight.IsEnabled = false;
                 SelectIntermediateHoldingPositionLight.IsEnabled = false;
                 SelectTWYIntersectionsLight.IsEnabled = false;
+                SelectTWYEdgeLight.IsEnabled = false;
+
             }));
         }
 
@@ -1558,6 +1604,8 @@ namespace LEDLampsConfigurationSoftware
                 SelectTWYStopBarLight.IsEnabled = false;
                 SelectIntermediateHoldingPositionLight.IsEnabled = false;
                 SelectTWYIntersectionsLight.IsEnabled = false;
+                SelectTWYEdgeLight.IsEnabled = false;
+
             }));
         }
 
@@ -1585,6 +1633,8 @@ namespace LEDLampsConfigurationSoftware
                 SelectTWYStopBarLight.IsEnabled = false;
                 SelectIntermediateHoldingPositionLight.IsEnabled = false;
                 SelectTWYIntersectionsLight.IsEnabled = false;
+                SelectTWYEdgeLight.IsEnabled = false;
+
             }));
         }
 
@@ -1612,6 +1662,37 @@ namespace LEDLampsConfigurationSoftware
                 SelectTWYStopBarLight.IsEnabled = false;
                 SelectIntermediateHoldingPositionLight.IsEnabled = false;
                 SelectTWYIntersectionsLight.IsEnabled = false;
+                SelectTWYEdgeLight.IsEnabled = false;
+
+
+            }));
+        }
+
+        public void SingleCircuitTWYCenterLampSelect()
+        {
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                SelectApproachChenterlineLight.IsEnabled = false;
+                SelectApproachCrossbarLight.IsEnabled = false;
+                SelectApproachSideRowLight.IsEnabled = false;
+                SelectRWYThresholdWingBarLight.IsEnabled = false;
+                SelectRWYThresholdLight.IsEnabled = false;
+                SelectRWYEdgeLight.IsEnabled = false;
+                Select12inchesRWYEndLight.IsEnabled = false;
+                SelectRWYThresholdEndLight.IsEnabled = false;
+                SelectRWYCenterlineLight.IsEnabled = false;
+                Select12inchesRWYCenterlineLight.IsEnabled = false;
+                SelectRWYTouchdownZoneLight.IsEnabled = false;
+                Select8inchesRWYEndLight.IsEnabled = false;
+                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
+                SelectCombinedRWYEdgeLight.IsEnabled = false;
+                SelectRWYGuardLight.IsEnabled = false;
+                SelectTWYCenterLight.IsEnabled = true;
+                SelectTWYCenterLight2P.IsEnabled = false;
+                SelectTWYStopBarLight.IsEnabled = true;
+                SelectIntermediateHoldingPositionLight.IsEnabled = true;
+                SelectTWYIntersectionsLight.IsEnabled = true;
+                SelectTWYEdgeLight.IsEnabled = true;
 
             }));
         }
@@ -1620,7 +1701,7 @@ namespace LEDLampsConfigurationSoftware
 
         public void ConfirmQueryTotalTimeIsUseOrNot(int hardware,int s,int software1,int software2)
         {
-            byte result = 0x00;
+            double result = 0;
 
             for(int i=0;i<totalTimeObject.Length;i++)
             {
@@ -1630,7 +1711,7 @@ namespace LEDLampsConfigurationSoftware
                 }
             }
 
-            if(result==0x01)
+            if(result==1)
             {
                 this.Dispatcher.Invoke(new System.Action(() =>
                 {
@@ -1803,6 +1884,11 @@ namespace LEDLampsConfigurationSoftware
                     {
                         DoubleCircuitTWYCenterDriveLampDataAnalysis(receivedStatusFeedbackCommand);
                         DoubleCircuitTWYCenterDriveParametersCreatExcel();
+                    }
+                    else if (receivedStatusFeedbackCommand[0] == 0x02 && receivedStatusFeedbackCommand[1] == 0xAA && receivedStatusFeedbackCommand[2] == 0x01 && receivedStatusFeedbackCommand[3] == 0x04 && receivedStatusFeedbackCommand[4] == 0x05)
+                    {
+                        SingleCircuitTWYCenterDriveLampDataAnalysis(receivedStatusFeedbackCommand);
+                        SingleCircuitTWYCenterDriveParametersCreatExcel();
                     }
                     else
                     {                       
@@ -3461,6 +3547,247 @@ namespace LEDLampsConfigurationSoftware
         }
         #endregion
 
+        #region 单路滑中驱动灯具状态信息解析
+        private void SingleCircuitTWYCenterDriveLampDataAnalysis(byte[] CompleteData)
+        {
+            byte[][] DataArray;
+            ArrayList commandCount = new ArrayList();
+
+            for (int i = 0; i < CompleteData.Length; i++)
+            {
+                if (CompleteData[i] == 0x02 && CompleteData[i + 1] == 0xAA && CompleteData[i + 2] == 0x01 && CompleteData[i + 3] == 0x04 && CompleteData[i + 4] == 0x05)
+                {
+                    commandCount.Add(i);
+                }
+            }
+
+            DataArray = new byte[commandCount.Count][];
+
+            for (int i = 0; i < commandCount.Count; i++)
+            {
+                if (i < commandCount.Count - 1)
+                {
+                    DataArray[i] = new byte[(int)commandCount[i + 1] - (int)commandCount[i]];
+                }
+                else
+                {
+                    DataArray[i] = new byte[CompleteData.Length - (int)commandCount[i]];
+                }
+
+                for (int j = 0; j < DataArray[i].Length; j++)
+                {
+                    DataArray[i][j] = CompleteData[(int)commandCount[i] + j];
+                }
+            }
+
+            for (int i = 0; i < DataArray.Length; i++)
+            {
+                if (DataArray[i].Length == 32)
+                {
+                    byte checkOutValue = CalculateCheckOutValue(DataArray[i]);
+                    if (checkOutValue == DataArray[i][DataArray[i].Length - 1])
+                    {
+                        RMS1SingleCircuitTWYCenterDrive.Add(DataArray[i][5] * 500);
+                        RMS2SingleCircuitTWYCenterDrive.Add(DataArray[i][6] * 500);
+                        RMS1LASTSingleCircuitTWYCenterDrive.Add(DataArray[i][7] * 4);
+                        RMS2LASTSingleCircuitTWYCenterDrive.Add(DataArray[i][8] * 4);
+                        Val2SingleCircuitTWYCenterDrive.Add(DataArray[i][9] * 20);
+                        TCHECKSingleCircuitTWYCenterDrive.Add(DataArray[i][10] * 16);
+                        LEDF1SingleCircuitTWYCenterDrive.Add(DataArray[i][11]);
+                        LEDF2SingleCircuitTWYCenterDrive.Add(DataArray[i][12]);
+                        Shock1SingleCircuitTWYCenterDrive.Add(DataArray[i][13]);
+                        ShockSingleCircuitTWYCenterDrive.Add(DataArray[i][14]);
+                        ShortFlagSingleCircuitTWYCenterDrive.Add(DataArray[i][15]);
+                        TSingleCircuitTWYCenterDrive.Add(DataArray[i][16]);
+                        AMaxSingleCircuitTWYCenterDrive.Add(DataArray[i][21] * 16);
+
+                        int SecondResult = 0;
+                        for (int j = 0; j < 4; j++)
+                        {
+                            int SecondOrigin = DataArray[i][17 + j];
+                            SecondResult |= SecondOrigin;
+                            if (j < 3)
+                            {
+                                SecondResult <<= 8;
+                            }
+                        }
+                        SecondSingleCircuitTWYCenterDrive.Add(SecondResult);
+                        ErrorCodeSingleCircuitTWYCenterDrive.Add("No Error");
+                    }
+                    else
+                    {
+                        SingleCircuitTWYCenterDriveLampCheckValueErrorHandle();
+                    }
+                }
+                else
+                {
+                    SingleCircuitTWYCenterDriveLampCommandLengthErrorHandle();
+                }
+            }
+
+        }
+
+        private void SingleCircuitTWYCenterDriveLampCheckValueErrorHandle()
+        {
+            RMS1SingleCircuitTWYCenterDrive.Add("Null");
+            RMS2SingleCircuitTWYCenterDrive.Add("Null");
+            RMS1LASTSingleCircuitTWYCenterDrive.Add("Null");
+            RMS2LASTSingleCircuitTWYCenterDrive.Add("Null");
+            Val2SingleCircuitTWYCenterDrive.Add("Null");
+            TCHECKSingleCircuitTWYCenterDrive.Add("Null");
+            LEDF1SingleCircuitTWYCenterDrive.Add("Null");
+            LEDF2SingleCircuitTWYCenterDrive.Add("Null");
+            Shock1SingleCircuitTWYCenterDrive.Add("Null");
+            ShockSingleCircuitTWYCenterDrive.Add("Null");
+            ShortFlagSingleCircuitTWYCenterDrive.Add("Null");
+            TSingleCircuitTWYCenterDrive.Add("Null");
+            AMaxSingleCircuitTWYCenterDrive.Add("Null");
+            SecondSingleCircuitTWYCenterDrive.Add("Null");
+            ErrorCodeSingleCircuitTWYCenterDrive.Add("Check Value Error");
+        }
+
+        private void SingleCircuitTWYCenterDriveLampCommandLengthErrorHandle()
+        {
+            RMS1SingleCircuitTWYCenterDrive.Add("Null");
+            RMS2SingleCircuitTWYCenterDrive.Add("Null");
+            RMS1LASTSingleCircuitTWYCenterDrive.Add("Null");
+            RMS2LASTSingleCircuitTWYCenterDrive.Add("Null");
+            Val2SingleCircuitTWYCenterDrive.Add("Null");
+            TCHECKSingleCircuitTWYCenterDrive.Add("Null");
+            LEDF1SingleCircuitTWYCenterDrive.Add("Null");
+            LEDF2SingleCircuitTWYCenterDrive.Add("Null");
+            Shock1SingleCircuitTWYCenterDrive.Add("Null");
+            ShockSingleCircuitTWYCenterDrive.Add("Null");
+            ShortFlagSingleCircuitTWYCenterDrive.Add("Null");
+            TSingleCircuitTWYCenterDrive.Add("Null");
+            AMaxSingleCircuitTWYCenterDrive.Add("Null");
+            SecondSingleCircuitTWYCenterDrive.Add("Null");
+            ErrorCodeSingleCircuitTWYCenterDrive.Add("Command Length Error");            
+        }
+
+        private void ClearSingleCircuitTWYCenterDriveParameters()
+        {
+            RMS1SingleCircuitTWYCenterDrive.Clear();
+            RMS2SingleCircuitTWYCenterDrive.Clear();
+            RMS1LASTSingleCircuitTWYCenterDrive.Clear();
+            RMS2LASTSingleCircuitTWYCenterDrive.Clear();
+            Val2SingleCircuitTWYCenterDrive.Clear();
+            TCHECKSingleCircuitTWYCenterDrive.Clear();
+            LEDF1SingleCircuitTWYCenterDrive.Clear();
+            LEDF2SingleCircuitTWYCenterDrive.Clear();
+            Shock1SingleCircuitTWYCenterDrive.Clear();
+            ShockSingleCircuitTWYCenterDrive.Clear();
+            ShortFlagSingleCircuitTWYCenterDrive.Clear();
+            TSingleCircuitTWYCenterDrive.Clear();
+            AMaxSingleCircuitTWYCenterDrive.Clear();
+            SecondSingleCircuitTWYCenterDrive.Clear();
+            ErrorCodeSingleCircuitTWYCenterDrive.Clear();
+        }
+
+        void SingleCircuitTWYCenterDriveParametersCreatExcel()
+        {
+            try
+            {
+                //创建excel模板
+                str_fileName = "d:\\ " + CreateExcel8 + " " + CreateExcel1 + " " + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";    //文件保存路径及名称
+                ExcelApp = new Microsoft.Office.Interop.Excel.Application();                          //创建Excel应用程序 ExcelApp
+                ExcelDoc = ExcelApp.Workbooks.Add(Type.Missing);                                      //在应用程序ExcelApp下，创建工作簿ExcelDoc
+                ExcelSheet = ExcelDoc.Worksheets.Add(Type.Missing);                                   //在工作簿ExcelDoc下，创建工作表ExcelSheet
+
+                //设置Excel列名           
+                ExcelSheet.Cells[1, 1] = CreateExcel8 + " " + CreateExcel1;
+                ExcelSheet.Cells[2, 1] = CreateExcel2;
+                ExcelSheet.Cells[2, 2] = "RMS1";
+                ExcelSheet.Cells[2, 3] = "RMS2";
+                ExcelSheet.Cells[2, 4] = "RMS1_LAST";
+                ExcelSheet.Cells[2, 5] = "RMS2_LAST";
+                ExcelSheet.Cells[2, 6] = "Val2";
+                ExcelSheet.Cells[2, 7] = "T_CHECK";
+                ExcelSheet.Cells[2, 8] = "LED_F1";
+                ExcelSheet.Cells[2, 9] = "LED_F2";
+                ExcelSheet.Cells[2, 10] = "Shock1";
+                ExcelSheet.Cells[2, 11] = "Shock";
+                ExcelSheet.Cells[2, 12] = "Short_Flag";
+                ExcelSheet.Cells[2, 13] = "T";
+                ExcelSheet.Cells[2, 14] = "Second";
+                ExcelSheet.Cells[2, 15] = "A_MAX";
+                ExcelSheet.Cells[2, 16] = "Error Code";
+
+                //输出各个参数值
+                for (int i = 0; i < RMS1SingleCircuitTWYCenterDrive.Count; i++)
+                {
+
+                    ExcelSheet.Cells[3 + i, 1] = (i + 1).ToString();
+                    ExcelSheet.Cells[3 + i, 2] = RMS1SingleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 3] = RMS2SingleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 4] = RMS1LASTSingleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 5] = RMS2LASTSingleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 6] = Val2SingleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 7] = TCHECKSingleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 8] = LEDF1SingleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 9] = LEDF2SingleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 10] = Shock1SingleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 11] = ShockSingleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 12] = ShortFlagSingleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 13] = TSingleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 15] = AMaxSingleCircuitTWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 16] = ErrorCodeSingleCircuitTWYCenterDrive[i].ToString();
+
+                    if (SecondSingleCircuitTWYCenterDrive[i].ToString() == "Null")
+                    {
+                        ExcelSheet.Cells[3 + i, 14] = SecondSingleCircuitTWYCenterDrive[i].ToString();
+                    }
+                    else
+                    {
+                        ExcelSheet.Cells[3 + i, 14] = ((int)SecondSingleCircuitTWYCenterDrive[i] / 3600).ToString() + ":" + (((int)SecondSingleCircuitTWYCenterDrive[i] % 3600) / 60).ToString() + ":" + (((int)SecondSingleCircuitTWYCenterDrive[i] % 3600) % 60).ToString();
+                    }
+
+                }
+
+                ExcelSheet.SaveAs(str_fileName);                                                      //保存Excel工作表
+                ExcelDoc.Close(Type.Missing, str_fileName, Type.Missing);                             //关闭Excel工作簿
+                ExcelApp.Quit();                                                                      //退出Excel应用程序    
+
+                ClearSingleCircuitTWYCenterDriveParameters();
+
+                ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
+                }));
+
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show(MessageboxContent28, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
+            }
+            catch
+            {
+                ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
+                }));
+
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show(MessageboxContent29, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
+            }
+        }
+        #endregion
         #endregion
 
         #region 导出原始数据
@@ -3662,6 +3989,7 @@ namespace LEDLampsConfigurationSoftware
             GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
             GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
             GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
 
             SelectAPPS12SLEDC.IsChecked = false;
 
@@ -3707,6 +4035,8 @@ namespace LEDLampsConfigurationSoftware
             GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
             GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
             GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
+
 
             SelectAPPS12LLEDC.IsChecked = false;
             SelectAPPS12RLEDC.IsChecked = false;
@@ -3754,6 +4084,8 @@ namespace LEDLampsConfigurationSoftware
             GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
             GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
             GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
+
 
             SelectAPSS12LLEDR.IsChecked = false;
             SelectAPSS12RLEDR.IsChecked = false;
@@ -3800,6 +4132,8 @@ namespace LEDLampsConfigurationSoftware
             GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
             GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
             GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
+
 
             SelectTHWS12LLEDG.IsChecked = false;
             SelectTHWS12RLEDG.IsChecked = false;
@@ -3846,6 +4180,8 @@ namespace LEDLampsConfigurationSoftware
             GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
             GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
             GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
+
 
             SelectTHRS12LLEDG.IsChecked = false;
             SelectTHRS12RLEDG.IsChecked = false;
@@ -3893,6 +4229,8 @@ namespace LEDLampsConfigurationSoftware
             GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
             GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
             GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
+
 
             SelectRELS12LLEDYC.IsChecked = false;
             SelectRELS12RLEDYC.IsChecked = false;
@@ -3948,6 +4286,8 @@ namespace LEDLampsConfigurationSoftware
             GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
             GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
             GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
+
 
             SelectENDS12LEDR.IsChecked = false;
 
@@ -3993,6 +4333,8 @@ namespace LEDLampsConfigurationSoftware
             GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
             GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
             GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
+
 
             SelectTAES12LLEDGR1P.IsChecked = false;
             SelectTAES12RLEDGR1P.IsChecked = false;
@@ -4042,6 +4384,8 @@ namespace LEDLampsConfigurationSoftware
             GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
             GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
             GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
+
 
             SelectRCLS08LEDCB1P.IsChecked = false;
             SelectRCLS08LEDRB1P.IsChecked = false;
@@ -4090,6 +4434,8 @@ namespace LEDLampsConfigurationSoftware
             GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
             GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
             GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
+
 
             SelectRCLS12LEDCCMR2P.IsChecked = false;
             SelectRCLS12LEDRCMR2P.IsChecked = false;
@@ -4136,6 +4482,8 @@ namespace LEDLampsConfigurationSoftware
             GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
             GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
             GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
+
 
             SelectTDZS08LLEDC.IsChecked = false;
             SelectTDZS08RLEDC.IsChecked = false;
@@ -4182,6 +4530,8 @@ namespace LEDLampsConfigurationSoftware
             GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
             GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
             GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
+
 
             SelectENDS08LEDR.IsChecked = false;
 
@@ -4227,6 +4577,8 @@ namespace LEDLampsConfigurationSoftware
             GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
             GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
             GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
+
 
             SelectRAPS08LEDY.IsChecked = false;
 
@@ -4272,6 +4624,8 @@ namespace LEDLampsConfigurationSoftware
             GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
             GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
             GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
+
 
             SelectRELC12LEDCYC1P.IsChecked = false;
             SelectRELC12LEDCCC1P.IsChecked = false;
@@ -4325,6 +4679,8 @@ namespace LEDLampsConfigurationSoftware
             GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
             GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
             GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
+
 
             SelectHRGS08LEDY.IsChecked = false;
 
@@ -4370,6 +4726,8 @@ namespace LEDLampsConfigurationSoftware
             GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
             GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
             GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
+
 
             SelectTCLMS08SLEDGG1P.IsChecked = false;
             SelectTCLMS08SLEDGY1P.IsChecked = false;
@@ -4424,6 +4782,8 @@ namespace LEDLampsConfigurationSoftware
             GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
             GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
             GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
+
 
             SelectTCLMS08SLEDGG2P.IsChecked = false;
             SelectTCLMS08SLEDGY2P.IsChecked = false;
@@ -4456,6 +4816,53 @@ namespace LEDLampsConfigurationSoftware
             }));
         }
 
+        private void SelectTWYEdgeLight_Checked(object sender, RoutedEventArgs e)
+        {
+            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
+            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
+            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
+            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
+            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
+            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
+            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
+            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
+            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
+            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+            GroupTWYEdgeLight.Visibility = Visibility.Visible;
+
+
+            SelectTOEL08LEDB.IsChecked = false;
+
+            SelectOpenCircuitTrue.Visibility = Visibility.Collapsed;
+            SelectOpenCircuitFalse.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampName.Text = TBSelectTWYEdgeLight.Text.ToString();
+                ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
+            }));
+        }
+
         private void SelectTWYStopBarLight_Checked(object sender, RoutedEventArgs e)
         {
             GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
@@ -4478,6 +4885,8 @@ namespace LEDLampsConfigurationSoftware
             GroupTWYStopBarLight.Visibility = Visibility.Visible;
             GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
             GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
+
 
             SelectSBLMS08SLEDR.IsChecked = false;
 
@@ -4523,6 +4932,8 @@ namespace LEDLampsConfigurationSoftware
             GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
             GroupIntermediateHoldingPositionLight.Visibility = Visibility.Visible;
             GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
+
 
             SelectTPLMS08SLEDY.IsChecked = false;
 
@@ -4568,6 +4979,8 @@ namespace LEDLampsConfigurationSoftware
             GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
             GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
             GroupTWYIntersectionsLight.Visibility = Visibility.Visible;
+            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
+
 
             SelectTOIL08LLEDY.IsChecked = false;
 
@@ -6307,7 +6720,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
             SelectOpenCircuitFalse.Visibility = Visibility.Visible;
 
-            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitTrue.IsEnabled = false;
             SelectOpenCircuitFalse.IsEnabled = true;
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
@@ -6337,7 +6750,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
             SelectOpenCircuitFalse.Visibility = Visibility.Visible;
 
-            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitTrue.IsEnabled = false;
             SelectOpenCircuitFalse.IsEnabled = true;
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
@@ -6367,7 +6780,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
             SelectOpenCircuitFalse.Visibility = Visibility.Visible;
 
-            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitTrue.IsEnabled = false;
             SelectOpenCircuitFalse.IsEnabled = true;
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
@@ -6457,7 +6870,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
             SelectOpenCircuitFalse.Visibility = Visibility.Visible;
 
-            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitTrue.IsEnabled = false;
             SelectOpenCircuitFalse.IsEnabled = true;
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
@@ -6487,7 +6900,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
             SelectOpenCircuitFalse.Visibility = Visibility.Visible;
 
-            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitTrue.IsEnabled = false;
             SelectOpenCircuitFalse.IsEnabled = true;
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
@@ -6517,7 +6930,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
             SelectOpenCircuitFalse.Visibility = Visibility.Visible;
 
-            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitTrue.IsEnabled = false;
             SelectOpenCircuitFalse.IsEnabled = true;
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
@@ -6690,6 +7103,36 @@ namespace LEDLampsConfigurationSoftware
             }));
 
             ConfigureTOIL08LLEDYParameters();
+        }
+
+        private void SelectTOEL08LEDB_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectTOEL08LEDB.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureTOEL08LEDBParameters();
         }
         #endregion
 
@@ -8032,7 +8475,7 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureTCLMS08SLEDGG2PParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x08;
+            settingIA[1] = 0x00;
             settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
@@ -8040,14 +8483,14 @@ namespace LEDLampsConfigurationSoftware
             settingIB[2] = 0x00;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
-            settingIIA[1] = 0x08;
+            settingIIA[1] = 0x00;
             settingIIA[2] = 0x00;
             settingIIA[3] = 0x00;
             settingIIB[0] = 0x00;
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x01;
+            settingReadRFlag = 0x00;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x3A;
         }
@@ -8055,7 +8498,7 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureTCLMS08SLEDGY2PParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x08;
+            settingIA[1] = 0x00;
             settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
@@ -8063,14 +8506,14 @@ namespace LEDLampsConfigurationSoftware
             settingIB[2] = 0x00;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
-            settingIIA[1] = 0x09;
+            settingIIA[1] = 0x00;
             settingIIA[2] = 0x00;
             settingIIA[3] = 0x00;
             settingIIB[0] = 0x00;
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x01;
+            settingReadRFlag = 0x00;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x3B;
         }
@@ -8078,7 +8521,7 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureTCLMS08SLEDYY2PParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x09;
+            settingIA[1] = 0x00;
             settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
@@ -8086,14 +8529,14 @@ namespace LEDLampsConfigurationSoftware
             settingIB[2] = 0x00;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
-            settingIIA[1] = 0x09;
+            settingIIA[1] = 0x00;
             settingIIA[2] = 0x00;
             settingIIA[3] = 0x00;
             settingIIB[0] = 0x00;
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x01;
+            settingReadRFlag = 0x00;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x3C;
         }
@@ -8147,7 +8590,7 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureTCLMS08CLEDGG2PParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x08;
+            settingIA[1] = 0x00;
             settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
@@ -8155,14 +8598,14 @@ namespace LEDLampsConfigurationSoftware
             settingIB[2] = 0x00;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
-            settingIIA[1] = 0x08;
+            settingIIA[1] = 0x00;
             settingIIA[2] = 0x00;
             settingIIA[3] = 0x00;
             settingIIB[0] = 0x00;
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x01;
+            settingReadRFlag = 0x00;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x3F;
         }
@@ -8170,7 +8613,7 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureTCLMS08CLEDGY2PParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x08;
+            settingIA[1] = 0x00;
             settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
@@ -8178,14 +8621,14 @@ namespace LEDLampsConfigurationSoftware
             settingIB[2] = 0x00;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
-            settingIIA[1] = 0x09;
+            settingIIA[1] = 0x00;
             settingIIA[2] = 0x00;
             settingIIA[3] = 0x00;
             settingIIB[0] = 0x00;
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x01;
+            settingReadRFlag = 0x00;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x40;
         }
@@ -8193,7 +8636,7 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureTCLMS08CLEDYY2PParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x09;
+            settingIA[1] = 0x00;
             settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
@@ -8201,14 +8644,14 @@ namespace LEDLampsConfigurationSoftware
             settingIB[2] = 0x00;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
-            settingIIA[1] = 0x09;
+            settingIIA[1] = 0x00;
             settingIIA[2] = 0x00;
             settingIIA[3] = 0x00;
             settingIIB[0] = 0x00;
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x01;
+            settingReadRFlag = 0x00;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x41;
         }
@@ -8328,7 +8771,28 @@ namespace LEDLampsConfigurationSoftware
             settingLampsNumber = 0x47;
         }
 
-        
+        private void ConfigureTOEL08LEDBParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x44;
+        }
 
         #endregion
 
@@ -9238,6 +9702,8 @@ namespace LEDLampsConfigurationSoftware
             LampInchesLabel6 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel6");
             LampInchesLabel7 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel7");
             LampInchesLabel8 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel8");
+            LampInchesLabel9 = (string)System.Windows.Application.Current.FindResource("LangsLampInchesLabel9");
+
 
             #endregion
 
@@ -9249,6 +9715,8 @@ namespace LEDLampsConfigurationSoftware
             AnswerHardwareVersion4 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion4");
             AnswerHardwareVersion5 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion5");
             AnswerHardwareVersion6 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion6");
+            AnswerHardwareVersion7 = (string)System.Windows.Application.Current.FindResource("LangsAnswerHardwareVersion7");
+
             AnswerLampModel0 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel0");
             AnswerLampModel1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel1");
             AnswerLampModel2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel2");
@@ -9320,6 +9788,7 @@ namespace LEDLampsConfigurationSoftware
             AnswerLampModel69 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel69");
             AnswerLampModel70 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel70");
             AnswerLampModel71 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel71");
+            AnswerLampModel72 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel72");
             AnswerOpenCircuit1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit1");
             AnswerOpenCircuit2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit2");
             #endregion
@@ -9333,6 +9802,7 @@ namespace LEDLampsConfigurationSoftware
             CreateExcel5 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel5");
             CreateExcel6 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel6");
             CreateExcel7 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel7");
+            CreateExcel8 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel8");
             CreateTxt1 = (string)System.Windows.Application.Current.FindResource("LangsCreateTxt1");
             #endregion
 
@@ -9391,8 +9861,10 @@ namespace LEDLampsConfigurationSoftware
 
 
 
+
+
         #endregion
 
-
+        
     }
 }

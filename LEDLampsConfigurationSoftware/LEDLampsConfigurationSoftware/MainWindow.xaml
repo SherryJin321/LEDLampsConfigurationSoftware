@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LEDLampsConfigurationSoftware"
         mc:Ignorable="d"
-        Title="ASCMS V1.5" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Name="ConfigurationWindow" Icon=".\Images\tubiao.png">
+        Title="ASCMS V1.6" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Name="ConfigurationWindow" Icon=".\Images\tubiao.png">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontSize" Value="18"/>
@@ -100,6 +100,9 @@
                                                     </RadioButton>
                                                     <RadioButton x:Name="SelectTWYCenterLight2P" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights"  Width="320" Checked="SelectTWYCenterLight2P_Checked">
                                                         <TextBlock Text="{DynamicResource LangsSelectTWYCenterLight2P}" TextWrapping="Wrap" x:Name="TBSelectTWYCenterLight2P"/>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="SelectTWYEdgeLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights"  Width="320" Checked="SelectTWYEdgeLight_Checked" >
+                                                        <TextBlock Text="{DynamicResource LangsSelectTWYEdgeLight}" TextWrapping="Wrap" x:Name="TBSelectTWYEdgeLight"/>
                                                     </RadioButton>
                                                     <RadioButton x:Name="SelectTWYStopBarLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights"  Width="320" Checked="SelectTWYStopBarLight_Checked">
                                                         <TextBlock Text="{DynamicResource LangsSelectTWYStopBarLight}" TextWrapping="Wrap" x:Name="TBSelectTWYStopBarLight"/>
@@ -263,6 +266,12 @@
                                                         <RadioButton x:Name="SelectTCLMS08CLEDGB2P" Content="TCLMS-08-C-LED-GB-2P" Canvas.Left="-12" Canvas.Top="281" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYCenterlineLight2P" Checked="SelectTCLMS08CLEDGB2P_Checked"/>
                                                     </Canvas>
                                                 </GroupBox>
+                                                <GroupBox x:Name="GroupTWYEdgeLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                                    <Canvas>
+                                                        <RadioButton x:Name="SelectTOEL08LEDB" Content="TOEL-08-LED-B" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYEdgeLight" Checked="SelectTOEL08LEDB_Checked" />
+                                                    </Canvas>
+                                                </GroupBox>
+                                                
                                                 <GroupBox x:Name="GroupTWYStopBarLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
                                                     <Canvas>
                                                         <RadioButton x:Name="SelectSBLMS08SLEDR" Content="SBLMS-08-S-LED-R" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYStopBarLight" Checked="SelectSBLMS08SLEDR_Checked" />
