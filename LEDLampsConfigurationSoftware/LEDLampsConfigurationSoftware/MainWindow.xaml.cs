@@ -1164,7 +1164,15 @@ namespace LEDLampsConfigurationSoftware
             {
                 if (hardwareVersion1 == totalTimeObject[i][0] && softwareNumber == totalTimeObject[i][1] && softwareVersion1 == totalTimeObject[i][2] && softwareVersion2 == totalTimeObject[i][3])
                 {
-                    result = original* totalTimeObject[i][5]*totalTimeObject[i][6];
+                    if(totalTimeObject[i][5]==1)
+                    {
+                        result= original * totalTimeObject[i][6];
+                    }
+                    else if(totalTimeObject[i][5] == 2)
+                    {
+                        result = original / totalTimeObject[i][6];
+                    }
+                    
                 }
             }
 
@@ -9455,6 +9463,7 @@ namespace LEDLampsConfigurationSoftware
                 SelectTWYStopBarLight.IsChecked = false;
                 SelectIntermediateHoldingPositionLight.IsChecked = false;
                 SelectTWYIntersectionsLight.IsChecked = false;
+                SelectTWYEdgeLight.IsChecked = false;
 
 
                 SelectAPPS12SLEDC.IsChecked = false;
@@ -9527,6 +9536,7 @@ namespace LEDLampsConfigurationSoftware
                 SelectSBLMS08SLEDR.IsChecked = false;
                 SelectTPLMS08SLEDY.IsChecked = false;
                 SelectTOIL08LLEDY.IsChecked = false;
+                SelectTOEL08LEDB.IsChecked = false;
 
 
                 SelectOpenCircuitTrue.IsChecked = false;
@@ -9547,11 +9557,12 @@ namespace LEDLampsConfigurationSoftware
                 SelectRapidExitTWYIndicatorLight.IsEnabled = true;
                 SelectCombinedRWYEdgeLight.IsEnabled = true;
                 SelectRWYGuardLight.IsEnabled = true;
-                SelectTWYCenterLight.IsEnabled = false;
-                SelectTWYCenterLight2P.IsEnabled = false;
-                SelectTWYStopBarLight.IsEnabled = false;
-                SelectIntermediateHoldingPositionLight.IsEnabled = false;
-                SelectTWYIntersectionsLight.IsEnabled = false;
+                SelectTWYCenterLight.IsEnabled = true;
+                SelectTWYCenterLight2P.IsEnabled = true;
+                SelectTWYStopBarLight.IsEnabled = true;
+                SelectIntermediateHoldingPositionLight.IsEnabled = true;
+                SelectTWYIntersectionsLight.IsEnabled = true;
+                SelectTWYEdgeLight.IsEnabled = true;
 
             }));
         }
