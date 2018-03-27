@@ -1865,37 +1865,37 @@ namespace LEDLampsConfigurationSoftware
                         receivedStatusFeedbackCommand[i] = (byte)ReceivedStatusFeedbackCommand[i];
                     }
                     
-                    if (receivedStatusFeedbackCommand[0] == 0x02 && receivedStatusFeedbackCommand[1] == 0xAA && receivedStatusFeedbackCommand[2] == 0x01 && receivedStatusFeedbackCommand[3] == 0x0C && receivedStatusFeedbackCommand[4] == 0x0C)
+                    if (hardwareVersion1==12&&softwareNumber==0)
                     {
                         TwelveInchesLampDataAnalysis(receivedStatusFeedbackCommand);
                         TwelveInchesLampParametersCreatExcel();
                     }
-                    else if (receivedStatusFeedbackCommand[0] == 0x02 && receivedStatusFeedbackCommand[1] == 0xAA && receivedStatusFeedbackCommand[2] == 0x01 && receivedStatusFeedbackCommand[3] == 0x08 && receivedStatusFeedbackCommand[4] == 0x08)
+                    else if (hardwareVersion1 == 8 && softwareNumber == 0)
                     {
                         EightInchesLampDataAnalysis(receivedStatusFeedbackCommand);
                         EightInchesLampParametersCreatExcel();
                     }
-                    else if (receivedStatusFeedbackCommand[0] == 0x02 && receivedStatusFeedbackCommand[1] == 0xAA && receivedStatusFeedbackCommand[2] == 0x01 && receivedStatusFeedbackCommand[3] == 0x0D && receivedStatusFeedbackCommand[4] == 0x0D)
+                    else if (hardwareVersion1 == 13 && softwareNumber == 2)
                     {
                         DoubleCircuitRWYCenterDriveLampDataAnalysis(receivedStatusFeedbackCommand);
                         DoubleCircuitRWYCenterDriveLampParametersCreatExcel();
                     }                   
-                    else if (receivedStatusFeedbackCommand[0] == 0x02 && receivedStatusFeedbackCommand[1] == 0xAA && receivedStatusFeedbackCommand[2] == 0x01 && receivedStatusFeedbackCommand[3] == 0x0C && receivedStatusFeedbackCommand[4] == 0x0D)
+                    else if (hardwareVersion1 == 12 && softwareNumber == 3)
                     {
                         DoubleCircuitRWYCenterDrive12inchesLampDataAnalysis(receivedStatusFeedbackCommand);
                         DoubleCircuitRWYCenterDrive12inchesLampParametersCreatExcel();
                     }
-                    else if (receivedStatusFeedbackCommand[0] == 0x02 && receivedStatusFeedbackCommand[1] == 0xAA && receivedStatusFeedbackCommand[2] == 0x01 && receivedStatusFeedbackCommand[3] == 0x08 && receivedStatusFeedbackCommand[4] == 0x04)
+                    else if (hardwareVersion1 == 8 && softwareNumber == 4)
                     {
                         RWYGuardLampDataAnalysis(receivedStatusFeedbackCommand);
                         RWYGuardLampParametersCreatExcel();
                     }
-                    else if (receivedStatusFeedbackCommand[0] == 0x02 && receivedStatusFeedbackCommand[1] == 0xAA && receivedStatusFeedbackCommand[2] == 0x01 && receivedStatusFeedbackCommand[3] == 0x05 && receivedStatusFeedbackCommand[4] == 0x06)
+                    else if (hardwareVersion1 == 5 && softwareNumber == 6)
                     {
                         DoubleCircuitTWYCenterDriveLampDataAnalysis(receivedStatusFeedbackCommand);
                         DoubleCircuitTWYCenterDriveParametersCreatExcel();
                     }
-                    else if (receivedStatusFeedbackCommand[0] == 0x02 && receivedStatusFeedbackCommand[1] == 0xAA && receivedStatusFeedbackCommand[2] == 0x01 && receivedStatusFeedbackCommand[3] == 0x04 && receivedStatusFeedbackCommand[4] == 0x05)
+                    else if (hardwareVersion1 == 4 && softwareNumber == 5)
                     {
                         SingleCircuitTWYCenterDriveLampDataAnalysis(receivedStatusFeedbackCommand);
                         SingleCircuitTWYCenterDriveParametersCreatExcel();
