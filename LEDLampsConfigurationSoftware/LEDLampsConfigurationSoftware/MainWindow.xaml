@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LEDLampsConfigurationSoftware"
         mc:Ignorable="d"
-        Title="ASCMS V1.6.2" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Name="ConfigurationWindow" Icon=".\Images\tubiao.png">
+        Title="ASCMS V1.7" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Name="ConfigurationWindow" Icon=".\Images\tubiao.png">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontSize" Value="18"/>
@@ -113,6 +113,31 @@
                                                     <RadioButton x:Name="SelectTWYIntersectionsLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights"  Width="320" Checked="SelectTWYIntersectionsLight_Checked">
                                                         <TextBlock Text="{DynamicResource LangsSelectTWYIntersectionsLight}" TextWrapping="Wrap" x:Name="TBSelectTWYIntersectionsLight"/>
                                                     </RadioButton>
+                                                    <RadioButton x:Name="SelectElevatedApproachCenterlineLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights"  Width="320" Checked="SelectElevatedApproachCenterlineLight_Checked" >
+                                                        <TextBlock Text="{DynamicResource LangsSelectElevatedApproachCenterlineLight}" TextWrapping="Wrap" x:Name="TBSelectElevatedApproachCenterlineLight"/>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="SelectElevatedApproachCrossbarLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights"  Width="320" Checked="SelectElevatedApproachCrossbarLight_Checked" >
+                                                        <TextBlock Text="{DynamicResource LangsSelectElevatedApproachCrossbarLight}" TextWrapping="Wrap" x:Name="TBSelectElevatedApproachCrossbarLight"/>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="SelectElevatedApproachSideRowLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights"  Width="320" Checked="SelectElevatedApproachSideRowLight_Checked" >
+                                                        <TextBlock Text="{DynamicResource LangsSelectElevatedApproachSideRowLight}" TextWrapping="Wrap" x:Name="TBSelectElevatedApproachSideRowLight"/>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="SelectElevatedRWYEdgeLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights"  Width="320" Checked="SelectElevatedRWYEdgeLight_Checked" >
+                                                        <TextBlock Text="{DynamicResource LangsSelectElevatedRWYEdgeLight}" TextWrapping="Wrap" x:Name="TBSelectElevatedRWYEdgeLight"/>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="SelectElevatedRWYThresholdLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights"  Width="320" Checked="SelectElevatedRWYThresholdLight_Checked" >
+                                                        <TextBlock Text="{DynamicResource LangsSelectElevatedRWYThresholdLight}" TextWrapping="Wrap" x:Name="TBSelectElevatedRWYThresholdLight"/>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="SelectElevatedRWYThresholdWingbarLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights"  Width="320" Checked="SelectElevatedRWYThresholdWingbarLight_Checked">
+                                                        <TextBlock Text="{DynamicResource LangsSelectElevatedRWYThresholdWingbarLight}" TextWrapping="Wrap" x:Name="TBSelectElevatedRWYThresholdWingbarLight"/>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="SelectElevatedRWYEndLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights"  Width="320" Checked="SelectElevatedRWYEndLight_Checked">
+                                                        <TextBlock Text="{DynamicResource LangsSelectElevatedRWYEndLight}" TextWrapping="Wrap" x:Name="TBSelectElevatedRWYEndLight"/>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="SelectElevatedTWYStopBarLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights"  Width="320" Checked="SelectElevatedTWYStopBarLight_Checked">
+                                                        <TextBlock Text="{DynamicResource LangsSelectElevatedTWYStopBarLight}" TextWrapping="Wrap" x:Name="TBSelectElevatedTWYStopBarLight"/>
+                                                    </RadioButton>
+                                                    
                                                 </WrapPanel>
                                             </ScrollViewer>
                                         </GroupBox>
@@ -287,6 +312,50 @@
                                                         <RadioButton x:Name="SelectTOIL08LLEDY" Content="TOIL-08-L-LED-Y" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameTWYIntersectionsLight" Checked="SelectTOIL08LLEDY_Checked" />
                                                     </Canvas>
                                                 </GroupBox>
+                                                <GroupBox x:Name="GroupElevatedApproachCenterlineLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                                    <Canvas>
+                                                        <RadioButton x:Name="SelectEULAPLEDCCenterline" Content="EUL-AP-LED-C" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameElevatedApproachCenterlineLight" Checked="SelectEULAPLEDCCenterline_Checked" />
+                                                    </Canvas>
+                                                </GroupBox>
+                                                <GroupBox x:Name="GroupElevatedApproachCrossbarLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                                    <Canvas>
+                                                        <RadioButton x:Name="SelectEULAPLEDCCrossbar" Content="EUL-AP-LED-C" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameElevatedApproachCrossbarLight" Checked="SelectEULAPLEDCCrossbar_Checked" />
+                                                    </Canvas>
+                                                </GroupBox>
+                                                <GroupBox x:Name="GroupElevatedApproachSideRowLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                                    <Canvas>
+                                                        <RadioButton x:Name="SelectEULSRLEDR" Content="EUL-SR-LED-R" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameElevatedApproachSideRowLight" Checked="SelectEULSRLEDR_Checked" />
+                                                    </Canvas>
+                                                </GroupBox>
+                                                <GroupBox x:Name="GroupElevatedRWYEdgeLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                                    <Canvas>
+                                                        <RadioButton x:Name="SelectEBLRELEDYC" Content="EBL-RE-LED-YC" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameElevatedRWYEdgeLight" Checked="SelectEBLRELEDYC_Checked" />
+                                                        <RadioButton x:Name="SelectEBLRELEDCY" Content="EBL-RE-LED-CY" Canvas.Left="0" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameElevatedRWYEdgeLight" Checked="SelectEBLRELEDCY_Checked" />
+                                                        <RadioButton x:Name="SelectEBLRELEDCC" Content="EBL-RE-LED-CC" Canvas.Left="0" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="GroupNameElevatedRWYEdgeLight" Checked="SelectEBLRELEDCC_Checked" />
+                                                        <RadioButton x:Name="SelectEBLRELEDCR" Content="EBL-RE-LED-CR" Canvas.Left="0" Canvas.Top="107" BorderBrush="#FF0A51A1" GroupName="GroupNameElevatedRWYEdgeLight" Checked="SelectEBLRELEDCR_Checked" />
+                                                        <RadioButton x:Name="SelectEBLRELEDRC" Content="EBL-RE-LED-RC" Canvas.Left="0" Canvas.Top="136" BorderBrush="#FF0A51A1" GroupName="GroupNameElevatedRWYEdgeLight" Checked="SelectEBLRELEDRC_Checked" />
+                                                    </Canvas>
+                                                </GroupBox>
+                                                <GroupBox x:Name="GroupElevatedRWYThresholdLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                                    <Canvas>
+                                                        <RadioButton x:Name="SelectEULTHLEDG" Content="EUL-TH-LED-G" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameElevatedRWYThresholdLight" Checked="SelectEULTHLEDG_Checked" />
+                                                    </Canvas>
+                                                </GroupBox>
+                                                <GroupBox x:Name="GroupElevatedRWYThresholdWingbarLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                                    <Canvas>
+                                                        <RadioButton x:Name="SelectEULTHWLEDG" Content="EUL-THW-LED-G" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameElevatedRWYThresholdWingbarLight" Checked="SelectEULTHWLEDG_Checked" />
+                                                    </Canvas>
+                                                </GroupBox>
+                                                <GroupBox x:Name="GroupElevatedRWYEndLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                                    <Canvas>
+                                                        <RadioButton x:Name="SelectEULEDLEDR" Content="EUL-ED-LED-R" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameElevatedRWYEndLight" Checked="SelectEULEDLEDR_Checked" />
+                                                    </Canvas>
+                                                </GroupBox>
+                                                <GroupBox x:Name="GroupElevatedTWYStopBarLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                                    <Canvas>
+                                                        <RadioButton x:Name="SelectEULSBLEDR" Content="EUL-SB-LED-R" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameElevatedTWYStopBarLight" Checked="SelectEULSBLEDR_Checked" />
+                                                    </Canvas>
+                                                </GroupBox>
                                             </Canvas>
                                         </GroupBox>
                                     </Border>
@@ -298,6 +367,13 @@
                                                 <Label x:Name="ChannelSelectLabel" Content="{DynamicResource LangsFactoryModeChannelSelect}" Canvas.Left="4" Canvas.Top="100" Visibility="Collapsed"/>
                                                 <Border x:Name="ChannelSelectBorder" BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="150" Height="40" Canvas.Left="4" Canvas.Top="130" Background="{x:Null}" Visibility="Collapsed">
                                                     <ComboBox x:Name="ChannelSelect" Width="146" Height="36" BorderThickness="0" FontSize="16" MaxDropDownHeight="130" HorizontalAlignment="Left" Margin="1,1,0,1" Padding="10,8,0,0" SelectedIndex="0" Visibility="Collapsed">
+                                                        <ComboBoxItem>0</ComboBoxItem>
+                                                        <ComboBoxItem>1</ComboBoxItem>
+                                                    </ComboBox>
+                                                </Border>
+                                                <Label x:Name="IICFlagSelectLabel" Content="IIC_FLAG" Canvas.Left="4" Canvas.Top="100" Visibility="Collapsed"/>
+                                                <Border x:Name="IICFlagSelectBorder" BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="150" Height="40" Canvas.Left="4" Canvas.Top="130" Background="{x:Null}" Visibility="Collapsed">
+                                                    <ComboBox x:Name="IICFlagSelect" Width="146" Height="36" BorderThickness="0" FontSize="16" MaxDropDownHeight="130" HorizontalAlignment="Left" Margin="1,1,0,1" Padding="10,8,0,0" SelectedIndex="0" Visibility="Collapsed">
                                                         <ComboBoxItem>0</ComboBoxItem>
                                                         <ComboBoxItem>1</ComboBoxItem>
                                                     </ComboBox>

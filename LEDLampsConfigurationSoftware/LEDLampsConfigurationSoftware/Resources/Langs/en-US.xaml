@@ -36,6 +36,14 @@
     <system:String x:Key="LangsSelectTWYStopBarLight">LED In-pavement Taxiway Stop Bar Light（SBLMS-08-LED）</system:String>
     <system:String x:Key="LangsSelectIntermediateHoldingPositionLight">LED Intermediate Holding Position Light（TPLMS-08-LED）</system:String>
     <system:String x:Key="LangsSelectTWYIntersectionsLight">LED Taxiway Intersections Light（TOIL-08-LED）</system:String>
+    <system:String x:Key="LangsSelectElevatedApproachCenterlineLight">LED Elevated Approach Centerline Light（EUL-AP-LED）</system:String>
+    <system:String x:Key="LangsSelectElevatedApproachCrossbarLight">LED Elevated Approach Crossbar Light（EUL-AP-LED）</system:String>
+    <system:String x:Key="LangsSelectElevatedApproachSideRowLight">LED Elevated Approach Side Row Light（EUL-SR-LED）</system:String>
+    <system:String x:Key="LangsSelectElevatedRWYEdgeLight">LED Elevated Runway Edge Light（EBL-RE-LED）</system:String>
+    <system:String x:Key="LangsSelectElevatedRWYThresholdLight">LED Elevated Runway Threshold Light（EUL-TH-LED）</system:String>
+    <system:String x:Key="LangsSelectElevatedRWYThresholdWingbarLight">LED Elevated Runway Threshold Wing-bar Light（EUL-THW-LED）</system:String>
+    <system:String x:Key="LangsSelectElevatedRWYEndLight">LED Elevated Runway End Light（EUL-ED-LED）</system:String>
+    <system:String x:Key="LangsSelectElevatedTWYStopBarLight">LED Elevated Taxiway Stop Bar Light（EUL-SB-LED）</system:String>
     <system:String x:Key="LangsSelectOpenCircuitTrue">With Open Circuit</system:String>
     <system:String x:Key="LangsSelectOpenCircuitFalse">Without Open Circuit</system:String>
     <system:String x:Key="LangsFactoryModeChannelSelect">Channel Select：</system:String>
@@ -152,6 +160,7 @@
     <system:String x:Key="LangsLampInchesLabel7">Guard Light 8 inches.</system:String>
     <system:String x:Key="LangsLampInchesLabel8">TWY centerline light drive with double circuit.</system:String>
     <system:String x:Key="LangsLampInchesLabel9">TWY centerline light drive with single circuit.</system:String>
+    <system:String x:Key="LangsLampInchesLabel10">Elevated RWY light drive.</system:String>
 
 
 
@@ -165,6 +174,8 @@
     <system:String x:Key="LangsAnswerHardwareVersion5">Unknown</system:String>
     <system:String x:Key="LangsAnswerHardwareVersion6">TWY Centerline Drive With Double Circuit</system:String>
     <system:String x:Key="LangsAnswerHardwareVersion7">TWY Centerline Drive With Single Circuit</system:String>
+    <system:String x:Key="LangsAnswerHardwareVersion8">Elevated Runway Light Drive</system:String>
+
     <system:String x:Key="LangsAnswerLampModel0">None lamp model</system:String>
     <system:String x:Key="LangsAnswerLampModel1">Approach Centerline Light(APPS-12-S-LED-C)</system:String>
     <system:String x:Key="LangsAnswerLampModel2">Approach Crossbar Light(APPS-12-L-LED-C)</system:String>
@@ -236,7 +247,19 @@
     <system:String x:Key="LangsAnswerLampModel69">Taxiway Stop Bar Light（SBLMS-08-S-LED-R）</system:String>
     <system:String x:Key="LangsAnswerLampModel70">Intermediate Holding Position Light（TPLMS-08-S-LED-Y）</system:String>
     <system:String x:Key="LangsAnswerLampModel71">Taxiway Intersections Light（TOIL-08-L-LED-Y）</system:String>
-    <system:String x:Key="LangsAnswerLampModel72">Taxiway Edge Light（TOEL-08-LED-B）</system:String>
+    <system:String x:Key="LangsAnswerLampModel68">Taxiway Edge Light（TOEL-08-LED-B）</system:String>
+    <system:String x:Key="LangsAnswerLampModel72">Elevated Approach Centerline Light（EUL-AP-LED-C）</system:String>
+    <system:String x:Key="LangsAnswerLampModel73">Elevated Approach Crossbar Light（EUL-AP-LED-C）</system:String>
+    <system:String x:Key="LangsAnswerLampModel74">Elevated Approach Side Row Light（EUL-SR-LED-R）</system:String>
+    <system:String x:Key="LangsAnswerLampModel75">Elevated Runway Edge Light（EBL-RE-LED-YC）</system:String>
+    <system:String x:Key="LangsAnswerLampModel76">Elevated Runway Edge Light（EBL-RE-LED-CY）</system:String>
+    <system:String x:Key="LangsAnswerLampModel77">Elevated Runway Edge Light(EBL-RE-LED-CC)</system:String>
+    <system:String x:Key="LangsAnswerLampModel78">Elevated Runway Edge Light（EBL-RE-LED-CR）</system:String>
+    <system:String x:Key="LangsAnswerLampModel79">Elevated Runway Edge Light（EBL-RE-LED-RC）</system:String>
+    <system:String x:Key="LangsAnswerLampModel80">Elevated Runway Threshold Light（EUL-TH-LED-G）</system:String>
+    <system:String x:Key="LangsAnswerLampModel81">Elevated Runway Threshold Wing-bar Light（EUL-THW-LED-G）</system:String>
+    <system:String x:Key="LangsAnswerLampModel82">Elevated Runway End Light（EUL-ED-LED-R）</system:String>
+    <system:String x:Key="LangsAnswerLampModel83">Elevated Taxiway Stop Bar Light（EUL-SB-LED-R）</system:String>
 
     <system:String x:Key="LangsAnswerOpenCircuit1">Without Open Circuit</system:String>
     <system:String x:Key="LangsAnswerOpenCircuit2">With Open Circuit</system:String>
@@ -245,12 +268,16 @@
     <system:String x:Key="LangsAnswerStatus1">The time consuming of lamp status query is </system:String>
     <system:String x:Key="LangsCreateExcel1">lamp parameter analysis</system:String>
     <system:String x:Key="LangsCreateExcel2">sequence number</system:String>
-    <system:String x:Key="LangsCreateExcel3">inches</system:String>
+    <system:String x:Key="LangsCreateExcel3">12 inches</system:String>
     <system:String x:Key="LangsCreateExcel4">RWY center light drive with double circuit</system:String>
     <system:String x:Key="LangsCreateExcel5">12 inches RWY center light drive with double circuit</system:String>
     <system:String x:Key="LangsCreateExcel6">RWY guard light</system:String>
     <system:String x:Key="LangsCreateExcel7">TWY center light drive with double circuit</system:String>
     <system:String x:Key="LangsCreateExcel8">TWY center light drive with single circuit</system:String>
+    <system:String x:Key="LangsCreateExcel9">Elevated RWY Light Drive</system:String>
+    <system:String x:Key="LangsCreateExcel10">8 inches with version 2.0</system:String>
+    <system:String x:Key="LangsCreateExcel11">8 inches</system:String>
+
 
     <system:String x:Key="LangsCreateTxt1">lamp original data</system:String>
 

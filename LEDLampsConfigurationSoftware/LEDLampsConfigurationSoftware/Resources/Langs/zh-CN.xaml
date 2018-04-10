@@ -35,6 +35,16 @@
     <system:String x:Key="LangsSelectTWYStopBarLight">LED嵌入式停止排灯（SBLMS-08-LED）</system:String>
     <system:String x:Key="LangsSelectIntermediateHoldingPositionLight">LED中间等待位置灯（TPLMS-08-LED）</system:String>
     <system:String x:Key="LangsSelectTWYIntersectionsLight">LED滑行道交叉口灯（TOIL-08-LED）</system:String>
+    
+    <system:String x:Key="LangsSelectElevatedApproachCenterlineLight">LED立式进近中线灯（EUL-AP-LED）</system:String>
+    <system:String x:Key="LangsSelectElevatedApproachCrossbarLight">LED立式进近横排灯（EUL-AP-LED）</system:String>
+    <system:String x:Key="LangsSelectElevatedApproachSideRowLight">LED立式进近侧边灯（EUL-SR-LED）</system:String>
+    <system:String x:Key="LangsSelectElevatedRWYEdgeLight">LED立式跑道边灯（EBL-RE-LED）</system:String>
+    <system:String x:Key="LangsSelectElevatedRWYThresholdLight">LED立式跑道入口灯（EUL-TH-LED）</system:String>
+    <system:String x:Key="LangsSelectElevatedRWYThresholdWingbarLight">LED立式跑道入口翼排灯（EUL-THW-LED）</system:String>
+    <system:String x:Key="LangsSelectElevatedRWYEndLight">LED立式跑道末端灯（EUL-ED-LED）</system:String>
+    <system:String x:Key="LangsSelectElevatedTWYStopBarLight">LED立式停止排灯（EUL-SB-LED）</system:String>
+    
     <system:String x:Key="LangsSelectOpenCircuitTrue">带开路</system:String>
     <system:String x:Key="LangsSelectOpenCircuitFalse">不带开路</system:String>
     <system:String x:Key="LangsFactoryModeChannelSelect">通道选择：</system:String>
@@ -162,7 +172,7 @@
     <system:String x:Key="LangsLampInchesLabel7">警戒灯8寸。</system:String>
     <system:String x:Key="LangsLampInchesLabel8">双路滑中驱动。</system:String>
     <system:String x:Key="LangsLampInchesLabel9">单路滑中驱动。</system:String>
-
+    <system:String x:Key="LangsLampInchesLabel10">立式跑道灯具驱动。</system:String>
 
 
 
@@ -175,6 +185,8 @@
     <system:String x:Key="LangsAnswerHardwareVersion5">驱动未知</system:String>
     <system:String x:Key="LangsAnswerHardwareVersion6">双路滑中驱动</system:String>
     <system:String x:Key="LangsAnswerHardwareVersion7">单路滑中驱动</system:String>
+    <system:String x:Key="LangsAnswerHardwareVersion8">立式跑道灯具驱动</system:String>
+
     <system:String x:Key="LangsAnswerLampModel0">无灯具型号</system:String>
     <system:String x:Key="LangsAnswerLampModel1">进近中线灯(APPS-12-S-LED-C)</system:String>
     <system:String x:Key="LangsAnswerLampModel2">进近横排灯(APPS-12-L-LED-C)</system:String>
@@ -246,7 +258,19 @@
     <system:String x:Key="LangsAnswerLampModel69">停止排灯（SBLMS-08-S-LED-R）</system:String>
     <system:String x:Key="LangsAnswerLampModel70">中间等待位置灯（TPLMS-08-S-LED-Y）</system:String>
     <system:String x:Key="LangsAnswerLampModel71">滑行道交叉口灯（TOIL-08-L-LED-Y）</system:String>
-    <system:String x:Key="LangsAnswerLampModel72">滑行道边灯（TOEL-08-LED-B）</system:String>
+    <system:String x:Key="LangsAnswerLampModel68">滑行道边灯（TOEL-08-LED-B）</system:String>
+    <system:String x:Key="LangsAnswerLampModel72">立式进近中线灯（EUL-AP-LED-C）</system:String>
+    <system:String x:Key="LangsAnswerLampModel73">立式进近横排灯（EUL-AP-LED-C）</system:String>
+    <system:String x:Key="LangsAnswerLampModel74">立式进近侧边灯（EUL-SR-LED-R）</system:String>
+    <system:String x:Key="LangsAnswerLampModel75">立式跑道边灯（EBL-RE-LED-YC）</system:String>
+    <system:String x:Key="LangsAnswerLampModel76">立式跑道边灯（EBL-RE-LED-CY）</system:String>
+    <system:String x:Key="LangsAnswerLampModel77">立式跑道边灯(EBL-RE-LED-CC)</system:String>
+    <system:String x:Key="LangsAnswerLampModel78">立式跑道边灯（EBL-RE-LED-CR）</system:String>
+    <system:String x:Key="LangsAnswerLampModel79">立式跑道边灯（EBL-RE-LED-RC）</system:String>
+    <system:String x:Key="LangsAnswerLampModel80">立式跑道入口灯（EUL-TH-LED-G）</system:String>
+    <system:String x:Key="LangsAnswerLampModel81">立式跑道入口翼排灯（EUL-THW-LED-G）</system:String>
+    <system:String x:Key="LangsAnswerLampModel82">立式跑道末端灯（EUL-ED-LED-R）</system:String>
+    <system:String x:Key="LangsAnswerLampModel83">立式停止排灯（EUL-SB-LED-R）</system:String>
 
     <system:String x:Key="LangsAnswerOpenCircuit1">不带开路</system:String>
     <system:String x:Key="LangsAnswerOpenCircuit2">带开路</system:String>
@@ -255,12 +279,16 @@
     <system:String x:Key="LangsAnswerStatus1">灯具状态查询已耗时:</system:String>
     <system:String x:Key="LangsCreateExcel1">灯具参数解析</system:String>
     <system:String x:Key="LangsCreateExcel2">序号</system:String>
-    <system:String x:Key="LangsCreateExcel3">寸</system:String>
+    <system:String x:Key="LangsCreateExcel3">12寸</system:String>
     <system:String x:Key="LangsCreateExcel4">双路跑中驱动</system:String>
     <system:String x:Key="LangsCreateExcel5">双路跑中驱动12寸</system:String>
     <system:String x:Key="LangsCreateExcel6">跑道警戒灯</system:String>
     <system:String x:Key="LangsCreateExcel7">双路滑中驱动</system:String>
     <system:String x:Key="LangsCreateExcel8">单路滑中驱动</system:String>
+    <system:String x:Key="LangsCreateExcel9">立式跑道灯具驱动</system:String>
+    <system:String x:Key="LangsCreateExcel10">8寸V2.0</system:String>
+    <system:String x:Key="LangsCreateExcel11">8寸</system:String>
+
     <system:String x:Key="LangsCreateTxt1">灯具原始数据</system:String>
 
 
