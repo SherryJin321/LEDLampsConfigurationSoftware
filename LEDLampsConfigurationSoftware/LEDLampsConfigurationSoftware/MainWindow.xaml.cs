@@ -96,9 +96,9 @@ namespace LEDLampsConfigurationSoftware
          */
         double[][] totalTimeObject = new double[][]
         {
-            new double[7]{4,5,1,0,1,2,1.65},
-            new double[7]{4,5,1,1,1,2,1.65},
-            new double[7]{4,5,1,2,1,2,1.65},
+            new double[7]{4,5,1,0,1,2,1.72},
+            new double[7]{4,5,1,1,1,2,1.72},
+            new double[7]{4,5,1,2,1,2,1.72},
             new double[7]{5,6,1,3,1,2,1.95 },
             new double[7]{5,6,1,0,1,2,1.65 },
             new double[7]{8,0,1,3,2,1,0.66 },
