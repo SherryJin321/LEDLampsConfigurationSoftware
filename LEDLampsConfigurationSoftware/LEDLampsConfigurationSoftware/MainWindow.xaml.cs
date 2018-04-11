@@ -106,6 +106,7 @@ namespace LEDLampsConfigurationSoftware
             new double[7]{8,4,1,1,2,1,0.66 },
             new double[7]{9,9,2,0,1,1,0.66},
             new double[7]{12,0,1,3,2,1,1 },
+            new double[7]{12,0,1,2,2,1,1 },
             new double[7]{12,3,1,0,2,1,1 },
             new double[7]{13,2,1,0,2,1,0.66 }            
         };
@@ -1259,7 +1260,7 @@ namespace LEDLampsConfigurationSoftware
 
 
 
-            if (hardwareVersion1 == 12 && softwareNumber == 0&& softwareVersion1==1&& softwareVersion2==3)
+            if ((hardwareVersion1 == 12 && softwareNumber == 0&& softwareVersion1==1&& softwareVersion2==3)|| (hardwareVersion1 == 12 && softwareNumber == 0 && softwareVersion1 == 1 && softwareVersion2 == 2))
             {                
 
                 if (lampsNumber == 1 || lampsNumber == 2 || lampsNumber == 3)
