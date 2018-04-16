@@ -96,10 +96,8 @@ namespace LEDLampsConfigurationSoftware
          */
         double[][] totalTimeObject = new double[][]
         {
-            new double[7]{4,5,1,0,1,2,1.72},
-            new double[7]{4,5,1,1,1,2,1.72},
-            new double[7]{4,5,1,2,1,2,1.72},
-            new double[7]{5,6,1,3,1,2,1.95 },
+            new double[7]{4,5,1,3,1,2,1.72},            
+            new double[7]{5,6,1,3,1,2,1.67 },
             new double[7]{5,6,1,0,1,2,1.65 },
             new double[7]{8,0,1,3,2,1,0.66 },
             new double[7]{8,0,3,1,1,1,0.66},
@@ -513,6 +511,7 @@ namespace LEDLampsConfigurationSoftware
         string MessageboxContent43 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent43");
         string MessageboxContent44 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent44");
         string MessageboxContent45 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent45");
+        string MessageboxContent46 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent46");
 
         #endregion
         #endregion
@@ -2229,7 +2228,7 @@ namespace LEDLampsConfigurationSoftware
                         SNSIIATwelveinches.Add(DataArray[i][22] * 16);
                         SNSIIBTwelveinches.Add(DataArray[i][23] * 16);
                         LEDF1Twelveinches.Add(DataArray[i][24]);
-                        TTwelveinches.Add(DataArray[i][25]);
+                        TTwelveinches.Add((SByte)DataArray[i][25]);
 
                         int SecondResult = 0;
                         for (int j = 0; j < 4; j++)
@@ -2511,7 +2510,7 @@ namespace LEDLampsConfigurationSoftware
                         SNSIAEightinches.Add(DataArray[i][13] * 16);
                         SNSIIAEightinches.Add(DataArray[i][14] * 16);
                         LEDF1Eightinches.Add(DataArray[i][15]);
-                        TEightinches.Add(DataArray[i][16]);
+                        TEightinches.Add((SByte)DataArray[i][16]);
 
                         int SecondResult = 0;
                         for (int j = 0; j < 4; j++)
@@ -2746,7 +2745,7 @@ namespace LEDLampsConfigurationSoftware
                         SNSIAEightinchesV2.Add(DataArray[i][13] * 16);
                         SNSIIAEightinchesV2.Add(DataArray[i][14] * 16);
                         LEDF1EightinchesV2.Add(DataArray[i][15]);
-                        TEightinchesV2.Add(DataArray[i][16]);
+                        TEightinchesV2.Add((SByte)DataArray[i][16]);
                         Shock1EightinchesV2.Add(DataArray[i][22]);
 
                         int SecondResult = 0;
@@ -2939,7 +2938,7 @@ namespace LEDLampsConfigurationSoftware
         #region 双路跑中驱动灯具状态信息解析
         private void DoubleCircuitRWYCenterDriveLampDataAnalysis(byte[] CompleteData)
         {
-            byte[][] receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray;
+            byte[][] DataArray;
             ArrayList commandCount = new ArrayList();
 
             for (int i = 0; i < CompleteData.Length; i++)
@@ -2950,58 +2949,58 @@ namespace LEDLampsConfigurationSoftware
                 }
             }
 
-            receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray = new byte[commandCount.Count][];
+            DataArray = new byte[commandCount.Count][];
 
             for (int i = 0; i < commandCount.Count; i++)
             {
                 if (i < commandCount.Count - 1)
                 {
-                    receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i] = new byte[(int)commandCount[i + 1] - (int)commandCount[i]];
+                    DataArray[i] = new byte[(int)commandCount[i + 1] - (int)commandCount[i]];
                 }
                 else
                 {
-                    receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i] = new byte[CompleteData.Length - (int)commandCount[i]];
+                    DataArray[i] = new byte[CompleteData.Length - (int)commandCount[i]];
                 }
 
-                for (int j = 0; j < receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i].Length; j++)
+                for (int j = 0; j < DataArray[i].Length; j++)
                 {
-                    receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][j] = CompleteData[(int)commandCount[i] + j];
+                    DataArray[i][j] = CompleteData[(int)commandCount[i] + j];
                 }
             }
 
-            for (int i = 0; i < receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray.Length; i++)
+            for (int i = 0; i < DataArray.Length; i++)
             {
-                if (receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i].Length == 32)
+                if (DataArray[i].Length == 32)
                 {
-                    byte checkOutValue = CalculateCheckOutValue(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i]);
-                    if (checkOutValue == receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i].Length - 1])
+                    byte checkOutValue = CalculateCheckOutValue(DataArray[i]);
+                    if (checkOutValue == DataArray[i][DataArray[i].Length - 1])
                     {
-                        RMS1DoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][5] * 1100);
-                        Val2DoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][6] * 20);
-                        RMS2DoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][7] * 1100);
-                        CurrentRatio1DoubleCircuitRWYCenterDrive.Add((float)(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][8] / 10.0));
-                        CurrentRatio2DoubleCircuitRWYCenterDrive.Add((float)(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][9] / 10.0));
-                        CurrentRatio3DoubleCircuitRWYCenterDrive.Add((float)(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][10] / 10.0));
-                        CurrentRatio4DoubleCircuitRWYCenterDrive.Add((float)(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][11] / 10.0));
-                        RMS1LASTDoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][12] * 4);
-                        RMS2LASTDoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][13] * 4);
-                        SNSIADoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][14] * 16);
-                        SNSIBDoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][15] * 16);
-                        SNSIIADoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][16] * 16);
-                        SNSIIBDoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][17] * 16);
-                        LEDF1DoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][18]);
-                        LEDF2DoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][19]);
-                        RESIADoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][20] * 124);
-                        RESIBDoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][21] * 124);
-                        RESIIADoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][22] * 124);
-                        RESIIBDoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][23] * 124);
-                        TDoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][24]);
-                        TCHECKDoubleCircuitRWYCenterDrive.Add(receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][29]);                                               
+                        RMS1DoubleCircuitRWYCenterDrive.Add(DataArray[i][5] * 1100);
+                        Val2DoubleCircuitRWYCenterDrive.Add(DataArray[i][6] * 20);
+                        RMS2DoubleCircuitRWYCenterDrive.Add(DataArray[i][7] * 1100);
+                        CurrentRatio1DoubleCircuitRWYCenterDrive.Add((float)(DataArray[i][8] / 10.0));
+                        CurrentRatio2DoubleCircuitRWYCenterDrive.Add((float)(DataArray[i][9] / 10.0));
+                        CurrentRatio3DoubleCircuitRWYCenterDrive.Add((float)(DataArray[i][10] / 10.0));
+                        CurrentRatio4DoubleCircuitRWYCenterDrive.Add((float)(DataArray[i][11] / 10.0));
+                        RMS1LASTDoubleCircuitRWYCenterDrive.Add(DataArray[i][12] * 4);
+                        RMS2LASTDoubleCircuitRWYCenterDrive.Add(DataArray[i][13] * 4);
+                        SNSIADoubleCircuitRWYCenterDrive.Add(DataArray[i][14] * 16);
+                        SNSIBDoubleCircuitRWYCenterDrive.Add(DataArray[i][15] * 16);
+                        SNSIIADoubleCircuitRWYCenterDrive.Add(DataArray[i][16] * 16);
+                        SNSIIBDoubleCircuitRWYCenterDrive.Add(DataArray[i][17] * 16);
+                        LEDF1DoubleCircuitRWYCenterDrive.Add(DataArray[i][18]);
+                        LEDF2DoubleCircuitRWYCenterDrive.Add(DataArray[i][19]);
+                        RESIADoubleCircuitRWYCenterDrive.Add(DataArray[i][20] * 124);
+                        RESIBDoubleCircuitRWYCenterDrive.Add(DataArray[i][21] * 124);
+                        RESIIADoubleCircuitRWYCenterDrive.Add(DataArray[i][22] * 124);
+                        RESIIBDoubleCircuitRWYCenterDrive.Add(DataArray[i][23] * 124);
+                        TDoubleCircuitRWYCenterDrive.Add((SByte)DataArray[i][24]);
+                        TCHECKDoubleCircuitRWYCenterDrive.Add(DataArray[i][29]);                                               
 
                         int SecondResult = 0;
                         for (int j = 0; j < 4; j++)
                         {
-                            int SecondOrigin = receivedDoubleCircuitRWYCenterDriveStatusFeedbackCommandArray[i][26 + j];
+                            int SecondOrigin = DataArray[i][26 + j];
                             SecondResult |= SecondOrigin;
                             if (j < 3)
                             {
@@ -3283,7 +3282,7 @@ namespace LEDLampsConfigurationSoftware
                         SNSIIADoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][22] * 16);
                         LEDF2DoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][23]);
                         LEDF1DoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][24]);
-                        TDoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][25]);
+                        TDoubleCircuitRWYCenterDrive12inches.Add((SByte)DataArray[i][25]);
                         RMS2LASTDoubleCircuitRWYCenterDrive12inches.Add(DataArray[i][30] * 4);                                             
 
                         int SecondResult = 0;
@@ -3568,7 +3567,7 @@ namespace LEDLampsConfigurationSoftware
                         SNSIARWYGuardLight.Add(DataArray[i][13] * 16);
                         SNSIIARWYGuardLight.Add(DataArray[i][14] *16);
                         LEDF1RWYGuardLight.Add(DataArray[i][15]);
-                        TRWYGuardLight.Add(DataArray[i][16]);                        
+                        TRWYGuardLight.Add((SByte)DataArray[i][16]);                        
                         FlashFrequencyRWYGuardLight.Add(DataArray[i][21]);
                         ModeRWYGuardLight.Add(DataArray[i][22]);                                               
 
@@ -3815,7 +3814,7 @@ namespace LEDLampsConfigurationSoftware
                         Shock1DoubleCircuitTWYCenterDrive.Add(DataArray[i][13]);
                         ShockDoubleCircuitTWYCenterDrive.Add(DataArray[i][14]);
                         ShortFlagDoubleCircuitTWYCenterDrive.Add(DataArray[i][15]);
-                        TDoubleCircuitTWYCenterDrive.Add(DataArray[i][16]);
+                        TDoubleCircuitTWYCenterDrive.Add((SByte)DataArray[i][16]);
                         AMaxDoubleCircuitTWYCenterDrive.Add(DataArray[i][21]*16);
 
                         int SecondResult = 0;
@@ -4057,7 +4056,7 @@ namespace LEDLampsConfigurationSoftware
                         Shock1SingleCircuitTWYCenterDrive.Add(DataArray[i][13]);
                         ShockSingleCircuitTWYCenterDrive.Add(DataArray[i][14]);
                         ShortFlagSingleCircuitTWYCenterDrive.Add(DataArray[i][15]);
-                        TSingleCircuitTWYCenterDrive.Add(DataArray[i][16]);
+                        TSingleCircuitTWYCenterDrive.Add((SByte)DataArray[i][16]);
                         AMaxSingleCircuitTWYCenterDrive.Add(DataArray[i][21] * 16);
 
                         int SecondResult = 0;
@@ -4299,7 +4298,7 @@ namespace LEDLampsConfigurationSoftware
                         HumidityElevatedRWYLightDrive.Add(DataArray[i][13]);
                         AMaxElevatedRWYLightDrive.Add(DataArray[i][14] * 16);
                         ShortFlagElevatedRWYLightDrive.Add(DataArray[i][15]);
-                        TElevatedRWYLightDrive.Add(DataArray[i][16]);
+                        TElevatedRWYLightDrive.Add((SByte)DataArray[i][16]);
                 
 
                         int SecondResult = 0;
@@ -4578,6 +4577,10 @@ namespace LEDLampsConfigurationSoftware
             else if(hardwareVersion1 == 5 && softwareNumber == 6)
             {
                 judgeResult = MessageboxContent45;
+            }
+            else if (hardwareVersion1 == 12 && softwareNumber == 0)
+            {
+                judgeResult = MessageboxContent46;
             }
             else
             {
@@ -11829,6 +11832,7 @@ namespace LEDLampsConfigurationSoftware
             MessageboxContent43 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent43");
             MessageboxContent44 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent44");
             MessageboxContent45 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent45");
+            MessageboxContent46 = (string)System.Windows.Application.Current.FindResource("LangsMessageboxContent46");
 
             #endregion
         }
