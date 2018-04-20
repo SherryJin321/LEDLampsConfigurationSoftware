@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ASCMS软件打包", "ASCMS软件打包\ASCMS软件打包.vdproj", "{68E72023-047B-4857-A566-F8A90B2E8F01}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Default = Debug|Default
+		Release|Default = Release|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68E72023-047B-4857-A566-F8A90B2E8F01}.Debug|Default.ActiveCfg = Debug
+		{68E72023-047B-4857-A566-F8A90B2E8F01}.Debug|Default.Build.0 = Debug
+		{68E72023-047B-4857-A566-F8A90B2E8F01}.Release|Default.ActiveCfg = Release
+		{68E72023-047B-4857-A566-F8A90B2E8F01}.Release|Default.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9DB208B1-F4C2-4740-8D60-CBA08841D4B2}
+	EndGlobalSection
+EndGlobal
