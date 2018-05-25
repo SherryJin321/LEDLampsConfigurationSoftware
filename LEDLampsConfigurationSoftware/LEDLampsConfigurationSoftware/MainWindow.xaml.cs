@@ -440,6 +440,8 @@ namespace LEDLampsConfigurationSoftware
         string AnswerLampModel81 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel81");
         string AnswerLampModel82 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel82");
         string AnswerLampModel83 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel83");
+        string AnswerLampModel84 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel84");
+
         string AnswerOpenCircuit1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit1");
         string AnswerOpenCircuit2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit2");
         #endregion
@@ -1231,6 +1233,8 @@ namespace LEDLampsConfigurationSoftware
                 case 81: result = AnswerLampModel81; break;
                 case 82: result = AnswerLampModel82; break;
                 case 83: result = AnswerLampModel83; break;
+                case 84: result = AnswerLampModel84; break;
+
 
             }
             return result;
@@ -1297,6 +1301,11 @@ namespace LEDLampsConfigurationSoftware
 
             }
 
+            //for temporary
+            if (hardwareVersion1 == 4 && softwareNumber == 5 && softwareVersion1 == 1 && softwareVersion2 == 3)
+            {
+                result *= 0.75;
+            }
 
 
             result = Math.Round(result, 2, MidpointRounding.AwayFromZero);
@@ -1601,6 +1610,7 @@ namespace LEDLampsConfigurationSoftware
                 SelectElevatedRWYThresholdLight.IsEnabled = false;
                 SelectElevatedRWYThresholdWingbarLight.IsEnabled = false;
                 SelectElevatedTWYStopBarLight.IsEnabled = false;
+                SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = true;
 
             }));
         }
@@ -1638,6 +1648,8 @@ namespace LEDLampsConfigurationSoftware
                 SelectElevatedRWYThresholdLight.IsEnabled = false;
                 SelectElevatedRWYThresholdWingbarLight.IsEnabled = false;
                 SelectElevatedTWYStopBarLight.IsEnabled = false;
+                SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = false;
+
 
             }));
         }
@@ -1675,6 +1687,8 @@ namespace LEDLampsConfigurationSoftware
                 SelectElevatedRWYThresholdLight.IsEnabled = false;
                 SelectElevatedRWYThresholdWingbarLight.IsEnabled = false;
                 SelectElevatedTWYStopBarLight.IsEnabled = false;
+                SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = false;
+
 
             }));
         }
@@ -1712,6 +1726,8 @@ namespace LEDLampsConfigurationSoftware
                 SelectElevatedRWYThresholdLight.IsEnabled = false;
                 SelectElevatedRWYThresholdWingbarLight.IsEnabled = false;
                 SelectElevatedTWYStopBarLight.IsEnabled = false;
+                SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = false;
+
 
             }));
         }
@@ -1749,6 +1765,8 @@ namespace LEDLampsConfigurationSoftware
                 SelectElevatedRWYThresholdLight.IsEnabled = false;
                 SelectElevatedRWYThresholdWingbarLight.IsEnabled = false;
                 SelectElevatedTWYStopBarLight.IsEnabled = false;
+                SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = false;
+
 
             }));
         }
@@ -1786,6 +1804,8 @@ namespace LEDLampsConfigurationSoftware
                 SelectElevatedRWYThresholdLight.IsEnabled = false;
                 SelectElevatedRWYThresholdWingbarLight.IsEnabled = false;
                 SelectElevatedTWYStopBarLight.IsEnabled = false;
+                SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = false;
+
 
             }));
         }
@@ -1823,6 +1843,8 @@ namespace LEDLampsConfigurationSoftware
                 SelectElevatedRWYThresholdLight.IsEnabled = false;
                 SelectElevatedRWYThresholdWingbarLight.IsEnabled = false;
                 SelectElevatedTWYStopBarLight.IsEnabled = false;
+                SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = false;
+
 
 
             }));
@@ -1861,6 +1883,8 @@ namespace LEDLampsConfigurationSoftware
                 SelectElevatedRWYThresholdLight.IsEnabled = false;
                 SelectElevatedRWYThresholdWingbarLight.IsEnabled = false;
                 SelectElevatedTWYStopBarLight.IsEnabled = false;
+                SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = false;
+
 
             }));
         }
@@ -1898,6 +1922,8 @@ namespace LEDLampsConfigurationSoftware
                 SelectElevatedRWYThresholdLight.IsEnabled = true;
                 SelectElevatedRWYThresholdWingbarLight.IsEnabled = true;
                 SelectElevatedTWYStopBarLight.IsEnabled = true;
+                SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = false;
+
 
             }));
         }
@@ -4669,35 +4695,8 @@ namespace LEDLampsConfigurationSoftware
         #region 灯具名称
         private void SelectApproachChenterlineLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Visible;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
+            GroupApproachChenterlineLight.Visibility = Visibility.Visible;            
 
             SelectAPPS12SLEDC.IsChecked = false;
 
@@ -4713,36 +4712,8 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectApproachCrossbarLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Visible;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
+            ALLGroupCollapsed();
+            GroupApproachCrossbarLight.Visibility = Visibility.Visible;            
 
             SelectAPPS12LLEDC.IsChecked = false;
             SelectAPPS12RLEDC.IsChecked = false;
@@ -4760,36 +4731,8 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectApproachSideRowLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             GroupApproachSideRowLight.Visibility = Visibility.Visible;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
 
             SelectAPSS12LLEDR.IsChecked = false;
             SelectAPSS12RLEDR.IsChecked = false;
@@ -4807,36 +4750,8 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectRWYThresholdWingBarLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Visible;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
+            ALLGroupCollapsed();
+            GroupRWYThresholdWingBarLight.Visibility = Visibility.Visible;            
 
             SelectTHWS12LLEDG.IsChecked = false;
             SelectTHWS12RLEDG.IsChecked = false;
@@ -4854,36 +4769,8 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectRWYThresholdLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             GroupRWYThresholdLight.Visibility = Visibility.Visible;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
 
             SelectTHRS12LLEDG.IsChecked = false;
             SelectTHRS12RLEDG.IsChecked = false;
@@ -4902,36 +4789,8 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectRWYEdgeLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Visible;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
+            ALLGroupCollapsed();
+            GroupRWYEdgeLight.Visibility = Visibility.Visible;           
 
             SelectRELS12LLEDYC.IsChecked = false;
             SelectRELS12RLEDYC.IsChecked = false;
@@ -4958,37 +4817,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void Select12inchesRWYEndLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             Group12inchesRWYEndLight.Visibility = Visibility.Visible;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
-
+           
             SelectENDS12LEDR.IsChecked = false;
 
             OtherConfigurationAllCollapsed();
@@ -5004,37 +4835,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectRWYThresholdEndLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             GroupRWYThresholdEndLight.Visibility = Visibility.Visible;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
-
+            
             SelectTAES12LLEDGR1P.IsChecked = false;
             SelectTAES12RLEDGR1P.IsChecked = false;
             SelectTAES12SLEDGR1P.IsChecked = false;
@@ -5054,37 +4857,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectRWYCenterlineLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             GroupRWYCenterlineLight.Visibility = Visibility.Visible;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
-
+           
             SelectRCLS08LEDCB1P.IsChecked = false;
             SelectRCLS08LEDRB1P.IsChecked = false;
             SelectRCLS08LEDCC1P.IsChecked = false;
@@ -5103,36 +4878,8 @@ namespace LEDLampsConfigurationSoftware
 
         private void Select12inchesRWYCenterlineLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             Group12inchesRWYCenterlineLight.Visibility = Visibility.Visible;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
 
             SelectRCLS12LEDCCMR2P.IsChecked = false;
             SelectRCLS12LEDRCMR2P.IsChecked = false;
@@ -5150,37 +4897,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectRWYTouchdownZoneLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             GroupRWYTouchdownZoneLight.Visibility = Visibility.Visible;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
-
+            
             SelectTDZS08LLEDC.IsChecked = false;
             SelectTDZS08RLEDC.IsChecked = false;
 
@@ -5197,37 +4916,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void Select8inchesRWYEndLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             Group8inchesRWYEndLight.Visibility = Visibility.Visible;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
-
+            
             SelectENDS08LEDR.IsChecked = false;
 
             OtherConfigurationAllCollapsed();
@@ -5243,37 +4934,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectRapidExitTWYIndicatorLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Visible;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
-
+           
             SelectRAPS08LEDY.IsChecked = false;
 
             OtherConfigurationAllCollapsed();
@@ -5289,36 +4952,8 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectCombinedRWYEdgeLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             GroupCombinedRWYEdgeLight.Visibility = Visibility.Visible;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
 
             SelectRELC12LEDCYC1P.IsChecked = false;
             SelectRELC12LEDCCC1P.IsChecked = false;
@@ -5343,37 +4978,9 @@ namespace LEDLampsConfigurationSoftware
        
         private void SelectRWYGuardLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             GroupRWYGuardLight.Visibility = Visibility.Visible;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
-
+            
             SelectHRGS08LEDY.IsChecked = false;
 
             OtherConfigurationAllCollapsed();
@@ -5389,37 +4996,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectTWYCenterLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             GroupTWYCenterlineLight.Visibility = Visibility.Visible;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
-
+            
             SelectTCLMS08SLEDGG1P.IsChecked = false;
             SelectTCLMS08SLEDGY1P.IsChecked = false;
             SelectTCLMS08SLEDYY1P.IsChecked = false;
@@ -5444,36 +5023,8 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectTWYCenterLight2P_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             GroupTWYCenterlineLight2P.Visibility = Visibility.Visible;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
 
             SelectTCLMS08SLEDGG2P.IsChecked = false;
             SelectTCLMS08SLEDGY2P.IsChecked = false;
@@ -5499,37 +5050,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectTWYEdgeLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             GroupTWYEdgeLight.Visibility = Visibility.Visible;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
-
+            
             SelectTOEL08LEDB.IsChecked = false;
 
             OtherConfigurationAllCollapsed();
@@ -5545,37 +5068,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectTWYStopBarLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             GroupTWYStopBarLight.Visibility = Visibility.Visible;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
-
+            
             SelectSBLMS08SLEDR.IsChecked = false;
 
             OtherConfigurationAllCollapsed();
@@ -5591,37 +5086,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectIntermediateHoldingPositionLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             GroupIntermediateHoldingPositionLight.Visibility = Visibility.Visible;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
-
+            
             SelectTPLMS08SLEDY.IsChecked = false;
 
             OtherConfigurationAllCollapsed();
@@ -5637,37 +5104,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectTWYIntersectionsLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             GroupTWYIntersectionsLight.Visibility = Visibility.Visible;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
-
+            
             SelectTOIL08LLEDY.IsChecked = false;
 
             OtherConfigurationAllCollapsed();
@@ -5683,37 +5122,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectElevatedApproachCenterlineLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             GroupElevatedApproachCenterlineLight.Visibility = Visibility.Visible;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
-
+            
             SelectEULAPLEDCCenterline.IsChecked = false;
 
             OtherConfigurationAllCollapsed();
@@ -5729,37 +5140,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectElevatedApproachCrossbarLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             GroupElevatedApproachCrossbarLight.Visibility = Visibility.Visible;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
-
+            
             SelectEULAPLEDCCrossbar.IsChecked = false;
 
             OtherConfigurationAllCollapsed();
@@ -5775,37 +5158,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectElevatedApproachSideRowLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             GroupElevatedApproachSideRowLight.Visibility = Visibility.Visible;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
-
+            
             SelectEULSRLEDR.IsChecked = false;
 
             OtherConfigurationAllCollapsed();
@@ -5821,37 +5176,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectElevatedRWYEdgeLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             GroupElevatedRWYEdgeLight.Visibility = Visibility.Visible;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
-
+            
             SelectEBLRELEDYC.IsChecked = false;
             SelectEBLRELEDCY.IsChecked = false;
             SelectEBLRELEDCC.IsChecked = false;
@@ -5872,37 +5199,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectElevatedRWYThresholdLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             GroupElevatedRWYThresholdLight.Visibility = Visibility.Visible;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
-
+            
             SelectEULTHLEDG.IsChecked = false;
 
             OtherConfigurationAllCollapsed();
@@ -5918,37 +5217,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectElevatedRWYThresholdWingbarLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Visible;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
-
+            
             SelectEULTHWLEDG.IsChecked = false;
 
             OtherConfigurationAllCollapsed();
@@ -5964,37 +5235,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void SelectElevatedRWYEndLight_Checked(object sender, RoutedEventArgs e)
         {
-            GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
-            GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdWingBarLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupRWYEdgeLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYThresholdEndLight.Visibility = Visibility.Collapsed;
-            GroupRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            Group12inchesRWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupRWYTouchdownZoneLight.Visibility = Visibility.Collapsed;
-            Group8inchesRWYEndLight.Visibility = Visibility.Collapsed;
-            GroupRapidExitTWYIndicatorLight.Visibility = Visibility.Collapsed;
-            GroupCombinedRWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupRWYGuardLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupTWYCenterlineLight2P.Visibility = Visibility.Collapsed;
-            GroupTWYStopBarLight.Visibility = Visibility.Collapsed;
-            GroupIntermediateHoldingPositionLight.Visibility = Visibility.Collapsed;
-            GroupTWYIntersectionsLight.Visibility = Visibility.Collapsed;
-            GroupTWYEdgeLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCenterlineLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachCrossbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedApproachSideRowLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYEdgeLight.Visibility = Visibility.Collapsed;
+            ALLGroupCollapsed();
             GroupElevatedRWYEndLight.Visibility = Visibility.Visible;
-            GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
-            GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
-
-
+            
             SelectEULEDLEDR.IsChecked = false;
 
             OtherConfigurationAllCollapsed();
@@ -6009,6 +5252,42 @@ namespace LEDLampsConfigurationSoftware
         }
 
         private void SelectElevatedTWYStopBarLight_Checked(object sender, RoutedEventArgs e)
+        {
+            ALLGroupCollapsed();
+            GroupElevatedTWYStopBarLight.Visibility = Visibility.Visible;
+
+            SelectEULSBLEDR.IsChecked = false;
+
+            OtherConfigurationAllCollapsed();
+
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampName.Text = TBSelectElevatedTWYStopBarLight.Text.ToString();
+                ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
+            }));
+        }
+
+        private void SelectAircraftStandManoeuvringGuidanceLight_Checked(object sender, RoutedEventArgs e)
+        {
+            ALLGroupCollapsed();
+            GroupAircraftStandManoeuvringGuidanceLight.Visibility = Visibility.Visible;
+
+            SelectASMG08LEDYM.IsChecked = false;
+
+            OtherConfigurationAllCollapsed();
+
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampName.Text = TBSelectAircraftStandManoeuvringGuidanceLight.Text.ToString();
+                ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
+            }));
+        }
+
+        public void ALLGroupCollapsed()
         {
             GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
             GroupApproachCrossbarLight.Visibility = Visibility.Collapsed;
@@ -6038,20 +5317,8 @@ namespace LEDLampsConfigurationSoftware
             GroupElevatedRWYEndLight.Visibility = Visibility.Collapsed;
             GroupElevatedRWYThresholdLight.Visibility = Visibility.Collapsed;
             GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
-            GroupElevatedTWYStopBarLight.Visibility = Visibility.Visible;
-
-
-            SelectEULSBLEDR.IsChecked = false;
-
-            OtherConfigurationAllCollapsed();
-
-
-            this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                ConfirmLampName.Text = TBSelectElevatedTWYStopBarLight.Text.ToString();
-                ConfirmLampModel.Text = "";
-                ConfirmSettingOpenCircuitParameter.Text = "";
-            }));
+            GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
+            GroupAircraftStandManoeuvringGuidanceLight.Visibility = Visibility.Collapsed;
         }
 
         public void OtherConfigurationAllCollapsed()
@@ -6071,6 +5338,8 @@ namespace LEDLampsConfigurationSoftware
             IICFlagSelectBorder.Visibility = Visibility.Collapsed;
             IICFlagSelect.Visibility = Visibility.Collapsed;
         }
+
+       
         #endregion
 
         #region 灯具型号
@@ -6084,18 +5353,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();            
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6117,19 +5375,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
-
+            OtherConfigurationVisibilityAllCollapsed();
+           
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 ConfirmLampModel.Text = SelectAPPS12LLEDC.Content.ToString();
@@ -6150,18 +5397,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6183,18 +5420,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6216,18 +5443,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6249,18 +5466,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6282,18 +5489,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6315,18 +5511,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6348,18 +5533,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6381,18 +5555,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6414,18 +5577,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6447,18 +5599,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6480,18 +5621,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6513,18 +5643,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6546,18 +5665,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6579,18 +5687,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6612,18 +5709,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6645,18 +5731,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6678,18 +5753,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6711,18 +5775,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6744,18 +5797,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6777,18 +5819,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6810,18 +5841,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6843,18 +5863,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6876,18 +5885,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6909,18 +5907,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6942,18 +5929,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -6975,18 +5951,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7008,18 +5973,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7041,18 +5995,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7074,18 +6017,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7107,18 +6039,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7140,18 +6061,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7173,18 +6083,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7206,18 +6105,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7239,18 +6127,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7272,18 +6149,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7305,18 +6171,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7338,18 +6193,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7371,18 +6215,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7404,18 +6237,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7437,18 +6259,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7470,18 +6281,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7503,18 +6303,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7536,18 +6325,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7569,18 +6347,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7602,6 +6369,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
+            OtherConfigurationVisibilityAllCollapsed();
             FlashFrequencySelectLabel.Visibility = Visibility.Visible;
             FlashFrequencySelectBorder.Visibility = Visibility.Visible;
             FlashFrequencySelect.Visibility = Visibility.Visible;
@@ -7611,9 +6379,7 @@ namespace LEDLampsConfigurationSoftware
             WaveformSelectLabel.Visibility = Visibility.Visible;
             WaveformSelectBorder.Visibility = Visibility.Visible;
             WaveformSelect.Visibility = Visibility.Visible;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7634,18 +6400,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7667,18 +6423,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7700,18 +6446,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7733,18 +6469,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7766,18 +6492,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7799,18 +6515,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7832,18 +6538,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7865,18 +6561,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7898,18 +6584,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7931,18 +6607,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7964,18 +6630,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -7997,18 +6653,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -8030,18 +6676,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -8063,18 +6699,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -8096,18 +6722,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -8129,18 +6745,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -8162,18 +6768,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -8195,18 +6791,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -8228,18 +6814,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -8261,18 +6837,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -8294,18 +6860,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -8327,18 +6883,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -8360,18 +6905,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -8393,18 +6927,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
-            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
-            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
-            IICFlagSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
 
             this.Dispatcher.Invoke(new System.Action(() =>
             {
@@ -8427,15 +6950,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
             IICFlagSelectLabel.Visibility = Visibility.Visible;
             IICFlagSelectBorder.Visibility = Visibility.Visible;
             IICFlagSelect.Visibility = Visibility.Visible;
@@ -8460,15 +6976,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
             IICFlagSelectLabel.Visibility = Visibility.Visible;
             IICFlagSelectBorder.Visibility = Visibility.Visible;
             IICFlagSelect.Visibility = Visibility.Visible;
@@ -8493,15 +7002,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
             IICFlagSelectLabel.Visibility = Visibility.Visible;
             IICFlagSelectBorder.Visibility = Visibility.Visible;
             IICFlagSelect.Visibility = Visibility.Visible;
@@ -8526,15 +7028,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
             IICFlagSelectLabel.Visibility = Visibility.Visible;
             IICFlagSelectBorder.Visibility = Visibility.Visible;
             IICFlagSelect.Visibility = Visibility.Visible;
@@ -8559,15 +7054,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
             IICFlagSelectLabel.Visibility = Visibility.Visible;
             IICFlagSelectBorder.Visibility = Visibility.Visible;
             IICFlagSelect.Visibility = Visibility.Visible;
@@ -8592,15 +7080,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
             IICFlagSelectLabel.Visibility = Visibility.Visible;
             IICFlagSelectBorder.Visibility = Visibility.Visible;
             IICFlagSelect.Visibility = Visibility.Visible;
@@ -8625,15 +7106,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
             IICFlagSelectLabel.Visibility = Visibility.Visible;
             IICFlagSelectBorder.Visibility = Visibility.Visible;
             IICFlagSelect.Visibility = Visibility.Visible;
@@ -8658,15 +7132,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
             IICFlagSelectLabel.Visibility = Visibility.Visible;
             IICFlagSelectBorder.Visibility = Visibility.Visible;
             IICFlagSelect.Visibility = Visibility.Visible;
@@ -8691,15 +7158,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
             IICFlagSelectLabel.Visibility = Visibility.Visible;
             IICFlagSelectBorder.Visibility = Visibility.Visible;
             IICFlagSelect.Visibility = Visibility.Visible;
@@ -8724,15 +7184,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
             IICFlagSelectLabel.Visibility = Visibility.Visible;
             IICFlagSelectBorder.Visibility = Visibility.Visible;
             IICFlagSelect.Visibility = Visibility.Visible;
@@ -8757,15 +7210,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
             IICFlagSelectLabel.Visibility = Visibility.Visible;
             IICFlagSelectBorder.Visibility = Visibility.Visible;
             IICFlagSelect.Visibility = Visibility.Visible;
@@ -8790,15 +7236,8 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
 
-            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
-            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
-            FlashFrequencySelect.Visibility = Visibility.Collapsed;
-            ChannelSelectLabel.Visibility = Visibility.Collapsed;
-            ChannelSelectBorder.Visibility = Visibility.Collapsed;
-            ChannelSelect.Visibility = Visibility.Collapsed;
-            WaveformSelectLabel.Visibility = Visibility.Collapsed;
-            WaveformSelectBorder.Visibility = Visibility.Collapsed;
-            WaveformSelect.Visibility = Visibility.Collapsed;
+            OtherConfigurationVisibilityAllCollapsed();
+
             IICFlagSelectLabel.Visibility = Visibility.Visible;
             IICFlagSelectBorder.Visibility = Visibility.Visible;
             IICFlagSelect.Visibility = Visibility.Visible;
@@ -8811,6 +7250,44 @@ namespace LEDLampsConfigurationSoftware
             }));
 
             ConfigureEULSBLEDRParameters();
+        }
+
+        private void SelectASMG08LEDYM_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = true;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            OtherConfigurationVisibilityAllCollapsed();            
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectASMG08LEDYM.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureASMG08LEDYMParameters();
+        }
+
+        public void OtherConfigurationVisibilityAllCollapsed()
+        {
+            FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
+            FlashFrequencySelectBorder.Visibility = Visibility.Collapsed;
+            FlashFrequencySelect.Visibility = Visibility.Collapsed;
+            ChannelSelectLabel.Visibility = Visibility.Collapsed;
+            ChannelSelectBorder.Visibility = Visibility.Collapsed;
+            ChannelSelect.Visibility = Visibility.Collapsed;
+            WaveformSelectLabel.Visibility = Visibility.Collapsed;
+            WaveformSelectBorder.Visibility = Visibility.Collapsed;
+            WaveformSelect.Visibility = Visibility.Collapsed;
+            IICFlagSelectLabel.Visibility = Visibility.Collapsed;
+            IICFlagSelectBorder.Visibility = Visibility.Collapsed;
+            IICFlagSelect.Visibility = Visibility.Collapsed;
         }
         #endregion
 
@@ -10710,7 +9187,30 @@ namespace LEDLampsConfigurationSoftware
             settingReadRFlag = 0x00;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x53;
-        }       
+        }
+
+        public void ConfigureASMG08LEDYMParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x07;
+            settingIA[2] = 0x06;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x01;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x54;
+        }
 
         #endregion
 
@@ -11410,6 +9910,15 @@ namespace LEDLampsConfigurationSoftware
                 SelectIntermediateHoldingPositionLight.IsChecked = false;
                 SelectTWYIntersectionsLight.IsChecked = false;
                 SelectTWYEdgeLight.IsChecked = false;
+                SelectElevatedApproachCenterlineLight.IsChecked = false;
+                SelectElevatedApproachCrossbarLight.IsChecked = false;
+                SelectElevatedApproachSideRowLight.IsChecked = false;
+                SelectElevatedRWYEdgeLight.IsChecked = false;
+                SelectElevatedRWYEndLight.IsChecked = false;
+                SelectElevatedRWYThresholdLight.IsChecked = false;
+                SelectElevatedRWYThresholdWingbarLight.IsChecked = false;
+                SelectElevatedTWYStopBarLight.IsChecked = false;
+                SelectAircraftStandManoeuvringGuidanceLight.IsChecked = false;
 
 
                 SelectAPPS12SLEDC.IsChecked = false;
@@ -11483,6 +9992,21 @@ namespace LEDLampsConfigurationSoftware
                 SelectTPLMS08SLEDY.IsChecked = false;
                 SelectTOIL08LLEDY.IsChecked = false;
                 SelectTOEL08LEDB.IsChecked = false;
+                SelectEULAPLEDCCenterline.IsChecked = false;
+                SelectEULAPLEDCCrossbar.IsChecked = false;
+                SelectEULSRLEDR.IsChecked = false;
+                SelectEBLRELEDYC.IsChecked = false;
+                SelectEBLRELEDCY.IsChecked = false;
+                SelectEBLRELEDCC.IsChecked = false;
+                SelectEBLRELEDCR.IsChecked = false;
+                SelectEBLRELEDCR.IsChecked = false;
+                SelectEBLRELEDRC.IsChecked = false;
+                SelectEULTHLEDG.IsChecked = false;
+                SelectEULTHWLEDG.IsChecked = false;
+                SelectEULTHWLEDG.IsChecked = false;
+                SelectEULEDLEDR.IsChecked = false;
+                SelectEULSBLEDR.IsChecked = false;
+                SelectASMG08LEDYM.IsChecked = false;
 
 
                 SelectOpenCircuitTrue.IsChecked = false;
@@ -11509,6 +10033,15 @@ namespace LEDLampsConfigurationSoftware
                 SelectIntermediateHoldingPositionLight.IsEnabled = true;
                 SelectTWYIntersectionsLight.IsEnabled = true;
                 SelectTWYEdgeLight.IsEnabled = true;
+                SelectElevatedApproachCenterlineLight.IsEnabled = true;
+                SelectElevatedApproachCrossbarLight.IsEnabled = true;
+                SelectElevatedApproachSideRowLight.IsEnabled = true;
+                SelectElevatedRWYEdgeLight.IsEnabled = true;
+                SelectElevatedRWYEndLight.IsEnabled = true;
+                SelectElevatedRWYThresholdLight.IsEnabled = true;
+                SelectElevatedRWYThresholdWingbarLight.IsEnabled = true;
+                SelectElevatedTWYStopBarLight.IsEnabled = true;
+                SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = true;
 
             }));
         }
@@ -11761,7 +10294,9 @@ namespace LEDLampsConfigurationSoftware
             AnswerLampModel81 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel81");
             AnswerLampModel82 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel82");
             AnswerLampModel83 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel83");
-            
+            AnswerLampModel84 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel84");
+
+
             AnswerOpenCircuit1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit1");
             AnswerOpenCircuit2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit2");
             #endregion
@@ -11844,8 +10379,12 @@ namespace LEDLampsConfigurationSoftware
 
 
 
+
         #endregion
+        
 
+        
 
+        
     }
 }

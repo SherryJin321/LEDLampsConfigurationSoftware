@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LEDLampsConfigurationSoftware"
         mc:Ignorable="d"
-        Title="ASCMS V1.7.5" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Name="ConfigurationWindow" Icon=".\Images\tubiao.png">
+        Title="ASCMS V1.8.1" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Name="ConfigurationWindow" Icon=".\Images\tubiao.png">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontSize" Value="18"/>
@@ -137,7 +137,9 @@
                                                     <RadioButton x:Name="SelectElevatedTWYStopBarLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights"  Width="320" Checked="SelectElevatedTWYStopBarLight_Checked">
                                                         <TextBlock Text="{DynamicResource LangsSelectElevatedTWYStopBarLight}" TextWrapping="Wrap" x:Name="TBSelectElevatedTWYStopBarLight"/>
                                                     </RadioButton>
-                                                    
+                                                    <RadioButton x:Name="SelectAircraftStandManoeuvringGuidanceLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights"  Width="320" Checked="SelectAircraftStandManoeuvringGuidanceLight_Checked" >
+                                                        <TextBlock Text="{DynamicResource LangsSelectAircraftStandManoeuvringGuidanceLight}" TextWrapping="Wrap" x:Name="TBSelectAircraftStandManoeuvringGuidanceLight"/>
+                                                    </RadioButton>
                                                 </WrapPanel>
                                             </ScrollViewer>
                                         </GroupBox>
@@ -354,6 +356,11 @@
                                                 <GroupBox x:Name="GroupElevatedTWYStopBarLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
                                                     <Canvas>
                                                         <RadioButton x:Name="SelectEULSBLEDR" Content="EUL-SB-LED-R" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameElevatedTWYStopBarLight" Checked="SelectEULSBLEDR_Checked" />
+                                                    </Canvas>
+                                                </GroupBox>
+                                                <GroupBox x:Name="GroupAircraftStandManoeuvringGuidanceLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                                    <Canvas>
+                                                        <RadioButton x:Name="SelectASMG08LEDYM" Content="ASMG-08-LED-Y-M" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameAircraftStandManoeuvringGuidanceLight" Checked="SelectASMG08LEDYM_Checked" />
                                                     </Canvas>
                                                 </GroupBox>
                                             </Canvas>
