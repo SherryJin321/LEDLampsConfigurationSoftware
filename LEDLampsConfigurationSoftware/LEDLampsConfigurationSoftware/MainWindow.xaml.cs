@@ -1304,7 +1304,7 @@ namespace LEDLampsConfigurationSoftware
             //for temporary
             if (hardwareVersion1 == 4 && softwareNumber == 5 && softwareVersion1 == 1 && softwareVersion2 == 3)
             {
-                result *= 0.75;
+                result /= 0.75;
             }
 
 
