@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LEDLampsConfigurationSoftware"
         mc:Ignorable="d"
-        Title="ASCMS V1.8.3" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Name="ConfigurationWindow" Icon=".\Images\tubiao.png">
+        Title="ASCMS V1.9.1" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Name="ConfigurationWindow" Icon=".\Images\tubiao.png">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontSize" Value="18"/>
@@ -139,6 +139,9 @@
                                                     </RadioButton>
                                                     <RadioButton x:Name="SelectAircraftStandManoeuvringGuidanceLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights"  Width="320" Checked="SelectAircraftStandManoeuvringGuidanceLight_Checked" >
                                                         <TextBlock Text="{DynamicResource LangsSelectAircraftStandManoeuvringGuidanceLight}" TextWrapping="Wrap" x:Name="TBSelectAircraftStandManoeuvringGuidanceLight"/>
+                                                    </RadioButton>
+                                                    <RadioButton x:Name="SelectAircraftStandManoeuvringGuidanceStopLight" Padding="0,0,0,10" BorderBrush="#FF0A51A1" GroupName="SelectLights"  Width="320" Checked="SelectAircraftStandManoeuvringGuidanceStopLight_Checked" >
+                                                        <TextBlock Text="{DynamicResource LangsSelectAircraftStandManoeuvringGuidanceStopLight}" TextWrapping="Wrap" x:Name="TBSelectAircraftStandManoeuvringGuidanceStopLight"/>
                                                     </RadioButton>
                                                 </WrapPanel>
                                             </ScrollViewer>
@@ -361,6 +364,11 @@
                                                 <GroupBox x:Name="GroupAircraftStandManoeuvringGuidanceLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
                                                     <Canvas>
                                                         <RadioButton x:Name="SelectASMG08LEDYM" Content="ASMG-08-LED-Y-M" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameAircraftStandManoeuvringGuidanceLight" Checked="SelectASMG08LEDYM_Checked" />
+                                                    </Canvas>
+                                                </GroupBox>
+                                                <GroupBox x:Name="GroupAircraftStandManoeuvringGuidanceStopLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
+                                                    <Canvas>
+                                                        <RadioButton x:Name="SelectASMS08LEDR" Content="ASMS-08-LED-R" Canvas.Left="0" Canvas.Top="20" BorderBrush="#FF0A51A1" GroupName="GroupNameAircraftStandManoeuvringGuidanceStopLight" Checked="SelectASMS08LEDR_Checked" />
                                                     </Canvas>
                                                 </GroupBox>
                                             </Canvas>

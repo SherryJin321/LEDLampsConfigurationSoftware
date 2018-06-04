@@ -441,6 +441,7 @@ namespace LEDLampsConfigurationSoftware
         string AnswerLampModel82 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel82");
         string AnswerLampModel83 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel83");
         string AnswerLampModel84 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel84");
+        string AnswerLampModel85 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel85");
 
         string AnswerOpenCircuit1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit1");
         string AnswerOpenCircuit2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit2");
@@ -1234,6 +1235,7 @@ namespace LEDLampsConfigurationSoftware
                 case 82: result = AnswerLampModel82; break;
                 case 83: result = AnswerLampModel83; break;
                 case 84: result = AnswerLampModel84; break;
+                case 85: result = AnswerLampModel85; break;
 
 
             }
@@ -1575,37 +1577,14 @@ namespace LEDLampsConfigurationSoftware
         #region 不同驱动可选的灯具类型
         public void EightInchesLampSelect()
         {
+            NoneLampSelect();
+
             this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                SelectApproachChenterlineLight.IsEnabled = false;
-                SelectApproachCrossbarLight.IsEnabled = false;
-                SelectApproachSideRowLight.IsEnabled = false;
-                SelectRWYThresholdWingBarLight.IsEnabled = false;
-                SelectRWYThresholdLight.IsEnabled = false;
-                SelectRWYEdgeLight.IsEnabled = false;
-                Select12inchesRWYEndLight.IsEnabled = false;
-                SelectRWYThresholdEndLight.IsEnabled = false;
+            {                
                 SelectRWYCenterlineLight.IsEnabled = true;
-                Select12inchesRWYCenterlineLight.IsEnabled = false;
                 SelectRWYTouchdownZoneLight.IsEnabled = true;
                 Select8inchesRWYEndLight.IsEnabled = true;
-                SelectRapidExitTWYIndicatorLight.IsEnabled = true;
-                SelectCombinedRWYEdgeLight.IsEnabled = false;
-                SelectRWYGuardLight.IsEnabled = false;
-                SelectTWYCenterLight.IsEnabled = false;
-                SelectTWYCenterLight2P.IsEnabled = false;
-                SelectTWYStopBarLight.IsEnabled = false;
-                SelectIntermediateHoldingPositionLight.IsEnabled = false;
-                SelectTWYIntersectionsLight.IsEnabled = false;
-                SelectTWYEdgeLight.IsEnabled = false;
-                SelectElevatedApproachCenterlineLight.IsEnabled = false;
-                SelectElevatedApproachCrossbarLight.IsEnabled = false;
-                SelectElevatedApproachSideRowLight.IsEnabled = false;
-                SelectElevatedRWYEdgeLight.IsEnabled = false;
-                SelectElevatedRWYEndLight.IsEnabled = false;
-                SelectElevatedRWYThresholdLight.IsEnabled = false;
-                SelectElevatedRWYThresholdWingbarLight.IsEnabled = false;
-                SelectElevatedTWYStopBarLight.IsEnabled = false;
+                SelectRapidExitTWYIndicatorLight.IsEnabled = true;                
                 SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = true;
 
             }));
@@ -1613,6 +1592,8 @@ namespace LEDLampsConfigurationSoftware
 
         public void TwelveInchesLampSelect()
         {
+            NoneLampSelect();
+
             this.Dispatcher.Invoke(new System.Action(() =>
             {
                 SelectApproachChenterlineLight.IsEnabled = true;
@@ -1623,147 +1604,42 @@ namespace LEDLampsConfigurationSoftware
                 SelectRWYEdgeLight.IsEnabled = true;
                 Select12inchesRWYEndLight.IsEnabled = true;
                 SelectRWYThresholdEndLight.IsEnabled = true;
-                SelectRWYCenterlineLight.IsEnabled = false;
-                Select12inchesRWYCenterlineLight.IsEnabled = true;
-                SelectRWYTouchdownZoneLight.IsEnabled = false;
-                Select8inchesRWYEndLight.IsEnabled = false;
-                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
-                SelectCombinedRWYEdgeLight.IsEnabled = true;
-                SelectRWYGuardLight.IsEnabled = false;
-                SelectTWYCenterLight.IsEnabled = false;
-                SelectTWYCenterLight2P.IsEnabled = false;
-                SelectTWYStopBarLight.IsEnabled = false;
-                SelectIntermediateHoldingPositionLight.IsEnabled = false;
-                SelectTWYIntersectionsLight.IsEnabled = false;
-                SelectTWYEdgeLight.IsEnabled = false;
-                SelectElevatedApproachCenterlineLight.IsEnabled = false;
-                SelectElevatedApproachCrossbarLight.IsEnabled = false;
-                SelectElevatedApproachSideRowLight.IsEnabled = false;
-                SelectElevatedRWYEdgeLight.IsEnabled = false;
-                SelectElevatedRWYEndLight.IsEnabled = false;
-                SelectElevatedRWYThresholdLight.IsEnabled = false;
-                SelectElevatedRWYThresholdWingbarLight.IsEnabled = false;
-                SelectElevatedTWYStopBarLight.IsEnabled = false;
-                SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = false;
-
-
+                Select12inchesRWYCenterlineLight.IsEnabled = true;                
+                SelectCombinedRWYEdgeLight.IsEnabled = true;                
             }));
         }
 
         public void DoubleCircuitRWYCenterLampSelect()
         {
+            NoneLampSelect();
+
             this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                SelectApproachChenterlineLight.IsEnabled = false;
-                SelectApproachCrossbarLight.IsEnabled = false;
-                SelectApproachSideRowLight.IsEnabled = false;
-                SelectRWYThresholdWingBarLight.IsEnabled = false;
-                SelectRWYThresholdLight.IsEnabled = false;
-                SelectRWYEdgeLight.IsEnabled = false;
-                Select12inchesRWYEndLight.IsEnabled = false;
-                SelectRWYThresholdEndLight.IsEnabled = false;
+            {               
                 SelectRWYCenterlineLight.IsEnabled = true;
-                Select12inchesRWYCenterlineLight.IsEnabled = false;
                 SelectRWYTouchdownZoneLight.IsEnabled = true;
                 Select8inchesRWYEndLight.IsEnabled = true;
                 SelectRapidExitTWYIndicatorLight.IsEnabled = true;
-                SelectCombinedRWYEdgeLight.IsEnabled = false;
-                SelectRWYGuardLight.IsEnabled = false;
-                SelectTWYCenterLight.IsEnabled = false;
-                SelectTWYCenterLight2P.IsEnabled = false;
-                SelectTWYStopBarLight.IsEnabled = false;
-                SelectIntermediateHoldingPositionLight.IsEnabled = false;
-                SelectTWYIntersectionsLight.IsEnabled = false;
-                SelectTWYEdgeLight.IsEnabled = false;
-                SelectElevatedApproachCenterlineLight.IsEnabled = false;
-                SelectElevatedApproachCrossbarLight.IsEnabled = false;
-                SelectElevatedApproachSideRowLight.IsEnabled = false;
-                SelectElevatedRWYEdgeLight.IsEnabled = false;
-                SelectElevatedRWYEndLight.IsEnabled = false;
-                SelectElevatedRWYThresholdLight.IsEnabled = false;
-                SelectElevatedRWYThresholdWingbarLight.IsEnabled = false;
-                SelectElevatedTWYStopBarLight.IsEnabled = false;
-                SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = false;
-
-
             }));
         }
 
         public void DoubleCircuitRWYCenter12inchesLampSelect()
         {
+            NoneLampSelect();
+
             this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                SelectApproachChenterlineLight.IsEnabled = false;
-                SelectApproachCrossbarLight.IsEnabled = false;
-                SelectApproachSideRowLight.IsEnabled = false;
-                SelectRWYThresholdWingBarLight.IsEnabled = false;
-                SelectRWYThresholdLight.IsEnabled = false;
-                SelectRWYEdgeLight.IsEnabled = false;
-                Select12inchesRWYEndLight.IsEnabled = false;
+            {               
                 SelectRWYThresholdEndLight.IsEnabled = true;
-                SelectRWYCenterlineLight.IsEnabled = false;
-                Select12inchesRWYCenterlineLight.IsEnabled = true;
-                SelectRWYTouchdownZoneLight.IsEnabled = false;
-                Select8inchesRWYEndLight.IsEnabled = false;
-                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
-                SelectCombinedRWYEdgeLight.IsEnabled = false;
-                SelectRWYGuardLight.IsEnabled = false;
-                SelectTWYCenterLight.IsEnabled = false;
-                SelectTWYCenterLight2P.IsEnabled = false;
-                SelectTWYStopBarLight.IsEnabled = false;
-                SelectIntermediateHoldingPositionLight.IsEnabled = false;
-                SelectTWYIntersectionsLight.IsEnabled = false;
-                SelectTWYEdgeLight.IsEnabled = false;
-                SelectElevatedApproachCenterlineLight.IsEnabled = false;
-                SelectElevatedApproachCrossbarLight.IsEnabled = false;
-                SelectElevatedApproachSideRowLight.IsEnabled = false;
-                SelectElevatedRWYEdgeLight.IsEnabled = false;
-                SelectElevatedRWYEndLight.IsEnabled = false;
-                SelectElevatedRWYThresholdLight.IsEnabled = false;
-                SelectElevatedRWYThresholdWingbarLight.IsEnabled = false;
-                SelectElevatedTWYStopBarLight.IsEnabled = false;
-                SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = false;
-
-
+                Select12inchesRWYCenterlineLight.IsEnabled = true;               
             }));
         }
 
         public void RWYGuardLampSelect()
         {
+            NoneLampSelect();
+
             this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                SelectApproachChenterlineLight.IsEnabled = false;
-                SelectApproachCrossbarLight.IsEnabled = false;
-                SelectApproachSideRowLight.IsEnabled = false;
-                SelectRWYThresholdWingBarLight.IsEnabled = false;
-                SelectRWYThresholdLight.IsEnabled = false;
-                SelectRWYEdgeLight.IsEnabled = false;
-                Select12inchesRWYEndLight.IsEnabled = false;
-                SelectRWYThresholdEndLight.IsEnabled = false;
-                SelectRWYCenterlineLight.IsEnabled = false;
-                Select12inchesRWYCenterlineLight.IsEnabled = false;
-                SelectRWYTouchdownZoneLight.IsEnabled = false;
-                Select8inchesRWYEndLight.IsEnabled = false;
-                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
-                SelectCombinedRWYEdgeLight.IsEnabled = false;
-                SelectRWYGuardLight.IsEnabled = true;
-                SelectTWYCenterLight.IsEnabled = false;
-                SelectTWYCenterLight2P.IsEnabled = false;
-                SelectTWYStopBarLight.IsEnabled = false;
-                SelectIntermediateHoldingPositionLight.IsEnabled = false;
-                SelectTWYIntersectionsLight.IsEnabled = false;
-                SelectTWYEdgeLight.IsEnabled = false;
-                SelectElevatedApproachCenterlineLight.IsEnabled = false;
-                SelectElevatedApproachCrossbarLight.IsEnabled = false;
-                SelectElevatedApproachSideRowLight.IsEnabled = false;
-                SelectElevatedRWYEdgeLight.IsEnabled = false;
-                SelectElevatedRWYEndLight.IsEnabled = false;
-                SelectElevatedRWYThresholdLight.IsEnabled = false;
-                SelectElevatedRWYThresholdWingbarLight.IsEnabled = false;
-                SelectElevatedTWYStopBarLight.IsEnabled = false;
-                SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = false;
-
-
+            {                
+                SelectRWYGuardLight.IsEnabled = true;               
             }));
         }
 
@@ -1801,6 +1677,7 @@ namespace LEDLampsConfigurationSoftware
                 SelectElevatedRWYThresholdWingbarLight.IsEnabled = false;
                 SelectElevatedTWYStopBarLight.IsEnabled = false;
                 SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = false;
+                SelectAircraftStandManoeuvringGuidanceStopLight.IsEnabled = false;
 
 
             }));
@@ -1808,108 +1685,35 @@ namespace LEDLampsConfigurationSoftware
 
         public void DoubleCircuitTWYCenterLampSelect()
         {
+            NoneLampSelect();
+
             this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                SelectApproachChenterlineLight.IsEnabled = false;
-                SelectApproachCrossbarLight.IsEnabled = false;
-                SelectApproachSideRowLight.IsEnabled = false;
-                SelectRWYThresholdWingBarLight.IsEnabled = false;
-                SelectRWYThresholdLight.IsEnabled = false;
-                SelectRWYEdgeLight.IsEnabled = false;
-                Select12inchesRWYEndLight.IsEnabled = false;
-                SelectRWYThresholdEndLight.IsEnabled = false;
-                SelectRWYCenterlineLight.IsEnabled = false;
-                Select12inchesRWYCenterlineLight.IsEnabled = false;
-                SelectRWYTouchdownZoneLight.IsEnabled = false;
-                Select8inchesRWYEndLight.IsEnabled = false;
-                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
-                SelectCombinedRWYEdgeLight.IsEnabled = false;
-                SelectRWYGuardLight.IsEnabled = false;
-                SelectTWYCenterLight.IsEnabled = false;
-                SelectTWYCenterLight2P.IsEnabled = true;
-                SelectTWYStopBarLight.IsEnabled = false;
-                SelectIntermediateHoldingPositionLight.IsEnabled = false;
-                SelectTWYIntersectionsLight.IsEnabled = false;
-                SelectTWYEdgeLight.IsEnabled = false;
-                SelectElevatedApproachCenterlineLight.IsEnabled = false;
-                SelectElevatedApproachCrossbarLight.IsEnabled = false;
-                SelectElevatedApproachSideRowLight.IsEnabled = false;
-                SelectElevatedRWYEdgeLight.IsEnabled = false;
-                SelectElevatedRWYEndLight.IsEnabled = false;
-                SelectElevatedRWYThresholdLight.IsEnabled = false;
-                SelectElevatedRWYThresholdWingbarLight.IsEnabled = false;
-                SelectElevatedTWYStopBarLight.IsEnabled = false;
-                SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = false;
-
-
-
+            {                
+                SelectTWYCenterLight2P.IsEnabled = true;                
             }));
         }
 
         public void SingleCircuitTWYCenterLampSelect()
         {
+            NoneLampSelect();
+
             this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                SelectApproachChenterlineLight.IsEnabled = false;
-                SelectApproachCrossbarLight.IsEnabled = false;
-                SelectApproachSideRowLight.IsEnabled = false;
-                SelectRWYThresholdWingBarLight.IsEnabled = false;
-                SelectRWYThresholdLight.IsEnabled = false;
-                SelectRWYEdgeLight.IsEnabled = false;
-                Select12inchesRWYEndLight.IsEnabled = false;
-                SelectRWYThresholdEndLight.IsEnabled = false;
-                SelectRWYCenterlineLight.IsEnabled = false;
-                Select12inchesRWYCenterlineLight.IsEnabled = false;
-                SelectRWYTouchdownZoneLight.IsEnabled = false;
-                Select8inchesRWYEndLight.IsEnabled = false;
-                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
-                SelectCombinedRWYEdgeLight.IsEnabled = false;
-                SelectRWYGuardLight.IsEnabled = false;
+            {                
                 SelectTWYCenterLight.IsEnabled = true;
-                SelectTWYCenterLight2P.IsEnabled = false;
                 SelectTWYStopBarLight.IsEnabled = true;
                 SelectIntermediateHoldingPositionLight.IsEnabled = true;
                 SelectTWYIntersectionsLight.IsEnabled = true;
                 SelectTWYEdgeLight.IsEnabled = true;
-                SelectElevatedApproachCenterlineLight.IsEnabled = false;
-                SelectElevatedApproachCrossbarLight.IsEnabled = false;
-                SelectElevatedApproachSideRowLight.IsEnabled = false;
-                SelectElevatedRWYEdgeLight.IsEnabled = false;
-                SelectElevatedRWYEndLight.IsEnabled = false;
-                SelectElevatedRWYThresholdLight.IsEnabled = false;
-                SelectElevatedRWYThresholdWingbarLight.IsEnabled = false;
-                SelectElevatedTWYStopBarLight.IsEnabled = false;
-                SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = false;
-
-
+                SelectAircraftStandManoeuvringGuidanceStopLight.IsEnabled = true;
             }));
         }
 
         public void ElevatedRWYLampSelect()
         {
+            NoneLampSelect();
+
             this.Dispatcher.Invoke(new System.Action(() =>
-            {
-                SelectApproachChenterlineLight.IsEnabled = false;
-                SelectApproachCrossbarLight.IsEnabled = false;
-                SelectApproachSideRowLight.IsEnabled = false;
-                SelectRWYThresholdWingBarLight.IsEnabled = false;
-                SelectRWYThresholdLight.IsEnabled = false;
-                SelectRWYEdgeLight.IsEnabled = false;
-                Select12inchesRWYEndLight.IsEnabled = false;
-                SelectRWYThresholdEndLight.IsEnabled = false;
-                SelectRWYCenterlineLight.IsEnabled = false;
-                Select12inchesRWYCenterlineLight.IsEnabled = false;
-                SelectRWYTouchdownZoneLight.IsEnabled = false;
-                Select8inchesRWYEndLight.IsEnabled = false;
-                SelectRapidExitTWYIndicatorLight.IsEnabled = false;
-                SelectCombinedRWYEdgeLight.IsEnabled = false;
-                SelectRWYGuardLight.IsEnabled = false;
-                SelectTWYCenterLight.IsEnabled = false;
-                SelectTWYCenterLight2P.IsEnabled = false;
-                SelectTWYStopBarLight.IsEnabled = false;
-                SelectIntermediateHoldingPositionLight.IsEnabled = false;
-                SelectTWYIntersectionsLight.IsEnabled = false;
-                SelectTWYEdgeLight.IsEnabled = false;
+            {                
                 SelectElevatedApproachCenterlineLight.IsEnabled = true;
                 SelectElevatedApproachCrossbarLight.IsEnabled = true;
                 SelectElevatedApproachSideRowLight.IsEnabled = true;
@@ -1918,9 +1722,6 @@ namespace LEDLampsConfigurationSoftware
                 SelectElevatedRWYThresholdLight.IsEnabled = true;
                 SelectElevatedRWYThresholdWingbarLight.IsEnabled = true;
                 SelectElevatedTWYStopBarLight.IsEnabled = true;
-                SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = false;
-
-
             }));
         }
         #endregion
@@ -5283,6 +5084,24 @@ namespace LEDLampsConfigurationSoftware
             }));
         }
 
+        private void SelectAircraftStandManoeuvringGuidanceStopLight_Checked(object sender, RoutedEventArgs e)
+        {
+            ALLGroupCollapsed();
+            GroupAircraftStandManoeuvringGuidanceStopLight.Visibility = Visibility.Visible;
+
+            SelectASMS08LEDR.IsChecked = false;
+
+            OtherConfigurationAllCollapsed();
+
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampName.Text = TBSelectAircraftStandManoeuvringGuidanceStopLight.Text.ToString();
+                ConfirmLampModel.Text = "";
+                ConfirmSettingOpenCircuitParameter.Text = "";
+            }));
+        }
+
         public void ALLGroupCollapsed()
         {
             GroupApproachChenterlineLight.Visibility = Visibility.Collapsed;
@@ -5315,6 +5134,8 @@ namespace LEDLampsConfigurationSoftware
             GroupElevatedRWYThresholdWingbarLight.Visibility = Visibility.Collapsed;
             GroupElevatedTWYStopBarLight.Visibility = Visibility.Collapsed;
             GroupAircraftStandManoeuvringGuidanceLight.Visibility = Visibility.Collapsed;
+            GroupAircraftStandManoeuvringGuidanceStopLight.Visibility = Visibility.Collapsed;
+
         }
 
         public void OtherConfigurationAllCollapsed()
@@ -7270,6 +7091,28 @@ namespace LEDLampsConfigurationSoftware
             ConfigureASMG08LEDYMParameters();
         }
 
+        private void SelectASMS08LEDR_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false ;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            OtherConfigurationVisibilityAllCollapsed();
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectASMS08LEDR.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureASMS08LEDRParameters();
+        }
+
         public void OtherConfigurationVisibilityAllCollapsed()
         {
             FlashFrequencySelectLabel.Visibility = Visibility.Collapsed;
@@ -9208,6 +9051,29 @@ namespace LEDLampsConfigurationSoftware
             settingLampsNumber = 0x54;
         }
 
+        public void ConfigureASMS08LEDRParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x55;
+        }
+
         #endregion
 
         #region 工厂模式配置灯具参数是否开路
@@ -9816,7 +9682,7 @@ namespace LEDLampsConfigurationSoftware
             
             if (userName =="Airsafe")
             {
-                if(password == "Airsafe")
+                if(password == "Amily")
                 {
                     DeveloperMode.Visibility = Visibility.Visible;
                     DeveloperMode.IsSelected = true;
@@ -9915,6 +9781,7 @@ namespace LEDLampsConfigurationSoftware
                 SelectElevatedRWYThresholdWingbarLight.IsChecked = false;
                 SelectElevatedTWYStopBarLight.IsChecked = false;
                 SelectAircraftStandManoeuvringGuidanceLight.IsChecked = false;
+                SelectAircraftStandManoeuvringGuidanceStopLight.IsChecked = false;
 
 
                 SelectAPPS12SLEDC.IsChecked = false;
@@ -10003,6 +9870,7 @@ namespace LEDLampsConfigurationSoftware
                 SelectEULEDLEDR.IsChecked = false;
                 SelectEULSBLEDR.IsChecked = false;
                 SelectASMG08LEDYM.IsChecked = false;
+                SelectASMS08LEDR.IsChecked = false;
 
 
                 SelectOpenCircuitTrue.IsChecked = false;
@@ -10038,6 +9906,7 @@ namespace LEDLampsConfigurationSoftware
                 SelectElevatedRWYThresholdWingbarLight.IsEnabled = true;
                 SelectElevatedTWYStopBarLight.IsEnabled = true;
                 SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = true;
+                SelectAircraftStandManoeuvringGuidanceStopLight.IsEnabled = true;
 
             }));
         }
@@ -10291,6 +10160,7 @@ namespace LEDLampsConfigurationSoftware
             AnswerLampModel82 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel82");
             AnswerLampModel83 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel83");
             AnswerLampModel84 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel84");
+            AnswerLampModel85 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel85");
 
 
             AnswerOpenCircuit1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit1");
@@ -10376,10 +10246,12 @@ namespace LEDLampsConfigurationSoftware
 
 
 
-        #endregion
-        
 
-        
+
+
+
+
+        #endregion
 
         
     }

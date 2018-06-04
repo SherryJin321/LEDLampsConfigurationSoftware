@@ -45,6 +45,7 @@
     <system:String x:Key="LangsSelectElevatedRWYEndLight">LED立式跑道末端灯（EUL-ED-LED）</system:String>
     <system:String x:Key="LangsSelectElevatedTWYStopBarLight">LED立式停止排灯（EUL-SB-LED）</system:String>
     <system:String x:Key="LangsSelectAircraftStandManoeuvringGuidanceLight">LED航空器停机位操作引导灯（ASMG-08-LED）</system:String>
+    <system:String x:Key="LangsSelectAircraftStandManoeuvringGuidanceStopLight">LED航空器停机位操作引导停止灯（ASMS-08-LED）</system:String>
 
     <system:String x:Key="LangsSelectOpenCircuitTrue">带开路</system:String>
     <system:String x:Key="LangsSelectOpenCircuitFalse">不带开路</system:String>
@@ -272,7 +273,9 @@
     <system:String x:Key="LangsAnswerLampModel81">立式跑道入口翼排灯（EUL-THW-LED-G）</system:String>
     <system:String x:Key="LangsAnswerLampModel82">立式跑道末端灯（EUL-ED-LED-R）</system:String>
     <system:String x:Key="LangsAnswerLampModel83">立式停止排灯（EUL-SB-LED-R）</system:String>
-    <system:String x:Key="LangsAnswerLampModel84">航空器停机位操作引导灯（ASMG-08-LED）</system:String>
+    <system:String x:Key="LangsAnswerLampModel84">航空器停机位操作引导灯（ASMG-08-LED-Y-M）</system:String>
+    <system:String x:Key="LangsAnswerLampModel85">航空器停机位操作引导停止灯（ASMS-08-LED-R）</system:String>
+
 
     <system:String x:Key="LangsAnswerOpenCircuit1">不带开路</system:String>
     <system:String x:Key="LangsAnswerOpenCircuit2">带开路</system:String>

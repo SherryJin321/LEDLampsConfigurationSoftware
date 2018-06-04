@@ -45,6 +45,7 @@
     <system:String x:Key="LangsSelectElevatedRWYEndLight">LED Elevated Runway End Light（EUL-ED-LED）</system:String>
     <system:String x:Key="LangsSelectElevatedTWYStopBarLight">LED Elevated Taxiway Stop Bar Light（EUL-SB-LED）</system:String>
     <system:String x:Key="LangsSelectAircraftStandManoeuvringGuidanceLight">LED Aircraft Stand Manoeuvring Guidance Light（ASMG-08-LED）</system:String>
+    <system:String x:Key="LangsSelectAircraftStandManoeuvringGuidanceStopLight">LED Aircraft Stand Manoeuvring Guidance Stop Light（ASMS-08-LED）</system:String>
 
     <system:String x:Key="LangsSelectOpenCircuitTrue">With Open Circuit</system:String>
     <system:String x:Key="LangsSelectOpenCircuitFalse">Without Open Circuit</system:String>
@@ -262,7 +263,8 @@
     <system:String x:Key="LangsAnswerLampModel81">Elevated Runway Threshold Wing-bar Light（EUL-THW-LED-G）</system:String>
     <system:String x:Key="LangsAnswerLampModel82">Elevated Runway End Light（EUL-ED-LED-R）</system:String>
     <system:String x:Key="LangsAnswerLampModel83">Elevated Taxiway Stop Bar Light（EUL-SB-LED-R）</system:String>
-    <system:String x:Key="LangsAnswerLampModel84">Aircraft Stand Manoeuvring Guidance Light（ASMG-08-LED）</system:String>
+    <system:String x:Key="LangsAnswerLampModel84">Aircraft Stand Manoeuvring Guidance Light（ASMG-08-LED-Y-M）</system:String>
+    <system:String x:Key="LangsAnswerLampModel85">Aircraft Stand Manoeuvring Guidance Stop Light（ASMS-08-LED-R）</system:String>
 
 
     <system:String x:Key="LangsAnswerOpenCircuit1">Without Open Circuit</system:String>
