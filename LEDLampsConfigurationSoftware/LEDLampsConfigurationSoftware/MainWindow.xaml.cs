@@ -1003,10 +1003,10 @@ namespace LEDLampsConfigurationSoftware
                         flashFrequency = dataReceived[21];
                         waveformSelect = dataReceived[22];
 
-                        currentRatio1 = CalculateRealCurrentValue(dataReceived[10]);
-                        currentRatio2 = CalculateRealCurrentValue(dataReceived[11]);
-                        currentRatio3 = CalculateRealCurrentValue(dataReceived[12]);
-                        currentRatio4 = CalculateRealCurrentValue(dataReceived[13]);
+                        currentRatio1 = CalculateRealCurrentValue(dataReceived[10],1);
+                        currentRatio2 = CalculateRealCurrentValue(dataReceived[11],2);
+                        currentRatio3 = CalculateRealCurrentValue(dataReceived[12],3);
+                        currentRatio4 = CalculateRealCurrentValue(dataReceived[13],4);
 
                         this.Dispatcher.Invoke(new System.Action(() =>
                         {
@@ -1242,7 +1242,7 @@ namespace LEDLampsConfigurationSoftware
             return result;
         }
 
-        private double CalculateRealCurrentValue(byte originalData)
+        private double CalculateRealCurrentValue(byte originalData,int number)
         {
             double original = originalData / 10.0;
             double result = 0.0;  
@@ -1273,24 +1273,13 @@ namespace LEDLampsConfigurationSoftware
                 {
                     result = result * 1.3;
                 }
-                if ((lampsNumber >= 33 && lampsNumber <= 40) || lampsNumber == 47)
+                if ((lampsNumber == 33 || lampsNumber == 35 || lampsNumber == 37 || lampsNumber == 39 || lampsNumber == 47) && number == 1)
                 {
-                    if (result == 0.9)
-                    {
-                        result = 0.93 * 1.3;
-                    }
-                    if (result == 0.7)
-                    {
-                        result = 0.7 * 1;
-                    }
-                    if (result == 0.6)
-                    {
-                        result = 0.55 * 1;
-                    }
-                    if (result == 0.4)
-                    {
-                        result = 0.45 * 1;
-                    }
+                    result = result * 1.3;
+                }
+                if((lampsNumber == 34 || lampsNumber == 38) && (number == 1||number==2))
+                {
+                    result = result * 1.3;
                 }
             }
 
