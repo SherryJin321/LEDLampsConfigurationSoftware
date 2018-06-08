@@ -130,6 +130,36 @@
     <system:String x:Key="LangsSetLightNumber43">43 LED嵌入式跑道入口/末端灯（TAES-12-R-LED-GR-MR-2P）</system:String>
     <system:String x:Key="LangsSetLightNumber44">44 LED跑道中线灯（RCLS-12-LED-CC-MR-2P）</system:String>
     <system:String x:Key="LangsSetLightNumber45">45 LED跑道中线灯（RCLS-12-LED-RC-MR-2P）</system:String>
+    
+    <system:String x:Key="LangsSetLightNumber46">46 LED嵌入式跑道边灯（RELC-12-LED-RR-B-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber47">47 LED嵌入式组合跑道边灯（RELC-12-LED-CB-C-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber48">48 LED滑行道中线灯（TCLMS-08-S-LED-GG-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber49">49 LED滑行道中线灯（TCLMS-08-S-LED-GY-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber50">50 LED滑行道中线灯（TCLMS-08-S-LED-YY-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber51">51 LED滑行道中线灯（TCLMS-08-S-LED-YB-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber52">52 LED滑行道中线灯（TCLMS-08-S-LED-GB-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber53">53 LED滑行道中线灯（TCLMS-08-C-LED-GG-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber54">54 LED滑行道中线灯（TCLMS-08-C-LED-GY-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber55">55 LED滑行道中线灯（TCLMS-08-C-LED-YY-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber56">56 LED滑行道中线灯（TCLMS-08-C-LED-YB-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber57">57 LED滑行道中线灯（TCLMS-08-C-LED-GB-1P）</system:String>
+    <system:String x:Key="LangsSetLightNumber58">58 LED滑行道中线灯（TCLMS-08-S-LED-GG-2P）</system:String>
+    <system:String x:Key="LangsSetLightNumber59">59 LED滑行道中线灯（TCLMS-08-S-LED-GY-2P）</system:String>
+    <system:String x:Key="LangsSetLightNumber60">60 LED滑行道中线灯（TCLMS-08-S-LED-YY-2P）</system:String>
+    <system:String x:Key="LangsSetLightNumber61">61 LED滑行道中线灯（TCLMS-08-S-LED-YB-2P）</system:String>
+    <system:String x:Key="LangsSetLightNumber62">62 LED滑行道中线灯（TCLMS-08-S-LED-GB-2P）</system:String>
+    <system:String x:Key="LangsSetLightNumber63">63 LED滑行道中线灯（TCLMS-08-C-LED-GG-2P）</system:String>
+    <system:String x:Key="LangsSetLightNumber64">64 LED滑行道中线灯（TCLMS-08-C-LED-GY-2P）</system:String>
+    <system:String x:Key="LangsSetLightNumber65">65 LED滑行道中线灯（TCLMS-08-C-LED-YY-2P）</system:String>
+    <system:String x:Key="LangsSetLightNumber66">66 LED滑行道中线灯（TCLMS-08-C-LED-YB-2P）</system:String>
+    <system:String x:Key="LangsSetLightNumber67">67 LED滑行道中线灯（TCLMS-08-C-LED-GB-2P）</system:String>
+    <system:String x:Key="LangsSetLightNumber68">68 LED嵌入式滑行道边灯（TOEL-08-LED-B）</system:String>
+    <system:String x:Key="LangsSetLightNumber69">69 LED嵌入式停止排灯（SBLMS-08-S-LED-R）</system:String>
+    <system:String x:Key="LangsSetLightNumber70">70 LED中间等待位置灯（TPLMS-08-S-LED-Y）</system:String>
+    <system:String x:Key="LangsSetLightNumber71">71 LED滑行道交叉口灯（TOIL-08-L-LED-Y）</system:String>
+    <system:String x:Key="LangsSetLightNumber84">84 LED航空器停机位操作引导灯（ASMG-08-LED-Y-M）</system:String>
+    <system:String x:Key="LangsSetLightNumber85">85 LED航空器停机位操作引导停止灯（ASMS-08-LED-R）</system:String>
+
     <system:String x:Key="LangsDeveloperModeSendCommand">发送指令：</system:String>
     <system:String x:Key="LangsSetLightParametersInDeveloperMode">参数设置</system:String>
     <system:String x:Key="LangsDeveloperModeStatusQuery">状态查询</system:String>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LEDLampsConfigurationSoftware"
         mc:Ignorable="d"
-        Title="ASCMS V1.9.2" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Name="ConfigurationWindow" Icon=".\Images\tubiao.png">
+        Title="ASCMS V1.9.3" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Name="ConfigurationWindow" Icon=".\Images\tubiao.png">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontSize" Value="18"/>
@@ -581,6 +581,34 @@
                                                                 <ComboBoxItem Content="{DynamicResource LangsSetLightNumber43}"></ComboBoxItem>
                                                                 <ComboBoxItem Content="{DynamicResource LangsSetLightNumber44}"></ComboBoxItem>
                                                                 <ComboBoxItem Content="{DynamicResource LangsSetLightNumber45}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber46}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber47}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber48}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber49}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber50}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber51}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber52}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber53}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber54}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber55}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber56}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber57}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber58}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber59}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber60}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber61}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber62}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber63}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber64}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber65}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber66}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber67}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber68}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber69}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber70}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber71}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber84}"></ComboBoxItem>
+                                                                <ComboBoxItem Content="{DynamicResource LangsSetLightNumber85}"></ComboBoxItem>
                                                             </ComboBox>
                                                         </Border>
                                                         <RadioButton x:Name="SetReadResistanceFalse" Content="{DynamicResource LangsSetReadResistanceFalse}" FontSize="16" Canvas.Left="139" Canvas.Top="225" GroupName="ReadResistance" BorderBrush="#FF0A51A1" BorderThickness="1" Checked="SetReadResistanceFalse_Checked" IsChecked="True"/>
