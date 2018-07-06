@@ -103,6 +103,7 @@ namespace LEDLampsConfigurationSoftware
             new double[7]{8,0,1,3,2,1,0.66 },
             new double[7]{8,0,1,4,1,1,0.66},
             new double[7]{8,4,1,1,2,1,0.66 },
+            new double[7]{8,4,1,2,2,1,0.66 },
             new double[7]{9,9,2,0,1,1,0.66},
             new double[7]{12,0,1,3,2,1,1 },
             new double[7]{12,0,1,2,2,1,1 },
@@ -271,6 +272,25 @@ namespace LEDLampsConfigurationSoftware
         ArrayList FlashFrequencyRWYGuardLight = new ArrayList();
         ArrayList ModeRWYGuardLight = new ArrayList();
         ArrayList ErrorCodeRWYGuardLight = new ArrayList();
+        #endregion
+
+        #region 8寸警戒灯V2灯具各项参数存储集合
+        ArrayList RMS1RWYGuardLightV2 = new ArrayList();
+        ArrayList Val2RWYGuardLightV2 = new ArrayList();
+        ArrayList TCheckRWYGuardLightV2 = new ArrayList();
+        ArrayList RMSRWYGuardLightV2 = new ArrayList();
+        ArrayList CurrentRatio1RWYGuardLightV2 = new ArrayList();
+        ArrayList CurrentRatio3RWYGuardLightV2 = new ArrayList();
+        ArrayList WaveformRWYGuardLightV2 = new ArrayList();
+        ArrayList ChannelRWYGuardLightV2 = new ArrayList();
+        ArrayList SNSIARWYGuardLightV2 = new ArrayList();
+        ArrayList SNSIIARWYGuardLightV2 = new ArrayList();
+        ArrayList LEDF1RWYGuardLightV2 = new ArrayList();
+        ArrayList TRWYGuardLightV2= new ArrayList();
+        ArrayList SecondRWYGuardLightV2 = new ArrayList();
+        ArrayList FlashFrequencyRWYGuardLightV2 = new ArrayList();
+        ArrayList ModeRWYGuardLightV2 = new ArrayList();
+        ArrayList ErrorCodeRWYGuardLightV2 = new ArrayList();
         #endregion
 
         #region 双路滑中驱动各项参数存储集合
@@ -460,6 +480,7 @@ namespace LEDLampsConfigurationSoftware
         string CreateExcel9 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel9");
         string CreateExcel10 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel10");
         string CreateExcel11 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel11");
+        string CreateExcel12 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel12");
 
 
         string CreateTxt1 = (string)System.Windows.Application.Current.FindResource("LangsCreateTxt1");
@@ -1901,8 +1922,18 @@ namespace LEDLampsConfigurationSoftware
                     }
                     else if (hardwareVersion1 == 8 && softwareNumber == 4)
                     {
-                        RWYGuardLampDataAnalysis(receivedStatusFeedbackCommand);
-                        RWYGuardLampParametersCreatExcel();
+                        if(receivedStatusFeedbackCommand[2]==0x01)
+                        {
+                            RWYGuardLampDataAnalysis(receivedStatusFeedbackCommand);
+                            RWYGuardLampParametersCreatExcel();
+                        }
+                        else if(receivedStatusFeedbackCommand[2]==0x02)
+                        {
+                            RWYGuardV2LampDataAnalysis(receivedStatusFeedbackCommand);
+                            RWYGuardV2LampParametersCreatExcel();
+                        }
+
+                        
                     }
                     else if (hardwareVersion1 == 5 && softwareNumber == 6)
                     {
@@ -3536,6 +3567,253 @@ namespace LEDLampsConfigurationSoftware
                 ExcelApp.Quit();                                                                      //退出Excel应用程序    
 
                 ClearRWYGuardLampsParameters();
+
+                ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
+                }));
+
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show(MessageboxContent28, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
+            }
+            catch
+            {
+                ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    ShowEXCELHandleProcess.Visibility = Visibility.Hidden;
+                }));
+
+                this.Dispatcher.Invoke(new System.Action(() =>
+                {
+                    if (MessageBox.Show(MessageboxContent29, MessageboxHeader1, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
+                    {
+                        ConfigurationWindow.IsEnabled = true;
+                    }
+                    else
+                    {
+                        ConfigurationWindow.IsEnabled = false;
+                    }
+                }));
+            }
+        }
+        #endregion
+
+        #region 8寸警戒灯V2灯具状态信息解析
+        private void RWYGuardV2LampDataAnalysis(byte[] CompleteData)
+        {
+            byte[][] DataArray;
+            ArrayList commandCount = new ArrayList();
+
+            for (int i = 0; i < CompleteData.Length; i++)
+            {
+                if (CompleteData[i] == 0x02 && CompleteData[i + 1] == 0xAA && CompleteData[i + 2] == 0x02 && CompleteData[i + 3] == 0x08 && CompleteData[i + 4] == 0x04)
+                {
+                    commandCount.Add(i);
+                }
+            }
+
+            DataArray = new byte[commandCount.Count][];
+
+            for (int i = 0; i < commandCount.Count; i++)
+            {
+                if (i < commandCount.Count - 1)
+                {
+                    DataArray[i] = new byte[(int)commandCount[i + 1] - (int)commandCount[i]];
+                }
+                else
+                {
+                    DataArray[i] = new byte[CompleteData.Length - (int)commandCount[i]];
+                }
+
+                for (int j = 0; j < DataArray[i].Length; j++)
+                {
+                    DataArray[i][j] = CompleteData[(int)commandCount[i] + j];
+                }
+            }
+
+            for (int i = 0; i < DataArray.Length; i++)
+            {
+                if (DataArray[i].Length == 32)
+                {
+                    byte checkOutValue = CalculateCheckOutValue(DataArray[i]);
+                    if (checkOutValue == DataArray[i][DataArray[i].Length - 1])
+                    {
+                        RMS1RWYGuardLightV2.Add(DataArray[i][5] * 1100);
+                        Val2RWYGuardLightV2.Add(DataArray[i][6] * 20);
+                        TCheckRWYGuardLightV2.Add(DataArray[i][7]*16);
+                        RMSRWYGuardLightV2.Add(DataArray[i][8] * 4);
+                        CurrentRatio1RWYGuardLightV2.Add((float)(DataArray[i][9] / 10.0));
+                        CurrentRatio3RWYGuardLightV2.Add((float)(DataArray[i][10] / 10.0));
+                        WaveformRWYGuardLightV2.Add(DataArray[i][11]);
+                        ChannelRWYGuardLightV2.Add(DataArray[i][12]);
+                        SNSIARWYGuardLightV2.Add(DataArray[i][13] * 16);
+                        SNSIIARWYGuardLightV2.Add(DataArray[i][14] * 16);
+                        LEDF1RWYGuardLightV2.Add(DataArray[i][15]);
+                        TRWYGuardLightV2.Add((SByte)DataArray[i][16]);
+                        FlashFrequencyRWYGuardLightV2.Add(DataArray[i][21]);
+                        ModeRWYGuardLightV2.Add(DataArray[i][22]);
+
+                        int SecondResult = 0;
+                        for (int j = 0; j < 4; j++)
+                        {
+                            int SecondOrigin = DataArray[i][17 + j];
+                            SecondResult |= SecondOrigin;
+                            if (j < 3)
+                            {
+                                SecondResult <<= 8;
+                            }
+                        }
+                        SecondRWYGuardLightV2.Add(SecondResult);
+                        ErrorCodeRWYGuardLightV2.Add("No Error");
+                    }
+                    else
+                    {
+                        RWYGuardV2LampCheckValueErrorHandle();
+                    }
+                }
+                else
+                {
+                    RWYGuardV2LampCommandLengthErrorHandle();
+                }
+            }
+
+        }
+
+        private void RWYGuardV2LampCheckValueErrorHandle()
+        {
+            RMS1RWYGuardLightV2.Add("Null");
+            Val2RWYGuardLightV2.Add("Null");
+            TCheckRWYGuardLightV2.Add("Null");
+            RMSRWYGuardLightV2.Add("Null");
+            CurrentRatio1RWYGuardLightV2.Add("Null");
+            CurrentRatio3RWYGuardLightV2.Add("Null");
+            WaveformRWYGuardLightV2.Add("Null");
+            ChannelRWYGuardLightV2.Add("Null");
+            SNSIARWYGuardLightV2.Add("Null");
+            SNSIIARWYGuardLightV2.Add("Null");
+            LEDF1RWYGuardLightV2.Add("Null");
+            TRWYGuardLightV2.Add("Null");
+            FlashFrequencyRWYGuardLightV2.Add("Null");
+            ModeRWYGuardLightV2.Add("Null");
+            SecondRWYGuardLightV2.Add("Null");
+            ErrorCodeRWYGuardLightV2.Add("Check Value Error");
+        }
+
+        private void RWYGuardV2LampCommandLengthErrorHandle()
+        {
+            RMS1RWYGuardLightV2.Add("Null");
+            Val2RWYGuardLightV2.Add("Null");
+            TCheckRWYGuardLightV2.Add("Null");
+            RMSRWYGuardLightV2.Add("Null");
+            CurrentRatio1RWYGuardLightV2.Add("Null");
+            CurrentRatio3RWYGuardLightV2.Add("Null");
+            WaveformRWYGuardLightV2.Add("Null");
+            ChannelRWYGuardLightV2.Add("Null");
+            SNSIARWYGuardLightV2.Add("Null");
+            SNSIIARWYGuardLightV2.Add("Null");
+            LEDF1RWYGuardLightV2.Add("Null");
+            TRWYGuardLightV2.Add("Null");
+            FlashFrequencyRWYGuardLightV2.Add("Null");
+            ModeRWYGuardLightV2.Add("Null");
+            SecondRWYGuardLightV2.Add("Null");
+            ErrorCodeRWYGuardLightV2.Add("Command Length Error");
+        }
+
+        private void ClearRWYGuardV2LampsParameters()
+        {
+            RMS1RWYGuardLightV2.Clear();
+            Val2RWYGuardLightV2.Clear();
+            TCheckRWYGuardLightV2.Clear();
+            RMSRWYGuardLightV2.Clear();
+            CurrentRatio1RWYGuardLightV2.Clear();
+            CurrentRatio3RWYGuardLightV2.Clear();
+            WaveformRWYGuardLightV2.Clear();
+            ChannelRWYGuardLightV2.Clear();
+            SNSIARWYGuardLightV2.Clear();
+            SNSIIARWYGuardLightV2.Clear();
+            LEDF1RWYGuardLightV2.Clear();
+            TRWYGuardLightV2.Clear();
+            FlashFrequencyRWYGuardLightV2.Clear();
+            ModeRWYGuardLightV2.Clear();
+            SecondRWYGuardLightV2.Clear();
+            ErrorCodeRWYGuardLightV2.Clear();
+        }
+
+        void RWYGuardV2LampParametersCreatExcel()
+        {
+            try
+            {
+                //创建excel模板
+                str_fileName = "d:\\ " + CreateExcel12 + " " + CreateExcel1 + " " + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xlsx";    //文件保存路径及名称
+                ExcelApp = new Microsoft.Office.Interop.Excel.Application();                          //创建Excel应用程序 ExcelApp
+                ExcelDoc = ExcelApp.Workbooks.Add(Type.Missing);                                      //在应用程序ExcelApp下，创建工作簿ExcelDoc
+                ExcelSheet = ExcelDoc.Worksheets.Add(Type.Missing);                                   //在工作簿ExcelDoc下，创建工作表ExcelSheet
+
+                //设置Excel列名           
+                ExcelSheet.Cells[1, 1] = CreateExcel12 + " " + CreateExcel1;
+                ExcelSheet.Cells[2, 1] = CreateExcel2;
+                ExcelSheet.Cells[2, 2] = "RMS1";
+                ExcelSheet.Cells[2, 3] = "Val2";
+                ExcelSheet.Cells[2, 4] = "T_CHECK";
+                ExcelSheet.Cells[2, 5] = "RMS";
+                ExcelSheet.Cells[2, 6] = "Current_Ratio1";
+                ExcelSheet.Cells[2, 7] = "Current_Ratio3";
+                ExcelSheet.Cells[2, 8] = "Waveform";
+                ExcelSheet.Cells[2, 9] = "Channel";
+                ExcelSheet.Cells[2, 10] = "SNS_IA";
+                ExcelSheet.Cells[2, 11] = "SNS_IIA";
+                ExcelSheet.Cells[2, 12] = "LED_F1";
+                ExcelSheet.Cells[2, 13] = "T";
+                ExcelSheet.Cells[2, 14] = "Second";
+                ExcelSheet.Cells[2, 15] = "Flash Frequency";
+                ExcelSheet.Cells[2, 16] = "Mode";
+                ExcelSheet.Cells[2, 17] = "Error Code";
+
+                //输出各个参数值
+                for (int i = 0; i < RMS1RWYGuardLightV2.Count; i++)
+                {
+                    ExcelSheet.Cells[3 + i, 1] = (i + 1).ToString();
+                    ExcelSheet.Cells[3 + i, 2] = RMS1RWYGuardLightV2[i].ToString();
+                    ExcelSheet.Cells[3 + i, 3] = Val2RWYGuardLightV2[i].ToString();
+                    ExcelSheet.Cells[3 + i, 4] = TCheckRWYGuardLightV2[i].ToString();
+                    ExcelSheet.Cells[3 + i, 5] = RMSRWYGuardLightV2[i].ToString();
+                    ExcelSheet.Cells[3 + i, 6] = CurrentRatio1RWYGuardLightV2[i].ToString();
+                    ExcelSheet.Cells[3 + i, 7] = CurrentRatio3RWYGuardLightV2[i].ToString();
+                    ExcelSheet.Cells[3 + i, 8] = WaveformRWYGuardLightV2[i].ToString();
+                    ExcelSheet.Cells[3 + i, 9] = ChannelRWYGuardLightV2[i].ToString();
+                    ExcelSheet.Cells[3 + i, 10] = SNSIARWYGuardLightV2[i].ToString();
+                    ExcelSheet.Cells[3 + i, 11] = SNSIIARWYGuardLightV2[i].ToString();
+                    ExcelSheet.Cells[3 + i, 12] = LEDF1RWYGuardLightV2[i].ToString();
+                    ExcelSheet.Cells[3 + i, 13] = TRWYGuardLightV2[i].ToString();
+                    ExcelSheet.Cells[3 + i, 15] = FlashFrequencyRWYGuardLightV2[i].ToString();
+                    ExcelSheet.Cells[3 + i, 16] = ModeRWYGuardLightV2[i].ToString();
+                    ExcelSheet.Cells[3 + i, 17] = ErrorCodeRWYGuardLightV2[i].ToString();
+
+                    if (SecondRWYGuardLightV2[i].ToString() == "Null")
+                    {
+                        ExcelSheet.Cells[3 + i, 14] = SecondRWYGuardLightV2[i].ToString();
+                    }
+                    else
+                    {
+                        ExcelSheet.Cells[3 + i, 14] = ((int)SecondRWYGuardLightV2[i] / 3600).ToString() + ":" + (((int)SecondRWYGuardLightV2[i] % 3600) / 60).ToString() + ":" + (((int)SecondRWYGuardLightV2[i] % 3600) % 60).ToString();
+                    }
+
+                }
+
+                ExcelSheet.SaveAs(str_fileName);                                                      //保存Excel工作表
+                ExcelDoc.Close(Type.Missing, str_fileName, Type.Missing);                             //关闭Excel工作簿
+                ExcelApp.Quit();                                                                      //退出Excel应用程序    
+
+                ClearRWYGuardV2LampsParameters();
 
                 ShowEXCELHandleProcess.Dispatcher.Invoke(new System.Action(() =>
                 {
@@ -10169,6 +10447,7 @@ namespace LEDLampsConfigurationSoftware
             CreateExcel9 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel9");
             CreateExcel10 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel10");
             CreateExcel11 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel11");
+            CreateExcel12 = (string)System.Windows.Application.Current.FindResource("LangsCreateExcel12");
 
 
             CreateTxt1 = (string)System.Windows.Application.Current.FindResource("LangsCreateTxt1");

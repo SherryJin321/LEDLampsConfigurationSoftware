@@ -311,6 +311,8 @@
     <system:String x:Key="LangsCreateExcel9">Elevated RWY Light Drive</system:String>
     <system:String x:Key="LangsCreateExcel10">8 inches with version 2.0</system:String>
     <system:String x:Key="LangsCreateExcel11">8 inches</system:String>
+    <system:String x:Key="LangsCreateExcel12">RWY guard light with version 2.0</system:String>
+
 
 
     <system:String x:Key="LangsCreateTxt1">lamp original data</system:String>

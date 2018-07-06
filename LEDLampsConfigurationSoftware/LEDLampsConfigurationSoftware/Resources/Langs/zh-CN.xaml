@@ -323,6 +323,8 @@
     <system:String x:Key="LangsCreateExcel9">立式跑道灯具驱动</system:String>
     <system:String x:Key="LangsCreateExcel10">8寸V2.0</system:String>
     <system:String x:Key="LangsCreateExcel11">8寸</system:String>
+    <system:String x:Key="LangsCreateExcel12">跑道警戒灯V2.0</system:String>
+
 
     <system:String x:Key="LangsCreateTxt1">灯具原始数据</system:String>
 
