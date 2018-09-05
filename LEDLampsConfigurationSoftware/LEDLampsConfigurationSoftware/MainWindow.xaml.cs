@@ -1596,6 +1596,7 @@ namespace LEDLampsConfigurationSoftware
                 Select8inchesRWYEndLight.IsEnabled = true;
                 SelectRapidExitTWYIndicatorLight.IsEnabled = true;                
                 SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = true;
+                SelectTWYIntersectionsLight.IsEnabled = true;
 
 
             }));
@@ -1630,7 +1631,6 @@ namespace LEDLampsConfigurationSoftware
                 SelectRWYTouchdownZoneLight.IsEnabled = true;
                 Select8inchesRWYEndLight.IsEnabled = true;
                 SelectRapidExitTWYIndicatorLight.IsEnabled = true;
-                SelectTWYIntersectionsLight.IsEnabled = true;
 
             }));
         }
