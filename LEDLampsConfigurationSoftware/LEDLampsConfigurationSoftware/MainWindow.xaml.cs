@@ -1597,6 +1597,7 @@ namespace LEDLampsConfigurationSoftware
                 SelectRapidExitTWYIndicatorLight.IsEnabled = true;                
                 SelectAircraftStandManoeuvringGuidanceLight.IsEnabled = true;
 
+
             }));
         }
 
@@ -1629,6 +1630,8 @@ namespace LEDLampsConfigurationSoftware
                 SelectRWYTouchdownZoneLight.IsEnabled = true;
                 Select8inchesRWYEndLight.IsEnabled = true;
                 SelectRapidExitTWYIndicatorLight.IsEnabled = true;
+                SelectTWYIntersectionsLight.IsEnabled = true;
+
             }));
         }
 
@@ -1712,7 +1715,6 @@ namespace LEDLampsConfigurationSoftware
                 SelectTWYCenterLight.IsEnabled = true;
                 SelectTWYStopBarLight.IsEnabled = true;
                 SelectIntermediateHoldingPositionLight.IsEnabled = true;
-                SelectTWYIntersectionsLight.IsEnabled = true;
                 SelectTWYEdgeLight.IsEnabled = true;
                 SelectAircraftStandManoeuvringGuidanceStopLight.IsEnabled = true;
             }));
@@ -6984,7 +6986,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
             SelectOpenCircuitFalse.Visibility = Visibility.Visible;
 
-            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitTrue.IsEnabled = true;
             SelectOpenCircuitFalse.IsEnabled = true;
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
@@ -7006,7 +7008,7 @@ namespace LEDLampsConfigurationSoftware
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
             SelectOpenCircuitFalse.Visibility = Visibility.Visible;
 
-            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitTrue.IsEnabled = true;
             SelectOpenCircuitFalse.IsEnabled = true;
             SelectOpenCircuitTrue.IsChecked = false;
             SelectOpenCircuitFalse.IsChecked = false;
@@ -9012,8 +9014,8 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureTOIL08LLEDYParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x00;
-            settingIA[2] = 0x00;
+            settingIA[1] = 0x07;
+            settingIA[2] = 0x06;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
             settingIB[1] = 0x00;
@@ -9027,7 +9029,7 @@ namespace LEDLampsConfigurationSoftware
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x00;
+            settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x47;
         }
@@ -9035,8 +9037,8 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureTOEL08LEDBParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x00;
-            settingIA[2] = 0x00;
+            settingIA[1] = 0x08;
+            settingIA[2] = 0x05;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
             settingIB[1] = 0x00;
@@ -9050,7 +9052,7 @@ namespace LEDLampsConfigurationSoftware
             settingIIB[1] = 0x00;
             settingIIB[2] = 0x00;
             settingIIB[3] = 0x00;
-            settingReadRFlag = 0x00;
+            settingReadRFlag = 0x01;
             settingMosFlag = 0x00;
             settingLampsNumber = 0x44;
         }
