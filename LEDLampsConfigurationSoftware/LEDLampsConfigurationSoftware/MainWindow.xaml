@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LEDLampsConfigurationSoftware"
         mc:Ignorable="d"
-        Title="ASCMS V1.10.2" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Name="ConfigurationWindow" Icon=".\Images\tubiao.png">
+        Title="ASCMS V1.10.3" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Name="ConfigurationWindow" Icon=".\Images\tubiao.png">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontSize" Value="18"/>

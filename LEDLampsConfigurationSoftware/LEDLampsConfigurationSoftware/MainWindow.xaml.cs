@@ -9037,8 +9037,8 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureTOEL08LEDBParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x08;
-            settingIA[2] = 0x05;
+            settingIA[1] = 0x06;
+            settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
             settingIB[1] = 0x00;
