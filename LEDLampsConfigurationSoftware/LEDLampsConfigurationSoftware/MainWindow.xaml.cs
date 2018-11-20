@@ -8277,9 +8277,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void ConfigureRELC12LEDCYC1PParameters()
         {
-            settingIA[0] = 0x00;
-            settingIA[1] = 0x09;
-            settingIA[2] = 0x03;
+            settingIA[0] = 0x01;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
             settingIB[1] = 0x07;
@@ -8300,13 +8300,13 @@ namespace LEDLampsConfigurationSoftware
 
         private void ConfigureRELC12LEDCCC1PParameters()
         {
-            settingIA[0] = 0x00;
-            settingIA[1] = 0x09;
-            settingIA[2] = 0x03;
+            settingIA[0] = 0x01;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
             settingIA[3] = 0x00;
-            settingIB[0] = 0x00;
-            settingIB[1] = 0x09;
-            settingIB[2] = 0x03;
+            settingIB[0] = 0x01;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
             settingIIA[1] = 0x04;
@@ -8323,9 +8323,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void ConfigureRELC12LEDCRC1PParameters()
         {
-            settingIA[0] = 0x00;
-            settingIA[1] = 0x09;
-            settingIA[2] = 0x03;
+            settingIA[0] = 0x01;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
             settingIB[1] = 0x05;
@@ -8369,9 +8369,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void ConfigureRELC12LEDCYB1PParameters()
         {
-            settingIA[0] = 0x00;
-            settingIA[1] = 0x09;
-            settingIA[2] = 0x03;
+            settingIA[0] = 0x01;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
             settingIB[1] = 0x07;
@@ -8392,13 +8392,13 @@ namespace LEDLampsConfigurationSoftware
 
         private void ConfigureRELC12LEDCCB1PParameters()
         {
-            settingIA[0] = 0x00;
-            settingIA[1] = 0x09;
-            settingIA[2] = 0x03;
+            settingIA[0] = 0x01;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
             settingIA[3] = 0x00;
-            settingIB[0] = 0x00;
-            settingIB[1] = 0x09;
-            settingIB[2] = 0x03;
+            settingIB[0] = 0x01;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
             settingIIA[1] = 0x00;
@@ -8415,9 +8415,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void ConfigureRELC12LEDCRB1PParameters()
         {
-            settingIA[0] = 0x00;
-            settingIA[1] = 0x09;
-            settingIA[2] = 0x03;
+            settingIA[0] = 0x01;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
             settingIB[1] = 0x05;
@@ -8461,9 +8461,9 @@ namespace LEDLampsConfigurationSoftware
 
         private void ConfigureRELC12LEDCBC1PParameters()
         {
-            settingIA[0] = 0x00;
-            settingIA[1] = 0x09;
-            settingIA[2] = 0x03;
+            settingIA[0] = 0x01;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
             settingIB[1] = 0x00;
