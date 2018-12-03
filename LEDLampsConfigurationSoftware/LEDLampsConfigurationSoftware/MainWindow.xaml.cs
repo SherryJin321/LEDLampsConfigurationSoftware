@@ -206,25 +206,21 @@ namespace LEDLampsConfigurationSoftware
         ArrayList RMS1DoubleCircuitRWYCenterDrive = new ArrayList();
         ArrayList Val2DoubleCircuitRWYCenterDrive = new ArrayList();
         ArrayList RMS2DoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList TCHECKDoubleCircuitRWYCenterDrive = new ArrayList();
         ArrayList CurrentRatio1DoubleCircuitRWYCenterDrive = new ArrayList();
-        ArrayList CurrentRatio2DoubleCircuitRWYCenterDrive = new ArrayList();
         ArrayList CurrentRatio3DoubleCircuitRWYCenterDrive = new ArrayList();
-        ArrayList CurrentRatio4DoubleCircuitRWYCenterDrive = new ArrayList();
         ArrayList RMS1LASTDoubleCircuitRWYCenterDrive = new ArrayList();
         ArrayList RMS2LASTDoubleCircuitRWYCenterDrive = new ArrayList();
         ArrayList SNSIADoubleCircuitRWYCenterDrive = new ArrayList();
-        ArrayList SNSIBDoubleCircuitRWYCenterDrive = new ArrayList();
         ArrayList SNSIIADoubleCircuitRWYCenterDrive = new ArrayList();
-        ArrayList SNSIIBDoubleCircuitRWYCenterDrive = new ArrayList();
         ArrayList LEDF1DoubleCircuitRWYCenterDrive = new ArrayList();
         ArrayList LEDF2DoubleCircuitRWYCenterDrive = new ArrayList();
         ArrayList RESIADoubleCircuitRWYCenterDrive = new ArrayList();
-        ArrayList RESIBDoubleCircuitRWYCenterDrive = new ArrayList();
         ArrayList RESIIADoubleCircuitRWYCenterDrive = new ArrayList();
-        ArrayList RESIIBDoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList SHOCK1DoubleCircuitRWYCenterDrive = new ArrayList();
+        ArrayList SHOCK2DoubleCircuitRWYCenterDrive = new ArrayList();
         ArrayList TDoubleCircuitRWYCenterDrive = new ArrayList();
         ArrayList SecondDoubleCircuitRWYCenterDrive = new ArrayList();
-        ArrayList TCHECKDoubleCircuitRWYCenterDrive = new ArrayList();
         ArrayList ErrorCodeDoubleCircuitRWYCenterDrive = new ArrayList();
         #endregion
 
@@ -2824,29 +2820,26 @@ namespace LEDLampsConfigurationSoftware
                         RMS1DoubleCircuitRWYCenterDrive.Add(DataArray[i][5] * 1100);
                         Val2DoubleCircuitRWYCenterDrive.Add(DataArray[i][6] * 20);
                         RMS2DoubleCircuitRWYCenterDrive.Add(DataArray[i][7] * 1100);
-                        CurrentRatio1DoubleCircuitRWYCenterDrive.Add((float)(DataArray[i][8] / 10.0));
-                        CurrentRatio2DoubleCircuitRWYCenterDrive.Add((float)(DataArray[i][9] / 10.0));
+                        TCHECKDoubleCircuitRWYCenterDrive.Add(DataArray[i][8] * 16);
+                        CurrentRatio1DoubleCircuitRWYCenterDrive.Add((float)(DataArray[i][9] / 10.0));
                         CurrentRatio3DoubleCircuitRWYCenterDrive.Add((float)(DataArray[i][10] / 10.0));
-                        CurrentRatio4DoubleCircuitRWYCenterDrive.Add((float)(DataArray[i][11] / 10.0));
-                        RMS1LASTDoubleCircuitRWYCenterDrive.Add(DataArray[i][12] * 4);
-                        RMS2LASTDoubleCircuitRWYCenterDrive.Add(DataArray[i][13] * 4);
-                        SNSIADoubleCircuitRWYCenterDrive.Add(DataArray[i][14] * 16);
-                        SNSIBDoubleCircuitRWYCenterDrive.Add(DataArray[i][15] * 16);
-                        SNSIIADoubleCircuitRWYCenterDrive.Add(DataArray[i][16] * 16);
-                        SNSIIBDoubleCircuitRWYCenterDrive.Add(DataArray[i][17] * 16);
-                        LEDF1DoubleCircuitRWYCenterDrive.Add(DataArray[i][18]);
-                        LEDF2DoubleCircuitRWYCenterDrive.Add(DataArray[i][19]);
-                        RESIADoubleCircuitRWYCenterDrive.Add(DataArray[i][20] * 124);
-                        RESIBDoubleCircuitRWYCenterDrive.Add(DataArray[i][21] * 124);
-                        RESIIADoubleCircuitRWYCenterDrive.Add(DataArray[i][22] * 124);
-                        RESIIBDoubleCircuitRWYCenterDrive.Add(DataArray[i][23] * 124);
-                        TDoubleCircuitRWYCenterDrive.Add((SByte)DataArray[i][24]);
-                        TCHECKDoubleCircuitRWYCenterDrive.Add(DataArray[i][29]);                                               
+                        RMS1LASTDoubleCircuitRWYCenterDrive.Add(DataArray[i][11] * 4);
+                        RMS2LASTDoubleCircuitRWYCenterDrive.Add(DataArray[i][12] * 4);
+                        SNSIADoubleCircuitRWYCenterDrive.Add(DataArray[i][13] * 16);
+                        SNSIIADoubleCircuitRWYCenterDrive.Add(DataArray[i][14] * 16);
+                        LEDF1DoubleCircuitRWYCenterDrive.Add(DataArray[i][15]);
+                        LEDF2DoubleCircuitRWYCenterDrive.Add(DataArray[i][16]);
+                        RESIADoubleCircuitRWYCenterDrive.Add(DataArray[i][17] * 124);
+                        RESIIADoubleCircuitRWYCenterDrive.Add(DataArray[i][18] * 124);
+                        SHOCK1DoubleCircuitRWYCenterDrive.Add(DataArray[i][19]);
+                        SHOCK2DoubleCircuitRWYCenterDrive.Add(DataArray[i][20]);
+                        TDoubleCircuitRWYCenterDrive.Add((SByte)DataArray[i][21]);
+                                                              
 
                         int SecondResult = 0;
                         for (int j = 0; j < 4; j++)
                         {
-                            int SecondOrigin = DataArray[i][26 + j];
+                            int SecondOrigin = DataArray[i][22 + j];
                             SecondResult |= SecondOrigin;
                             if (j < 3)
                             {
@@ -2874,26 +2867,22 @@ namespace LEDLampsConfigurationSoftware
             RMS1DoubleCircuitRWYCenterDrive.Add("Null");
             Val2DoubleCircuitRWYCenterDrive.Add("Null");
             RMS2DoubleCircuitRWYCenterDrive.Add("Null");
+            TCHECKDoubleCircuitRWYCenterDrive.Add("Null");
             CurrentRatio1DoubleCircuitRWYCenterDrive.Add("Null");
-            CurrentRatio2DoubleCircuitRWYCenterDrive.Add("Null");
             CurrentRatio3DoubleCircuitRWYCenterDrive.Add("Null");
-            CurrentRatio4DoubleCircuitRWYCenterDrive.Add("Null");
             RMS1LASTDoubleCircuitRWYCenterDrive.Add("Null");
             RMS2LASTDoubleCircuitRWYCenterDrive.Add("Null");
             SNSIADoubleCircuitRWYCenterDrive.Add("Null");
-            SNSIBDoubleCircuitRWYCenterDrive.Add("Null");
             SNSIIADoubleCircuitRWYCenterDrive.Add("Null");
-            SNSIIBDoubleCircuitRWYCenterDrive.Add("Null");
             LEDF1DoubleCircuitRWYCenterDrive.Add("Null");
             LEDF2DoubleCircuitRWYCenterDrive.Add("Null");
             RESIADoubleCircuitRWYCenterDrive.Add("Null");
-            RESIBDoubleCircuitRWYCenterDrive.Add("Null");
             RESIIADoubleCircuitRWYCenterDrive.Add("Null");
-            RESIIBDoubleCircuitRWYCenterDrive.Add("Null");
+            SHOCK1DoubleCircuitRWYCenterDrive.Add("Null");
+            SHOCK2DoubleCircuitRWYCenterDrive.Add("Null");
             TDoubleCircuitRWYCenterDrive.Add("Null");
             SecondDoubleCircuitRWYCenterDrive.Add("Null");
-            TCHECKDoubleCircuitRWYCenterDrive.Add("Null");
-            ErrorCodeDoubleCircuitRWYCenterDrive.Add("Check Value Error");          
+            ErrorCodeDoubleCircuitRWYCenterDrive.Add("Check Value Error");
         }
 
         private void DoubleCircuitRWYCenterDriveLampCommandLengthErrorHandle()
@@ -2901,25 +2890,21 @@ namespace LEDLampsConfigurationSoftware
             RMS1DoubleCircuitRWYCenterDrive.Add("Null");
             Val2DoubleCircuitRWYCenterDrive.Add("Null");
             RMS2DoubleCircuitRWYCenterDrive.Add("Null");
+            TCHECKDoubleCircuitRWYCenterDrive.Add("Null");
             CurrentRatio1DoubleCircuitRWYCenterDrive.Add("Null");
-            CurrentRatio2DoubleCircuitRWYCenterDrive.Add("Null");
             CurrentRatio3DoubleCircuitRWYCenterDrive.Add("Null");
-            CurrentRatio4DoubleCircuitRWYCenterDrive.Add("Null");
             RMS1LASTDoubleCircuitRWYCenterDrive.Add("Null");
             RMS2LASTDoubleCircuitRWYCenterDrive.Add("Null");
             SNSIADoubleCircuitRWYCenterDrive.Add("Null");
-            SNSIBDoubleCircuitRWYCenterDrive.Add("Null");
             SNSIIADoubleCircuitRWYCenterDrive.Add("Null");
-            SNSIIBDoubleCircuitRWYCenterDrive.Add("Null");
             LEDF1DoubleCircuitRWYCenterDrive.Add("Null");
             LEDF2DoubleCircuitRWYCenterDrive.Add("Null");
             RESIADoubleCircuitRWYCenterDrive.Add("Null");
-            RESIBDoubleCircuitRWYCenterDrive.Add("Null");
             RESIIADoubleCircuitRWYCenterDrive.Add("Null");
-            RESIIBDoubleCircuitRWYCenterDrive.Add("Null");
+            SHOCK1DoubleCircuitRWYCenterDrive.Add("Null");
+            SHOCK2DoubleCircuitRWYCenterDrive.Add("Null");
             TDoubleCircuitRWYCenterDrive.Add("Null");
             SecondDoubleCircuitRWYCenterDrive.Add("Null");
-            TCHECKDoubleCircuitRWYCenterDrive.Add("Null");
             ErrorCodeDoubleCircuitRWYCenterDrive.Add("Command Length Error");           
         }
 
@@ -2928,26 +2913,22 @@ namespace LEDLampsConfigurationSoftware
             RMS1DoubleCircuitRWYCenterDrive.Clear();
             Val2DoubleCircuitRWYCenterDrive.Clear();
             RMS2DoubleCircuitRWYCenterDrive.Clear();
+            TCHECKDoubleCircuitRWYCenterDrive.Clear();
             CurrentRatio1DoubleCircuitRWYCenterDrive.Clear();
-            CurrentRatio2DoubleCircuitRWYCenterDrive.Clear();
             CurrentRatio3DoubleCircuitRWYCenterDrive.Clear();
-            CurrentRatio4DoubleCircuitRWYCenterDrive.Clear();
             RMS1LASTDoubleCircuitRWYCenterDrive.Clear();
             RMS2LASTDoubleCircuitRWYCenterDrive.Clear();
             SNSIADoubleCircuitRWYCenterDrive.Clear();
-            SNSIBDoubleCircuitRWYCenterDrive.Clear();
             SNSIIADoubleCircuitRWYCenterDrive.Clear();
-            SNSIIBDoubleCircuitRWYCenterDrive.Clear();
             LEDF1DoubleCircuitRWYCenterDrive.Clear();
             LEDF2DoubleCircuitRWYCenterDrive.Clear();
             RESIADoubleCircuitRWYCenterDrive.Clear();
-            RESIBDoubleCircuitRWYCenterDrive.Clear();
             RESIIADoubleCircuitRWYCenterDrive.Clear();
-            RESIIBDoubleCircuitRWYCenterDrive.Clear();
+            SHOCK1DoubleCircuitRWYCenterDrive.Clear();
+            SHOCK2DoubleCircuitRWYCenterDrive.Clear();
             TDoubleCircuitRWYCenterDrive.Clear();
             SecondDoubleCircuitRWYCenterDrive.Clear();
-            TCHECKDoubleCircuitRWYCenterDrive.Clear();
-            ErrorCodeDoubleCircuitRWYCenterDrive.Clear();           
+            ErrorCodeDoubleCircuitRWYCenterDrive.Clear();
         }
         
         void DoubleCircuitRWYCenterDriveLampParametersCreatExcel()
@@ -2966,26 +2947,23 @@ namespace LEDLampsConfigurationSoftware
                 ExcelSheet.Cells[2, 2] = "RMS1";
                 ExcelSheet.Cells[2, 3] = "Val2"; 
                 ExcelSheet.Cells[2, 4] = "RMS2";
-                ExcelSheet.Cells[2, 5] = "Current_Ratio1";
-                ExcelSheet.Cells[2, 6] = "Current_Ratio2";
+                ExcelSheet.Cells[2, 5] = "T_Check";
+                ExcelSheet.Cells[2, 6] = "Current_Ratio1";
                 ExcelSheet.Cells[2, 7] = "Current_Ratio3";
-                ExcelSheet.Cells[2, 8] = "Current_Ratio4";
-                ExcelSheet.Cells[2, 9] = "RMS1_Last";
-                ExcelSheet.Cells[2, 10] = "RMS2_Last";
-                ExcelSheet.Cells[2, 11] = "SNS_IA";
-                ExcelSheet.Cells[2, 12] = "SNS_IB";
-                ExcelSheet.Cells[2, 13] = "SNS_IIA"; 
-                ExcelSheet.Cells[2, 14] = "SNS_IIB"; 
-                ExcelSheet.Cells[2, 15] = "LED_F1"; 
-                ExcelSheet.Cells[2, 16] = "LED_F2"; 
-                ExcelSheet.Cells[2, 17] = "RES_IA";
-                ExcelSheet.Cells[2, 18] = "RES_IB";
-                ExcelSheet.Cells[2, 19] = "RES_IIA";
-                ExcelSheet.Cells[2, 20] = "RES_IIB";
-                ExcelSheet.Cells[2, 21] = "T";
-                ExcelSheet.Cells[2, 22] = "Second";
-                ExcelSheet.Cells[2, 23] = "T_Check";
-                ExcelSheet.Cells[2, 24] = "Error Code";                
+                ExcelSheet.Cells[2, 8] = "RMS1_Last";
+                ExcelSheet.Cells[2, 9] = "RMS2_Last";
+                ExcelSheet.Cells[2, 10] = "SNS_IA";
+                ExcelSheet.Cells[2, 11] = "SNS_IIA";
+                ExcelSheet.Cells[2, 12] = "LED_F1";
+                ExcelSheet.Cells[2, 13] = "LED_F2"; 
+                ExcelSheet.Cells[2, 14] = "RES_IA"; 
+                ExcelSheet.Cells[2, 15] = "RES_IIA"; 
+                ExcelSheet.Cells[2, 16] = "Shock 1"; 
+                ExcelSheet.Cells[2, 17] = "Shock 2";
+                ExcelSheet.Cells[2, 18] = "T";
+                ExcelSheet.Cells[2, 19] = "Second";
+                ExcelSheet.Cells[2, 20] = "Error Code";
+                     
 
                 //输出各个参数值
                 for (int i = 0; i < RMS1DoubleCircuitRWYCenterDrive.Count; i++)
@@ -2994,33 +2972,30 @@ namespace LEDLampsConfigurationSoftware
                     ExcelSheet.Cells[3 + i, 2] = RMS1DoubleCircuitRWYCenterDrive[i].ToString();
                     ExcelSheet.Cells[3 + i, 3] = Val2DoubleCircuitRWYCenterDrive[i].ToString();
                     ExcelSheet.Cells[3 + i, 4] = RMS2DoubleCircuitRWYCenterDrive[i].ToString();
-                    ExcelSheet.Cells[3 + i, 5] = CurrentRatio1DoubleCircuitRWYCenterDrive[i].ToString();
-                    ExcelSheet.Cells[3 + i, 6] = CurrentRatio2DoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 5] = TCHECKDoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 6] = CurrentRatio1DoubleCircuitRWYCenterDrive[i].ToString();
                     ExcelSheet.Cells[3 + i, 7] = CurrentRatio3DoubleCircuitRWYCenterDrive[i].ToString();
-                    ExcelSheet.Cells[3 + i, 8] = CurrentRatio4DoubleCircuitRWYCenterDrive[i].ToString();
-                    ExcelSheet.Cells[3 + i, 9] = RMS1LASTDoubleCircuitRWYCenterDrive[i].ToString();
-                    ExcelSheet.Cells[3 + i, 10] = RMS2LASTDoubleCircuitRWYCenterDrive[i].ToString();
-                    ExcelSheet.Cells[3 + i, 11] = SNSIADoubleCircuitRWYCenterDrive[i].ToString();
-                    ExcelSheet.Cells[3 + i, 12] = SNSIBDoubleCircuitRWYCenterDrive[i].ToString();
-                    ExcelSheet.Cells[3 + i, 13] = SNSIIADoubleCircuitRWYCenterDrive[i].ToString();
-                    ExcelSheet.Cells[3 + i, 14] = SNSIIBDoubleCircuitRWYCenterDrive[i].ToString();
-                    ExcelSheet.Cells[3 + i, 15] = LEDF1DoubleCircuitRWYCenterDrive[i].ToString();
-                    ExcelSheet.Cells[3 + i, 16] = LEDF2DoubleCircuitRWYCenterDrive[i].ToString();
-                    ExcelSheet.Cells[3 + i, 17] = RESIADoubleCircuitRWYCenterDrive[i].ToString();
-                    ExcelSheet.Cells[3 + i, 18] = RESIBDoubleCircuitRWYCenterDrive[i].ToString();
-                    ExcelSheet.Cells[3 + i, 19] = RESIIADoubleCircuitRWYCenterDrive[i].ToString();
-                    ExcelSheet.Cells[3 + i, 20] = RESIIBDoubleCircuitRWYCenterDrive[i].ToString();
-                    ExcelSheet.Cells[3 + i, 21] = TDoubleCircuitRWYCenterDrive[i].ToString();
-                    ExcelSheet.Cells[3 + i, 23] = TCHECKDoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 8] = RMS1LASTDoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 9] = RMS2LASTDoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 10] = SNSIADoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 11] = SNSIIADoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 12] = LEDF1DoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 13] = LEDF2DoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 14] = RESIADoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 15] = RESIIADoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 16] = SHOCK1DoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 17] = SHOCK2DoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 18] = TDoubleCircuitRWYCenterDrive[i].ToString();
+                    
                     if (SecondDoubleCircuitRWYCenterDrive[i].ToString() == "Null")
                     {
-                        ExcelSheet.Cells[3 + i, 22] = SecondDoubleCircuitRWYCenterDrive[i].ToString();
+                        ExcelSheet.Cells[3 + i, 19] = SecondDoubleCircuitRWYCenterDrive[i].ToString();
                     }
                     else
                     {
-                        ExcelSheet.Cells[3 + i, 22] = ((int)SecondDoubleCircuitRWYCenterDrive[i] / 3600).ToString() + ":" + (((int)SecondDoubleCircuitRWYCenterDrive[i] % 3600) / 60).ToString() + ":" + (((int)SecondDoubleCircuitRWYCenterDrive[i] % 3600) % 60).ToString();
+                        ExcelSheet.Cells[3 + i, 19] = ((int)SecondDoubleCircuitRWYCenterDrive[i] / 3600).ToString() + ":" + (((int)SecondDoubleCircuitRWYCenterDrive[i] % 3600) / 60).ToString() + ":" + (((int)SecondDoubleCircuitRWYCenterDrive[i] % 3600) % 60).ToString();
                     }
-                    ExcelSheet.Cells[3 + i, 24] = ErrorCodeDoubleCircuitRWYCenterDrive[i].ToString();
+                    ExcelSheet.Cells[3 + i, 20] = ErrorCodeDoubleCircuitRWYCenterDrive[i].ToString();
                 }
 
                 ExcelSheet.SaveAs(str_fileName);                                                      //保存Excel工作表
