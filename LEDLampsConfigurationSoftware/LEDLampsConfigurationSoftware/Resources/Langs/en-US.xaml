@@ -186,7 +186,7 @@
     <system:String x:Key="LangsLampInchesLabel2">The lamp drive board is</system:String>
     <system:String x:Key="LangsLampInchesLabel3">12 inches.</system:String>
     <system:String x:Key="LangsLampInchesLabel4">8 inches.</system:String>
-    <system:String x:Key="LangsLampInchesLabel5">RWY centerline light drive with double circuit.</system:String>
+    <system:String x:Key="LangsLampInchesLabel5">RWY centerline light drive with double circuit 8 inches.</system:String>
     <system:String x:Key="LangsLampInchesLabel6">RWY center light drive with double circuit 12 inches.</system:String>
     <system:String x:Key="LangsLampInchesLabel7">Guard Light 8 inches.</system:String>
     <system:String x:Key="LangsLampInchesLabel8">TWY centerline light drive with double circuit.</system:String>
@@ -199,7 +199,7 @@
     <!--后台代码，工厂模式页面-->
     <system:String x:Key="LangsAnswerHardwareVersion0">12 inches</system:String>
     <system:String x:Key="LangsAnswerHardwareVersion1">8 inches</system:String>
-    <system:String x:Key="LangsAnswerHardwareVersion2">RWY Centerline Drive</system:String>
+    <system:String x:Key="LangsAnswerHardwareVersion2">RWY Centerline Drive 8 inches</system:String>
     <system:String x:Key="LangsAnswerHardwareVersion3">RWY Centerline Drive 12 inches</system:String>
     <system:String x:Key="LangsAnswerHardwareVersion4">Guard Light</system:String>
     <system:String x:Key="LangsAnswerHardwareVersion5">Unknown</system:String>
@@ -303,7 +303,7 @@
     <system:String x:Key="LangsCreateExcel1">lamp parameter analysis</system:String>
     <system:String x:Key="LangsCreateExcel2">sequence number</system:String>
     <system:String x:Key="LangsCreateExcel3">12 inches</system:String>
-    <system:String x:Key="LangsCreateExcel4">RWY center light drive with double circuit</system:String>
+    <system:String x:Key="LangsCreateExcel4">8 inches RWY center light drive with double circuit</system:String>
     <system:String x:Key="LangsCreateExcel5">12 inches RWY center light drive with double circuit</system:String>
     <system:String x:Key="LangsCreateExcel6">RWY guard light</system:String>
     <system:String x:Key="LangsCreateExcel7">TWY center light drive with double circuit</system:String>

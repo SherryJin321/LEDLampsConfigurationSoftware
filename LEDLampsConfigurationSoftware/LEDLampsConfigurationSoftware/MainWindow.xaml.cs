@@ -108,7 +108,7 @@ namespace LEDLampsConfigurationSoftware
             new double[7]{12,0,1,3,2,1,1 },
             new double[7]{12,0,1,2,2,1,1 },
             new double[7]{12,3,1,0,2,1,1 },
-            new double[7]{13,2,1,0,2,1,0.66 }            
+            new double[7]{13,2,1,3,1,1,0.66 }            
         };
         #endregion
         #endregion

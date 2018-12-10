@@ -199,7 +199,7 @@
     <system:String x:Key="LangsLampInchesLabel2">当前灯具驱动板为</system:String>
     <system:String x:Key="LangsLampInchesLabel3">12寸。</system:String>
     <system:String x:Key="LangsLampInchesLabel4">8寸。</system:String>
-    <system:String x:Key="LangsLampInchesLabel5">双路跑中驱动。</system:String>
+    <system:String x:Key="LangsLampInchesLabel5">双路跑中驱动8寸。</system:String>
     <system:String x:Key="LangsLampInchesLabel6">双路跑中驱动12寸。</system:String>
     <system:String x:Key="LangsLampInchesLabel7">警戒灯8寸。</system:String>
     <system:String x:Key="LangsLampInchesLabel8">双路滑中驱动。</system:String>
@@ -211,7 +211,7 @@
     <!--后台代码，工厂模式页面-->
     <system:String x:Key="LangsAnswerHardwareVersion0">12寸</system:String>
     <system:String x:Key="LangsAnswerHardwareVersion1">8寸</system:String>
-    <system:String x:Key="LangsAnswerHardwareVersion2">双路跑中驱动</system:String>
+    <system:String x:Key="LangsAnswerHardwareVersion2">双路跑中驱动8寸</system:String>
     <system:String x:Key="LangsAnswerHardwareVersion3">双路跑中驱动12寸</system:String>
     <system:String x:Key="LangsAnswerHardwareVersion4">警戒灯8寸</system:String>
     <system:String x:Key="LangsAnswerHardwareVersion5">驱动未知</system:String>
@@ -315,7 +315,7 @@
     <system:String x:Key="LangsCreateExcel1">灯具参数解析</system:String>
     <system:String x:Key="LangsCreateExcel2">序号</system:String>
     <system:String x:Key="LangsCreateExcel3">12寸</system:String>
-    <system:String x:Key="LangsCreateExcel4">双路跑中驱动</system:String>
+    <system:String x:Key="LangsCreateExcel4">双路跑中驱动8寸</system:String>
     <system:String x:Key="LangsCreateExcel5">双路跑中驱动12寸</system:String>
     <system:String x:Key="LangsCreateExcel6">跑道警戒灯</system:String>
     <system:String x:Key="LangsCreateExcel7">双路滑中驱动</system:String>
