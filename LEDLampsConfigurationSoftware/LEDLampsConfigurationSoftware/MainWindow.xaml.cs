@@ -105,6 +105,7 @@ namespace LEDLampsConfigurationSoftware
             new double[7]{8,4,1,1,2,1,0.66 },
             new double[7]{8,4,1,2,2,1,0.66 },
             new double[7]{9,9,2,0,1,1,0.66},
+            new double[7]{12,0,1,4,2,1,1 },
             new double[7]{12,0,1,3,2,1,1 },
             new double[7]{12,0,1,2,2,1,1 },
             new double[7]{12,3,1,0,2,1,1 },
@@ -1283,7 +1284,7 @@ namespace LEDLampsConfigurationSoftware
 
 
 
-            if ((hardwareVersion1 == 12 && softwareNumber == 0&& softwareVersion1==1&& softwareVersion2==3)|| (hardwareVersion1 == 12 && softwareNumber == 0 && softwareVersion1 == 1 && softwareVersion2 == 2))
+            if ((hardwareVersion1 == 12 && softwareNumber == 0 && softwareVersion1 == 1 && softwareVersion2 == 4) || (hardwareVersion1 == 12 && softwareNumber == 0&& softwareVersion1==1&& softwareVersion2==3)|| (hardwareVersion1 == 12 && softwareNumber == 0 && softwareVersion1 == 1 && softwareVersion2 == 2))
             {                
 
                 if (lampsNumber == 1 || lampsNumber == 2 || lampsNumber == 3)
@@ -8257,8 +8258,8 @@ namespace LEDLampsConfigurationSoftware
             settingIA[2] = 0x03;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
-            settingIB[1] = 0x07;
-            settingIB[2] = 0x00;
+            settingIB[1] = 0x06;
+            settingIB[2] = 0x09;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
             settingIIA[1] = 0x04;
@@ -8303,8 +8304,8 @@ namespace LEDLampsConfigurationSoftware
             settingIA[2] = 0x03;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
-            settingIB[1] = 0x05;
-            settingIB[2] = 0x05;
+            settingIB[1] = 0x06;
+            settingIB[2] = 0x09;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
             settingIIA[1] = 0x04;
@@ -8322,12 +8323,12 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureRELC12LEDRYC1PParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x05;
-            settingIA[2] = 0x05;
+            settingIA[1] = 0x06;
+            settingIA[2] = 0x09;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
-            settingIB[1] = 0x07;
-            settingIB[2] = 0x00;
+            settingIB[1] = 0x06;
+            settingIB[2] = 0x09;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
             settingIIA[1] = 0x04;
@@ -8349,8 +8350,8 @@ namespace LEDLampsConfigurationSoftware
             settingIA[2] = 0x03;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
-            settingIB[1] = 0x07;
-            settingIB[2] = 0x00;
+            settingIB[1] = 0x06;
+            settingIB[2] = 0x09;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
             settingIIA[1] = 0x00;
@@ -8395,8 +8396,8 @@ namespace LEDLampsConfigurationSoftware
             settingIA[2] = 0x03;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
-            settingIB[1] = 0x05;
-            settingIB[2] = 0x05;
+            settingIB[1] = 0x06;
+            settingIB[2] = 0x09;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
             settingIIA[1] = 0x00;
@@ -8414,12 +8415,12 @@ namespace LEDLampsConfigurationSoftware
         private void ConfigureRELC12LEDRYB1PParameters()
         {
             settingIA[0] = 0x00;
-            settingIA[1] = 0x05;
-            settingIA[2] = 0x05;
+            settingIA[1] = 0x06;
+            settingIA[2] = 0x09;
             settingIA[3] = 0x00;
             settingIB[0] = 0x00;
-            settingIB[1] = 0x07;
-            settingIB[2] = 0x00;
+            settingIB[1] = 0x06;
+            settingIB[2] = 0x09;
             settingIB[3] = 0x00;
             settingIIA[0] = 0x00;
             settingIIA[1] = 0x00;
