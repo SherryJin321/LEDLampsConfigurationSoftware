@@ -6091,6 +6091,50 @@ namespace LEDLampsConfigurationSoftware
             ConfigureRCLS08LEDRC1PParameters();
         }
 
+        private void SelectRCLS08LEDCC2P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            OtherConfigurationVisibilityAllCollapsed();
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRCLS08LEDCC2P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRCLS08LEDCC2PParameters();
+        }
+
+        private void SelectRCLS08LEDCR2P_Checked(object sender, RoutedEventArgs e)
+        {
+            SelectOpenCircuitTrue.Visibility = Visibility.Visible;
+            SelectOpenCircuitFalse.Visibility = Visibility.Visible;
+
+            SelectOpenCircuitTrue.IsEnabled = false;
+            SelectOpenCircuitFalse.IsEnabled = true;
+            SelectOpenCircuitTrue.IsChecked = false;
+            SelectOpenCircuitFalse.IsChecked = false;
+
+            OtherConfigurationVisibilityAllCollapsed();
+
+            this.Dispatcher.Invoke(new System.Action(() =>
+            {
+                ConfirmLampModel.Text = SelectRCLS08LEDCR2P.Content.ToString();
+                ConfirmSettingOpenCircuitParameter.Text = "";
+
+            }));
+
+            ConfigureRCLS08LEDCR2PParameters();
+        }
+
         private void SelectRCLS12LEDCCMR2P_Checked(object sender, RoutedEventArgs e)
         {
             SelectOpenCircuitTrue.Visibility = Visibility.Visible;
@@ -8113,6 +8157,53 @@ namespace LEDLampsConfigurationSoftware
             settingLampsNumber = 0x1C;
         }
 
+        private void ConfigureRCLS08LEDCC2PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x56;
+        }
+
+        private void ConfigureRCLS08LEDCR2PParameters()
+        {
+            settingIA[0] = 0x00;
+            settingIA[1] = 0x00;
+            settingIA[2] = 0x00;
+            settingIA[3] = 0x00;
+            settingIB[0] = 0x00;
+            settingIB[1] = 0x00;
+            settingIB[2] = 0x00;
+            settingIB[3] = 0x00;
+            settingIIA[0] = 0x00;
+            settingIIA[1] = 0x00;
+            settingIIA[2] = 0x00;
+            settingIIA[3] = 0x00;
+            settingIIB[0] = 0x00;
+            settingIIB[1] = 0x00;
+            settingIIB[2] = 0x00;
+            settingIIB[3] = 0x00;
+            settingReadRFlag = 0x00;
+            settingMosFlag = 0x00;
+            settingLampsNumber = 0x57;
+        }
+
+
         private void ConfigureRCLS12LEDCCMR2PParameters()
         {
             settingIA[0] = 0x00;
@@ -10060,6 +10151,8 @@ namespace LEDLampsConfigurationSoftware
                 SelectRCLS08LEDRB1P.IsChecked = false;
                 SelectRCLS08LEDCC1P.IsChecked = false;
                 SelectRCLS08LEDRC1P.IsChecked = false;
+                SelectRCLS08LEDCC2P.IsChecked = false;
+                SelectRCLS08LEDCR2P.IsChecked = false;
                 SelectRCLS12LEDCCMR2P.IsChecked = false;
                 SelectRCLS12LEDRCMR2P.IsChecked = false;
                 SelectTDZS08LLEDC.IsChecked = false;
@@ -10497,8 +10590,9 @@ namespace LEDLampsConfigurationSoftware
 
 
 
+
         #endregion
 
-        
+       
     }
 }

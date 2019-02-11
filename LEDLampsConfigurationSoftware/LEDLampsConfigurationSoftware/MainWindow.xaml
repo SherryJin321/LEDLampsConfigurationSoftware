@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LEDLampsConfigurationSoftware"
         mc:Ignorable="d"
-        Title="ASCMS V1.10.8" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Name="ConfigurationWindow" Icon=".\Images\tubiao.png">
+        Title="ASCMS V1.11.0" Height="716" Width="1205" ResizeMode="CanMinimize" FontSize="16" Top="0" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Name="ConfigurationWindow" Icon=".\Images\tubiao.png">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontSize" Value="18"/>
@@ -220,6 +220,8 @@
                                                         <RadioButton x:Name="SelectRCLS08LEDRB1P" Content="RCLS-08-LED-RB-1P" Canvas.Left="0" Canvas.Top="49" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYCenterlineLight" Checked="SelectRCLS08LEDRB1P_Checked"/>
                                                         <RadioButton x:Name="SelectRCLS08LEDCC1P" Content="RCLS-08-LED-CC-1P" Canvas.Left="0" Canvas.Top="78" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYCenterlineLight" Checked="SelectRCLS08LEDCC1P_Checked"/>
                                                         <RadioButton x:Name="SelectRCLS08LEDRC1P" Content="RCLS-08-LED-RC-1P" Canvas.Left="0" Canvas.Top="107" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYCenterlineLight" Checked="SelectRCLS08LEDRC1P_Checked"/>
+                                                        <RadioButton x:Name="SelectRCLS08LEDCC2P" Content="RCLS-08-LED-CC-2P" Canvas.Left="0" Canvas.Top="136" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYCenterlineLight" Checked="SelectRCLS08LEDCC2P_Checked" />
+                                                        <RadioButton x:Name="SelectRCLS08LEDCR2P" Content="RCLS-08-LED-CR-2P" Canvas.Left="0" Canvas.Top="165" BorderBrush="#FF0A51A1" GroupName="GroupNameRWYCenterlineLight" Checked="SelectRCLS08LEDCR2P_Checked" />
                                                     </Canvas>
                                                 </GroupBox>
                                                 <GroupBox x:Name="Group12inchesRWYCenterlineLight" Width="201" Height="374" Canvas.Left="0" Canvas.Top="0" BorderThickness="0" Visibility="Collapsed">
@@ -706,7 +708,7 @@
                         </Border>
                     </Canvas>
                 </TabItem>
-                <TabItem Header="{DynamicResource LangsLanguageSetting}" FontSize="18" Background="AliceBlue" Height="28" Width="150" Margin="-5,0,5,0" Padding="0" x:Name="LanguageSetting">
+                <TabItem Header="{DynamicResource LangsLanguageSetting}" FontSize="18" Background="AliceBlue" Height="28" Width="150" Margin="-5,0,5,0" Padding="0" x:Name="LanguageSetting" Visibility="Collapsed">
                     <Canvas>
                         <Border BorderBrush="#FF0A51A1" BorderThickness="1" CornerRadius="5" Width="150" Height="40" Canvas.Left="210" Canvas.Top="50" Background="{x:Null}">
                             <ComboBox x:Name="LanguageSelect" Width="146" Height="36" BorderThickness="0" FontSize="16" MaxDropDownHeight="130" HorizontalAlignment="Left" Margin="1,1,0,1" Padding="10,8,0,0" SelectedIndex="0">
