@@ -293,7 +293,8 @@
     <system:String x:Key="LangsAnswerLampModel83">Elevated Taxiway Stop Bar Light（EUL-SB-LED-R）</system:String>
     <system:String x:Key="LangsAnswerLampModel84">Aircraft Stand Manoeuvring Guidance Light（ASMG-08-LED-Y-M）</system:String>
     <system:String x:Key="LangsAnswerLampModel85">Aircraft Stand Manoeuvring Guidance Stop Light（ASMS-08-LED-R）</system:String>
-
+    <system:String x:Key="LangsAnswerLampModel86">Runway Enterline Light(RCLS-08-LED-CC-2P)</system:String>
+    <system:String x:Key="LangsAnswerLampModel87">Runway Enterline Light(RCLS-08-LED-CR-2P)</system:String>
 
     <system:String x:Key="LangsAnswerOpenCircuit1">Without Open Circuit</system:String>
     <system:String x:Key="LangsAnswerOpenCircuit2">With Open Circuit</system:String>

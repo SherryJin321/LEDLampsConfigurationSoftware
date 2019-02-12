@@ -459,6 +459,8 @@ namespace LEDLampsConfigurationSoftware
         string AnswerLampModel83 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel83");
         string AnswerLampModel84 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel84");
         string AnswerLampModel85 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel85");
+        string AnswerLampModel86 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel86");
+        string AnswerLampModel87 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel87");
 
         string AnswerOpenCircuit1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit1");
         string AnswerOpenCircuit2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit2");
@@ -1254,7 +1256,8 @@ namespace LEDLampsConfigurationSoftware
                 case 83: result = AnswerLampModel83; break;
                 case 84: result = AnswerLampModel84; break;
                 case 85: result = AnswerLampModel85; break;
-
+                case 86: result = AnswerLampModel86; break;
+                case 87: result = AnswerLampModel87; break;
 
             }
             return result;
@@ -10499,7 +10502,8 @@ namespace LEDLampsConfigurationSoftware
             AnswerLampModel83 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel83");
             AnswerLampModel84 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel84");
             AnswerLampModel85 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel85");
-
+            AnswerLampModel86 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel86");
+            AnswerLampModel87 = (string)System.Windows.Application.Current.FindResource("LangsAnswerLampModel87");
 
             AnswerOpenCircuit1 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit1");
             AnswerOpenCircuit2 = (string)System.Windows.Application.Current.FindResource("LangsAnswerOpenCircuit2");

@@ -305,6 +305,8 @@
     <system:String x:Key="LangsAnswerLampModel83">立式停止排灯（EUL-SB-LED-R）</system:String>
     <system:String x:Key="LangsAnswerLampModel84">航空器停机位操作引导灯（ASMG-08-LED-Y-M）</system:String>
     <system:String x:Key="LangsAnswerLampModel85">航空器停机位操作引导停止灯（ASMS-08-LED-R）</system:String>
+    <system:String x:Key="LangsAnswerLampModel86">跑道中线灯(RCLS-08-LED-CC-2P)</system:String>
+    <system:String x:Key="LangsAnswerLampModel87">跑道中线灯(RCLS-08-LED-CR-2P)</system:String>
 
 
     <system:String x:Key="LangsAnswerOpenCircuit1">不带开路</system:String>
